@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="あなたは会社で何のバケモノ？社畜度・上司適性・ストレス耐性・裏評価の4種類。スクショ映え確定。">
+  <!-- OGP: YOUR_GITHUB_PAGES_URL を公開後の実URLに差し替えるだけでOK (例: https://arita.github.io/myrepo) -->
+  <meta property="og:title" content="社畜診断 ～人間やめてますか？～">
+  <meta property="og:description" content="定時の妖精から社畜神まで8タイプ。あなたの会社での最終形態がわかる無料診断！">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="YOUR_GITHUB_PAGES_URL/workplace_app/assets/ogp.png">
+  <meta property="og:site_name" content="職場診断ラボ">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="社畜診断 ～人間やめてますか？～">
+  <meta name="twitter:description" content="定時の妖精から社畜神まで8タイプ。あなたの会社での最終形態がわかる無料診断！">
+  <meta name="twitter:image" content="YOUR_GITHUB_PAGES_URL/workplace_app/assets/ogp.png">
+  <title>社畜診断 ～人間やめてますか？～</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrapper">
+
+  <header class="site-header">
+    <span class="site-title">👔 社畜診断 ～人間やめてますか？～</span>
+  </header>
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <p class="hero-badge">💼 職場心理×あるあるで本音診断</p>
+      <h2 class="hero-title">あなたの会社での<br>最終形態は？</h2>
+      <p class="hero-sub">社畜度・上司適性・ストレス耐性・裏評価<br>全4診断・完全無料</p>
+      <p class="hero-hint">診断を選んでスタート</p>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- バケモノ図鑑 -->
+    <section class="section">
+      <h2 class="section-title">🦇 登場バケモノ図鑑</h2>
+      <p class="section-lead">タップして詳細を見る</p>
+      <div class="monster-scroll" id="monster-scroll"></div>
+    </section>
+
+    <!-- 人気ランキング -->
+    <section class="section">
+      <h2 class="section-title">👑 今週の人気モンスターランキング</h2>
+      <p class="section-lead">📱 同僚に送られてます</p>
+      <div class="ranking-list">
+        <a href="stress.html" class="ranking-item">
+          <span class="rank-num rn1">1位</span>
+          <span class="rank-emoji">🤖</span>
+          <div class="rank-body"><p class="rank-name">感情削除AI</p><p class="rank-diag">職場ストレス耐性診断</p></div>
+          <span class="rank-arrow">›</span>
+        </a>
+        <a href="salaryman.html" class="ranking-item">
+          <span class="rank-num rn2">2位</span>
+          <span class="rank-emoji">⛓️</span>
+          <div class="rank-body"><p class="rank-name">社畜神</p><p class="rank-diag">社畜度診断</p></div>
+          <span class="rank-arrow">›</span>
+        </a>
+        <a href="secret.html" class="ranking-item">
+          <span class="rank-num rn3">3位</span>
+          <span class="rank-emoji">👁️</span>
+          <div class="rank-body"><p class="rank-name">創業者の生き霊</p><p class="rank-diag">会社での裏評価診断</p></div>
+          <span class="rank-arrow">›</span>
+        </a>
+        <a href="boss.html" class="ranking-item">
+          <span class="rank-num rn4">4位</span>
+          <span class="rank-emoji">🦖</span>
+          <div class="rank-body"><p class="rank-name">圧迫ティラノ</p><p class="rank-diag">上司適性診断</p></div>
+          <span class="rank-arrow">›</span>
+        </a>
+        <a href="stress.html" class="ranking-item">
+          <span class="rank-num rn5">5位</span>
+          <span class="rank-emoji">🔥</span>
+          <div class="rank-body"><p class="rank-name">不死鳥フェニックス</p><p class="rank-diag">職場ストレス耐性診断</p></div>
+          <span class="rank-arrow">›</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 診断一覧 -->
+    <section class="section">
+      <h2 class="section-title">🎯 診断を選ぶ</h2>
+      <div class="diag-grid">
+
+        <a href="salaryman.html" class="diag-card">
+          <div class="diag-thumb">⛓️</div>
+          <div class="diag-body">
+            <p class="diag-title">社畜度診断</p>
+            <p class="diag-desc">「なんで私だけ帰れないの？」と思ったことがある人へ。定時の妖精から社畜神まで8タイプで判定。</p>
+            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 6問</span><span>🎯 8タイプ</span></div>
+          </div>
+        </a>
+
+        <a href="boss.html" class="diag-card">
+          <div class="diag-thumb" style="background:#f0fdf4;">👔</div>
+          <div class="diag-body">
+            <p class="diag-title">上司適性診断</p>
+            <p class="diag-desc">あなたは野生ライオン？神上司ユニコーン？8タイプの上司診断。</p>
+            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 6問</span><span>🎯 8タイプ</span></div>
+          </div>
+        </a>
+
+        <a href="stress.html" class="diag-card">
+          <div class="diag-thumb" style="background:#fef3c7;">🛡️</div>
+          <div class="diag-body">
+            <p class="diag-title">職場ストレス耐性診断</p>
+            <p class="diag-desc">ガラスハートか感情削除AIか。あなたの職場メンタルを8段階で測定。</p>
+            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 6問</span><span>🎯 8タイプ</span></div>
+          </div>
+        </a>
+
+        <a href="secret.html" class="diag-card">
+          <div class="diag-thumb" style="background:#fdf2f8;">🕵️</div>
+          <div class="diag-body">
+            <p class="diag-title">会社での裏評価診断</p>
+            <p class="diag-desc">同僚はあなたをどう見てる？コピー機の妖精から創業者の生き霊まで。</p>
+            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 6問</span><span>🎯 8タイプ</span></div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
+
+    <div class="note-cta">
+      <p class="note-cta-title">📝 診断結果を深掘り解説</p>
+      <p>各タイプの詳しい解説・改善策をnoteで公開中</p>
+      <a href="#" class="note-cta-link">noteで読む（無料）</a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="terms.html">利用規約</a>
+    <p class="footer-copy">© 2026 社畜診断 ～人間やめてますか？～</p>
+  </footer>
+
+</div>
+
+<!-- ランキング確認ダイアログ -->
+<div class="confirm-overlay" id="confirm-overlay" onclick="closeConfirm()">
+  <div class="confirm-dialog" onclick="event.stopPropagation()">
+    <p class="confirm-title" id="confirm-title">この診断を受けますか？</p>
+    <div class="confirm-btns">
+      <a class="confirm-yes-btn" id="confirm-yes-btn" href="#">💪 診断スタート</a>
+      <button class="confirm-no-btn" onclick="closeConfirm()">やめる</button>
+    </div>
+  </div>
+</div>
+
+<!-- バケモノポップアップ -->
+<div class="monster-overlay" id="monster-overlay" onclick="closePopup()">
+  <div class="monster-popup" id="monster-popup" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div id="popup-inner"></div>
+  </div>
+</div>
+
+<script>
+const MONSTERS = [
+  {
+    emoji: '⛓️',
+    name: '社畜神',
+    image: 'images/shachiku_god.png',
+    catchphrase: 'もはや会社そのもの。社畜を超えた神の領域へ。',
+    desc: '入社30年。会社のすべてを把握し、あらゆる問題を独力で解決する伝説的存在。退職という概念が理解できない。社史を書いたのも本人。有給は存在を忘れた。',
+    link: 'salaryman.html',
+    linkText: '社畜度診断を受ける'
+  },
+  {
+    emoji: '🤖',
+    name: '感情削除AI',
+    image: 'images/stress_ai.png',
+    catchphrase: '何を言われてもノーダメージ。感情をシステムエラーとして全削除した人型機械。',
+    desc: '怒り→DELETE。悲しみ→DELETE。喜び→DELETE。なんで喜びまで消してんですか。職場でどんな理不尽を受けても「処理完了」で終わる。唯一の弱点は子供からの「パパ大好き」で再起動する。',
+    link: 'stress.html',
+    linkText: 'ストレス耐性診断を受ける'
+  },
+  {
+    emoji: '🚁',
+    name: '監視ドローン',
+    image: 'images/boss_kanshi_drone.png',
+    catchphrase: 'あなたがサボっている時だけ高画質。',
+    desc: '「今日13:27にトイレ行きましたよね？」と聞いてくる上司。悪意はない。ただ全部見えているだけ。それが一番怖い。プライバシーはシステムエラーにより削除済み。',
+    link: 'boss.html',
+    linkText: '上司適性診断を受ける'
+  },
+  {
+    emoji: '📱',
+    name: '休日返信マシン',
+    image: 'images/shachiku_kyujitsu_henshin_machine.png',
+    catchphrase: '休日でも魂がSlackに在中している24時間365日稼働型存在。',
+    desc: '土曜の朝7時にLINEが届いても、既読は0.3秒。返信は2秒。場合によっては資料つき。「休んでください」という上司のメッセージにも0.3秒で「はい！」と返信する。スマホを手放した時間、人生累計で約4時間。',
+    link: 'salaryman.html',
+    linkText: '社畜度診断を受ける'
+  },
+  {
+    emoji: '👁️',
+    name: '創業者の生き霊',
+    image: 'images/ura_founder_ghost.png',
+    catchphrase: '会社がある限り消えない。',
+    desc: '深夜23:50、誰もいないオフィス。後ろから「その経費、本当に必要か？」という声が聞こえる。振り返ると誰もいない。成仏率：0%。会社がある限り消えない。',
+    link: 'secret.html',
+    linkText: '裏評価診断を受ける'
+  },
+  {
+    emoji: '🦖',
+    name: '圧迫ティラノ',
+    image: 'images/boss_appaku_tyranno.png',
+    catchphrase: '退職代行のスポンサー。',
+    desc: '「なんでできないんだ！」が挨拶代わり。フロア全体の空気を3秒で凍らせる。部下の胃薬消費量は月2箱。弱点は録音ボタンとコンプライアンス。',
+    link: 'boss.html',
+    linkText: '上司適性診断を受ける'
+  },
+  {
+    emoji: '🦍',
+    name: '残業ゴリラ',
+    image: 'images/shachiku_zangyo_gorilla.png',
+    catchphrase: '退勤という概念を握力で握り潰した者。22時以降が本番。',
+    desc: '残業時間が増えるほど謎に覚醒する。デスクに空のエナジードリンクが5本並んでいても平然としている。「帰っていいよ」という言葉を聞いたことがない。というか周りに誰もいない。最後の電気を消すのがアイデンティティ。',
+    link: 'salaryman.html',
+    linkText: '社畜度診断を受ける'
+  }
+];
+
+// カード生成
+const scrollEl = document.getElementById('monster-scroll');
+MONSTERS.forEach((m, i) => {
+  const card = document.createElement('div');
+  card.className = 'monster-card-mini';
+  card.innerHTML = `
+    <div class="mc-img-wrap">
+      <img src="${m.image}" alt="${m.name}" onerror="this.parentElement.innerHTML='<span style=font-size:2.5rem;line-height:90px;display:block;text-align:center>${m.emoji}</span>'">
+    </div>
+    <p class="mc-name">${m.emoji} ${m.name}</p>
+    <p class="mc-tap">タップ</p>
+  `;
+  card.onclick = () => openPopup(i);
+  scrollEl.appendChild(card);
+});
+
+function openPopup(i) {
+  const m = MONSTERS[i];
+  document.getElementById('popup-inner').innerHTML = `
+    <div class="popup-img-wrap">
+      <img src="${m.image}" alt="${m.name}" onerror="this.parentElement.innerHTML='<span style=font-size:4rem;display:block;text-align:center;padding:20px>${m.emoji}</span>'">
+    </div>
+    <p class="popup-name">${m.emoji} ${m.name}</p>
+    <p class="popup-catch">"${m.catchphrase}"</p>
+    <p class="popup-desc">${m.desc}</p>
+  `;
+  document.getElementById('monster-overlay').classList.add('active');
+}
+
+function closePopup() {
+  document.getElementById('monster-overlay').classList.remove('active');
+}
+
+// ランキング確認ダイアログ
+document.querySelectorAll('.ranking-item').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    const name = el.querySelector('.rank-diag').textContent;
+    const href = el.getAttribute('href');
+    document.getElementById('confirm-title').textContent = `「${name}」を受けますか？`;
+    document.getElementById('confirm-yes-btn').href = href;
+    document.getElementById('confirm-overlay').classList.add('active');
+  });
+});
+
+function closeConfirm() {
+  document.getElementById('confirm-overlay').classList.remove('active');
+}
+</script>
+</body>
+</html>
