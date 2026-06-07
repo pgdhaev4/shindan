@@ -1,10 +1,10 @@
-/**
+﻿/**
  * quiz.js - 職場診断ラボ エンジン v3
  * score モード対応：選択肢ごとにscoreを持ち、合計点でresultを振り分け
  */
 
 const QUIZ_LIST = [
-  { href: 'salaryman.html',  emoji: '⛓️', title: '社畜度診断',            label: '6問' },
+  { href: 'salaryman.html',  emoji: '⛓️', title: 'モンスター度診断',            label: '6問' },
   { href: 'boss.html',       emoji: '👔', title: '上司適性診断',           label: '6問' },
   { href: 'stress.html',     emoji: '🛡️', title: '職場ストレス耐性診断',   label: '6問' },
   { href: 'secret.html',     emoji: '🕵️', title: '会社での裏評価診断',     label: '6問' },
@@ -131,7 +131,7 @@ class QuizEngine {
     const shareBody = result.share_text ||
       `私は【${result.name}】でした💪 あなたは何タイプ？→全員やってみて！`;
     const tweetText = encodeURIComponent(
-      `${shareBody}\n#社畜診断 #社畜度チェック #職場あるある`
+      `${shareBody}\n#会社モンスター診断 #モンスター度チェック #職場あるある`
     );
     const currentURL = encodeURIComponent(window.location.href);
     const twitterURL = `https://twitter.com/intent/tweet?text=${tweetText}&url=${currentURL}`;
@@ -322,7 +322,7 @@ class QuizEngine {
         ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
         ${sightingHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">👁️ 目撃談</p><p class="ss-detail-item">${sightingHtml}</p></div>` : ''}
         ${weaknessHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">⚡ 弱点</p><div class="ss-weak-wrap">${weaknessHtml}</div></div>` : ''}
-        <p class="ss-hashtag">#社畜診断 #職場診断ラボ #社内あるある</p>
+        <p class="ss-hashtag">#会社モンスター診断 #職場診断ラボ #社内あるある</p>
       </div>
     `;
 
