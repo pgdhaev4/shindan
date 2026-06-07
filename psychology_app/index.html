@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="あなたが恋愛で沼る理由、バレます。心理学×恋愛あるあるで診断する無料恋愛診断サイト。全7診断。">
+  <meta name="keywords" content="恋愛診断,恋愛タイプ,深層心理,性格診断,無料診断,恋愛相性,束縛度,失恋">
+  <meta property="og:title" content="恋愛沼診断 | あなたが恋愛で沼る理由、バレます">
+  <meta property="og:description" content="あなたの恋愛のクセを見える化。7種類の深層心理診断を無料で。">
+  <meta property="og:type" content="website">
+  <!-- OGP: YOUR_GITHUB_PAGES_URL を公開後の実URLに差し替えるだけでOK -->
+  <meta property="og:image" content="YOUR_GITHUB_PAGES_URL/psychology_app/assets/ogp.png">
+  <meta name="twitter:image" content="YOUR_GITHUB_PAGES_URL/psychology_app/assets/ogp.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>恋愛沼診断 | あなたが恋愛で沼る理由、バレます</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== トップページ追加スタイル ===== */
+    .hero-lab {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: white;
+      text-align: center;
+      padding: 52px 20px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-lab::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(255,80,130,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 40%, rgba(100,80,255,0.15) 0%, transparent 60%);
+    }
+    .hero-lab-content { position: relative; z-index: 1; }
+    .hero-lab-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 16px;
+      margin-bottom: 16px;
+      color: #ffd6e0;
+    }
+    .hero-lab h2 {
+      font-size: clamp(1.55rem, 5.5vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin: 0 0 14px;
+      letter-spacing: 0.02em;
+    }
+    .hero-lab p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin: 0 0 28px;
+      line-height: 1.6;
+    }
+    .hero-scroll-hint {
+      font-size: 0.78rem;
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+    }
+    .hero-scroll-hint::after { content: ' ↓'; }
+
+    .diag-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 0 4px;
+    }
+    @media (min-width: 600px) {
+      .diag-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .diag-card {
+      display: flex;
+      align-items: stretch;
+      background: white;
+      border-radius: 16px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.18s, box-shadow 0.18s;
+      border: 1.5px solid rgba(0,0,0,0.06);
+    }
+    .diag-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.13); }
+
+    .diag-card-thumb {
+      width: 88px;
+      min-width: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+    }
+    .diag-card-body {
+      flex: 1;
+      padding: 14px 14px 14px 4px;
+    }
+    .diag-card-title {
+      font-size: 0.97rem;
+      font-weight: 900;
+      margin: 0 0 4px;
+      color: #1a1a2e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .diag-card-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #ff6eb4, #9b59b6);
+      color: white;
+      letter-spacing: 0.03em;
+    }
+    .diag-card-badge.new { background: linear-gradient(90deg, #4a148c, #1565c0); }
+    .diag-card-desc {
+      font-size: 0.78rem;
+      color: #666;
+      margin: 0 0 6px;
+      line-height: 1.5;
+    }
+    .diag-card-meta {
+      display: flex;
+      gap: 8px;
+      font-size: 0.7rem;
+      color: #999;
+    }
+
+    .diag-featured {
+      background: linear-gradient(135deg, #1a1a2e 0%, #4a148c 100%);
+      color: white;
+    }
+    .diag-featured .diag-card-title { color: white; }
+    .diag-featured .diag-card-desc { color: rgba(255,255,255,0.75); }
+    .diag-featured .diag-card-meta { color: rgba(255,255,255,0.55); }
+    .diag-featured .diag-metrics span { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.15); }
+
+    .section-lead {
+      font-size: 0.82rem;
+      color: #888;
+      margin: -4px 0 14px;
+    }
+
+    /* ランキングバッジ */
+    .rank-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 900;
+      padding: 2px 9px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #f9a825, #ff6f00);
+      color: white;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .rank-badge.rank-2 { background: linear-gradient(90deg, #78909c, #546e7a); }
+    .rank-badge.rank-3 { background: linear-gradient(90deg, #a1887f, #795548); }
+
+    /* 診断メトリクスタグ */
+    .diag-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 6px 0;
+    }
+    .diag-metrics span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: #f0ebff;
+      color: #6a3db8;
+      letter-spacing: 0.01em;
+    }
+
+    /* note CTAブロック */
+    .note-cta-block {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    .note-cta-block p {
+      font-size: 0.82rem;
+      opacity: 0.75;
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+    .note-cta-block .note-link {
+      display: inline-block;
+      margin-top: 4px;
+      background: white;
+      border: none;
+      color: #1a1a2e;
+      font-weight: 900;
+      font-size: 0.88rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .note-cta-block .note-link:hover { opacity: 0.85; }
+    .note-cta-subtitle {
+      font-size: 1rem;
+      font-weight: 900;
+      margin: 0 0 10px;
+    }
+  </style>
+  <!-- AdSense HERE (head) -->
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- ヘッダー -->
+    <header class="site-header">
+      <h1>💖 恋愛沼診断</h1>
+      <p class="tagline">心理学×恋愛あるあるで診断</p>
+    </header>
+
+    <!-- ① ファーストビュー：刺さるコピーに変更 -->
+    <section class="hero-lab">
+      <div class="hero-lab-content">
+        <p class="hero-lab-badge">💘 心理学×恋愛あるあるで診断</p>
+        <h2>あなたが恋愛で<br>沼る理由、バレます</h2>
+        <p>あなたの恋愛のクセを見える化<br>全7診断・完全無料</p>
+        <p class="hero-scroll-hint">診断を選んでスタート</p>
+      </div>
+    </section>
+
+    <main>
+
+      <!-- ⑤⑥ 広告はここに置かず、人気ランキング3つを先に表示 -->
+      <section class="section">
+        <h2 class="section-title">👑 今週の人気ランキング</h2>
+        <p class="section-lead">📱 LINEで友達に送られてます</p>
+        <div class="diag-grid">
+
+          <!-- ③ No.1: 恋愛タイプ → 沼る理由診断 -->
+          <a href="love_type.html" class="diag-card diag-featured" style="grid-column: 1 / -1;">
+            <div class="diag-card-thumb" style="background:rgba(255,255,255,0.08);">💘</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">
+                <span class="rank-badge">👑 人気No.1</span>
+                あなたが恋愛で沼る理由診断
+              </p>
+              <p class="diag-card-desc">「なんで私ばっかり頑張ってるの？」と思ったことがある人へ。あなたの恋愛パターンを3軸・8タイプで深層解剖。</p>
+              <!-- ④ 診断で出る数字のプレビュー -->
+              <div class="diag-metrics">
+                <span>💥 沼らせ度</span><span>👑 モテ度</span><span>😈 恋愛地雷度</span><span>🔥 沼り耐性</span>
+              </div>
+              <div class="diag-card-meta">
+                <span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- No.2: 深層心理 性格タイプ診断 -->
+          <a href="mbti.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#ede7f6,#e8eaf6);">🔮</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">
+                <span class="rank-badge rank-2">🥈 No.2</span>
+                深層心理 性格タイプ診断
+              </p>
+              <p class="diag-card-desc">16タイプ分類。あなたの深層心理と「誰も知らない裏の顔」を丸ごと暴く。</p>
+              <div class="diag-metrics">
+                <span>🧠 深層心理スコア</span><span>😈 裏の顔</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約3分</span><span>📝 10問</span><span>🎯 16タイプ</span></div>
+            </div>
+          </a>
+
+          <!-- ③ No.3: 束縛度 → 重い女・重い男度診断 -->
+          <a href="jealousy.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#e8eaf6);">😤</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">
+                <span class="rank-badge rank-3">🥉 No.3</span>
+                重い女・重い男度診断
+              </p>
+              <p class="diag-card-desc">LINEの返信が遅いと一日中気になるタイプ？独占欲と束縛スタイルを徹底解剖。</p>
+              <div class="diag-metrics">
+                <span>📱 LINE監視度</span><span>🔒 重い恋人度</span><span>👑 独占欲レベル</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ⑤ 広告は人気3つの後に配置 -->
+      <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
+
+      <!-- 全診断一覧 -->
+      <section class="section">
+        <h2 class="section-title">💕 全診断一覧</h2>
+        <p class="section-lead">全8タイプ・深層心理分析つき</p>
+        <div class="diag-grid">
+
+          <a href="love_type.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#fff3e0);">💘</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">
+                あなたが恋愛で沼る理由診断
+                <span class="diag-card-badge">人気No.1</span>
+              </p>
+              <p class="diag-card-desc">情熱的？穏やか？献身的？あなたの恋愛スタイルを3軸・8タイプで深層分析。</p>
+              <div class="diag-metrics">
+                <span>💥 沼らせ度</span><span>👑 モテ度</span><span>💔 振られる原因</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+          <a href="compatibility.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#f3e5f5,#e3f2fd);">💕</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">恋愛相性診断</p>
+              <p class="diag-card-desc">積極的？感情重視？一途？あなたの恋愛相性パターンを深層心理で解析。</p>
+              <div class="diag-metrics">
+                <span>💯 相性点数</span><span>⚠️ 絶対合わないタイプ</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+          <!-- ③ 束縛 → 重い女・重い男度診断 -->
+          <a href="jealousy.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#e8eaf6);">😤</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">重い女・重い男度診断</p>
+              <p class="diag-card-desc">確認型？信頼型？感情的？独占欲と束縛スタイルを徹底解剖。</p>
+              <div class="diag-metrics">
+                <span>📱 LINE監視度</span><span>😈 ヤンデレ度</span><span>💣 束縛危険度</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+          <!-- ③ 恋愛依存度 → 好きになると人生狂う度診断 -->
+          <a href="love_dependency.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#e8eaf6,#f3e5f5);">💝</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">好きになると人生狂う度診断</p>
+              <p class="diag-card-desc">没入型？バランス型？恋愛への依存パターンと恋愛脳レベルを深層分析。</p>
+              <div class="diag-metrics">
+                <span>💊 恋愛依存度</span><span>📱 SNS監視度</span><span>👑 自立度</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+          <!-- ③ 失恋回復 → 元恋人を忘れられない度診断 -->
+          <a href="heartbreak.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#ede7f6,#e3f2fd);">💔</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">元恋人を忘れられない度診断</p>
+              <p class="diag-card-desc">失恋後の元カレ监视から復縁可能性まで。あなたの失恋回復パターンを丸裸に。</p>
+              <div class="diag-metrics">
+                <span>😭 未練レベル</span><span>🔥 復縁成功率</span><span>📱 SNS監視度</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+          <a href="ideal_date.html" class="diag-card">
+            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#e8f5e9,#fff3e0);">🌸</div>
+            <div class="diag-card-body">
+              <p class="diag-card-title">理想のデートタイプ診断</p>
+              <p class="diag-card-desc">アクティブ？まったり？二人だけ？あなたが最も輝くデートスタイルを解明。</p>
+              <div class="diag-metrics">
+                <span>📸 インスタ映え度</span><span>💑 二人の世界度</span>
+              </div>
+              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ⑦ note誘導：「診断の続き」として自然に誘導 -->
+      <section class="section">
+        <div class="note-cta-block">
+          <p>診断結果をもっと深掘りしたい人へ</p>
+          <p class="note-cta-subtitle">あなたが同じ恋愛を繰り返す理由を解説</p>
+          <p>なぜいつも同じパターンで傷つくのか。<br>自分の恋愛グセを知れば、次の恋愛が変わる。</p>
+          <a href="#NOTE_ARTICLE_URL" class="note-link" target="_blank" rel="noopener noreferrer">
+            📖 解説記事を読む（note）→
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 恋愛沼診断<br>
+        <a href="privacy.html">プライバシーポリシー</a> ／
+        <a href="terms.html">利用規約</a>
+      </p>
+      <p style="margin-top:8px;font-size:0.72rem;">
+        本サイトの診断は娯楽目的です。結果はあくまで参考程度にお楽しみください。<br>
+        本サイトはアフィリエイト広告（A8.net等）を利用しています。
+      </p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1642 @@
+/* ==============================
+   恋愛・性格診断ラボ - スタイルシート
+   スマホファースト (max-width: 480px)
+   ============================== */
+
+/* --- リセット & 基本設定 --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --pink-light:  #ffe4f0;
+  --pink-main:   #ff6eb4;
+  --pink-dark:   #e0558a;
+  --purple-main: #9b59b6;
+  --purple-dark: #6c3483;
+  --grad-main:   linear-gradient(135deg, #ff6eb4 0%, #9b59b6 100%);
+  --grad-bg:     linear-gradient(160deg, #fff0f8 0%, #f3e8ff 100%);
+  --white:       #ffffff;
+  --text-dark:   #3a1a40;
+  --text-mid:    #7a4a8a;
+  --text-light:  #b07abe;
+  --shadow-sm:   0 2px 8px rgba(155, 89, 182, 0.15);
+  --shadow-md:   0 4px 20px rgba(155, 89, 182, 0.25);
+  --shadow-lg:   0 8px 32px rgba(155, 89, 182, 0.30);
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-full: 999px;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'メイリオ', sans-serif;
+  background: var(--grad-bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--purple-main);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- レイアウト --- */
+.page-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 0 80px;
+}
+
+/* --- ヘッダー --- */
+.site-header {
+  background: var(--grad-main);
+  color: var(--white);
+  text-align: center;
+  padding: 20px 16px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.site-header h1 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+}
+
+.site-header .tagline {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* --- ヒーローセクション --- */
+.hero {
+  background: var(--grad-main);
+  color: var(--white);
+  text-align: center;
+  padding: 36px 20px 40px;
+}
+
+.hero-emoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 10px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.hero h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.hero p {
+  font-size: 0.9rem;
+  opacity: 0.93;
+  line-height: 1.7;
+}
+
+/* --- AdSense プレースホルダー --- */
+.adsense-block {
+  background: #f9f0ff;
+  border: 2px dashed var(--text-light);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  padding: 20px;
+  margin: 16px;
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+/* --- セクション共通 --- */
+.section {
+  padding: 24px 16px 8px;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.1rem;
+  background: var(--grad-main);
+  border-radius: 2px;
+}
+
+/* --- テストカード --- */
+.test-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.test-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.test-card:hover,
+.test-card:focus {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.test-card:active {
+  transform: scale(0.98);
+}
+
+.test-card-header {
+  background: var(--grad-main);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.test-card-emoji {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.test-card-header h3 {
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.test-card-header .badge {
+  margin-left: auto;
+  background: rgba(255,255,255,0.3);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.test-card-body {
+  padding: 12px 16px 14px;
+}
+
+.test-card-body p {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.test-card-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+.test-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* --- クイズページ --- */
+.quiz-container {
+  padding: 20px 16px;
+}
+
+.quiz-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.quiz-header h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 8px;
+}
+
+/* プログレスバー */
+.progress-area {
+  margin-bottom: 24px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--pink-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--grad-main);
+  border-radius: var(--radius-full);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 質問カード */
+.question-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 22px 18px 24px;
+  margin-bottom: 20px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.question-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--pink-main);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* 選択肢ボタン */
+.choices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fdf4ff;
+  border: 2px solid #e8c8f8;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, transform 0.12s;
+  width: 100%;
+}
+
+.choice-btn:hover,
+.choice-btn:focus {
+  background: var(--pink-light);
+  border-color: var(--pink-main);
+  outline: none;
+}
+
+.choice-btn:active {
+  transform: scale(0.97);
+}
+
+.choice-btn.selected {
+  background: var(--pink-main);
+  border-color: var(--pink-dark);
+  color: var(--white);
+}
+
+.choice-label {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--grad-main);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.choice-btn.selected .choice-label {
+  background: rgba(255,255,255,0.35);
+}
+
+/* --- 結果ページ --- */
+.result-container {
+  padding: 20px 16px 40px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.result-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.result-card-header {
+  background: var(--grad-main);
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--white);
+  position: relative;
+}
+
+.result-emoji-big {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 8px;
+  animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+@keyframes pop {
+  from { transform: scale(0.3); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.result-type-label {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+.result-type-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.result-card-body {
+  padding: 20px 18px;
+}
+
+.result-description {
+  font-size: 0.92rem;
+  color: var(--text-mid);
+  line-height: 1.85;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #fdf6ff 0%, #fff5f9 100%);
+  border-radius: 10px;
+  border-left: 4px solid var(--purple-main);
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.result-tag {
+  background: var(--pink-light);
+  color: var(--pink-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.result-advice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #f3e8ff 0%, #fff0f8 100%);
+  border: 2px solid rgba(155,89,182,0.25);
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-size: 0.9rem;
+  color: #4a3060;
+  line-height: 1.85;
+  margin-top: 16px;
+  box-shadow: 0 2px 10px rgba(155,89,182,0.12);
+}
+
+/* --- アフィリエイト・CTA --- */
+.affiliate-section {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 18px;
+  margin-bottom: 16px;
+}
+
+.affiliate-section h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.affiliate-banner {
+  display: block;
+  background: var(--grad-main);
+  color: var(--white);
+  text-align: center;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  transition: opacity 0.15s;
+}
+
+.affiliate-banner:hover {
+  opacity: 0.88;
+  text-decoration: none;
+}
+
+.affiliate-banner.secondary {
+  background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+}
+
+.note-link {
+  display: block;
+  background: #fffbe6;
+  border: 2px solid #fbbf24;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #92400e;
+  transition: background 0.15s;
+}
+
+.note-link:hover {
+  background: #fef9c3;
+  text-decoration: none;
+}
+
+/* --- SNSシェアボタン --- */
+.share-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.share-section h3 {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  margin-bottom: 12px;
+}
+
+.share-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, opacity 0.15s;
+  text-decoration: none;
+}
+
+.share-btn:hover {
+  transform: scale(1.04);
+  opacity: 0.92;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.share-btn.twitter {
+  background: #1a1a2e;
+}
+
+.share-btn.line {
+  background: #06c755;
+}
+
+/* --- 前の質問に戻るボタン --- */
+.back-btn-wrap {
+  margin: 0 0 8px 0;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 4px;
+  opacity: 0.75;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.back-btn:hover {
+  opacity: 1;
+}
+
+/* --- もう一度ボタン --- */
+.retry-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--grad-main);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.15s, transform 0.12s;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+.retry-btn:hover {
+  opacity: 0.9;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.retry-btn:active {
+  transform: scale(0.97);
+}
+
+.back-home-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: var(--purple-main);
+  border: 2px solid var(--purple-main);
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.back-home-btn:hover {
+  background: #f3e8ff;
+  text-decoration: none;
+}
+
+/* --- フッター --- */
+.site-footer {
+  background: var(--white);
+  border-top: 1px solid #f0e0ff;
+  padding: 24px 20px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+
+.site-footer a {
+  color: var(--text-light);
+}
+
+/* --- ローディング --- */
+.loading {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-mid);
+}
+
+.loading.visible {
+  display: block;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--pink-light);
+  border-top-color: var(--pink-main);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- エラー --- */
+.error-msg {
+  display: none;
+  background: #fff0f0;
+  border: 1px solid #ffb3b3;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #c0392b;
+}
+
+.error-msg.visible {
+  display: block;
+}
+
+/* --- 心理学に基づくバッジ --- */
+.quiz-psychology-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.22);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 4px 14px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.45);
+  margin: 6px auto 10px;
+  backdrop-filter: blur(4px);
+}
+
+/* --- MBTI 4文字コード表示（非表示化） --- */
+.mbti-code-display {
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: white;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  margin: 10px 0 4px;
+  font-family: 'Courier New', 'Noto Sans JP', monospace;
+}
+
+/* --- MBTI 軸スコアバー --- */
+.mbti-axis-bars {
+  background: #f9f0ff;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 18px 0;
+}
+
+.mbti-axis-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 14px;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.mbti-axis-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.mbti-axis-row:last-child { margin-bottom: 0; }
+
+.axis-label-group {
+  width: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.axis-label-group.right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.axis-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-light);
+  line-height: 1.2;
+}
+
+.axis-label.right {
+  text-align: right;
+}
+
+.axis-label small {
+  font-size: 0.62rem;
+  font-weight: 400;
+}
+
+.axis-label.axis-dominant {
+  color: var(--purple-dark);
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.axis-pct-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--purple-main);
+  line-height: 1;
+}
+
+.axis-bar {
+  flex: 1;
+  height: 16px;
+  background: #d8c0f0;
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+}
+
+.axis-fill-left {
+  background: linear-gradient(135deg, #c2185b 0%, #7b1fa2 100%);
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  min-width: 2px;
+}
+
+.axis-fill-right {
+  background: #9575cd;
+  height: 100%;
+  flex: 1;
+}
+
+.axis-pct {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--purple-dark);
+  width: 44px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.compatible-section {
+  background: linear-gradient(135deg, #fff0f8 0%, #f3e8ff 100%);
+  border-left: 5px solid var(--pink-main);
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 10px rgba(255,110,180,0.15);
+}
+
+/* --- 深層心理分析セクション --- */
+
+/* ズバリ一言バッジ（悪口診断スタイル） */
+.result-summary-badge {
+  background: linear-gradient(135deg, #ff6eb4 0%, #9b59b6 100%);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.55;
+  margin-bottom: 18px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(155,89,182,0.3);
+  position: relative;
+}
+
+.result-summary-badge::before {
+  content: '🔍 ズバリ言います';
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.85;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+}
+
+/* 分析セクション各カード */
+.result-section {
+  background: #fff;
+  border-radius: 12px;
+  border-left: 5px solid var(--pink-main);
+  padding: 15px 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 10px rgba(155,89,182,0.10);
+}
+
+.result-section:nth-child(2) { border-left-color: #9b59b6; }
+.result-section:nth-child(3) { border-left-color: #27ae60; }
+.result-section:nth-child(4) { border-left-color: #e74c3c; }
+
+.result-section-label {
+  font-size: 0.93rem;
+  font-weight: 900;
+  color: var(--purple-dark);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8d8f8;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.result-section-text {
+  font-size: 0.9rem;
+  color: #4a3060;
+  line-height: 1.9;
+  margin: 0;
+}
+
+/* 総合評価ゲージブロック */
+.summary-gauge-block {
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.summary-gauge-title {
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  color: #4a3060;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+
+.summary-gauge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.summary-gauge-bar-wrap {
+  flex: 1;
+  height: 16px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.summary-gauge-bar {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1);
+}
+
+.summary-gauge-pct {
+  font-size: 1.3rem;
+  font-weight: 900;
+  min-width: 52px;
+  text-align: right;
+  letter-spacing: -0.02em;
+}
+
+.summary-gauge-grade {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+/* カスタムゲージブロック */
+.cg-block {
+  background: linear-gradient(135deg, #f8f0ff 0%, #fff0f8 100%);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+.cg-title {
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  color: #4a3060;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+.cg-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cg-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #4a3060;
+  min-width: 120px;
+  letter-spacing: 0.01em;
+}
+.cg-bar-wrap {
+  flex: 1;
+  height: 14px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.cg-bar {
+  height: 100%;
+  border-radius: 7px;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+.cg-pct {
+  font-size: 1.05rem;
+  font-weight: 900;
+  min-width: 42px;
+  text-align: right;
+  letter-spacing: -0.02em;
+}
+
+/* --- 動物イラスト --- */
+.animal-illustration {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+
+/* --- 推し診断カード --- */
+.oshi-result-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.oshi-card-header {
+  padding: 24px 20px 28px;
+  text-align: center;
+  color: var(--white);
+}
+
+.oshi-found-label {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.oshi-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+.oshi-name {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  margin-bottom: 4px;
+}
+
+.oshi-type {
+  font-size: 0.85rem;
+  opacity: 0.92;
+  background: rgba(255,255,255,0.22);
+  display: inline-block;
+  padding: 3px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.oshi-catchphrase {
+  font-size: 0.82rem;
+  opacity: 0.9;
+  font-style: italic;
+  line-height: 1.6;
+  padding: 0 10px;
+}
+
+.result-catchphrase {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.92);
+  font-style: italic;
+  line-height: 1.6;
+  padding: 6px 16px 2px;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  letter-spacing: 0.02em;
+}
+
+.oshi-card-body {
+  padding: 20px 18px;
+}
+
+.oshi-charm {
+  background: #fdf4ff;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin: 14px 0;
+}
+
+.oshi-charm-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 8px;
+}
+
+.oshi-charm ul {
+  list-style: none;
+  padding: 0;
+}
+
+.oshi-charm li {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  padding: 4px 0;
+  line-height: 1.5;
+}
+
+.oshi-tag {
+  background: #f0e8ff;
+  color: var(--purple-dark);
+}
+
+/* ===========================
+   結果画面 v2 スクショ映えデザイン
+   =========================== */
+
+/* コンフェッティ落下アニメ */
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg);    opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* 診断完了バナー */
+.result-complete-banner {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 14px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  animation: fadeSlideDown 0.5s ease both;
+}
+
+.result-complete-floating {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--purple-dark);
+  letter-spacing: 0.06em;
+  padding: 10px 0 4px;
+  animation: fadeSlideDown 0.4s ease both;
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 動物イラストラッパー */
+.result-illust-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6px;
+  animation: popBounce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.22));
+}
+
+/* キャラクターPNG画像 */
+.quiz-char-img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.result-emoji-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  animation: popBounce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+
+@keyframes popBounce {
+  from { transform: scale(0.2); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.result-emoji-big {
+  font-size: 4.5rem;
+  display: block;
+}
+
+/* 結果名バッジ（白い丸角ボックス）*/
+.result-name-badge {
+  background: rgba(255,255,255,0.96);
+  border-radius: 50px;
+  padding: 10px 28px;
+  margin: 10px auto 10px;
+  display: inline-block;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  animation: popBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+.result-type-name {
+  font-size: 1.75rem;
+  font-weight: 900;
+  background: var(--grad-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+/* ヘッダー内タグ */
+.result-tags-header {
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.result-tags-header .result-tag {
+  background: rgba(255,255,255,0.25);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+/* アドバイスブロック v2 */
+.result-advice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #f3e8ff 0%, #fff0f8 100%);
+  border: 2px solid rgba(155,89,182,0.25);
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-size: 0.9rem;
+  color: #4a3060;
+  line-height: 1.85;
+  margin-top: 16px;
+  box-shadow: 0 2px 10px rgba(155,89,182,0.12);
+}
+
+.advice-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* シェアセクション v2（目立つ版）*/
+.share-section-v2 {
+  background: linear-gradient(135deg, #fff0f8 0%, #f0e8ff 100%);
+  border: 2px solid #f0c8e8;
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.share-lead {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.share-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 13px 22px;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.share-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+  color: var(--white);
+}
+
+.share-btn.twitter { background: #1a1a2e; }
+.share-btn.line    { background: #06c755; }
+
+/* アクションボタン群 */
+.result-action-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* 次の診断レコメンド */
+.next-quiz-section {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 16px;
+  margin-bottom: 16px;
+}
+
+.next-quiz-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.next-quiz-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.next-quiz-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #fff0f8 0%, #f3e8ff 100%);
+  border: 1.5px solid #e8c8f8;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.next-quiz-card:hover {
+  transform: translateX(3px);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+
+.next-quiz-emoji {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.next-quiz-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--purple-dark);
+}
+
+.next-quiz-label {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  background: var(--pink-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ===========================
+   トップページ カード v2
+   =========================== */
+.test-card-header .badge.hot {
+  background: linear-gradient(135deg, #ff8c00, #ff4081);
+}
+
+.test-card-header .badge.new-badge {
+  background: linear-gradient(135deg, #00bfff, #9b59b6);
+}
+
+/* ===========================
+   デスクトップ対応
+   =========================== */
+@media (min-width: 481px) {
+  .page-wrapper {
+    box-shadow: var(--shadow-lg);
+    background: var(--white);
+    min-height: 100vh;
+  }
+
+  .next-quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .next-quiz-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 14px 10px;
+  }
+
+  .next-quiz-name {
+    font-size: 0.82rem;
+    text-align: center;
+  }
+}
+
+/* ===========================
+   モバイル微調整
+   =========================== */
+@media (max-width: 360px) {
+  .result-type-name  { font-size: 1.45rem; }
+  .result-name-badge { padding: 8px 18px; }
+  .share-btn         { padding: 11px 14px; font-size: 0.82rem; }
+}
+
+/* ===========================
+   SNS最適化 ヒーローセクション
+   =========================== */
+
+/* 結果名をさらに大きく（SNSスクショ映え） */
+.result-type-name {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* 一言名言バブル */
+.result-quote-bubble {
+  background: rgba(255,255,255,0.16);
+  border: 2px solid rgba(255,255,255,0.45);
+  border-radius: 18px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 8px 8px 14px;
+  line-height: 1.55;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  text-align: center;
+}
+
+/* ランキングバッジ */
+.result-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,215,0,0.16);
+  border: 2px solid rgba(255,215,0,0.65);
+  border-radius: 30px;
+  padding: 5px 20px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fff9c4;
+  margin-bottom: 14px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ★能力値グリッド */
+.result-stats-grid {
+  background: rgba(0,0,0,0.22);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 0 4px 12px;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+.stat-stars {
+  color: #FFD700;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+/* ===== スクショボタン ===== */
+.screenshot-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 6px 13px;
+  cursor: pointer;
+  font-family: inherit;
+  z-index: 10;
+  letter-spacing: 0.03em;
+  -webkit-tap-highlight-color: transparent;
+}
+.screenshot-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* ===== スクショオーバーレイ ===== */
+.screenshot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background: linear-gradient(160deg, #6a1b9a 0%, #ad1457 35%, #e91e63 65%, #ff80ab 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.ss-close-btn {
+  position: sticky;
+  top: 0;
+  align-self: flex-end;
+  background: rgba(0,0,0,0.38);
+  border: none;
+  border-radius: 0 0 0 12px;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-family: inherit;
+  z-index: 8001;
+  flex-shrink: 0;
+}
+.ss-close-btn:hover { background: rgba(0,0,0,0.55); }
+.ss-card {
+  width: 100%;
+  max-width: 500px;
+  color: #fff;
+  text-align: center;
+  padding: 6px 18px 32px;
+}
+.ss-app-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+.ss-img-wrap {
+  width: 74%;
+  max-width: 270px;
+  aspect-ratio: 1;
+  margin: 0 auto 10px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+.ss-img-large {
+  width: 88%;
+  max-width: 360px;
+}
+.ss-char-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.ss-emoji-fb {
+  font-size: 5rem;
+  display: block;
+  text-align: center;
+  line-height: 270px;
+}
+.ss-type-label {
+  font-size: 0.65rem;
+  opacity: 0.6;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+.ss-name {
+  font-size: clamp(1.6rem, 6.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.ss-catch {
+  font-size: 0.76rem;
+  opacity: 0.88;
+  font-style: italic;
+  line-height: 1.45;
+  background: rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 5px 13px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.ss-stats-section {
+  background: rgba(0,0,0,0.22);
+  border-radius: 12px;
+  padding: 9px 13px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+.ss-section-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.42);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.ss-star-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.ss-star-row:last-child { margin-bottom: 0; }
+.ss-star-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.82);
+  flex: 1;
+}
+.ss-star-val {
+  color: #FFD700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.ss-hashtag {
+  font-size: 0.66rem;
+  opacity: 0.45;
+  margin-top: 12px;
+  letter-spacing: 0.03em;
+}

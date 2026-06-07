@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="あなたの恋愛タイプを無料診断！情熱型・癒し型・知性型・自由型の4タイプから判定します。3問に答えるだけ！">
+  <meta property="og:title" content="恋愛タイプ診断 | 恋愛沼診断">
+  <meta property="og:description" content="あなたの恋愛スタイルを3問で診断！">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>恋愛タイプ診断 | 恋愛沼診断</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- AdSense HERE (head) -->
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- ヘッダー -->
+    <header class="site-header">
+      <h1>💖 恋愛沼診断</h1>
+      <p class="tagline">あなたの本当の姿を無料診断！</p>
+    </header>
+
+    <!-- AdSense（ヘッダー直下） -->
+    <!-- AdSense HERE -->
+    <div class="adsense-block">
+      ▼ 広告スペース（Google AdSense）▼
+    </div>
+
+    <!-- クイズアプリ マウントポイント -->
+    <!-- data-quiz属性にJSONパスを指定すると自動起動 -->
+    <div id="quiz-app" data-quiz="tests/love_type.json"></div>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <p>© 2026 恋愛沼診断
+        <a href="index.html">トップへ戻る</a>
+      </p>
+    </footer>
+
+  </div>
+
+  <script src="tests/love_type_data.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>
