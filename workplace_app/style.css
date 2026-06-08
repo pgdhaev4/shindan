@@ -1020,7 +1020,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 .ss-close-btn {
@@ -1029,26 +1029,28 @@ body {
   border: 2px solid rgba(255,255,255,0.5);
   border-radius: 40px;
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  padding: 10px 44px;
+  padding: 14px 44px;
   cursor: pointer;
   font-family: inherit;
-  margin: 6px auto 10px;
+  margin: 20px auto 48px;
   letter-spacing: 0.04em;
-  flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.ss-close-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 .ss-close-btn:hover { background: rgba(255,255,255,0.28); }
 .ss-card {
-  flex: 1;
   width: 100%;
   max-width: 500px;
   color: #fff;
   text-align: center;
-  padding: 4px 14px 4px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  padding: 4px 14px 14px;
 }
 .ss-app-title {
   font-size: 0.65rem;
@@ -1059,21 +1061,19 @@ body {
   flex-shrink: 0;
 }
 .ss-img-wrap {
-  width: 55%;
-  max-width: 200px;
+  width: 74%;
+  max-width: 270px;
   aspect-ratio: 1;
-  margin: 0 auto 4px;
-  border-radius: 14px;
+  margin: 0 auto 8px;
+  border-radius: 18px;
   overflow: hidden;
   background: transparent;
-  box-shadow: 0 6px 28px rgba(0,0,0,0.45);
-  flex-shrink: 0;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
 }
 .ss-char-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.25);
 }
 .ss-emoji-fb {
   font-size: 5rem;
@@ -1165,10 +1165,10 @@ body {
   flex-shrink: 0;
 }
 
-/* ===== スクショ 画像大型化（廃止・統一サイズへ） ===== */
+/* ===== スクショ 画像大型化 ===== */
 .ss-img-large {
-  width: 55%;
-  max-width: 200px;
+  width: 94%;
+  max-width: 430px;
 }
 
 /* ===== スクショ 詳細セクション（生態/口癖/目撃談/弱点） ===== */

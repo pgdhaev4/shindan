@@ -17,6 +17,11 @@ foreach ($name in @("workplace_app", "psychology_app", "kosodate_app")) {
     robocopy "$SRC\$name" "$REPO\$name" /MIR /XD "images_backup" "images_backup2" /E /NP /NJH /NJS | Out-Null
     Write-Host "  $name done"
 }
+# トップページも同期
+if (Test-Path "$SRC\index.html") {
+    Copy-Item "$SRC\index.html" "$REPO\index.html" -Force
+    Write-Host "  index.html done"
+}
 
 # [2] Commit
 Write-Host "[2/3] Committing..." -ForegroundColor Yellow

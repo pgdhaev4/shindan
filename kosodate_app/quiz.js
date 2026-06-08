@@ -326,7 +326,12 @@ class QuizEngine {
     document.body.appendChild(overlay);
     document.body.style.overflow = 'hidden';
 
-    document.getElementById('ss-close-btn').addEventListener('click', () => {
+    const closeBtn = document.getElementById('ss-close-btn');
+    overlay.addEventListener('click', (e) => {
+      if (e.target === closeBtn) return;
+      closeBtn.classList.toggle('visible');
+    });
+    closeBtn.addEventListener('click', () => {
       overlay.remove();
       document.body.style.overflow = '';
     });
@@ -392,8 +397,13 @@ class QuizEngine {
           </a>
           <a href="../psychology_app/index.html" class="next-quiz-card" style="border-top:3px solid #c471ed;">
             <span class="next-quiz-emoji">💖</span>
-            <span class="next-quiz-name">恋愛・性格診断ラボ</span>
+            <span class="next-quiz-name">恋愛沼診断ラボ</span>
             <span class="next-quiz-label">恋愛タイプを診断</span>
+          </a>
+          <a href="../index.html" class="next-quiz-card" style="border-top:3px solid #16a34a;">
+            <span class="next-quiz-emoji">🌿</span>
+            <span class="next-quiz-name">診断の森トップへ</span>
+            <span class="next-quiz-label">全ジャンル一覧</span>
           </a>
         </div>
       </div>

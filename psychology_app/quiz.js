@@ -239,6 +239,11 @@ class QuizEngine {
             <span class="next-quiz-name">子育て親タイプ診断</span>
             <span class="next-quiz-label">育児スタイルを診断</span>
           </a>
+          <a href="../index.html" class="next-quiz-card" style="border-top:3px solid #16a34a;">
+            <span class="next-quiz-emoji">🌿</span>
+            <span class="next-quiz-name">診断の森トップへ</span>
+            <span class="next-quiz-label">全ジャンル一覧</span>
+          </a>
         </div>
       </div>
     `;
@@ -650,7 +655,7 @@ class QuizEngine {
     overlay.innerHTML = `
       <div class="ss-card">
         <p class="ss-app-title">💖 恋愛沼診断</p>
-        <div class="ss-img-wrap">${imgInner}</div>
+        <div class="ss-img-wrap ss-img-large">${imgInner}</div>
         <p class="ss-type-label">あなたのタイプは...</p>
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}
@@ -663,7 +668,12 @@ class QuizEngine {
     document.body.appendChild(overlay);
     document.body.style.overflow = 'hidden';
 
-    document.getElementById('ss-close-btn').addEventListener('click', () => {
+    const closeBtn = document.getElementById('ss-close-btn');
+    overlay.addEventListener('click', (e) => {
+      if (e.target === closeBtn) return;
+      closeBtn.classList.toggle('visible');
+    });
+    closeBtn.addEventListener('click', () => {
       overlay.remove();
       document.body.style.overflow = '';
     });

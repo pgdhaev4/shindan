@@ -1,54 +1,357 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="google-site-verification" content="v19twLq1vsxxadbmuw2XZeJhP79a8cd3uHj1l-VFX58" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>診断ラボ｜無料性格診断アプリ</title>
-  <meta name="description" content="社畜診断・恋愛診断・子育て診断の3種類の無料診断アプリ。あなたのタイプを診断しよう！" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; background: #f8f9fa; color: #333; }
-    .hero { text-align: center; padding: 60px 20px 40px; }
-    .hero h1 { font-size: 2rem; font-weight: bold; margin-bottom: 12px; }
-    .hero p { font-size: 1rem; color: #666; }
-    .cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; max-width: 900px; margin: 0 auto 60px; }
-    .card { background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); padding: 32px 24px; width: 260px; text-align: center; text-decoration: none; color: #333; transition: transform .2s; }
-    .card:hover { transform: translateY(-4px); }
-    .card .emoji { font-size: 3rem; margin-bottom: 12px; display: block; }
-    .card h2 { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
-    .card p { font-size: 0.85rem; color: #888; margin-bottom: 16px; }
-    .card .btn { display: inline-block; padding: 10px 24px; border-radius: 999px; font-size: 0.9rem; font-weight: bold; color: #fff; }
-    .card:nth-child(1) .btn { background: #ff6b35; }
-    .card:nth-child(2) .btn { background: #c471ed; }
-    .card:nth-child(3) .btn { background: #e8436a; }
-  </style>
+  <title>診断の森｜あなたの本性、バレます。</title>
+  <meta name="description" content="社畜・恋愛・子育ての本性をネタ全振りで診断。3ジャンル×17診断以上、100体以上の診断モンスターが登場！無料。" />
+  <meta property="og:title" content="診断の森｜あなたの本性、バレます。" />
+  <meta property="og:description" content="社畜・恋愛・子育ての本性をネタ全振りで診断。SNSでシェアしたくなる診断モンスターが登場！" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://pgdhaev4.github.io/shindan/workplace_app/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3934206444145241" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Hiragino Sans', 'Noto Sans JP', 'Meiryo', sans-serif;
+      background: #0d0d12;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(160deg, #0a0a14 0%, #1a0a2e 40%, #0d1a3a 100%);
+      text-align: center;
+      padding: 52px 20px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(100,0,255,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(0,100,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff6b35, #ff3c7e);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 18px;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .hero-main {
+      font-size: clamp(2rem, 9vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 0%, #e0cfff 50%, #ffd6e7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+    .hero-sub {
+      font-size: clamp(0.85rem, 3.5vw, 1.05rem);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.88);
+    }
+    .hero-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff6b35, #ff3c7e);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 900;
+      padding: 16px 44px;
+      border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 6px 28px rgba(255,60,126,0.4);
+      transition: transform 0.18s, box-shadow 0.18s;
+      letter-spacing: 0.04em;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(255,60,126,0.5); }
+    .hero-hint {
+      margin-top: 12px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ===== CARDS SECTION ===== */
+    .section-wrap {
+      padding: 20px 16px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .section-heading {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+    }
+    .diag-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .diag-card {
+      background: #16161e;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .diag-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px 14px;
+    }
+    .card-img-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .card-img-wrap .card-emoji { font-size: 3rem; }
+
+    .card-header-text { flex: 1; }
+    .card-genre-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 99px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+    .card-subtitle {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .card-chars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 20px 16px;
+    }
+    .char-tag {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      color: rgba(255,255,255,0.82);
+      white-space: nowrap;
+    }
+
+    .card-btn-wrap {
+      padding: 0 20px 20px;
+    }
+    .card-btn {
+      display: block;
+      text-align: center;
+      font-weight: 900;
+      font-size: 0.9rem;
+      padding: 13px;
+      border-radius: 12px;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    /* card colors */
+    .card-work  .card-genre-badge { background: rgba(26,83,122,0.3); color: #7dd3fc; }
+    .card-work  .card-btn { background: linear-gradient(135deg, #1e3a5f, #2563eb); }
+    .card-love  .card-genre-badge { background: rgba(196,113,237,0.25); color: #e879f9; }
+    .card-love  .card-btn { background: linear-gradient(135deg, #6a1b9a, #e91e63); }
+    .card-koso  .card-genre-badge { background: rgba(232,67,106,0.25); color: #fb7185; }
+    .card-koso  .card-btn { background: linear-gradient(135deg, #9b1d3a, #f97316); }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      text-align: center;
+      padding: 24px 16px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .site-footer a { color: rgba(255,255,255,0.4); text-decoration: none; margin: 0 8px; }
+    .site-footer a:hover { color: rgba(255,255,255,0.7); }
+  </style>
 </head>
 <body>
+
+  <!-- HERO -->
   <div class="hero">
-    <h1>🎯 診断ラボ</h1>
-    <p>無料の性格診断アプリ3種類。あなたのタイプを診断しよう！</p>
+    <p class="hero-badge">🔥 ネタ診断No.1サイト</p>
+    <h1 class="hero-main">あなたの本性、<br>バレます。</h1>
+    <p class="hero-sub">
+      社畜・恋愛・子育ての本性を、ネタ全振りで診断。<br>
+      SNSでシェアしたくなる診断モンスターが登場！
+    </p>
+    <div class="hero-stats">
+      <span class="hero-stat">🔥 17種類以上の診断</span>
+      <span class="hero-stat">👾 100体以上の診断モンスター</span>
+      <span class="hero-stat">📱 完全無料</span>
+    </div>
+    <a href="#cards" class="hero-cta">今すぐ診断する</a>
+    <p class="hero-hint">↓ 下の診断を選ぶ</p>
   </div>
-  <div class="cards">
-    <a href="./workplace_app/" class="card">
-      <span class="emoji">💼</span>
-      <h2>社畜診断</h2>
-      <p>あなたの社畜度は？8タイプの職場キャラを診断</p>
-      <span class="btn">診断する</span>
-    </a>
-    <a href="./psychology_app/" class="card">
-      <span class="emoji">💖</span>
-      <h2>恋愛・性格診断ラボ</h2>
-      <p>恋愛タイプ・MBTI・相性など7種類の診断</p>
-      <span class="btn">診断する</span>
-    </a>
-    <a href="./kosodate_app/" class="card">
-      <span class="emoji">👨‍👩‍👧</span>
-      <h2>子育て親タイプ診断</h2>
-      <p>あなたの育児スタイルを診断。4テーマ対応</p>
-      <span class="btn">診断する</span>
-    </a>
+
+  <!-- CARDS -->
+  <div class="section-wrap" id="cards">
+    <p class="section-heading">🌿 診断の森へようこそ</p>
+
+    <div class="diag-cards">
+
+      <!-- 社畜 -->
+      <div class="diag-card card-work">
+        <div class="card-header">
+          <div class="card-img-wrap">
+            <img src="./workplace_app/images/shachiku_zangyo_gorilla.png" alt="残業ゴリラ"
+                 onerror="this.parentElement.innerHTML='<span class=card-emoji>💼</span>'">
+          </div>
+          <div class="card-header-text">
+            <span class="card-genre-badge">💼 社畜・職場</span>
+            <p class="card-title">会社モンスター診断</p>
+            <p class="card-subtitle">4診断・32種の職場バケモノ</p>
+          </div>
+        </div>
+        <div class="card-chars">
+          <span class="char-tag">👼 定時の妖精</span>
+          <span class="char-tag">🦍 残業ゴリラ</span>
+          <span class="char-tag">🧟 会社の地縛霊</span>
+          <span class="char-tag">📱 休日返信マシン</span>
+          <span class="char-tag">⛓️ 社畜神</span>
+          <span class="char-tag">🚁 監視ドローン</span>
+        </div>
+        <div class="card-btn-wrap">
+          <a href="./workplace_app/" class="card-btn">社畜診断をやる →</a>
+        </div>
+      </div>
+
+      <!-- 恋愛 -->
+      <div class="diag-card card-love">
+        <div class="card-header">
+          <div class="card-img-wrap">
+            <img src="./psychology_app/images/chars_new/元カレ監視衛星.png" alt="元カレ監視衛星"
+                 onerror="this.parentElement.innerHTML='<span class=card-emoji>💖</span>'">
+          </div>
+          <div class="card-header-text">
+            <span class="card-genre-badge">💖 恋愛・沼</span>
+            <p class="card-title">恋愛沼診断ラボ</p>
+            <p class="card-subtitle">7診断・56種の恋愛モンスター</p>
+          </div>
+        </div>
+        <div class="card-chars">
+          <span class="char-tag">👑 沼らせ魔王</span>
+          <span class="char-tag">📵 LINE既読放置神</span>
+          <span class="char-tag">🛸 元カレ監視衛星</span>
+          <span class="char-tag">🧟 未練ゾンビ</span>
+          <span class="char-tag">😺 ツンデレ猫</span>
+          <span class="char-tag">🔮 メンヘラ錬金術師</span>
+        </div>
+        <div class="card-btn-wrap">
+          <a href="./psychology_app/" class="card-btn">恋愛沼診断をやる →</a>
+        </div>
+      </div>
+
+      <!-- 子育て -->
+      <div class="diag-card card-koso">
+        <div class="card-header">
+          <div class="card-img-wrap">
+            <img src="./kosodate_app/images/parent_7_dragon.png" alt="心配性ドラゴン"
+                 onerror="this.parentElement.innerHTML='<span class=card-emoji>👶</span>'">
+          </div>
+          <div class="card-header-text">
+            <span class="card-genre-badge">👶 子育て・育児</span>
+            <p class="card-title">子育て親タイプ診断</p>
+            <p class="card-subtitle">6診断・48種の親タイプ</p>
+          </div>
+        </div>
+        <div class="card-chars">
+          <span class="char-tag">🍭 おやつ財閥総裁</span>
+          <span class="char-tag">🐉 心配性ドラゴン</span>
+          <span class="char-tag">⚔️ 育児軍曹</span>
+          <span class="char-tag">👑 家のラスボス</span>
+          <span class="char-tag">🐧 ワンオペペンギン</span>
+          <span class="char-tag">📊 データ解析博士</span>
+        </div>
+        <div class="card-btn-wrap">
+          <a href="./kosodate_app/" class="card-btn">子育て診断をやる →</a>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+  <footer class="site-footer">
+    <a href="./workplace_app/privacy.html">プライバシーポリシー</a>
+    <a href="./workplace_app/terms.html">利用規約</a>
+    <p style="margin-top:10px">© 2026 診断の森</p>
+  </footer>
+
+  <script>
+    document.querySelector('.hero-cta').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('cards').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
