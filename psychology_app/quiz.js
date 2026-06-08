@@ -654,7 +654,7 @@ class QuizEngine {
     if (result.bg) overlay.style.background = result.bg;
     overlay.innerHTML = `
       <div class="ss-card">
-        <p class="ss-app-title">💖 恋愛沼診断</p>
+        <p class="ss-app-title">🌿 診断の森｜${this._esc(this.data.title)}</p>
         <div class="ss-img-wrap ss-img-large">${imgInner}</div>
         <p class="ss-type-label">あなたのタイプは...</p>
         <h2 class="ss-name">${this._esc(result.name)}</h2>

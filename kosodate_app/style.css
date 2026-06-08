@@ -1112,9 +1112,10 @@ body {
 .ss-stat-label {
   font-size: 0.81rem;
   color: rgba(255,255,255,0.65);
-  white-space: nowrap;
-  min-width: 80px;
+  white-space: normal;
+  width: 90px;
   flex-shrink: 0;
+  line-height: 1.3;
 }
 .ss-stat-bar {
   flex: 1;

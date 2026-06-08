@@ -1,15 +1,15 @@
-﻿/**
- * quiz.js - 子育て親タイプ診断 エンジン
- * scoreモード対応：選択肢ごとにscoreを持ち、合計点でresultを振り分け
+/**
+ * quiz.js - 投資家クズ診断ラボ エンジン v1
+ * score モード対応：選択肢ごとにscoreを持ち、合計点でresultを振り分け
  */
 
 const QUIZ_LIST = [
-  { href: 'parent_type.html',    emoji: '👨‍👩‍👧', title: '親タイプ診断',         label: '8問' },
-  { href: 'child_view.html',     emoji: '👶', title: '子供から見た親診断',   label: '8問' },
-  { href: 'couple_balance.html', emoji: '💑', title: '夫婦育児バランス診断', label: '8問' },
-  { href: 'expectation.html',    emoji: '🌟', title: '子供への期待度診断',   label: '8問' },
-  { href: 'future_relation.html',emoji: '🏡', title: '将来の親子関係診断',   label: '8問' },
-  { href: 'true_nature.html',    emoji: '🔥', title: '育児中の本性診断',     label: '8問' },
+  { href: 'investor_type.html',  emoji: '📊', title: '投資家タイプ診断',      label: '6問' },
+  { href: 'fukumi_son.html',     emoji: '😰', title: '含み損耐性診断',         label: '6問' },
+  { href: 'takanetsukami.html',  emoji: '🏔️', title: '高値掴み診断',          label: '6問' },
+  { href: 'honsei.html',         emoji: '🦉', title: '投資中の本性診断',       label: '6問' },
+  { href: 'matsuro.html',        emoji: '💣', title: '投資家の末路診断',       label: '6問' },
+  { href: 'kuzu_do.html',        emoji: '👿', title: '投資家クズ度診断',       label: '6問' },
 ];
 
 class QuizEngine {
@@ -42,6 +42,7 @@ class QuizEngine {
     }
   }
 
+  // ---- 質問画面 ----
   _renderQuestion() {
     const q     = this.data.questions[this.currentIndex];
     const total = this.data.questions.length;
@@ -81,7 +82,8 @@ class QuizEngine {
       btn.addEventListener('click', () => this._onChoice(btn));
     });
     requestAnimationFrame(() => {
-      this.mountEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const top = this.mountEl.getBoundingClientRect().top + window.scrollY - 12;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     });
   }
 
@@ -103,7 +105,6 @@ class QuizEngine {
     this._totalScore += score;
     setTimeout(() => {
       this._transitioning = false;
-      if (document.activeElement) document.activeElement.blur();
       this.currentIndex++;
       if (this.currentIndex < this.data.questions.length) {
         this._renderQuestion();
@@ -121,6 +122,7 @@ class QuizEngine {
     return ranges[ranges.length - 1][2];
   }
 
+  // ---- 結果画面 ----
   _renderResult() {
     const key    = this._calcResultKey();
     const result = this.data.results[key];
@@ -128,9 +130,9 @@ class QuizEngine {
     this._showConfetti();
 
     const shareBody = result.share_text ||
-      `私は【${result.name}】でした👶 あなたは何タイプ？→全員やってみて！`;
+      `私は【${result.name}】でした💹 あなたは何タイプ？→全員やってみて！`;
     const tweetText = encodeURIComponent(
-      `${shareBody}\n#子育て親タイプ診断 #育児あるある #毒親診断`
+      `${shareBody}\n#投資家クズ診断 #投資あるある #投資診断`
     );
     const currentURL = encodeURIComponent(window.location.href);
     const twitterURL = `https://twitter.com/intent/tweet?text=${tweetText}&url=${currentURL}`;
@@ -143,7 +145,7 @@ class QuizEngine {
         ${statsData.map(p => {
           const rawVal = p.value !== undefined ? String(p.value) : this._renderStars(p.stars);
           const val = /^∞$|^9999$/.test(rawVal.trim()) ? 'MAX' : rawVal;
-          const pct = this._statToPercent(val);
+          const pct = p.level !== undefined ? p.level : this._statToPercent(val);
           return `<div class="hero-stat-row">
             <span class="hero-stat-label">${this._esc(p.label)}</span>
             <div class="hero-stat-bar-wrap">
@@ -156,8 +158,8 @@ class QuizEngine {
 
     const imgSrc = result.image || '';
     const imgHtml = imgSrc
-      ? `<div class="result-img-wrap"><img src="${imgSrc}" alt="${this._esc(result.name)}" class="result-char-img" onerror="this.parentElement.innerHTML='<span class=result-emoji-fb>${result.emoji||'👶'}</span>'"></div>`
-      : `<div class="result-img-wrap"><span class="result-emoji-fb">${result.emoji || '👶'}</span></div>`;
+      ? `<div class="result-img-wrap"><img src="${imgSrc}" alt="${this._esc(result.name)}" class="result-char-img" onerror="this.parentElement.innerHTML='<span class=result-emoji-fb>${result.emoji||'💹'}</span>'"></div>`
+      : `<div class="result-img-wrap"><span class="result-emoji-fb">${result.emoji || '💹'}</span></div>`;
 
     const ecologyHtml = (result.ecology || []).length > 0 ? `
       <div class="result-section-card ecology-card">
@@ -206,7 +208,7 @@ class QuizEngine {
 
     const adviceHtml = result.advice ? `
       <div class="result-section-card advice-card">
-        <h3 class="section-card-title">💡 ひとこと</h3>
+        <h3 class="section-card-title">💡 アドバイス</h3>
         <p class="advice-text">${this._esc(result.advice)}</p>
       </div>` : '';
 
@@ -239,11 +241,13 @@ class QuizEngine {
             <p class="tsukkomi-text">${this._esc(result.tsukkomi)}</p>
           </div>` : ''}
           ${adviceHtml}
-          <p style="font-size:0.7rem;color:#b08090;text-align:center;padding:4px 0;">※この診断はエンタメ目的です。実際の育児能力や性格を評価するものではありません。</p>
+          <div class="disclaimer-card">
+            <p class="disclaimer-text">⚠️ これは投資助言ではなく、エンタメ診断です。実際の投資判断はご自身の責任で行ってください。</p>
+          </div>
         </div>
 
         <div class="share-section">
-          <p class="share-lead">📣 パパ・ママ友にシェアして比べよう！</p>
+          <p class="share-lead">📣 投資仲間にシェアして比べよう！</p>
           <div class="share-btns">
             <a href="${twitterURL}" class="share-btn twitter" target="_blank" rel="noopener">𝕏 Xでシェア</a>
             <a href="${lineURL}" class="share-btn line" target="_blank" rel="noopener">🟢 LINEで送る</a>
@@ -257,7 +261,7 @@ class QuizEngine {
 
         <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
-          <a href="index.html" class="back-home-btn">👶 他の診断を見る</a>
+          <a href="index.html" class="back-home-btn">💹 他の投資診断を見る</a>
         </div>
       </div>
     `;
@@ -279,59 +283,56 @@ class QuizEngine {
     const existing = document.getElementById('screenshot-overlay');
     if (existing) existing.remove();
 
-    const statsData = result.stats || result.params || [];
-    const statsHtml = statsData.map(p => {
-      const rawVal = p.value !== undefined ? String(p.value) : this._renderStars(p.stars);
-      const val = /^∞$|^9999$/.test(rawVal.trim()) ? 'MAX' : rawVal;
-      const pct = this._statToPercent(val);
-      return `<div class="ss-stat-row">
-        <span class="ss-stat-label">${this._esc(p.label)}</span>
-        <div class="ss-stat-bar"><div class="ss-stat-bar-fill" style="width:${pct}%"></div></div>
-        <span class="ss-stat-value">${this._esc(val)}</span>
-      </div>`;
-    }).join('');
+    const imgSrc = result.image || '';
+    const imgInner = imgSrc
+      ? `<img src="${imgSrc}" alt="${this._esc(result.name)}" class="ss-char-img" onerror="this.parentElement.innerHTML='<span class=ss-emoji-fb>${result.emoji || '💹'}</span>'">`
+      : `<span class="ss-emoji-fb">${result.emoji || '💹'}</span>`;
 
-    const ecologyHtml = (result.ecology || []).length > 0
-      ? (result.ecology || []).map(e => `・${this._esc(e)}`).join('　')
-      : '';
+    const ecoHtml = (result.ecology || []).map(e =>
+      `<div class="ss-detail-item">▸ ${this._esc(e)}</div>`
+    ).join('');
 
     const quotesArr = result.quotes || [];
-    const quotesInline = quotesArr.length > 0
+    const quoteHtml = quotesArr.length > 0
       ? quotesArr.map(q => `「${this._esc(q.replace(/^「|」$/g, ''))}」`).join('、')
       : '';
 
-    const imgSrc = result.image || '';
-    const imgInner = imgSrc
-      ? `<img src="${imgSrc}" alt="${this._esc(result.name)}" class="ss-char-img" onerror="this.parentElement.innerHTML='<span class=ss-emoji-fb>${result.emoji || '👶'}</span>'">`
-      : `<span class="ss-emoji-fb">${result.emoji || '👶'}</span>`;
+    const sightingArr = result.sighting || [];
+    const sightingHtml = sightingArr.length > 0
+      ? sightingArr.map(s => {
+          if (s.scene !== undefined) return this._esc(s.scene);
+          const txt = s.text.replace(/^「|」$/g, '');
+          return `${this._esc(s.speaker)}「${this._esc(txt)}」`;
+        }).join('　')
+      : '';
+
+    const weaknessHtml = (result.weakness || []).map(w =>
+      `<span class="ss-weak-tag">${this._esc(w)}</span>`
+    ).join('');
 
     const overlay = document.createElement('div');
     overlay.id = 'screenshot-overlay';
     overlay.className = 'screenshot-overlay';
     overlay.innerHTML = `
+      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
       <div class="ss-card">
         <p class="ss-app-title">🌿 診断の森｜${this._esc(this.data.title)}</p>
-        <div class="ss-img-wrap">${imgInner}</div>
+        <div class="ss-img-wrap ss-img-large">${imgInner}</div>
         <p class="ss-type-label">あなたのタイプは...</p>
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}
-        ${statsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${statsHtml}</div>` : ''}
-        ${ecologyHtml ? `<div class="ss-ecology-section"><p class="ss-section-label">🌿 生 態</p><p class="ss-ecology-item">${ecologyHtml}</p></div>` : ''}
-        ${quotesInline ? `<div class="ss-quotes-section"><p class="ss-section-label">💬 口 癖</p><p class="ss-quotes-item">${quotesInline}</p></div>` : ''}
-        <p class="ss-hashtag">#子育て親タイプ診断 #育児あるある #子育てあるある</p>
+        ${ecoHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">🌿 生態</p>${ecoHtml}</div>` : ''}
+        ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
+        ${sightingHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">👁️ 目撃談</p><p class="ss-detail-item">${sightingHtml}</p></div>` : ''}
+        ${weaknessHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">⚡ 弱点</p><div class="ss-weak-wrap">${weaknessHtml}</div></div>` : ''}
+        <p class="ss-hashtag">#投資家クズ診断 #投資あるある #投資診断ラボ</p>
       </div>
-      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;
 
     document.body.appendChild(overlay);
     document.body.style.overflow = 'hidden';
 
-    const closeBtn = document.getElementById('ss-close-btn');
-    overlay.addEventListener('click', (e) => {
-      if (e.target === closeBtn) return;
-      closeBtn.classList.toggle('visible');
-    });
-    closeBtn.addEventListener('click', () => {
+    document.getElementById('ss-close-btn').addEventListener('click', () => {
       overlay.remove();
       document.body.style.overflow = '';
     });
@@ -339,8 +340,8 @@ class QuizEngine {
 
   _statToPercent(val) {
     const v = String(val).trim();
-    if (/∞|MAX|SSS|神|9999|全員|完了|常時|核融合|削除済み|光速|無限/.test(v)) return 100;
-    if (/高い|異常|鋼鉄|ダイヤ|^高$|最強|最速|灼熱/.test(v)) return 93;
+    if (/∞|MAX|SSS|神|9999|化け物|全員|完了|常時開放|核融合|削除済み|光速|フル|ほぼ100%/.test(v)) return 100;
+    if (/高い|異常|鋼鉄|ダイヤ|^高$|フロア全体|非常に高い|かなり高い/.test(v)) return 93;
     const pctMatch = v.match(/^(\d+\.?\d*)\s*%/);
     if (pctMatch) return Math.min(100, Math.round(parseFloat(pctMatch[1])));
     const intMatch = v.match(/^(\d+)/);
@@ -352,11 +353,13 @@ class QuizEngine {
       if (n <= 5) return Math.max(6, n * 15);
       return Math.min(90, n);
     }
-    if (/^なし$|検出不能|なし$/.test(v)) return 4;
-    if (/低下中|低い|少なめ|遅い|極小|不明|^低$|不足|枯渇/.test(v)) return 18;
-    if (/普通|気分次第|運次第|未計測|ほどほど/.test(v)) return 50;
+    if (/^なし$|検出不能|検知不能|ほぼゼロ|ゼロ|存在しない/.test(v)) return 4;
+    if (/低下中|低い|少なめ|遅い|極小|不明|^低$|低め/.test(v)) return 18;
+    if (/普通|気分次第|運次第|未計測|五分五分/.test(v)) return 50;
     if (/あるはずなのに/.test(v)) return 35;
     if (/なぜか毎日/.test(v)) return 75;
+    if (/向上中|上昇中|改善中|育ってきた/.test(v)) return 62;
+    if (/深刻|危機的/.test(v)) return 90;
     return 72;
   }
 
@@ -371,7 +374,7 @@ class QuizEngine {
     const picked = others.sort(() => Math.random() - 0.5).slice(0, 3);
     return `
       <div class="next-quiz-section">
-        <h3 class="next-quiz-title">👨‍👩‍👧 この診断もやってみて！</h3>
+        <h3 class="next-quiz-title">💹 この投資診断もやってみて！</h3>
         <div class="next-quiz-grid">
           ${picked.map(q => `
             <a href="${q.href}" class="next-quiz-card">
@@ -387,23 +390,23 @@ class QuizEngine {
 
   _renderCrossAppBanners() {
     return `
-      <div class="next-quiz-section" style="background:linear-gradient(135deg,#fff5f7 0%,#f0f8ff 100%);margin-top:8px;">
+      <div class="next-quiz-section" style="background:linear-gradient(135deg,#f0f4ff 0%,#fff0f8 100%);margin-top:8px;">
         <h3 class="next-quiz-title">🌟 他のジャンルも診断しよう！</h3>
         <div class="next-quiz-grid">
-          <a href="../workplace_app/index.html" class="next-quiz-card" style="border-top:3px solid #1a537a;">
+          <a href="../workplace_app/index.html" class="next-quiz-card" style="border-top:3px solid #1e40af;">
             <span class="next-quiz-emoji">🏢</span>
-            <span class="next-quiz-name">職場診断ラボ</span>
-            <span class="next-quiz-label">モンスター度を診断</span>
+            <span class="next-quiz-name">会社モンスター診断</span>
+            <span class="next-quiz-label">職場タイプを診断</span>
           </a>
           <a href="../psychology_app/index.html" class="next-quiz-card" style="border-top:3px solid #c471ed;">
             <span class="next-quiz-emoji">💖</span>
-            <span class="next-quiz-name">恋愛沼診断ラボ</span>
+            <span class="next-quiz-name">恋愛・性格診断ラボ</span>
             <span class="next-quiz-label">恋愛タイプを診断</span>
           </a>
-          <a href="../index.html" class="next-quiz-card" style="border-top:3px solid #16a34a;">
-            <span class="next-quiz-emoji">🌿</span>
-            <span class="next-quiz-name">診断の森トップへ</span>
-            <span class="next-quiz-label">全ジャンル一覧</span>
+          <a href="../kosodate_app/index.html" class="next-quiz-card" style="border-top:3px solid #e8436a;">
+            <span class="next-quiz-emoji">👨‍👩‍👧</span>
+            <span class="next-quiz-name">子育て親タイプ診断</span>
+            <span class="next-quiz-label">育児スタイルを診断</span>
           </a>
         </div>
       </div>
@@ -414,7 +417,7 @@ class QuizEngine {
     const wrap = document.createElement('div');
     wrap.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;';
     document.body.appendChild(wrap);
-    const colors = ['#e8436a','#f97316','#fbbf24','#34d399','#60a5fa','#a78bfa','#f472b6'];
+    const colors = ['#1e40af','#f97316','#16a34a','#dc2626','#7c3aed','#fbbf24','#0891b2'];
     for (let i = 0; i < 70; i++) {
       const p  = document.createElement('div');
       const sz = 5 + Math.random() * 9;
@@ -437,6 +440,7 @@ class QuizEngine {
   }
 }
 
+// ---- 自動起動 ----
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.getElementById('quiz-app');
   if (!el) return;
