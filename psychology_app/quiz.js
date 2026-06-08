@@ -104,11 +104,13 @@ class QuizEngine {
       btn.addEventListener('click', () => this._onChoiceClick(btn));
     });
 
-    // カーソル固定バグ対策：ページ上部にスクロールして次の質問にホバーしないようにする
-    requestAnimationFrame(() => {
+    setTimeout(() => {
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
       const top = this.mountEl.getBoundingClientRect().top + window.scrollY - 16;
       window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-    });
+    }, 50);
   }
 
   _goBack() {

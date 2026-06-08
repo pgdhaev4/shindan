@@ -80,9 +80,12 @@ class QuizEngine {
     this.mountEl.querySelectorAll('.choice-btn').forEach(btn => {
       btn.addEventListener('click', () => this._onChoice(btn));
     });
-    requestAnimationFrame(() => {
+    setTimeout(() => {
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur();
+      }
       this.mountEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    }, 50);
   }
 
   _goBack() {
