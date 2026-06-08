@@ -4,10 +4,10 @@
  */
 
 const QUIZ_LIST = [
-  { href: 'salaryman.html',  emoji: '⛓️', title: 'モンスター度診断',            label: '6問' },
-  { href: 'boss.html',       emoji: '👔', title: '上司適性診断',           label: '6問' },
-  { href: 'stress.html',     emoji: '🛡️', title: '職場ストレス耐性診断',   label: '6問' },
-  { href: 'secret.html',     emoji: '🕵️', title: '会社での裏評価診断',     label: '6問' },
+  { href: 'salaryman.html',  emoji: '⛓️', title: 'モンスター度診断',            label: '8問' },
+  { href: 'boss.html',       emoji: '👔', title: '上司適性診断',           label: '8問' },
+  { href: 'stress.html',     emoji: '🛡️', title: '職場ストレス耐性診断',   label: '8問' },
+  { href: 'secret.html',     emoji: '🕵️', title: '会社での裏評価診断',     label: '8問' },
 ];
 
 class QuizEngine {
@@ -103,6 +103,7 @@ class QuizEngine {
     this._totalScore += score;
     setTimeout(() => {
       this._transitioning = false;
+      if (document.activeElement) document.activeElement.blur();
       this.currentIndex++;
       if (this.currentIndex < this.data.questions.length) {
         this._renderQuestion();
@@ -311,7 +312,6 @@ class QuizEngine {
     overlay.id = 'screenshot-overlay';
     overlay.className = 'screenshot-overlay';
     overlay.innerHTML = `
-      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
       <div class="ss-card">
         <p class="ss-app-title">🏢 職場診断ラボ</p>
         <div class="ss-img-wrap ss-img-large">${imgInner}</div>
@@ -324,6 +324,7 @@ class QuizEngine {
         ${weaknessHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">⚡ 弱点</p><div class="ss-weak-wrap">${weaknessHtml}</div></div>` : ''}
         <p class="ss-hashtag">#会社モンスター診断 #職場診断ラボ #社内あるある</p>
       </div>
+      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;
 
     document.body.appendChild(overlay);

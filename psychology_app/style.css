@@ -1522,22 +1522,20 @@ a:hover {
   -webkit-overflow-scrolling: touch;
 }
 .ss-close-btn {
-  position: sticky;
-  top: 0;
-  align-self: flex-end;
-  background: rgba(0,0,0,0.38);
-  border: none;
-  border-radius: 0 0 0 12px;
-  color: rgba(255,255,255,0.85);
-  font-size: 0.75rem;
+  display: block;
+  background: rgba(255,255,255,0.18);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 40px;
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 700;
-  padding: 10px 18px;
+  padding: 14px 44px;
   cursor: pointer;
   font-family: inherit;
-  z-index: 8001;
-  flex-shrink: 0;
+  margin: 20px auto 48px;
+  letter-spacing: 0.04em;
 }
-.ss-close-btn:hover { background: rgba(0,0,0,0.55); }
+.ss-close-btn:hover { background: rgba(255,255,255,0.28); }
 .ss-card {
   width: 100%;
   max-width: 500px;

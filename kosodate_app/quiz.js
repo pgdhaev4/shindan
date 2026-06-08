@@ -4,12 +4,12 @@
  */
 
 const QUIZ_LIST = [
-  { href: 'parent_type.html',    emoji: '👨‍👩‍👧', title: '親タイプ診断',         label: '6問' },
-  { href: 'child_view.html',     emoji: '👶', title: '子供から見た親診断',   label: '6問' },
-  { href: 'couple_balance.html', emoji: '💑', title: '夫婦育児バランス診断', label: '6問' },
-  { href: 'expectation.html',    emoji: '🌟', title: '子供への期待度診断',   label: '6問' },
-  { href: 'future_relation.html',emoji: '🏡', title: '将来の親子関係診断',   label: '6問' },
-  { href: 'true_nature.html',    emoji: '🔥', title: '育児中の本性診断',     label: '6問' },
+  { href: 'parent_type.html',    emoji: '👨‍👩‍👧', title: '親タイプ診断',         label: '8問' },
+  { href: 'child_view.html',     emoji: '👶', title: '子供から見た親診断',   label: '8問' },
+  { href: 'couple_balance.html', emoji: '💑', title: '夫婦育児バランス診断', label: '8問' },
+  { href: 'expectation.html',    emoji: '🌟', title: '子供への期待度診断',   label: '8問' },
+  { href: 'future_relation.html',emoji: '🏡', title: '将来の親子関係診断',   label: '8問' },
+  { href: 'true_nature.html',    emoji: '🔥', title: '育児中の本性診断',     label: '8問' },
 ];
 
 class QuizEngine {
@@ -103,6 +103,7 @@ class QuizEngine {
     this._totalScore += score;
     setTimeout(() => {
       this._transitioning = false;
+      if (document.activeElement) document.activeElement.blur();
       this.currentIndex++;
       if (this.currentIndex < this.data.questions.length) {
         this._renderQuestion();
@@ -308,7 +309,6 @@ class QuizEngine {
     overlay.id = 'screenshot-overlay';
     overlay.className = 'screenshot-overlay';
     overlay.innerHTML = `
-      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
       <div class="ss-card">
         <p class="ss-app-title">👨‍👩‍👧 子育て親タイプ診断</p>
         <div class="ss-img-wrap">${imgInner}</div>
@@ -320,6 +320,7 @@ class QuizEngine {
         ${quotesInline ? `<div class="ss-quotes-section"><p class="ss-section-label">💬 口 癖</p><p class="ss-quotes-item">${quotesInline}</p></div>` : ''}
         <p class="ss-hashtag">#子育て親タイプ診断 #育児あるある #子育てあるある</p>
       </div>
+      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;
 
     document.body.appendChild(overlay);

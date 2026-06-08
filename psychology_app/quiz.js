@@ -154,6 +154,7 @@ class QuizEngine {
 
     setTimeout(() => {
       this._transitioning = false;
+      if (document.activeElement) document.activeElement.blur();
       this.currentIndex++;
       if (this.currentIndex < this.data.questions.length) {
         this._renderQuestion();
@@ -647,7 +648,6 @@ class QuizEngine {
     overlay.className = 'screenshot-overlay';
     if (result.bg) overlay.style.background = result.bg;
     overlay.innerHTML = `
-      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
       <div class="ss-card">
         <p class="ss-app-title">💖 恋愛沼診断</p>
         <div class="ss-img-wrap ss-img-large">${imgInner}</div>
@@ -657,6 +657,7 @@ class QuizEngine {
         ${starRowsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${starRowsHtml}</div>` : ''}
         <p class="ss-hashtag">#恋愛沼診断 #恋愛心理テスト #恋愛依存</p>
       </div>
+      <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;
 
     document.body.appendChild(overlay);
