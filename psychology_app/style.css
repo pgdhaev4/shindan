@@ -1551,7 +1551,7 @@ a:hover {
   max-width: 500px;
   color: #fff;
   text-align: center;
-  padding: 6px 18px 32px;
+  padding: 4px 14px 14px;
 }
 .ss-app-title {
   font-size: 0.65rem;
@@ -1562,18 +1562,18 @@ a:hover {
   flex-shrink: 0;
 }
 .ss-img-wrap {
-  width: 74%;
-  max-width: 270px;
+  width: 90%;
+  max-width: 380px;
   aspect-ratio: 1;
-  margin: 0 auto 10px;
+  margin: 0 auto 6px;
   border-radius: 18px;
   overflow: hidden;
-  background: rgba(255,255,255,0.08);
+  background: transparent;
   box-shadow: 0 8px 40px rgba(0,0,0,0.45);
 }
 .ss-img-large {
-  width: 88%;
-  max-width: 360px;
+  width: 90%;
+  max-width: 380px;
 }
 .ss-char-img {
   width: 100%;
@@ -1616,17 +1616,17 @@ a:hover {
 .ss-stats-section {
   background: rgba(0,0,0,0.22);
   border-radius: 8px;
-  padding: 4px 10px;
+  padding: 4px 9px;
   margin-bottom: 3px;
   text-align: left;
   flex-shrink: 0;
 }
 .ss-section-label {
-  font-size: 0.78rem;
+  font-size: 0.66rem;
   letter-spacing: 0.16em;
   color: rgba(255,255,255,0.42);
   text-align: center;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 .ss-star-row {
   display: flex;
@@ -1636,13 +1636,14 @@ a:hover {
 }
 .ss-star-row:last-child { margin-bottom: 0; }
 .ss-star-label {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.82);
+  font-size: 0.70rem;
+  color: rgba(255,255,255,0.65);
   flex: 1;
+  line-height: 1.25;
 }
 .ss-star-val {
   color: #FFD700;
-  font-size: 1.23rem;
+  font-size: 0.88rem;
   letter-spacing: 1px;
   flex-shrink: 0;
   text-shadow: 0 1px 3px rgba(0,0,0,0.25);
