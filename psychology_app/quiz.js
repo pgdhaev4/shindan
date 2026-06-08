@@ -650,7 +650,7 @@ class QuizEngine {
     overlay.innerHTML = `
       <div class="ss-card">
         <p class="ss-app-title">💖 恋愛沼診断</p>
-        <div class="ss-img-wrap ss-img-large">${imgInner}</div>
+        <div class="ss-img-wrap">${imgInner}</div>
         <p class="ss-type-label">あなたのタイプは...</p>
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}

@@ -1020,7 +1020,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
 .ss-close-btn {
@@ -1029,43 +1029,51 @@ body {
   border: 2px solid rgba(255,255,255,0.5);
   border-radius: 40px;
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  padding: 14px 44px;
+  padding: 10px 44px;
   cursor: pointer;
   font-family: inherit;
-  margin: 20px auto 48px;
+  margin: 6px auto 10px;
   letter-spacing: 0.04em;
+  flex-shrink: 0;
 }
 .ss-close-btn:hover { background: rgba(255,255,255,0.28); }
 .ss-card {
+  flex: 1;
   width: 100%;
   max-width: 500px;
   color: #fff;
   text-align: center;
-  padding: 4px 14px 14px;
+  padding: 4px 14px 4px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .ss-app-title {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   opacity: 0.6;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
 }
 .ss-img-wrap {
-  width: 74%;
-  max-width: 270px;
+  width: 55%;
+  max-width: 200px;
   aspect-ratio: 1;
-  margin: 0 auto 8px;
-  border-radius: 18px;
+  margin: 0 auto 4px;
+  border-radius: 14px;
   overflow: hidden;
   background: transparent;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.45);
+  flex-shrink: 0;
 }
 .ss-char-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: scale(1.25);
 }
 .ss-emoji-fb {
   font-size: 5rem;
@@ -1074,55 +1082,59 @@ body {
   line-height: 270px;
 }
 .ss-type-label {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   opacity: 0.6;
   letter-spacing: 0.06em;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
+  flex-shrink: 0;
 }
 .ss-name {
-  font-size: clamp(1.6rem, 6.5vw, 2.4rem);
+  font-size: clamp(1.25rem, 5.2vw, 1.9rem);
   font-weight: 900;
   line-height: 1.15;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
   text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 .ss-catch {
-  font-size: 0.76rem;
+  font-size: 0.65rem;
   opacity: 0.88;
   font-style: italic;
-  line-height: 1.45;
+  line-height: 1.4;
   background: rgba(255,255,255,0.12);
-  border-radius: 8px;
-  padding: 4px 11px;
+  border-radius: 6px;
+  padding: 3px 10px;
   display: inline-block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
 }
 .ss-stats-section {
   background: rgba(0,0,0,0.22);
-  border-radius: 12px;
-  padding: 9px 13px;
-  margin-bottom: 8px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-bottom: 3px;
   text-align: left;
+  flex-shrink: 0;
 }
 .ss-section-label {
-  font-size: 0.58rem;
+  font-size: 0.52rem;
   letter-spacing: 0.16em;
   color: rgba(255,255,255,0.42);
   text-align: center;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
 }
 .ss-stat-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
+  gap: 5px;
+  margin-bottom: 2px;
 }
 .ss-stat-row:last-child { margin-bottom: 0; }
 .ss-stat-label {
-  font-size: 0.61rem;
+  font-size: 0.54rem;
   color: rgba(255,255,255,0.65);
   white-space: nowrap;
-  min-width: 66px;
+  min-width: 58px;
   flex-shrink: 0;
 }
 .ss-stat-bar {
@@ -1138,43 +1150,45 @@ body {
   background: #fbbf24;
 }
 .ss-stat-value {
-  font-size: 0.67rem;
-  font-weight: 900;
+  font-size: 0.55rem;
+  font-weight: 700;
   color: #fde68a;
   white-space: nowrap;
-  min-width: 36px;
+  min-width: 32px;
   text-align: right;
 }
 .ss-hashtag {
-  font-size: 0.66rem;
-  opacity: 0.45;
-  margin-top: 12px;
+  font-size: 0.6rem;
+  opacity: 0.4;
+  margin-top: 4px;
   letter-spacing: 0.03em;
+  flex-shrink: 0;
 }
 
-/* ===== スクショ 画像大型化 ===== */
+/* ===== スクショ 画像大型化（廃止・統一サイズへ） ===== */
 .ss-img-large {
-  width: 94%;
-  max-width: 430px;
+  width: 55%;
+  max-width: 200px;
 }
 
 /* ===== スクショ 詳細セクション（生態/口癖/目撃談/弱点） ===== */
 .ss-detail-section {
   background: rgba(0,0,0,0.22);
-  border-radius: 10px;
-  padding: 5px 10px;
-  margin-bottom: 3px;
+  border-radius: 8px;
+  padding: 3px 9px;
+  margin-bottom: 2px;
   text-align: left;
+  flex-shrink: 0;
 }
 .ss-detail-label {
-  font-size: 0.58rem;
+  font-size: 0.52rem;
   letter-spacing: 0.14em;
   color: rgba(255,255,255,0.45);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   text-align: center;
 }
 .ss-detail-item {
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   color: rgba(255,255,255,0.88);
   line-height: 1.35;
   padding: 0;
@@ -1193,14 +1207,14 @@ body {
 .ss-weak-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 3px;
 }
 .ss-weak-tag {
-  font-size: 0.64rem;
+  font-size: 0.56rem;
   font-weight: 700;
   background: rgba(255,80,80,0.3);
   border: 1px solid rgba(255,80,80,0.5);
   color: #fca5a5;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 1px 6px;
+  border-radius: 10px;
 }

@@ -286,6 +286,18 @@ class QuizEngine {
       ? `<img src="${imgSrc}" alt="${this._esc(result.name)}" class="ss-char-img" onerror="this.parentElement.innerHTML='<span class=ss-emoji-fb>${result.emoji || '🏢'}</span>'">`
       : `<span class="ss-emoji-fb">${result.emoji || '🏢'}</span>`;
 
+    const statsData = result.params || result.stats || [];
+    const statsHtml = statsData.map(p => {
+      const rawVal = p.value !== undefined ? String(p.value) : this._renderStars(p.stars);
+      const val = /^∞$|^9999$/.test(rawVal.trim()) ? 'MAX' : rawVal;
+      const pct = p.level !== undefined ? p.level : this._statToPercent(val);
+      return `<div class="ss-stat-row">
+        <span class="ss-stat-label">${this._esc(p.label)}</span>
+        <div class="ss-stat-bar"><div class="ss-stat-bar-fill" style="width:${pct}%"></div></div>
+        <span class="ss-stat-value">${this._esc(val)}</span>
+      </div>`;
+    }).join('');
+
     const ecoHtml = (result.ecology || []).map(e =>
       `<div class="ss-detail-item">▸ ${this._esc(e)}</div>`
     ).join('');
@@ -314,10 +326,11 @@ class QuizEngine {
     overlay.innerHTML = `
       <div class="ss-card">
         <p class="ss-app-title">🏢 職場診断ラボ</p>
-        <div class="ss-img-wrap ss-img-large">${imgInner}</div>
+        <div class="ss-img-wrap">${imgInner}</div>
         <p class="ss-type-label">あなたのタイプは...</p>
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}
+        ${statsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${statsHtml}</div>` : ''}
         ${ecoHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">🌿 生態</p>${ecoHtml}</div>` : ''}
         ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
         ${sightingHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">👁️ 目撃談</p><p class="ss-detail-item">${sightingHtml}</p></div>` : ''}
