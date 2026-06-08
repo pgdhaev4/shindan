@@ -1084,7 +1084,7 @@ body {
   line-height: 270px;
 }
 .ss-type-label {
-  font-size: 0.6rem;
+  font-size: 1.2rem;
   opacity: 0.6;
   letter-spacing: 0.06em;
   margin-bottom: 1px;
@@ -1119,7 +1119,7 @@ body {
   flex-shrink: 0;
 }
 .ss-section-label {
-  font-size: 0.52rem;
+  font-size: 0.78rem;
   letter-spacing: 0.16em;
   color: rgba(255,255,255,0.42);
   text-align: center;
@@ -1133,15 +1133,15 @@ body {
 }
 .ss-stat-row:last-child { margin-bottom: 0; }
 .ss-stat-label {
-  font-size: 0.54rem;
+  font-size: 0.81rem;
   color: rgba(255,255,255,0.65);
   white-space: nowrap;
-  min-width: 58px;
+  min-width: 80px;
   flex-shrink: 0;
 }
 .ss-stat-bar {
   flex: 1;
-  height: 5px;
+  height: 6px;
   background: rgba(255,255,255,0.15);
   border-radius: 4px;
   overflow: hidden;
@@ -1152,11 +1152,11 @@ body {
   background: #fbbf24;
 }
 .ss-stat-value {
-  font-size: 0.55rem;
+  font-size: 0.83rem;
   font-weight: 700;
   color: #fde68a;
   white-space: nowrap;
-  min-width: 32px;
+  min-width: 44px;
   text-align: right;
 }
 .ss-hashtag {
@@ -1183,16 +1183,16 @@ body {
   flex-shrink: 0;
 }
 .ss-detail-label {
-  font-size: 0.52rem;
+  font-size: 0.78rem;
   letter-spacing: 0.14em;
   color: rgba(255,255,255,0.45);
   margin-bottom: 2px;
   text-align: center;
 }
 .ss-detail-item {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   color: rgba(255,255,255,0.88);
-  line-height: 1.35;
+  line-height: 1.4;
   padding: 0;
 }
 .ss-scene {

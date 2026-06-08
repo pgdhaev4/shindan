@@ -1586,7 +1586,7 @@ a:hover {
   line-height: 270px;
 }
 .ss-type-label {
-  font-size: 0.6rem;
+  font-size: 1.2rem;
   opacity: 0.6;
   letter-spacing: 0.06em;
   margin-bottom: 1px;
@@ -1621,7 +1621,7 @@ a:hover {
   flex-shrink: 0;
 }
 .ss-section-label {
-  font-size: 0.52rem;
+  font-size: 0.78rem;
   letter-spacing: 0.16em;
   color: rgba(255,255,255,0.42);
   text-align: center;
@@ -1635,13 +1635,13 @@ a:hover {
 }
 .ss-star-row:last-child { margin-bottom: 0; }
 .ss-star-label {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   color: rgba(255,255,255,0.82);
   flex: 1;
 }
 .ss-star-val {
   color: #FFD700;
-  font-size: 0.82rem;
+  font-size: 1.23rem;
   letter-spacing: 1px;
   flex-shrink: 0;
   text-shadow: 0 1px 3px rgba(0,0,0,0.25);
