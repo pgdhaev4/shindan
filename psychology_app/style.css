@@ -337,12 +337,13 @@ a:hover {
   width: 100%;
 }
 
-.choice-btn:hover,
-.choice-btn:focus {
-  background: var(--pink-light);
-  border-color: var(--pink-main);
-  outline: none;
+@media (hover: hover) {
+  .choice-btn:hover {
+    background: var(--pink-light);
+    border-color: var(--pink-main);
+  }
 }
+.choice-btn:focus { outline: none; }
 
 .choice-btn:active {
   transform: scale(0.97);

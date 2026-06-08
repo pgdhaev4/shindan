@@ -262,10 +262,12 @@ body {
   transition: border-color 0.15s, background 0.15s, transform 0.1s;
   -webkit-tap-highlight-color: transparent;
 }
-.choice-btn:hover:not(:disabled) {
-  border-color: var(--rose);
-  background: var(--rose-light);
-  transform: translateX(4px);
+@media (hover: hover) {
+  .choice-btn:hover:not(:disabled) {
+    border-color: var(--rose);
+    background: var(--rose-light);
+    transform: translateX(4px);
+  }
 }
 .choice-btn:disabled { opacity: 0.6; cursor: default; }
 .choice-btn.selected {
