@@ -262,7 +262,7 @@ class QuizEngine {
         <p class="share-lead">📣 友達にシェアして盛り上げよう！</p>
         <div class="share-btns">
           <a href="${twitterURL}" class="share-btn twitter" target="_blank" rel="noopener noreferrer">
-            𝕏 Xでシェア
+            𝕏でシェア
           </a>
           <a href="${lineURL}" class="share-btn line" target="_blank" rel="noopener noreferrer">
             🟢 LINEで送る
@@ -337,7 +337,7 @@ class QuizEngine {
       </div>
     `;
 
-    const tweetText  = encodeURIComponent(`私は【${result.name}】でした💘 あなたは何タイプ？→全員やってみて！\n${result.share_text || ''}`);
+    const tweetText  = encodeURIComponent(`【${result.name}】でした${result.emoji || '💘'}\n\n${result.share_text || result.oneliner || ''}\n\nあなたは何タイプ？\n#恋愛あるある #心理テスト`);
     const currentURL = encodeURIComponent(window.location.href);
     const tags       = (result.tags || []).map(t => `<span class="result-tag">${this._esc(t)}</span>`).join('');
 
@@ -572,7 +572,7 @@ class QuizEngine {
       </div>
     `).join('');
 
-    const tweetText  = encodeURIComponent(`私は【${result.name}】でした💘 あなたは何タイプ？→全員やってみて！\n${result.share_text || ''}`);
+    const tweetText  = encodeURIComponent(`【${result.name}】でした${result.emoji || '💘'}\n\n${result.share_text || result.oneliner || ''}\n\nあなたは何タイプ？\n#恋愛あるある #心理テスト`);
     const currentURL = encodeURIComponent(window.location.href);
     const bgStyle    = result.bg ? `style="background:${result.bg}"` : '';
 
@@ -684,7 +684,7 @@ class QuizEngine {
   _renderNormalResult(result) {
     this._showConfetti();
 
-    const tweetText  = encodeURIComponent(`私は【${result.name}】でした💘 あなたは何タイプ？→全員やってみて！\n${result.share_text || ''}`);
+    const tweetText  = encodeURIComponent(`【${result.name}】でした${result.emoji || '💘'}\n\n${result.share_text || result.oneliner || ''}\n\nあなたは何タイプ？\n#恋愛あるある #心理テスト`);
     const currentURL = encodeURIComponent(window.location.href);
     const tags       = (result.tags || []).map(t => `<span class="result-tag">${this._esc(t)}</span>`).join('');
 

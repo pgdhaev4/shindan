@@ -132,10 +132,10 @@ class QuizEngine {
     if (!result) { this._showError('結果データが見つかりませんでした。'); return; }
     this._showConfetti();
 
-    const shareBody = result.share_text ||
-      `私は【${result.name}】でした💹 あなたは何タイプ？→全員やってみて！`;
+    const shareBody = result.share_text || result.oneliner || result.catchphrase || '';
+    const emoji = result.emoji || '';
     const tweetText = encodeURIComponent(
-      `${shareBody}\n#投資家クズ診断 #投資あるある #投資診断`
+      `【${result.name}】でした${emoji}\n\n${shareBody}\n\nあなたは何タイプ？\n#投資あるある #投資家`
     );
     const currentURL = encodeURIComponent(window.location.href);
     const twitterURL = `https://twitter.com/intent/tweet?text=${tweetText}&url=${currentURL}`;
@@ -252,7 +252,7 @@ class QuizEngine {
         <div class="share-section">
           <p class="share-lead">📣 投資仲間にシェアして比べよう！</p>
           <div class="share-btns">
-            <a href="${twitterURL}" class="share-btn twitter" target="_blank" rel="noopener">𝕏 Xでシェア</a>
+            <a href="${twitterURL}" class="share-btn twitter" target="_blank" rel="noopener">𝕏でシェア</a>
             <a href="${lineURL}" class="share-btn line" target="_blank" rel="noopener">🟢 LINEで送る</a>
           </div>
         </div>
