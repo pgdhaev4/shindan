@@ -1,6 +1,6 @@
 ﻿/**
  * quiz.js - 汎用クイズエンジン v2
- * 恋愛・性格診断ラボ
+ * 恋愛沼診断
  */
 
 // アクティブ診断リスト（次の診断レコメンド用）
@@ -233,7 +233,7 @@ class QuizEngine {
         <div class="next-quiz-grid">
           <a href="../workplace_app/index.html" class="next-quiz-card" style="border-top:3px solid #1a537a;">
             <span class="next-quiz-emoji">🏢</span>
-            <span class="next-quiz-name">職場診断ラボ</span>
+            <span class="next-quiz-name">会社モンスター診断</span>
             <span class="next-quiz-label">モンスター度を診断</span>
           </a>
           <a href="../kosodate_app/index.html" class="next-quiz-card" style="border-top:3px solid #e8436a;">

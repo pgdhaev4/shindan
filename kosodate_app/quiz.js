@@ -395,12 +395,12 @@ class QuizEngine {
         <div class="next-quiz-grid">
           <a href="../workplace_app/index.html" class="next-quiz-card" style="border-top:3px solid #1a537a;">
             <span class="next-quiz-emoji">🏢</span>
-            <span class="next-quiz-name">職場診断ラボ</span>
+            <span class="next-quiz-name">会社モンスター診断</span>
             <span class="next-quiz-label">モンスター度を診断</span>
           </a>
           <a href="../psychology_app/index.html" class="next-quiz-card" style="border-top:3px solid #c471ed;">
             <span class="next-quiz-emoji">💖</span>
-            <span class="next-quiz-name">恋愛沼診断ラボ</span>
+            <span class="next-quiz-name">恋愛沼診断</span>
             <span class="next-quiz-label">恋愛タイプを診断</span>
           </a>
           <a href="../index.html" class="next-quiz-card" style="border-top:3px solid #16a34a;">

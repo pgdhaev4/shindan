@@ -323,7 +323,7 @@ class QuizEngine {
         ${statsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${statsHtml}</div>` : ''}
         ${ecoHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">🌿 生態</p><p class="ss-detail-item">${ecoHtml}</p></div>` : ''}
         ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
-        <p class="ss-hashtag">#会社モンスター診断 #職場診断ラボ #社内あるある</p>
+        <p class="ss-hashtag">#会社モンスター診断 #会社モンスター診断 #社内あるある</p>
       </div>
       <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;
@@ -406,7 +406,7 @@ class QuizEngine {
         <div class="next-quiz-grid">
           <a href="../psychology_app/index.html" class="next-quiz-card" style="border-top:3px solid #c471ed;">
             <span class="next-quiz-emoji">💖</span>
-            <span class="next-quiz-name">恋愛沼診断ラボ</span>
+            <span class="next-quiz-name">恋愛沼診断</span>
             <span class="next-quiz-label">恋愛タイプを診断</span>
           </a>
           <a href="../kosodate_app/index.html" class="next-quiz-card" style="border-top:3px solid #e8436a;">

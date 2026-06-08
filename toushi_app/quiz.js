@@ -1,4 +1,4 @@
-/**
+﻿/**
  * quiz.js - 投資家クズ診断ラボ エンジン v1
  * score モード対応：選択肢ごとにscoreを持ち、合計点でresultを振り分け
  */
@@ -328,7 +328,7 @@ class QuizEngine {
         ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
         ${sightingHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">👁️ 目撃談</p><p class="ss-detail-item">${sightingHtml}</p></div>` : ''}
         ${weaknessHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">⚡ 弱点</p><div class="ss-weak-wrap">${weaknessHtml}</div></div>` : ''}
-        <p class="ss-hashtag">#投資家クズ診断 #投資あるある #投資診断ラボ</p>
+        <p class="ss-hashtag">#投資家クズ診断 #投資あるある #投資家クズ診断</p>
       </div>
     `;
 
@@ -403,7 +403,7 @@ class QuizEngine {
           </a>
           <a href="../psychology_app/index.html" class="next-quiz-card" style="border-top:3px solid #c471ed;">
             <span class="next-quiz-emoji">💖</span>
-            <span class="next-quiz-name">恋愛・性格診断ラボ</span>
+            <span class="next-quiz-name">恋愛沼診断</span>
             <span class="next-quiz-label">恋愛タイプを診断</span>
           </a>
           <a href="../kosodate_app/index.html" class="next-quiz-card" style="border-top:3px solid #e8436a;">
