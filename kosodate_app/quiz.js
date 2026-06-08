@@ -291,9 +291,9 @@ class QuizEngine {
       </div>`;
     }).join('');
 
-    const ecologyHtml = (result.ecology || []).map(e =>
-      `<div class="ss-ecology-item">▸ ${this._esc(e)}</div>`
-    ).join('');
+    const ecologyHtml = (result.ecology || []).length > 0
+      ? (result.ecology || []).map(e => `・${this._esc(e)}`).join('　')
+      : '';
 
     const quotesArr = result.quotes || [];
     const quotesInline = quotesArr.length > 0
@@ -316,7 +316,7 @@ class QuizEngine {
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}
         ${statsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${statsHtml}</div>` : ''}
-        ${ecologyHtml ? `<div class="ss-ecology-section"><p class="ss-section-label">🌿 生 態</p>${ecologyHtml}</div>` : ''}
+        ${ecologyHtml ? `<div class="ss-ecology-section"><p class="ss-section-label">🌿 生 態</p><p class="ss-ecology-item">${ecologyHtml}</p></div>` : ''}
         ${quotesInline ? `<div class="ss-quotes-section"><p class="ss-section-label">💬 口 癖</p><p class="ss-quotes-item">${quotesInline}</p></div>` : ''}
         <p class="ss-hashtag">#子育て親タイプ診断 #育児あるある #子育てあるある</p>
       </div>

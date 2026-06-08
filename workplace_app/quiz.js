@@ -298,27 +298,14 @@ class QuizEngine {
       </div>`;
     }).join('');
 
-    const ecoHtml = (result.ecology || []).map(e =>
-      `<div class="ss-detail-item">▸ ${this._esc(e)}</div>`
-    ).join('');
+    const ecoHtml = (result.ecology || []).length > 0
+      ? (result.ecology || []).map(e => `・${this._esc(e)}`).join('　')
+      : '';
 
     const quotesArr = result.quotes || [];
     const quoteHtml = quotesArr.length > 0
       ? quotesArr.map(q => `「${this._esc(q.replace(/^「|」$/g, ''))}」`).join('、')
       : '';
-
-    const sightingArr = result.sighting || [];
-    const sightingHtml = sightingArr.length > 0
-      ? sightingArr.map(s => {
-          if (s.scene !== undefined) return this._esc(s.scene);
-          const txt = s.text.replace(/^「|」$/g, '');
-          return `${this._esc(s.speaker)}「${this._esc(txt)}」`;
-        }).join('　')
-      : '';
-
-    const weaknessHtml = (result.weakness || []).map(w =>
-      `<span class="ss-weak-tag">${this._esc(w)}</span>`
-    ).join('');
 
     const overlay = document.createElement('div');
     overlay.id = 'screenshot-overlay';
@@ -331,10 +318,8 @@ class QuizEngine {
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}
         ${statsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${statsHtml}</div>` : ''}
-        ${ecoHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">🌿 生態</p>${ecoHtml}</div>` : ''}
+        ${ecoHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">🌿 生態</p><p class="ss-detail-item">${ecoHtml}</p></div>` : ''}
         ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
-        ${sightingHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">👁️ 目撃談</p><p class="ss-detail-item">${sightingHtml}</p></div>` : ''}
-        ${weaknessHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">⚡ 弱点</p><div class="ss-weak-wrap">${weaknessHtml}</div></div>` : ''}
         <p class="ss-hashtag">#会社モンスター診断 #職場診断ラボ #社内あるある</p>
       </div>
       <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
