@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上司適性診断 | 職場診断ラボ</title>
+  <meta name="description" content="あなたは上司に向いている？野生ライオンから覚醒ブッダまで、10問の質問で診断します。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="site-header">
+      <a href="index.html" class="site-title">🏢 職場診断ラボ</a>
+    </header>
+
+    <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
+
+    <div id="quiz-app"
+         data-quiz="tests/boss_type.json"
+         data-title="👔 上司適性診断"></div>
+
+    <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
+
+    <footer class="site-footer">
+      <p><a href="index.html">← 診断トップへ戻る</a></p>
+      <p><a href="privacy.html">プライバシーポリシー</a></p>
+      <p class="footer-copy">© 2026 職場診断ラボ</p>
+    </footer>
+  </div>
+
+  <script src="tests/boss_type_data.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>

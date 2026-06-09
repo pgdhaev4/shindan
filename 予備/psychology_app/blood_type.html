@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="血液型で恋愛タイプを診断！4問に答えるだけ。A型・B型・O型・AB型それぞれの恋愛傾向を無料診断。">
+  <meta property="og:title" content="血液型恋愛タイプ診断 | 恋愛・性格診断ラボ">
+  <meta property="og:description" content="4問で血液型恋愛タイプを診断！">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>血液型恋愛タイプ診断 | 恋愛・性格診断ラボ</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="site-header">
+      <h1>💖 恋愛・性格診断ラボ</h1>
+      <p class="tagline">あなたの本当の姿を無料診断！</p>
+    </header>
+    <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
+    <div id="quiz-app" data-quiz="tests/blood_type.json"></div>
+    <footer class="site-footer">
+      <p>© 2026 恋愛・性格診断ラボ　<a href="index.html">トップへ戻る</a></p>
+      <p style="margin-top:6px;font-size:0.72rem;">本サイトの診断は娯楽目的です。結果はあくまで参考程度にお楽しみください。</p>
+    </footer>
+  </div>
+  <script>
+  window.QUIZ_DATA = JSON.parse(`{
+    "title": "血液型恋愛タイプ診断",
+    "description": "4問に答えてあなたの血液型恋愛タイプを診断！",
+    "questions": [
+      {"id":1,"text":"好きな人へのアプローチ方法は？","choices":[
+        {"key":"A","text":"まず友達として仲良くなってから、タイミングを見計らって告白する"},
+        {"key":"B","text":"好きになったら、すぐ行動！直感で動く"},
+        {"key":"C","text":"相手が困っているときに全力でサポートして存在感を示す"},
+        {"key":"D","text":"自分だけの特別なアプローチを考えて、相手の意表をつく"}
+      ]},
+      {"id":2,"text":"付き合ってからの記念日、あなたはどうする？","choices":[
+        {"key":"A","text":"前から計画を立てて、完璧なプランを用意する"},
+        {"key":"B","text":"当日のノリで決める！サプライズが好き"},
+        {"key":"C","text":"相手が喜ぶことを最優先に、丁寧にリサーチして準備する"},
+        {"key":"D","text":"ありきたりじゃなく、二人だけのオリジナルな記念日にする"}
+      ]},
+      {"id":3,"text":"喧嘩した後、あなたはどう仲直りする？","choices":[
+        {"key":"A","text":"少し時間を置いてから、きちんと話し合う"},
+        {"key":"B","text":"気持ちが落ち着いたらすぐ連絡。後を引かない"},
+        {"key":"C","text":"相手が落ち着くまで待って、自分から謝ることが多い"},
+        {"key":"D","text":"喧嘩すること自体があまりない。もめるくらいなら距離を置く"}
+      ]},
+      {"id":4,"text":"理想のデートといえば？","choices":[
+        {"key":"A","text":"落ち着いたカフェや美術館でゆっくり話せるデート"},
+        {"key":"B","text":"スポーツや遊園地など、体を動かすアクティブなデート"},
+        {"key":"C","text":"おいしいレストランで食事→散歩など、定番でも気持ちが込もったデート"},
+        {"key":"D","text":"二人だけの隠れ家的なスポットや、未知の場所を探索するデート"}
+      ]}
+    ],
+    "results": {
+      "A": {
+        "name": "A型タイプ💜 誠実ロマンチスト",
+        "emoji": "💜",
+        "description": "計画性があり、相手を思いやる誠実な恋愛スタイルがあなたの魅力。好きな人のために時間をかけて準備するその姿勢は、じわじわと相手の心を動かします。少し慎重すぎるところもありますが、一度心を開いた相手には深い愛情を注ぎます。",
+        "tags": ["誠実","計画的","思いやり","じっくり型"],
+        "advice": "完璧を求めすぎて一歩が踏み出せないこともあります。「完璧じゃなくても大丈夫」と自分に言い聞かせて、勇気を出して動くことが大切！",
+        "share_text": "私の恋愛タイプは「A型タイプ・誠実ロマンチスト」でした！"
+      },
+      "B": {
+        "name": "B型タイプ🧡 自由奔放アーティスト",
+        "emoji": "🧡",
+        "description": "直感と行動力が武器の自由奔放な恋愛スタイル。束縛を嫌い、自分のペースを大切にするあなたは、一緒にいて刺激的で楽しい存在。好きになったら真っ直ぐなアプローチで相手を驚かせることも。",
+        "tags": ["自由","行動力","個性派","刺激的"],
+        "advice": "「相手もあなたと同じペースじゃないかも」という視点を忘れずに。少し立ち止まって相手の気持ちを確認することで、関係がぐっと深まります！",
+        "share_text": "私の恋愛タイプは「B型タイプ・自由奔放アーティスト」でした！"
+      },
+      "C": {
+        "name": "O型タイプ❤️ 情熱的包容力型",
+        "emoji": "❤️",
+        "description": "面倒見がよく、どんな相手も包み込む大きな愛情がO型タイプの魅力。相手のために全力を尽くす姿勢は、気づけば相手があなたに頼り切りになるほど。情熱的なのに安心感もある、最強の恋愛スタイルです。",
+        "tags": ["包容力","情熱的","頼りになる","リーダー気質"],
+        "advice": "面倒見が良すぎて、自分の気持ちを後回しにしがち。「自分も大切にする」ことが、長続きする関係への近道です！",
+        "share_text": "私の恋愛タイプは「O型タイプ・情熱的包容力型」でした！"
+      },
+      "D": {
+        "name": "AB型タイプ💙 ミステリアス天才肌",
+        "emoji": "💙",
+        "description": "独自の感性と深い思慮を持つミステリアスな恋愛スタイル。普通の恋愛には満足できず、深みのある関係を求めます。二面性があり、親しい人には意外なほど甘い一面を見せることも。",
+        "tags": ["ミステリアス","深い","二面性","独特"],
+        "advice": "「この人は自分を理解してくれない」と感じやすいですが、言葉にしないと伝わりません。少しずつ自分の内面を見せていくことで、理想の関係が近づきます！",
+        "share_text": "私の恋愛タイプは「AB型タイプ・ミステリアス天才肌」でした！"
+      }
+    }
+  }`);
+  </script>
+  <script src="quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="あなたのモテるポイントを5問で診断！外見モテ・性格モテ・知性モテ・ギャップモテのどれ？">
+  <meta property="og:title" content="モテるポイント診断 | 恋愛・性格診断ラボ">
+  <meta property="og:description" content="5問であなたのモテるポイントがわかる！">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>モテるポイント診断 | 恋愛・性格診断ラボ</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="site-header">
+      <h1>💖 恋愛・性格診断ラボ</h1>
+      <p class="tagline">あなたの本当の姿を無料診断！</p>
+    </header>
+    <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
+    <div id="quiz-app" data-quiz="tests/mote_type.json"></div>
+    <footer class="site-footer">
+      <p>© 2026 恋愛・性格診断ラボ　<a href="index.html">トップへ戻る</a></p>
+      <p style="margin-top:6px;font-size:0.72rem;">本サイトの診断は娯楽目的です。結果はあくまで参考程度にお楽しみください。</p>
+    </footer>
+  </div>
+  <script>
+  window.QUIZ_DATA = JSON.parse(`{
+    "title": "モテるポイント診断",
+    "description": "5問に答えてあなたの隠れたモテるポイントを診断！",
+    "questions": [
+      {"id":1,"text":"初対面の人からよく言われることは？","choices":[
+        {"key":"A","text":"「清潔感があるね」「スタイルいいね」など見た目のこと"},
+        {"key":"B","text":"「優しいね」「話しやすい」など性格のこと"},
+        {"key":"C","text":"「頭いいね」「話が面白い」など知識・会話のこと"},
+        {"key":"D","text":"「意外と○○だね」とギャップを指摘されることが多い"}
+      ]},
+      {"id":2,"text":"グループにいるとき、あなたはどんな存在？","choices":[
+        {"key":"A","text":"見た目やファッションで注目を集めることが多い"},
+        {"key":"B","text":"みんなの相談相手・ムードメーカー的存在"},
+        {"key":"C","text":"知識が豊富で、頼りにされることが多い"},
+        {"key":"D","text":"普段は静かなのに、突然面白いことを言って場を沸かせる"}
+      ]},
+      {"id":3,"text":"好きな人ができたとき、自然にやってしまうことは？","choices":[
+        {"key":"A","text":"身だしなみにより一層気を遣う"},
+        {"key":"B","text":"相手の話をとにかくよく聞く"},
+        {"key":"C","text":"相手が興味ありそうなことを調べてから会話する"},
+        {"key":"D","text":"普段と違う一面をさりげなく見せようとする"}
+      ]},
+      {"id":4,"text":"自分の一番の強みは何だと思う？","choices":[
+        {"key":"A","text":"第一印象の良さ・清潔感"},
+        {"key":"B","text":"誰とでも仲良くなれる親しみやすさ"},
+        {"key":"C","text":"好奇心旺盛で話題が豊富なところ"},
+        {"key":"D","text":"クールに見えて実は熱い、意外性のある部分"}
+      ]},
+      {"id":5,"text":"連絡のスタイルは？","choices":[
+        {"key":"A","text":"既読はわりとすぐつけるが、返信は丁寧に選んで送る"},
+        {"key":"B","text":"すぐ返す！相手を待たせたくない"},
+        {"key":"C","text":"内容が濃くなりがち。気づいたら長文になっている"},
+        {"key":"D","text":"普段はあっさりだけど、たまにすごく深い内容を送る"}
+      ]}
+    ],
+    "results": {
+      "A": {
+        "name": "外見・清潔感モテ✨",
+        "emoji": "✨",
+        "description": "あなたのモテポイントは「見た目の清潔感とスタイル」。第一印象で好印象を与えるのが得意で、初対面でも相手に安心感を与えます。身だしなみへの意識が高く、それが自然と周囲を引きつける。「あの人、なんか素敵だな」と思わせるのが得意なタイプです。",
+        "tags": ["清潔感","第一印象◎","スタイリッシュ","見た目勝負"],
+        "advice": "外見は武器ですが、「中身も素敵」と思わせることでモテの質が格段に上がります。内面磨きにも少し時間を投資してみて！",
+        "share_text": "私のモテポイントは「外見・清潔感モテ✨」でした！"
+      },
+      "B": {
+        "name": "性格・安心感モテ🤗",
+        "emoji": "🤗",
+        "description": "あなたのモテポイントは「誰もが安心できる優しさと親しみやすさ」。一緒にいると自然とリラックスできる、心の拠り所になれるタイプ。「この人といると楽」という感覚を与えるのが抜群に上手く、気づいたら相手があなたに頼りたくなっています。",
+        "tags": ["安心感","優しさ","話しやすい","じわじわ来るモテ"],
+        "advice": "「優しすぎて友達止まり」になりやすいのが弱点。時には自分の気持ちを少し強めに表現してみると、関係が一歩前進するかも！",
+        "share_text": "私のモテポイントは「性格・安心感モテ🤗」でした！"
+      },
+      "C": {
+        "name": "知性・会話力モテ📚",
+        "emoji": "📚",
+        "description": "あなたのモテポイントは「話していると楽しい、一緒にいると賢くなれる知的な魅力」。博識で会話が面白く、「この人と話すのが好き」と感じさせる力があります。特に知的好奇心が高い人や、刺激を求めている人には絶大な人気を誇ります。",
+        "tags": ["知性","会話上手","博識","尊敬されるモテ"],
+        "advice": "会話が一方通行になりがちなことも。「質問する」「相手の話を引き出す」ことを意識すると、さらにモテが加速しますよ！",
+        "share_text": "私のモテポイントは「知性・会話力モテ📚」でした！"
+      },
+      "D": {
+        "name": "ギャップ・意外性モテ🎭",
+        "emoji": "🎭",
+        "description": "あなたのモテポイントは「予想を裏切る意外性とギャップ」。クールに見えて実は熱い、無口に見えて実は面白い…そのギャップが相手の想像力を刺激し、「もっと知りたい」という気持ちにさせます。最初は目立たなくても、知れば知るほど好きになってもらえるタイプです。",
+        "tags": ["ギャップ","ミステリアス","意外性","じわじわ沼落ち型"],
+        "advice": "ギャップが武器ですが、出し惜しみしすぎると「掴めない人」と思われることも。信頼できる人には少しずつ本音を見せることで、より深い関係を築けます！",
+        "share_text": "私のモテポイントは「ギャップ・意外性モテ🎭」でした！"
+      }
+    }
+  }`);
+  </script>
+  <script src="quiz.js"></script>
+</body>
+</html>
