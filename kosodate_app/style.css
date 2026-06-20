@@ -1182,3 +1182,17 @@ body {
   border-radius: 50px;
   text-decoration: none;
 }
+
+
+/* seo-static : AdSense審査用 静的コンテンツ */
+.seo-static{max-width:680px;margin:20px auto 0;padding:0 16px;line-height:1.9;}
+.seo-static h2{font-size:1.12rem;margin:22px 0 10px;font-weight:800;}
+.seo-static .seo-lead{font-size:0.92rem;opacity:0.92;margin-bottom:6px;}
+.seo-static .seo-card{background:rgba(127,127,127,0.06);border:1px solid rgba(127,127,127,0.14);
+  border-radius:12px;padding:14px 16px;margin-bottom:12px;}
+.seo-static .seo-card h3{font-size:1rem;margin-bottom:4px;}
+.seo-static .seo-catch{font-weight:700;margin-bottom:6px;font-size:0.9rem;opacity:0.95;}
+.seo-static .seo-desc{font-size:0.9rem;opacity:0.9;}
+.seo-static .seo-eco{font-size:0.84rem;opacity:0.8;margin:6px 0 0 1.1em;}
+.seo-static .seo-faq dt{font-weight:700;margin-top:12px;}
+.seo-static .seo-faq dd{margin:2px 0 0;opacity:0.9;font-size:0.9rem;}
