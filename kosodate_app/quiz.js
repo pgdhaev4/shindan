@@ -253,7 +253,6 @@ class QuizEngine {
           </div>
         </div>
 
-        <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
 
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}

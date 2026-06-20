@@ -388,12 +388,6 @@ class QuizEngine {
           </div>
         </div>
         ${this._shareSection(tweetText, currentURL)}
-        <div class="affiliate-section">
-          <h3>💌 理想の出会いを見つけよう</h3>
-          <a href="#AFFILIATE_PAIRS_URL" class="affiliate-banner" target="_blank" rel="noopener noreferrer">💑 Pairs（ペアーズ）で相性のいい相手を探す</a>
-          <a href="#AFFILIATE_TAPPLE_URL" class="affiliate-banner secondary" target="_blank" rel="noopener noreferrer">🧡 タップルで同い年の恋人を見つける</a>
-        </div>
-        <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
         <div class="result-action-btns">
@@ -604,12 +598,6 @@ class QuizEngine {
           </div>
         </div>
         ${this._shareSection(tweetText, currentURL)}
-        <div class="affiliate-section">
-          <h3>💌 理想の出会いを見つけよう</h3>
-          <a href="#AFFILIATE_PAIRS_URL" class="affiliate-banner" target="_blank" rel="noopener noreferrer">💑 Pairs（ペアーズ）で相性のいい相手を探す</a>
-          <a href="#AFFILIATE_TAPPLE_URL" class="affiliate-banner secondary" target="_blank" rel="noopener noreferrer">🧡 タップルで同い年の恋人を見つける</a>
-        </div>
-        <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
         <div class="result-action-btns">
@@ -738,14 +726,7 @@ class QuizEngine {
 
         ${this._shareSection(tweetText, currentURL)}
 
-        <div class="affiliate-section">
-          <h3>💌 理想の出会いを見つけよう</h3>
-          <a href="#AFFILIATE_PAIRS_URL" class="affiliate-banner" target="_blank" rel="noopener noreferrer">💑 Pairs（ペアーズ）で理想のパートナーを探す</a>
-          <a href="#AFFILIATE_TAPPLE_URL" class="affiliate-banner secondary" target="_blank" rel="noopener noreferrer">🧡 タップルで同い年の恋人を見つける</a>
-          <a href="#NOTE_ARTICLE_URL" class="note-link" target="_blank" rel="noopener noreferrer">📝 もっと詳しい恋愛アドバイスはこちら（note有料記事）</a>
-        </div>
 
-        <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
 
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
@@ -800,12 +781,7 @@ class QuizEngine {
 
         ${this._shareSection(tweetText, currentURL, '推し診断')}
 
-        <div class="affiliate-section">
-          <h3>🎤 推し活をもっと楽しもう！</h3>
-          <a href="#NOTE_ARTICLE_URL" class="note-link" target="_blank" rel="noopener noreferrer">📝 推し活を10倍楽しむ方法（note有料記事）</a>
-        </div>
 
-        <div class="adsense-block">▼ 広告スペース（Google AdSense）▼</div>
 
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
