@@ -247,6 +247,8 @@ class QuizEngine {
           ${adviceHtml}
         </div>
 
+        ${this._renderArticles()}
+
         <div class="share-section">
           <p class="share-lead">📣 同僚にシェアして比べよう！</p>
           <div class="share-btns">
@@ -391,6 +393,32 @@ class QuizEngine {
               <span class="next-quiz-emoji">${q.emoji}</span>
               <span class="next-quiz-name">${q.title}</span>
               <span class="next-quiz-label">${q.label}</span>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  _renderArticles() {
+    const articles = [
+      { href: 'articles/joushi.html',      icon: '🤝', title: '合わない上司とうまく付き合う5つの方法' },
+      { href: 'articles/teiji.html',       icon: '🏃', title: '定時で帰る人がやっている仕事のコツ' },
+      { href: 'articles/kotowari.html',    icon: '🙅', title: '仕事を断れない人のための上手な断り方' },
+      { href: 'articles/stress-care.html', icon: '🍵', title: '職場のストレスを軽くする考え方' },
+      { href: 'articles/horenso.html',     icon: '🗣️', title: '「報連相」が苦手な人のための伝え方' },
+    ];
+    const picked = articles.sort(() => Math.random() - 0.5).slice(0, 3);
+    return `
+      <div class="next-quiz-section" style="background:linear-gradient(135deg,#eef4ff 0%,#f3fff6 100%);">
+        <h3 class="next-quiz-title">💡 仕事の悩みを軽くするヒント</h3>
+        <p style="text-align:center;font-size:0.82rem;color:#5a6b85;margin:-4px 0 12px;">診断はここがゴールじゃない。今日から使える読み物もどうぞ</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${picked.map(a => `
+            <a href="${a.href}" style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(80,110,160,0.18);border-radius:12px;padding:12px 14px;text-decoration:none;color:#1e293b;box-shadow:0 2px 6px rgba(30,62,138,0.06);">
+              <span style="font-size:1.4rem;line-height:1;">${a.icon}</span>
+              <span style="font-weight:700;font-size:0.9rem;flex:1;">${a.title}</span>
+              <span style="color:#94a3b8;font-weight:700;">›</span>
             </a>
           `).join('')}
         </div>
