@@ -166,6 +166,16 @@ class QuizEngine {
     }, 420);
   }
 
+  // ---- 統合分析レポート用：結果をlocalStorageに保存 ----
+  _saveResult(key, result) {
+    try {
+      const slug = (location.pathname.split('/').pop() || '').replace(/\.html?$/, '');
+      if (!slug) return;
+      localStorage.setItem('lv_' + slug, key);
+      localStorage.setItem('lv_' + slug + '_name', result.name || '');
+    } catch (e) { /* プライベートモード等では保存しない */ }
+  }
+
   _calcResult() {
     if (this.data.mode === 'mbti') {
       const s = this._axisScores || {};
@@ -279,6 +289,7 @@ class QuizEngine {
     const resultKey = this._calcResult();
     const result    = this.data.results[resultKey];
     if (!result) { this._showError('結果データが見つかりませんでした。'); return; }
+    this._saveResult(resultKey, result);
     if (this.data.mode === 'mbti') {
       this._renderMbtiResult(resultKey, result);
     } else if (this.data.mode === 'axis3') {

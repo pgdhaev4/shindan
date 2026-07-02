@@ -116,6 +116,16 @@ class QuizEngine {
     }, 380);
   }
 
+  // ---- 統合分析レポート用：結果をlocalStorageに保存 ----
+  _saveResult(key, result) {
+    try {
+      const slug = (location.pathname.split('/').pop() || '').replace(/\.html?$/, '');
+      if (!slug) return;
+      localStorage.setItem('wp_' + slug, key);
+      localStorage.setItem('wp_' + slug + '_name', result.name || '');
+    } catch (e) { /* プライベートモード等では保存しない */ }
+  }
+
   _calcResultKey() {
     const ranges = this.data.score_ranges;
     for (const [min, max, key] of ranges) {
@@ -130,6 +140,7 @@ class QuizEngine {
     const key    = this._calcResultKey();
     const result = this.data.results[key];
     if (!result) { this._showError('結果データが見つかりませんでした。'); return; }
+    this._saveResult(key, result);
     this._showConfetti();
 
     const shareBody = result.share_text || result.oneliner || result.catchphrase || '';

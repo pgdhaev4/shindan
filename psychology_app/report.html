@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あなただけの恋愛性格分析レポート | 恋愛沼診断</title>
+  <meta name="description" content="5つの診断結果を統合分析。16系統からあなたの恋愛の本当の魅力と隠れた才能を発見する、自己肯定感が上がる恋愛性格分析レポート。">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; background: #1a1a2e; color: #1e293b; min-height: 100vh; }
+    .page-wrapper { max-width: 520px; margin: 0 auto; background: #fdf7fa; min-height: 100vh; }
+    .site-header { background: #1a1a2e; padding: 12px 16px; }
+    .site-header a { color: #b0a8c4; text-decoration: none; font-size: .85em; }
+
+    /* ヒーロー */
+    .report-hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 55%, #4a148c 100%); padding: 34px 16px 26px; text-align: center; color: #fff; }
+    .report-hero .label { font-size: .72em; background: rgba(255,110,180,.16); border: 1px solid rgba(255,110,180,.5); display: inline-block; padding: 3px 14px; border-radius: 50px; margin-bottom: 14px; color: #ffd6e0; letter-spacing: .08em; }
+    .report-hero h1 { font-size: 1.02em; opacity: .85; font-weight: normal; }
+    .type-name { font-size: 1.75em; font-weight: 900; line-height: 1.3; margin: 10px 0 10px; color: #ff9ecf; text-shadow: 0 0 24px rgba(255,110,180,.45); }
+    .type-catch { font-size: .88em; opacity: .85; line-height: 1.7; }
+    .result-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 18px; }
+    .badge { font-size: .72em; background: rgba(255,255,255,.12); padding: 4px 12px; border-radius: 50px; color: #e9e2f2; }
+
+    /* 4軸バー */
+    .axes-section { background: #241a3d; padding: 18px 16px 20px; }
+    .axes-title { color: #b0a8c4; font-size: .75em; letter-spacing: .12em; margin-bottom: 12px; text-align: center; }
+    .axis-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+    .axis-label { color: #d9d2e6; font-size: .76em; width: 84px; flex-shrink: 0; }
+    .axis-bar-wrap { flex: 1; background: rgba(255,255,255,.1); border-radius: 50px; height: 9px; overflow: hidden; }
+    .axis-bar-fill { border-radius: 50px; height: 100%; transition: width 1.2s ease; }
+    .axis-value { color: #ff9ecf; font-size: .72em; width: 30px; flex-shrink: 0; text-align: right; }
+
+    /* カード */
+    .section-card { background: #fff; margin: 14px 12px; border-radius: 16px; padding: 18px 16px; box-shadow: 0 2px 10px rgba(26,26,46,.07); }
+    .section-card h2 { font-size: .92em; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; color: #4a148c; }
+    .section-card p { font-size: .89em; line-height: 1.9; color: #374151; }
+
+    /* 強み */
+    .strength-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px dashed #f0e4ec; align-items: flex-start; }
+    .strength-item:last-child { border-bottom: none; }
+    .strength-name { flex-shrink: 0; font-size: .8em; font-weight: bold; background: linear-gradient(135deg,#ff6eb4,#9b59b6); color: #fff; padding: 4px 12px; border-radius: 50px; min-width: 84px; text-align: center; }
+    .strength-desc { font-size: .84em; color: #475569; line-height: 1.7; }
+
+    /* 4視点 */
+    .view-item { background: #f8f1f6; border-radius: 12px; padding: 11px 13px; margin-bottom: 8px; }
+    .view-label { font-size: .74em; color: #8b6e85; font-weight: bold; margin-bottom: 3px; }
+    .view-text { font-size: .85em; color: #1e293b; line-height: 1.7; }
+
+    /* 才能 */
+    .talent-card { background: linear-gradient(135deg, #fdf2f8, #fce7f3); border: 1px solid #fbcfe8; }
+    .talent-card h2 { color: #9d174d; }
+    .talent-card p { color: #831843; }
+
+    /* 環境タグ */
+    .env-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .env-tag { font-size: .8em; padding: 6px 13px; border-radius: 50px; background: #f3e8ff; color: #6b21a8; font-weight: bold; }
+    .env-note { font-size: .82em; color: #64748b; line-height: 1.7; }
+
+    /* 輝く方法 */
+    .shine-item { display: flex; gap: 9px; padding: 8px 0; border-bottom: 1px solid #f8f1f6; font-size: .86em; color: #374151; line-height: 1.7; }
+    .shine-item:last-child { border-bottom: none; }
+    .shine-num { flex-shrink: 0; font-weight: 900; color: #ec4899; }
+
+    /* 最後のメッセージ */
+    .message-card { background: linear-gradient(135deg, #1a1a2e, #4a148c); color: #fff; margin: 14px 12px 18px; border-radius: 16px; padding: 22px 18px; }
+    .message-card h2 { font-size: .92em; margin-bottom: 12px; color: #ffd6e0; display: flex; align-items: center; gap: 7px; }
+    .message-card p { font-size: .9em; line-height: 2.0; color: #f4effa; }
+
+    /* シェア */
+    .share-section { text-align: center; padding: 6px 16px 10px; }
+    .share-lead { font-size: .85em; color: #475569; margin-bottom: 10px; font-weight: bold; }
+    .share-btns { display: flex; gap: 10px; justify-content: center; }
+    .share-btn { flex: 1; max-width: 200px; padding: 12px 10px; border-radius: 50px; text-decoration: none; font-size: .88em; font-weight: bold; text-align: center; }
+    .share-btn.twitter { background: #0f1419; color: #fff; }
+    .share-btn.line { background: #06c755; color: #fff; }
+
+    /* ロック画面 */
+    .lock-screen { padding: 44px 20px; text-align: center; }
+    .lock-emoji { font-size: 3em; }
+    .lock-screen h2 { font-size: 1.15em; margin: 16px 0 10px; color: #4a148c; line-height: 1.5; }
+    .lock-screen p { font-size: .86em; color: #64748b; margin-bottom: 20px; line-height: 1.8; }
+    .progress-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 22px; }
+    .p-dot { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.15em; background: #ece4f0; }
+    .p-dot.done { background: linear-gradient(135deg,#ff6eb4,#9b59b6); box-shadow: 0 2px 8px rgba(255,110,180,.4); }
+    .remaining-list { display: flex; flex-direction: column; gap: 9px; max-width: 320px; margin: 0 auto 20px; }
+    .remaining-link { background: #4a148c; color: #fff; padding: 12px 16px; border-radius: 50px; text-decoration: none; font-size: .88em; font-weight: bold; }
+    .done-label { background: #f3ecf3; color: #a894a4; padding: 12px 16px; border-radius: 50px; font-size: .88em; font-weight: bold; }
+    .back-link { font-size: .82em; color: #64748b; text-decoration: underline; }
+
+    .disclaimer { text-align: center; font-size: .72em; color: #a894a4; padding: 14px 16px 4px; }
+    .footer-copy { text-align: center; font-size: .72em; color: #a894a4; padding: 8px 0 24px; }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <header class="site-header">
+    <a href="index.html">← 恋愛沼診断トップへ</a>
+  </header>
+
+  <div id="app"></div>
+
+  <div class="disclaimer">※ これはエンタメ目的の性格分析です。医療・専門診断ではありません。</div>
+  <p class="footer-copy">© 2026 恋愛沼診断</p>
+</div>
+
+<script src="tests/report_16types.js"></script>
+<script>
+// ═══════════════════════════════════════════
+//  恋愛モンスター診断 統合分析レポート
+//  5診断 → 4軸(情熱/献身/自立回復/表現) → 16系統
+// ═══════════════════════════════════════════
+const QUIZZES = [
+  { storage: 'lv_love_type',       href: 'love_type.html',       emoji: '💘', name: 'あなたが恋愛で沼る理由診断' },
+  { storage: 'lv_jealousy',        href: 'jealousy.html',        emoji: '😤', name: '重い女・重い男度診断' },
+  { storage: 'lv_love_dependency', href: 'love_dependency.html', emoji: '💝', name: '好きになると人生狂う度診断' },
+  { storage: 'lv_heartbreak',      href: 'heartbreak.html',      emoji: '💔', name: '元恋人を忘れられない度診断' },
+  { storage: 'lv_ideal_date',      href: 'ideal_date.html',      emoji: '🌸', name: '理想のデートタイプ診断' },
+];
+
+// 軸キーの並び＝タイプキーの文字順（情熱・献身・自立回復・表現）
+const AXIS_ORDER = ['passion', 'devote', 'recover', 'express'];
+
+function axisLevel(axisKey) {
+  const axis = window.REPORT_AXES[axisKey];
+  let score = 0;
+  axis.sources.forEach(src => {
+    const key = localStorage.getItem(src.storage) || '';
+    if (key.charAt(src.pos) === src.char) score += src.pt;
+  });
+  return score >= axis.threshold ? 'H' : 'L';
+}
+
+function renderLockScreen(remaining) {
+  const dots = QUIZZES.map(q =>
+    `<div class="p-dot ${localStorage.getItem(q.storage) ? 'done' : ''}">${q.emoji}</div>`
+  ).join('');
+  const links = QUIZZES.map(q => localStorage.getItem(q.storage)
+    ? `<span class="done-label">✅ ${q.name}（診断済み）</span>`
+    : `<a href="${q.href}" class="remaining-link">${q.emoji} ${q.name}を受ける</a>`
+  ).join('');
+  document.getElementById('app').innerHTML = `
+    <div class="lock-screen">
+      <div class="lock-emoji">🔮</div>
+      <h2>あなただけの恋愛性格分析レポート</h2>
+      <p>5つの診断をすべて受けると、結果を統合分析して<br><strong>16系統</strong>からあなたの<strong>恋愛の本当の魅力</strong>を導き出します。<br>（あと<strong>${remaining}個</strong>で解放！）</p>
+      <div class="progress-dots">${dots}</div>
+      <div class="remaining-list">${links}</div>
+      <a href="index.html" class="back-link">← 診断一覧へ戻る</a>
+    </div>`;
+}
+
+function renderReport(t, names) {
+  const axisOrder = ['情熱度', '献身度', '自立回復力', '表現力'];
+  const colors = ['#f43f5e', '#ec4899', '#8b5cf6', '#f59e0b'];
+  const axesHtml = axisOrder.map((label, i) => `
+    <div class="axis-row">
+      <span class="axis-label">${label}</span>
+      <div class="axis-bar-wrap"><div class="axis-bar-fill" style="width:${t.bars[label]}%;background:${colors[i]};"></div></div>
+      <span class="axis-value">${t.bars[label]}</span>
+    </div>`).join('');
+
+  const badgesHtml = QUIZZES.map(q => {
+    const n = names[q.storage];
+    return n ? `<span class="badge">${q.emoji} ${n}</span>` : '';
+  }).join('');
+
+  const strengthsHtml = t.strengths.map(s =>
+    `<div class="strength-item"><span class="strength-name">${s.t}</span><span class="strength-desc">${s.d}</span></div>`).join('');
+
+  const viewsHtml = [
+    ['💘 恋人・好きな人から見たあなた', t.views.lover],
+    ['🍻 友達から見たあなた', t.views.friend],
+    ['🏠 家族から見たあなた', t.views.family],
+    ['🏢 職場で見せるあなた', t.views.work],
+  ].map(([label, text]) => `<div class="view-item"><p class="view-label">${label}</p><p class="view-text">${text}</p></div>`).join('');
+
+  const envHtml = t.env.map(e => `<span class="env-tag">${e}</span>`).join('');
+  const shineHtml = t.shine.map((s, i) => `<div class="shine-item"><span class="shine-num">${i + 1}.</span><span>${s}</span></div>`).join('');
+
+  const tweetText = encodeURIComponent(`【私の恋愛タイプ：${t.name}】\n5つの恋愛沼診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#恋愛沼診断 #恋愛心理テスト`);
+  const currentURL = encodeURIComponent(window.location.href);
+
+  document.getElementById('app').innerHTML = `
+    <div class="report-hero">
+      <span class="label">🔮 統合分析レポート｜16系統</span>
+      <h1>5つの診断からわかった、あなたの恋愛タイプは…</h1>
+      <p class="type-name">${t.name}</p>
+      <p class="type-catch">${t.catch}</p>
+      <div class="result-badges">${badgesHtml}</div>
+    </div>
+
+    <div class="axes-section">
+      <p class="axes-title">◆ あなたの4つの恋愛エネルギー ◆</p>
+      ${axesHtml}
+    </div>
+
+    <div class="section-card">
+      <h2>🧭 あなたの恋愛の本質</h2>
+      <p>${t.essence}</p>
+    </div>
+
+    <div class="section-card">
+      <h2>💪 あなたの恋愛の強み</h2>
+      ${strengthsHtml}
+    </div>
+
+    <div class="section-card">
+      <h2>👁️ 周囲から見たあなた</h2>
+      ${viewsHtml}
+    </div>
+
+    <div class="section-card talent-card">
+      <h2>💎 実はあなたが気づいていない才能</h2>
+      <p>${t.talent}</p>
+    </div>
+
+    <div class="section-card">
+      <h2>🌱 あなたに合う恋愛・相手</h2>
+      <div class="env-tags">${envHtml}</div>
+      <p class="env-note">${t.envNote}</p>
+    </div>
+
+    <div class="section-card">
+      <h2>🍵 ストレスを感じやすい恋愛</h2>
+      <p>${t.stress}</p>
+    </div>
+
+    <div class="section-card">
+      <h2>✨ あなたがもっと輝く方法</h2>
+      ${shineHtml}
+    </div>
+
+    <div class="message-card">
+      <h2>💌 最後に、あなたへ</h2>
+      <p>${t.message}</p>
+    </div>
+
+    <div class="share-section">
+      <p class="share-lead">📣 この結果、誰かに見せたくなったら</p>
+      <div class="share-btns">
+        <a href="https://twitter.com/intent/tweet?text=${tweetText}&url=${currentURL}" class="share-btn twitter" target="_blank" rel="noopener">𝕏でシェア</a>
+        <a href="https://social-plugins.line.me/lineit/share?url=${currentURL}" class="share-btn line" target="_blank" rel="noopener">🟢 LINEで送る</a>
+      </div>
+    </div>
+
+    <div style="margin:16px 12px 8px;text-align:center;">
+      <a href="index.html" style="font-size:.85em;color:#64748b;text-decoration:underline;">← 診断一覧へ戻る</a>
+    </div>`;
+}
+
+(function () {
+  let done = 0;
+  QUIZZES.forEach(q => { if (localStorage.getItem(q.storage)) done++; });
+  if (done < QUIZZES.length) {
+    renderLockScreen(QUIZZES.length - done);
+    return;
+  }
+
+  const typeKey = AXIS_ORDER.map(axisLevel).join('');
+  const t = window.REPORT_TYPES[typeKey];
+  if (!t) {
+    document.getElementById('app').innerHTML = '<div class="lock-screen"><p>データの読み込みに失敗しました。もう一度診断を受けてみてください。</p></div>';
+    return;
+  }
+
+  const names = {};
+  QUIZZES.forEach(q => { names[q.storage] = localStorage.getItem(q.storage + '_name') || ''; });
+
+  renderReport(t, names);
+})();
+</script>
+</body>
+</html>
