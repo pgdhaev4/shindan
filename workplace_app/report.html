@@ -70,10 +70,15 @@
     .premium-card { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 2px solid #fbbf24; margin: 14px 12px; border-radius: 16px; padding: 22px 18px; }
     .premium-card h2 { font-size: .95em; color: #92400e; margin-bottom: 10px; text-align: center; }
     .premium-lead { font-size: .86em; color: #78350f; line-height: 1.9; margin-bottom: 10px; }
-    .premium-list { list-style: none; margin-bottom: 16px; }
-    .premium-list li { font-size: .85em; color: #78350f; line-height: 1.9; padding-left: 1.3em; text-indent: -1.3em; }
+    .locked-list { list-style: none; margin-bottom: 14px; background: rgba(255,255,255,.55); border-radius: 12px; padding: 12px 14px; }
+    .locked-list li { font-size: .86em; color: #78350f; line-height: 2.0; font-weight: bold; }
+    .premium-divider { font-size: .8em; color: #92400e; font-weight: bold; text-align: center; margin: 14px 0 8px; }
+    .toc-list { list-style: none; margin-bottom: 12px; }
+    .toc-list li { font-size: .83em; color: #78350f; line-height: 1.95; padding-left: 1.2em; text-indent: -1.2em; }
+    .premium-spec { font-size: .78em; color: #92400e; text-align: center; margin-bottom: 14px; font-weight: bold; }
     .premium-btn { display: block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: bold; padding: 14px 18px; border-radius: 50px; text-decoration: none; font-size: .95em; text-align: center; box-shadow: 0 4px 12px rgba(245,158,11,.4); }
     .premium-note { font-size: .72em; color: #a16207; margin-top: 10px; text-align: center; line-height: 1.7; }
+    .teaser-more { font-size: .8em; color: #b45309; margin-top: 10px; font-weight: bold; }
 
     /* シェア */
     .share-section { text-align: center; padding: 6px 16px 10px; }
@@ -196,7 +201,9 @@ function renderReport(typeKey, t, names) {
   ].map(([label, text]) => `<div class="view-item"><p class="view-label">${label}</p><p class="view-text">${text}</p></div>`).join('');
 
   const envHtml = t.env.map(e => `<span class="env-tag">${e}</span>`).join('');
-  const shineHtml = t.shine.map((s, i) => `<div class="shine-item"><span class="shine-num">${i + 1}.</span><span>${s}</span></div>`).join('');
+  // 無料版は冒頭だけ見せて完全版へ（フリーミアム設計・CEO決定 2026-07-04）
+  const talentTeaser = t.talent.split('。')[0] + '。';
+  const msgTeaser = t.message.split('。').slice(0, 2).join('。') + '。';
 
   const tweetText = encodeURIComponent(`【私の性格タイプ：${t.name}】\n4つの会社モンスター診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#会社モンスター診断 #性格分析`);
   const currentURL = encodeURIComponent(window.location.href);
@@ -232,42 +239,45 @@ function renderReport(typeKey, t, names) {
 
     <div class="section-card talent-card">
       <h2>💎 実はあなたが気づいていない才能</h2>
-      <p>${t.talent}</p>
+      <p>${talentTeaser}</p>
+      <p class="teaser-more">🔒 この才能の正体と活かし方は、完全版に収録しています。</p>
     </div>
 
     <div class="section-card">
       <h2>🌱 向いている環境</h2>
       <div class="env-tags">${envHtml}</div>
-      <p class="env-note">${t.envNote}</p>
-    </div>
-
-    <div class="section-card">
-      <h2>🍵 ストレスを感じやすい状況</h2>
-      <p>${t.stress}</p>
-    </div>
-
-    <div class="section-card">
-      <h2>✨ あなたがさらに輝く方法</h2>
-      ${shineHtml}
+      <p class="teaser-more">🔒 「この環境をどう選ぶか」は、完全版・第3章で。</p>
     </div>
 
     <div class="message-card">
       <h2>💌 最後に、あなたへ</h2>
-      <p>${t.message}</p>
+      <p>${msgTeaser}</p>
+      <p style="font-size:.8em;color:#cbd5e1;margin-top:10px;">――この手紙の続きは、完全版の最終章に。</p>
     </div>
 
     ${NOTE_URLS[typeKey] ? `
     <div class="premium-card">
-      <h2>📕 この先の「実践編」を読みたい方へ</h2>
-      <p class="premium-lead">ここまでが「あなたを知る」無料レポートです。<br>でも、本当に知りたいのはこの先ですよね。</p>
-      <ul class="premium-list">
-        <li>✔ あなたと最高に相性のいい上司・力を発揮しにくい上司は？</li>
-        <li>✔ あなたの強みがそのまま活きる「具体的な職種」は？</li>
-        <li>✔ このまま10年進んだ先に広がる、2つの未来シナリオ</li>
-        <li>✔ 今日から始められる「30日アクションプラン」</li>
+      <h2>🔒 この先は、完全版に収録しています</h2>
+      <p class="premium-lead">ここまでが「あなたを知る」無料レポート。<br>ここから先は、その型を<strong>人生で使いこなす実践編</strong>です。</p>
+      <ul class="locked-list">
+        <li>🔒 あなたが気づいていない才能（全文）</li>
+        <li>🔒 ストレスを感じやすい状況と、心の守り方</li>
+        <li>🔒 あなたがさらに輝く方法（30日アクションプラン）</li>
+        <li>🔒 あなたへの手紙（ロング版）</li>
       </ul>
+      <p class="premium-divider">◆ 完全版『頑張りすぎる人のための人生攻略レポート』全7章 ◆</p>
+      <ul class="toc-list">
+        <li>第1章｜あなたの魅力が正しく伝わる翻訳ガイド</li>
+        <li>第2章｜相性大全 ― 力を引き出してくれる上司・仲間</li>
+        <li>第3章｜キャリア戦略 ― 強みの伸ばし方と職種の傾向</li>
+        <li>第4章｜あなたの10年後 ― 2つの輝き方</li>
+        <li>第5章｜才能を守るための注意ポイント</li>
+        <li>第6章｜今日からの30日アクションプラン</li>
+        <li>第7章｜あなたへの手紙</li>
+      </ul>
+      <p class="premium-spec">全7章・約8,000字（試し読みつき）／note記事・スマホでそのまま読めます</p>
       <a href="${NOTE_URLS[typeKey]}" class="premium-btn" target="_blank" rel="noopener">▶ ${t.name}・完全版を読む（300円）</a>
-      <p class="premium-note">『頑張りすぎる人のための人生攻略レポート』全16タイプ<br>note記事・スマホでそのまま読めます</p>
+      <p class="premium-note">全16タイプ・あなたの型専用に書かれたレポートです</p>
     </div>` : ''}
 
     <div class="share-section">
