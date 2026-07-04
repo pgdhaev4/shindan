@@ -170,5 +170,9 @@
   </style>
   <script src="tests/mbti_data.js"></script>
   <script src="quiz.js"></script>
+<!-- 戻るボタン(全ページ共通) -->
+<style>.back-fab{position:fixed;left:12px;bottom:12px;z-index:9999;background:rgba(20,40,74,.88);color:#fff;border:none;border-radius:50px;padding:10px 18px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35);font-family:inherit;}.back-fab:active{transform:scale(.95);}</style>
+<button class="back-fab" id="backFab" onclick="history.back()" aria-label="前のページに戻る">← 戻る</button>
+<script>if(history.length<=1){var _bf=document.getElementById('backFab');if(_bf)_bf.style.display='none';}</script>
 </body>
 </html>
