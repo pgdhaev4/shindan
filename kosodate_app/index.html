@@ -44,41 +44,13 @@
       <div class="monster-scroll" id="monster-scroll"></div>
     </section>
 
-    <!-- 人気ランキング -->
+    <!-- 統合分析レポート（進捗つき・診断を選ぶの直上） -->
     <section class="section">
-      <h2 class="section-title">👑 みんなが共感したランキング</h2>
-      <p class="section-lead">📱 ママ友・パパ友に送られてます</p>
-      <div class="ranking-list">
-        <a href="true_nature.html" class="ranking-item">
-          <span class="rank-num rn1">1位</span>
-          <span class="rank-emoji">🏕️</span>
-          <div class="rank-body"><p class="rank-name">限界サバイバー</p><p class="rank-diag">育児中の本性診断</p></div>
-          <span class="rank-arrow">›</span>
-        </a>
-        <a href="parent_type.html" class="ranking-item">
-          <span class="rank-num rn2">2位</span>
-          <span class="rank-emoji">☯️</span>
-          <div class="rank-body"><p class="rank-name">子育てブッダ</p><p class="rank-diag">親タイプ診断</p></div>
-          <span class="rank-arrow">›</span>
-        </a>
-        <a href="couple_balance.html" class="ranking-item">
-          <span class="rank-num rn3">3位</span>
-          <span class="rank-emoji">🕵️</span>
-          <div class="rank-body"><p class="rank-name">家事行方不明者</p><p class="rank-diag">夫婦育児バランス診断</p></div>
-          <span class="rank-arrow">›</span>
-        </a>
-        <a href="expectation.html" class="ranking-item">
-          <span class="rank-num rn4">4位</span>
-          <span class="rank-emoji">🎓</span>
-          <div class="rank-body"><p class="rank-name">東大予約センター</p><p class="rank-diag">子供への期待度診断</p></div>
-          <span class="rank-arrow">›</span>
-        </a>
-        <a href="true_nature.html" class="ranking-item">
-          <span class="rank-num rn5">5位</span>
-          <span class="rank-emoji">🔥</span>
-          <div class="rank-body"><p class="rank-name">白目フェニックス</p><p class="rank-diag">育児中の本性診断</p></div>
-          <span class="rank-arrow">›</span>
-        </a>
+      <div style="background:linear-gradient(135deg,#7a2040 0%,#e8436a 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(122,32,64,.35);">
+        <p style="font-size:.72rem;color:#ffe082;letter-spacing:.08em;margin-bottom:6px;">🔮 5つの診断を制覇したパパママだけの特別コンテンツ</p>
+        <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの子育て性格分析レポート<span style="color:#ffe082;">【16系統】</span></p>
+        <p style="font-size:.8rem;color:#ffd9e2;line-height:1.7;">5つの診断結果を統合分析して、あなたの親としての本当の強み・隠れた才能を導き出します。読み終わる頃、ちょっと泣けて、明日も頑張れる。</p>
+        <div id="report-progress"></div>
       </div>
     </section>
 
@@ -144,19 +116,10 @@
       </div>
     </section>
 
-    <!-- 統合分析レポート -->
+    <!-- お役立ち記事（ボタンで開閉） -->
     <section class="section">
-      <a href="report.html" style="display:block;background:linear-gradient(135deg,#7a2040 0%,#e8436a 100%);border-radius:16px;padding:20px 18px;text-decoration:none;color:#fff;box-shadow:0 4px 14px rgba(122,32,64,.35);">
-        <p style="font-size:.72rem;color:#ffe082;letter-spacing:.08em;margin-bottom:6px;">🔮 5つの診断を制覇したパパママだけの特別コンテンツ</p>
-        <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの子育て性格分析レポート<span style="color:#ffe082;">【16系統】</span></p>
-        <p style="font-size:.8rem;color:#ffd9e2;line-height:1.7;">5つの診断結果を統合分析して、あなたの親としての本当の強み・隠れた才能を導き出します。読み終わる頃、ちょっと泣けて、明日も頑張れる。</p>
-        <p style="font-size:.82rem;color:#ffe082;font-weight:bold;margin-top:10px;">▶ 自分のタイプを見る</p>
-      </a>
-    </section>
-
-    <!-- お役立ち記事 -->
-    <section class="section">
-      <h2 class="section-title">📖 子育ての悩みお役立ち記事</h2>
+      <button id="articles-toggle" onclick="toggleArticles()" style="display:block;width:100%;background:#fff;border:2px solid #e8436a;color:#e8436a;border-radius:14px;padding:15px 16px;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 2px 8px rgba(232,67,106,.12);">📖 子育ての悩みお役立ち記事 ▾</button>
+      <div id="articles-panel" style="display:none;margin-top:12px;">
       <p class="section-lead">診断のあとは、こちらもどうぞ。今日から使えるヒント</p>
       <div class="diag-grid">
 
@@ -207,6 +170,7 @@
 
       </div>
       <p style="text-align:center;margin-top:8px;"><a href="/shindan/articles.html" style="display:inline-block;color:#e8436a;font-weight:800;font-size:0.9rem;text-decoration:none;">📚 お役立ち記事をすべて見る（全26本）→</a></p>
+      </div>
     </section>
 
 
@@ -229,17 +193,6 @@
     <p class="footer-copy">© 2026 子育て親タイプ診断</p>
   </footer>
 
-</div>
-
-<!-- ランキング確認ダイアログ -->
-<div class="confirm-overlay" id="confirm-overlay" onclick="closeConfirm()">
-  <div class="confirm-dialog" onclick="event.stopPropagation()">
-    <p class="confirm-title" id="confirm-title">この診断を受けますか？</p>
-    <div class="confirm-btns">
-      <a class="confirm-yes-btn" id="confirm-yes-btn" href="#">💪 診断スタート</a>
-      <button class="confirm-no-btn" onclick="closeConfirm()">やめる</button>
-    </div>
-  </div>
 </div>
 
 <!-- キャラクターポップアップ -->
@@ -350,21 +303,42 @@ function closePopup() {
   document.getElementById('monster-overlay').classList.remove('active');
 }
 
-// ランキング確認ダイアログ
-document.querySelectorAll('.ranking-item').forEach(el => {
-  el.addEventListener('click', e => {
-    e.preventDefault();
-    const diagName = el.querySelector('.rank-diag').textContent;
-    const href = el.getAttribute('href');
-    document.getElementById('confirm-title').textContent = `「${diagName}」を受けますか？`;
-    document.getElementById('confirm-yes-btn').href = href;
-    document.getElementById('confirm-overlay').classList.add('active');
-  });
-});
-
-function closeConfirm() {
-  document.getElementById('confirm-overlay').classList.remove('active');
+// お役立ち記事の開閉
+function toggleArticles() {
+  const p = document.getElementById('articles-panel');
+  const open = p.style.display === 'none';
+  p.style.display = open ? '' : 'none';
+  document.getElementById('articles-toggle').innerHTML = open
+    ? '📖 子育ての悩みお役立ち記事 ▴' : '📖 子育ての悩みお役立ち記事 ▾';
 }
+
+// 統合分析レポートの進捗（report.htmlのロック画面と同じ判定・最初から表示）
+(function renderReportProgress() {
+  const QUIZZES = [
+    { storage: 'ks_parent_type',    href: 'parent_type.html',    emoji: '🧸', name: '親タイプ診断' },
+    { storage: 'ks_child_view',     href: 'child_view.html',     emoji: '👶', name: '子供から見た親診断' },
+    { storage: 'ks_expectation',    href: 'expectation.html',    emoji: '🎓', name: '子供への期待度診断' },
+    { storage: 'ks_couple_balance', href: 'couple_balance.html', emoji: '🤝', name: '夫婦育児バランス診断' },
+    { storage: 'ks_true_nature',    href: 'true_nature.html',    emoji: '🔥', name: '育児中の本性診断' },
+  ];
+  const done = QUIZZES.filter(q => localStorage.getItem(q.storage)).length;
+  const remaining = QUIZZES.length - done;
+  const dots = QUIZZES.map(q =>
+    `<span style="width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;background:${localStorage.getItem(q.storage) ? 'linear-gradient(135deg,#ffe082,#f59e0b)' : 'rgba(255,255,255,.16)'};">${q.emoji}</span>`
+  ).join('');
+  const rows = QUIZZES.map(q => localStorage.getItem(q.storage)
+    ? `<span style="display:block;background:rgba(255,255,255,.12);color:#c8f7d8;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;">✅ ${q.name}（診断済み）</span>`
+    : `<a href="${q.href}" style="display:block;background:#ffe082;color:#7a2040;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;text-decoration:none;">${q.emoji} ${q.name}を受ける</a>`
+  ).join('');
+  const head = remaining > 0
+    ? `<p style="font-size:.9rem;font-weight:900;color:#ffe082;margin:12px 0 8px;">あと<span style="font-size:1.2rem;">${remaining}</span>個で解放！</p>`
+    : `<p style="font-size:.9rem;font-weight:900;color:#c8f7d8;margin:12px 0 8px;">✨ 全診断クリア！レポートが解放されました</p>`;
+  const cta = remaining === 0
+    ? `<a href="report.html" style="display:block;text-align:center;background:#ffe082;color:#7a2040;font-weight:900;padding:12px;border-radius:50px;margin-top:10px;text-decoration:none;">🔮 あなたのレポートを見る</a>`
+    : `<a href="report.html" style="display:block;text-align:right;color:#ffe082;font-size:.78rem;font-weight:bold;margin-top:8px;text-decoration:none;">レポートについて詳しく ›</a>`;
+  document.getElementById('report-progress').innerHTML =
+    head + `<div style="display:flex;gap:8px;margin-bottom:10px;">${dots}</div><div style="display:flex;flex-direction:column;gap:7px;">${rows}</div>` + cta;
+})();
 </script>
 </body>
 </html>

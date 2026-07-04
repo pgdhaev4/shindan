@@ -243,67 +243,15 @@
 
     <main>
 
-      <!-- ⑤⑥ 広告はここに置かず、人気ランキング3つを先に表示 -->
+      <!-- 統合分析レポート（進捗つき・全診断一覧の直上） -->
       <section class="section">
-        <h2 class="section-title">👑 今週の人気ランキング</h2>
-        <p class="section-lead">📱 LINEで友達に送られてます</p>
-        <div class="diag-grid">
-
-          <!-- ③ No.1: 恋愛タイプ → 沼る理由診断 -->
-          <a href="love_type.html" class="diag-card diag-featured" style="grid-column: 1 / -1;">
-            <div class="diag-card-thumb" style="background:rgba(255,255,255,0.08);">💘</div>
-            <div class="diag-card-body">
-              <p class="diag-card-title">
-                <span class="rank-badge">👑 人気No.1</span>
-                あなたが恋愛で沼る理由診断
-              </p>
-              <p class="diag-card-desc">「なんで私ばっかり頑張ってるの？」と思ったことがある人へ。あなたの恋愛パターンを3軸・8タイプで深層解剖。</p>
-              <!-- ④ 診断で出る数字のプレビュー -->
-              <div class="diag-metrics">
-                <span>💥 沼らせ度</span><span>👑 モテ度</span><span>😈 恋愛地雷度</span><span>🔥 沼り耐性</span>
-              </div>
-              <div class="diag-card-meta">
-                <span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span>
-              </div>
-            </div>
-          </a>
-
-          <!-- No.2: 深層心理 性格タイプ診断 -->
-          <a href="mbti.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#ede7f6,#e8eaf6);">🔮</div>
-            <div class="diag-card-body">
-              <p class="diag-card-title">
-                <span class="rank-badge rank-2">🥈 No.2</span>
-                深層心理 性格タイプ診断
-              </p>
-              <p class="diag-card-desc">16タイプ分類。あなたの深層心理と「誰も知らない裏の顔」を丸ごと暴く。</p>
-              <div class="diag-metrics">
-                <span>🧠 深層心理スコア</span><span>😈 裏の顔</span>
-              </div>
-              <div class="diag-card-meta"><span>⏱ 約3分</span><span>📝 10問</span><span>🎯 16タイプ</span></div>
-            </div>
-          </a>
-
-          <!-- ③ No.3: 束縛度 → 重い女・重い男度診断 -->
-          <a href="jealousy.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#e8eaf6);">😤</div>
-            <div class="diag-card-body">
-              <p class="diag-card-title">
-                <span class="rank-badge rank-3">🥉 No.3</span>
-                重い女・重い男度診断
-              </p>
-              <p class="diag-card-desc">LINEの返信が遅いと一日中気になるタイプ？独占欲と束縛スタイルを徹底解剖。</p>
-              <div class="diag-metrics">
-                <span>📱 LINE監視度</span><span>🔒 重い恋人度</span><span>👑 独占欲レベル</span>
-              </div>
-              <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
-            </div>
-          </a>
-
+        <div style="background:linear-gradient(135deg,#4a148c 0%,#ff6eb4 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(74,20,140,.35);">
+          <p style="font-size:.72rem;color:#ffd6e0;letter-spacing:.08em;margin-bottom:6px;">🔮 5つの診断を制覇したあなただけの特別コンテンツ</p>
+          <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの恋愛性格分析レポート<span style="color:#ffd6e0;">【16系統】</span></p>
+          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">5つの診断結果を統合分析して、あなたの恋愛の本当の魅力・隠れた才能を導き出します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
+          <div id="report-progress"></div>
         </div>
       </section>
-
-      <!-- ⑤ 広告は人気3つの後に配置 -->
 
       <!-- 全診断一覧 -->
       <section class="section">
@@ -392,19 +340,10 @@
         </div>
       </section>
 
-      <!-- 統合分析レポート -->
+      <!-- お役立ち記事（ボタンで開閉） -->
       <section class="section">
-        <a href="report.html" style="display:block;background:linear-gradient(135deg,#4a148c 0%,#ff6eb4 100%);border-radius:16px;padding:20px 18px;text-decoration:none;color:#fff;box-shadow:0 4px 14px rgba(74,20,140,.35);">
-          <p style="font-size:.72rem;color:#ffd6e0;letter-spacing:.08em;margin-bottom:6px;">🔮 5つの診断を制覇したあなただけの特別コンテンツ</p>
-          <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの恋愛性格分析レポート<span style="color:#ffd6e0;">【16系統】</span></p>
-          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">5つの診断結果を統合分析して、あなたの恋愛の本当の魅力・隠れた才能を導き出します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
-          <p style="font-size:.82rem;color:#ffd6e0;font-weight:bold;margin-top:10px;">▶ 自分のタイプを見る</p>
-        </a>
-      </section>
-
-      <!-- お役立ち記事 -->
-      <section class="section">
-        <h2 class="section-title">📖 恋愛の悩みお役立ち記事</h2>
+        <button id="articles-toggle" onclick="toggleArticles()" style="display:block;width:100%;background:#fff;border:2px solid #9b59b6;color:#9b59b6;border-radius:14px;padding:15px 16px;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 2px 8px rgba(155,89,182,.12);">📖 恋愛の悩みお役立ち記事 ▾</button>
+        <div id="articles-panel" style="display:none;margin-top:12px;">
         <p class="section-lead">診断のあとは、こちらもどうぞ。今日から使えるヒント</p>
         <div class="diag-grid">
 
@@ -455,7 +394,46 @@
 
         </div>
         <p style="text-align:center;margin-top:8px;"><a href="/shindan/articles.html" style="display:inline-block;color:#9b59b6;font-weight:800;font-size:0.9rem;text-decoration:none;">📚 お役立ち記事をすべて見る（全26本）→</a></p>
+        </div>
       </section>
+
+      <script>
+      // お役立ち記事の開閉
+      function toggleArticles() {
+        const p = document.getElementById('articles-panel');
+        const open = p.style.display === 'none';
+        p.style.display = open ? '' : 'none';
+        document.getElementById('articles-toggle').innerHTML = open
+          ? '📖 恋愛の悩みお役立ち記事 ▴' : '📖 恋愛の悩みお役立ち記事 ▾';
+      }
+      // 統合分析レポートの進捗（report.htmlのロック画面と同じ判定・最初から表示）
+      (function renderReportProgress() {
+        const QUIZZES = [
+          { storage: 'lv_love_type',       href: 'love_type.html',       emoji: '💘', name: 'あなたが恋愛で沼る理由診断' },
+          { storage: 'lv_jealousy',        href: 'jealousy.html',        emoji: '😤', name: '重い女・重い男度診断' },
+          { storage: 'lv_love_dependency', href: 'love_dependency.html', emoji: '💝', name: '好きになると人生狂う度診断' },
+          { storage: 'lv_heartbreak',      href: 'heartbreak.html',      emoji: '💔', name: '元恋人を忘れられない度診断' },
+          { storage: 'lv_ideal_date',      href: 'ideal_date.html',      emoji: '🌸', name: '理想のデートタイプ診断' },
+        ];
+        const done = QUIZZES.filter(q => localStorage.getItem(q.storage)).length;
+        const remaining = QUIZZES.length - done;
+        const dots = QUIZZES.map(q =>
+          `<span style="width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;background:${localStorage.getItem(q.storage) ? 'linear-gradient(135deg,#ffd6e0,#ff6eb4)' : 'rgba(255,255,255,.16)'};">${q.emoji}</span>`
+        ).join('');
+        const rows = QUIZZES.map(q => localStorage.getItem(q.storage)
+          ? `<span style="display:block;background:rgba(255,255,255,.12);color:#c8f7d8;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;">✅ ${q.name}（診断済み）</span>`
+          : `<a href="${q.href}" style="display:block;background:#ffd6e0;color:#4a148c;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;text-decoration:none;">${q.emoji} ${q.name}を受ける</a>`
+        ).join('');
+        const head = remaining > 0
+          ? `<p style="font-size:.9rem;font-weight:900;color:#ffd6e0;margin:12px 0 8px;">あと<span style="font-size:1.2rem;">${remaining}</span>個で解放！</p>`
+          : `<p style="font-size:.9rem;font-weight:900;color:#c8f7d8;margin:12px 0 8px;">✨ 全診断クリア！レポートが解放されました</p>`;
+        const cta = remaining === 0
+          ? `<a href="report.html" style="display:block;text-align:center;background:#ffd6e0;color:#4a148c;font-weight:900;padding:12px;border-radius:50px;margin-top:10px;text-decoration:none;">🔮 あなたのレポートを見る</a>`
+          : `<a href="report.html" style="display:block;text-align:right;color:#ffd6e0;font-size:.78rem;font-weight:bold;margin-top:8px;text-decoration:none;">レポートについて詳しく ›</a>`;
+        document.getElementById('report-progress').innerHTML =
+          head + `<div style="display:flex;gap:8px;margin-bottom:10px;">${dots}</div><div style="display:flex;flex-direction:column;gap:7px;">${rows}</div>` + cta;
+      })();
+      </script>
 
 
     </main>
