@@ -66,6 +66,15 @@
     .message-card h2 { font-size: .92em; margin-bottom: 12px; color: #fde68a; display: flex; align-items: center; gap: 7px; }
     .message-card p { font-size: .9em; line-height: 2.0; color: #f1f5f9; }
 
+    /* 完全版CTA（note） */
+    .premium-card { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 2px solid #fbbf24; margin: 14px 12px; border-radius: 16px; padding: 22px 18px; }
+    .premium-card h2 { font-size: .95em; color: #92400e; margin-bottom: 10px; text-align: center; }
+    .premium-lead { font-size: .86em; color: #78350f; line-height: 1.9; margin-bottom: 10px; }
+    .premium-list { list-style: none; margin-bottom: 16px; }
+    .premium-list li { font-size: .85em; color: #78350f; line-height: 1.9; padding-left: 1.3em; text-indent: -1.3em; }
+    .premium-btn { display: block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: bold; padding: 14px 18px; border-radius: 50px; text-decoration: none; font-size: .95em; text-align: center; box-shadow: 0 4px 12px rgba(245,158,11,.4); }
+    .premium-note { font-size: .72em; color: #a16207; margin-top: 10px; text-align: center; line-height: 1.7; }
+
     /* シェア */
     .share-section { text-align: center; padding: 6px 16px 10px; }
     .share-lead { font-size: .85em; color: #475569; margin-bottom: 10px; font-weight: bold; }
@@ -115,6 +124,26 @@ const QUIZZES = [
   { axis: 'tough',  storage: 'wp_stress',    href: 'stress.html',    emoji: '🛡️', name: '職場ストレス耐性診断' },
   { axis: 'social', storage: 'wp_secret',    href: 'secret.html',    emoji: '🕵️', name: '会社での裏評価診断' },
 ];
+
+// 16タイプ → note完全版『頑張りすぎる人のための人生攻略レポート』（各300円）
+const NOTE_URLS = {
+  HHHH: 'https://note.com/pure_ferret3539/n/n5ad738d1d3f1', // 不屈の太陽王
+  HHHL: 'https://note.com/pure_ferret3539/n/n1be8705ea55a', // 孤高の開拓王
+  HHLH: 'https://note.com/pure_ferret3539/n/n5f592c3b1428', // 情熱のカリスマ隊長
+  HHLL: 'https://note.com/pure_ferret3539/n/n0cf891d13927', // 優しき革命家
+  HLHH: 'https://note.com/pure_ferret3539/n/nd8525d58638a', // 現場の守護神
+  HLHL: 'https://note.com/pure_ferret3539/n/n438e674b74ef', // 匠の努力王
+  HLLH: 'https://note.com/pure_ferret3539/n/nfb98792f988f', // 共感の応援団長
+  HLLL: 'https://note.com/pure_ferret3539/n/n646eda71ada1', // 静かなる努力の天才
+  LHHH: 'https://note.com/pure_ferret3539/n/ne37276b7a9c4', // 余裕の智将
+  LHHL: 'https://note.com/pure_ferret3539/n/n2037713fc270', // 冷静なる戦略家
+  LHLH: 'https://note.com/pure_ferret3539/n/n942535067316', // 心をつなぐ調律師
+  LHLL: 'https://note.com/pure_ferret3539/n/n9db56ddd0a44', // 思慮深き参謀
+  LLHH: 'https://note.com/pure_ferret3539/n/nf1963a286be2', // 癒しの安定神
+  LLHL: 'https://note.com/pure_ferret3539/n/na08e6ff6c750', // 動じない賢者
+  LLLH: 'https://note.com/pure_ferret3539/n/na6cb579d0fea', // 場を照らす妖精
+  LLLL: 'https://note.com/pure_ferret3539/n/n0650bdf6f6fe', // 感性の静かな芸術家
+};
 
 function axisLevel(axisKey, resultKey) {
   const axis = window.REPORT_AXES[axisKey];
@@ -226,6 +255,20 @@ function renderReport(typeKey, t, names) {
       <h2>💌 最後に、あなたへ</h2>
       <p>${t.message}</p>
     </div>
+
+    ${NOTE_URLS[typeKey] ? `
+    <div class="premium-card">
+      <h2>📕 この先の「実践編」を読みたい方へ</h2>
+      <p class="premium-lead">ここまでが「あなたを知る」無料レポートです。<br>でも、本当に知りたいのはこの先ですよね。</p>
+      <ul class="premium-list">
+        <li>✔ あなたと最高に相性のいい上司・力を発揮しにくい上司は？</li>
+        <li>✔ あなたの強みがそのまま活きる「具体的な職種」は？</li>
+        <li>✔ このまま10年進んだ先に広がる、2つの未来シナリオ</li>
+        <li>✔ 今日から始められる「30日アクションプラン」</li>
+      </ul>
+      <a href="${NOTE_URLS[typeKey]}" class="premium-btn" target="_blank" rel="noopener">▶ ${t.name}・完全版を読む（300円）</a>
+      <p class="premium-note">『頑張りすぎる人のための人生攻略レポート』全16タイプ<br>note記事・スマホでそのまま読めます</p>
+    </div>` : ''}
 
     <div class="share-section">
       <p class="share-lead">📣 この結果、誰かに見せたくなったら</p>
