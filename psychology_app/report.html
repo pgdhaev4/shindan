@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>あなただけの恋愛性格分析レポート | 恋愛沼診断</title>
-  <meta name="description" content="5つの診断結果を統合分析。16系統からあなたの恋愛の本当の魅力と隠れた才能を発見する、自己肯定感が上がる恋愛性格分析レポート。">
+  <meta name="description" content="4つの診断結果を統合分析。16系統からあなたの恋愛の本当の魅力と隠れた才能を発見する、自己肯定感が上がる恋愛性格分析レポート。">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; background: #1a1a2e; color: #1e293b; min-height: 100vh; }
@@ -107,14 +107,13 @@
 <script>
 // ═══════════════════════════════════════════
 //  恋愛モンスター診断 統合分析レポート
-//  5診断 → 4軸(情熱/献身/自立回復/表現) → 16系統
+//  4診断 → 4軸(情熱/献身/自立回復/表現) → 16系統
 // ═══════════════════════════════════════════
 const QUIZZES = [
   { storage: 'lv_love_type',       href: 'love_type.html',       emoji: '💘', name: 'あなたが恋愛で沼る理由診断' },
   { storage: 'lv_jealousy',        href: 'jealousy.html',        emoji: '😤', name: '重い女・重い男度診断' },
   { storage: 'lv_love_dependency', href: 'love_dependency.html', emoji: '💝', name: '好きになると人生狂う度診断' },
-  { storage: 'lv_heartbreak',      href: 'heartbreak.html',      emoji: '💔', name: '元恋人を忘れられない度診断' },
-  { storage: 'lv_ideal_date',      href: 'ideal_date.html',      emoji: '🌸', name: '理想のデートタイプ診断' },
+  { storage: 'lv_compatibility',   href: 'compatibility.html',   emoji: '💕', name: '恋愛相性診断' },
 ];
 
 // 軸キーの並び＝タイプキーの文字順（情熱・献身・自立回復・表現）
@@ -142,7 +141,7 @@ function renderLockScreen(remaining) {
     <div class="lock-screen">
       <div class="lock-emoji">🔮</div>
       <h2>あなただけの恋愛性格分析レポート</h2>
-      <p>5つの診断をすべて受けると、結果を統合分析して<br><strong>16系統</strong>からあなたの<strong>恋愛の本当の魅力</strong>を導き出します。<br>（あと<strong>${remaining}個</strong>で解放！）</p>
+      <p>4つの診断をすべて受けると、結果を統合分析して<br><strong>16系統</strong>からあなたの<strong>恋愛の本当の魅力</strong>を導き出します。<br>（あと<strong>${remaining}個</strong>で解放！）</p>
       <div class="progress-dots">${dots}</div>
       <div class="remaining-list">${links}</div>
       <a href="index.html" class="back-link">← 診断一覧へ戻る</a>
@@ -177,13 +176,13 @@ function renderReport(t, names) {
   const envHtml = t.env.map(e => `<span class="env-tag">${e}</span>`).join('');
   const shineHtml = t.shine.map((s, i) => `<div class="shine-item"><span class="shine-num">${i + 1}.</span><span>${s}</span></div>`).join('');
 
-  const tweetText = encodeURIComponent(`【私の恋愛タイプ：${t.name}】\n5つの恋愛沼診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#恋愛沼診断 #恋愛心理テスト`);
+  const tweetText = encodeURIComponent(`【私の恋愛タイプ：${t.name}】\n4つの恋愛沼診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#恋愛沼診断 #恋愛心理テスト`);
   const currentURL = encodeURIComponent(window.location.href);
 
   document.getElementById('app').innerHTML = `
     <div class="report-hero">
       <span class="label">🔮 統合分析レポート｜16系統</span>
-      <h1>5つの診断からわかった、あなたの恋愛タイプは…</h1>
+      <h1>4つの診断からわかった、あなたの恋愛タイプは…</h1>
       <p class="type-name">${t.name}</p>
       <p class="type-catch">${t.catch}</p>
       <div class="result-badges">${badgesHtml}</div>

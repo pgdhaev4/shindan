@@ -250,9 +250,9 @@
       <!-- 統合分析レポート（進捗つき・全診断一覧の直上） -->
       <section class="section">
         <div style="background:linear-gradient(135deg,#4a148c 0%,#ff6eb4 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(74,20,140,.35);">
-          <p style="font-size:.72rem;color:#ffd6e0;letter-spacing:.08em;margin-bottom:6px;">🔮 5つの診断を制覇したあなただけの特別コンテンツ</p>
+          <p style="font-size:.72rem;color:#ffd6e0;letter-spacing:.08em;margin-bottom:6px;">🔮 4つの診断を制覇したあなただけの特別コンテンツ</p>
           <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの恋愛性格分析レポート<span style="color:#ffd6e0;">【16系統】</span></p>
-          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">5つの診断結果を統合分析して、あなたの恋愛の本当の魅力・隠れた才能を導き出します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
+          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">4つの診断結果を統合分析して、あなたの恋愛の本当の魅力・隠れた才能を導き出します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
           <div id="report-progress"></div>
         </div>
       </section>
@@ -516,8 +516,7 @@
           { storage: 'lv_love_type',       href: 'love_type.html',       emoji: '💘', name: 'あなたが恋愛で沼る理由診断' },
           { storage: 'lv_jealousy',        href: 'jealousy.html',        emoji: '😤', name: '重い女・重い男度診断' },
           { storage: 'lv_love_dependency', href: 'love_dependency.html', emoji: '💝', name: '好きになると人生狂う度診断' },
-          { storage: 'lv_heartbreak',      href: 'heartbreak.html',      emoji: '💔', name: '元恋人を忘れられない度診断' },
-          { storage: 'lv_ideal_date',      href: 'ideal_date.html',      emoji: '🌸', name: '理想のデートタイプ診断' },
+          { storage: 'lv_compatibility',   href: 'compatibility.html',   emoji: '💕', name: '恋愛相性診断' },
         ];
         const done = QUIZZES.filter(q => localStorage.getItem(q.storage)).length;
         const remaining = QUIZZES.length - done;

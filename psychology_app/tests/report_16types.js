@@ -8,41 +8,45 @@
  */
 
 // ── 各軸の得点源（診断の結果キーの n 文字目が指定文字なら加点）──
+// 4診断（沼る理由 / 重い度 / 人生狂う度 / 相性）→ 4軸（2026-07-05 5診断から変更）
+// love_type=PC/DI/EW, jealousy=CT/ER/SL, love_dependency=MB/RC/PA, compatibility=AF/HT/OU
 window.REPORT_AXES = {
-  // 情熱（燃える恋 or 穏やかな恋）
+  // 情熱（燃える恋 or 穏やかな恋）: 沼る理由P ＋ 重い度S(一緒にいたい) ＋ 相性A(積極)
   passion: {
     label: '情熱度', high: '燃える恋型', low: 'あたたか安定型', threshold: 2,
     sources: [
-      { storage: 'lv_love_type',       pos: 0, char: 'P', pt: 2 },
-      { storage: 'lv_ideal_date',      pos: 0, char: 'A', pt: 1 },
-      { storage: 'lv_love_dependency', pos: 0, char: 'M', pt: 1 },
+      { storage: 'lv_love_type',     pos: 0, char: 'P', pt: 2 },
+      { storage: 'lv_jealousy',      pos: 2, char: 'S', pt: 1 },
+      { storage: 'lv_compatibility', pos: 0, char: 'A', pt: 1 },
     ],
   },
-  // 献身（相手ファースト or 自分軸）
+  // 献身（相手ファースト or 自分軸）: 沼る理由D ＋ 相性O(一途) ＋ 重い度C(確認したい)
   devote: {
     label: '献身度', high: '相手を想う型', low: '自分も大切型', threshold: 2,
     sources: [
-      { storage: 'lv_love_type',       pos: 1, char: 'D', pt: 2 },
-      { storage: 'lv_jealousy',        pos: 0, char: 'C', pt: 1 },
-      { storage: 'lv_love_dependency', pos: 0, char: 'M', pt: 1 },
+      { storage: 'lv_love_type',     pos: 1, char: 'D', pt: 2 },
+      { storage: 'lv_compatibility', pos: 2, char: 'O', pt: 1 },
+      { storage: 'lv_jealousy',      pos: 0, char: 'C', pt: 1 },
     ],
   },
-  // 自立回復（切り替え上手 or 深く一途）
+  // 自立回復（切り替え上手 or 深く一途）: 人生狂う度B(バランス) ＋ 重い度T(信頼) ＋ 相性U(自由)
+  // 2026-07-05 修正: 没入M(自分を見失う)は補助でHに反転させず必ず「深く一途」に是正（-1）
   recover: {
     label: '自立回復力', high: '切り替え上手型', low: '深く一途型', threshold: 2,
     sources: [
-      { storage: 'lv_heartbreak',      pos: 0, char: 'R', pt: 2 },
+      { storage: 'lv_love_dependency', pos: 0, char: 'B', pt: 2 },
+      { storage: 'lv_love_dependency', pos: 0, char: 'M', pt: -1 },
       { storage: 'lv_jealousy',        pos: 0, char: 'T', pt: 1 },
-      { storage: 'lv_love_dependency', pos: 0, char: 'B', pt: 1 },
+      { storage: 'lv_compatibility',   pos: 2, char: 'U', pt: 1 },
     ],
   },
-  // 表現（気持ちを出す or 秘める）
+  // 表現（気持ちを出す or 秘める）: 沼る理由E(表現) ＋ 重い度E(感情的) ＋ 人生狂う度R(感情反応)
   express: {
     label: '表現力', high: '気持ちを伝える型', low: '想いを秘める型', threshold: 2,
     sources: [
-      { storage: 'lv_love_type',  pos: 2, char: 'E', pt: 2 },
-      { storage: 'lv_heartbreak', pos: 2, char: 'E', pt: 1 },
-      { storage: 'lv_ideal_date', pos: 1, char: 'E', pt: 1 },
+      { storage: 'lv_love_type',       pos: 2, char: 'E', pt: 2 },
+      { storage: 'lv_jealousy',        pos: 1, char: 'E', pt: 1 },
+      { storage: 'lv_love_dependency', pos: 1, char: 'R', pt: 1 },
     ],
   },
 };
