@@ -70,12 +70,9 @@
 
     .diag-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* 常に1列＝横帯（他診断と統一） */
       gap: 14px;
       padding: 0 4px;
-    }
-    @media (min-width: 600px) {
-      .diag-grid { grid-template-columns: 1fr 1fr; }
     }
 
     .diag-card {
@@ -243,6 +240,13 @@
 
     <main>
 
+      <!-- 登場モンスター図鑑 -->
+      <section class="section">
+        <h2 class="section-title">🦇 登場モンスター図鑑</h2>
+        <p class="section-lead">タップして詳細を見る</p>
+        <div class="monster-scroll" id="monster-scroll"></div>
+      </section>
+
       <!-- 統合分析レポート（進捗つき・全診断一覧の直上） -->
       <section class="section">
         <div style="background:linear-gradient(135deg,#4a148c 0%,#ff6eb4 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(74,20,140,.35);">
@@ -398,6 +402,106 @@
       </section>
 
       <script>
+      // 登場モンスター図鑑
+      const MONSTERS = [
+        {
+          emoji: '😈',
+          name: '沼らせ魔王',
+          image: 'images/chars_new/沼らせ魔王.png',
+          catchphrase: '気づいたときには、もう抜け出せない。恋愛界の最終ボス。',
+          desc: '優しさ・ミステリアス・絶妙な距離感をすべて操り、相手を沼へ誘う天性の魔王。本人に自覚がないことも多く、それが一番強い。あなたの周りにもいる。もしくは、あなた自身かもしれない。',
+          link: 'love_type.html',
+          linkText: '沼る理由診断を受ける'
+        },
+        {
+          emoji: '📱',
+          name: 'LINE監査官',
+          image: 'images/chars_new/LINE監査官.png',
+          catchphrase: '既読3分以内。それが愛の証明だと信じている。',
+          desc: '「誰といたの？」と聞く前に、もうトーク履歴の時系列分析が終わっている。返信速度・絵文字の数・句読点の変化から心の動きを検出する。愛が深いだけなんです。深すぎるだけなんです。',
+          link: 'jealousy.html',
+          linkText: '重い女・重い男度診断を受ける'
+        },
+        {
+          emoji: '🛰️',
+          name: '元カレ監視衛星',
+          image: 'images/chars_new/元カレ監視衛星.png',
+          catchphrase: '高度3万6千キロ。今日も静かに、元恋人のSNSを周回中。',
+          desc: 'ブロックはしない。フォローも外さない。ただ静かに、足跡を残さず観測し続ける。新しい恋人の存在を本人の友達より早く察知することもある。その観測力、仕事に使えば表彰される。',
+          link: 'heartbreak.html',
+          linkText: '元恋人を忘れられない度診断を受ける'
+        },
+        {
+          emoji: '💊',
+          name: '恋愛ジャンキー',
+          image: 'images/chars_new/恋愛ジャンキー.png',
+          catchphrase: '恋をしていない期間、人生が省エネモードになる。',
+          desc: '好きな人ができた瞬間、髪型・服・行動範囲・人生観のすべてが更新される。恋愛が主食、それ以外は間食。「今回は本気」が口ぐせだが、毎回本気なのは本当。',
+          link: 'love_dependency.html',
+          linkText: '人生狂う度診断を受ける'
+        },
+        {
+          emoji: '🧟',
+          name: '未練ゾンビ',
+          image: 'images/chars_new/未練ゾンビ.png',
+          catchphrase: '別れて1年。それでも夜中の2時に蘇る。',
+          desc: '普段は普通に暮らしている。でも深夜、ふとした瞬間に記憶が蘇り、思い出のプレイリストを再生してしまう。復活のトリガーは共通の友人の結婚報告。成仏まで、あと一歩。',
+          link: 'heartbreak.html',
+          linkText: '元恋人を忘れられない度診断を受ける'
+        },
+        {
+          emoji: '🦄',
+          name: '運命信者ユニコーン',
+          image: 'images/chars_new/運命信者ユニコーン.png',
+          catchphrase: '「私たち、絶対に運命だと思う」を3人に言ったことがある。',
+          desc: '誕生日の共通点、偶然の再会、好きな曲の一致。すべてを運命のサインとして受信する純度100%のロマンチスト。その信じる力は、実は恋愛でいちばん強い才能でもある。',
+          link: 'compatibility.html',
+          linkText: '恋愛相性診断を受ける'
+        },
+        {
+          emoji: '🎢',
+          name: 'テーマパークゴリラ',
+          image: 'images/chars_new/テーマパークゴリラ.png',
+          catchphrase: '開園ダッシュから閉園の花火まで、フルスロットルの愛。',
+          desc: 'デートは全力。絶叫マシンは全制覇。パレードの場所取りは1時間前から。帰りの車で寝てしまう相手を見て「今日もいい日だった」と満足する。体力こそ、愛。',
+          link: 'ideal_date.html',
+          linkText: '理想のデートタイプ診断を受ける'
+        }
+      ];
+
+      const scrollEl = document.getElementById('monster-scroll');
+      MONSTERS.forEach((m, i) => {
+        const card = document.createElement('div');
+        card.className = 'monster-card-mini';
+        card.innerHTML = `
+          <div class="mc-img-wrap">
+            <img src="${m.image}" alt="${m.name}" loading="lazy" onerror="this.parentElement.innerHTML='<span style=font-size:2.5rem;line-height:90px;display:block;text-align:center>${m.emoji}</span>'">
+          </div>
+          <p class="mc-name">${m.emoji} ${m.name}</p>
+          <p class="mc-tap">タップ</p>
+        `;
+        card.onclick = () => openPopup(i);
+        scrollEl.appendChild(card);
+      });
+
+      function openPopup(i) {
+        const m = MONSTERS[i];
+        document.getElementById('popup-inner').innerHTML = `
+          <div class="popup-img-wrap">
+            <img src="${m.image}" alt="${m.name}" onerror="this.parentElement.innerHTML='<span style=font-size:4rem;display:block;text-align:center;padding:20px>${m.emoji}</span>'">
+          </div>
+          <p class="popup-name">${m.emoji} ${m.name}</p>
+          <p class="popup-catch">"${m.catchphrase}"</p>
+          <p class="popup-desc">${m.desc}</p>
+          <a href="${m.link}" class="popup-link-btn">${m.linkText} →</a>
+        `;
+        document.getElementById('monster-overlay').classList.add('active');
+      }
+
+      function closePopup() {
+        document.getElementById('monster-overlay').classList.remove('active');
+      }
+
       // お役立ち記事の開閉
       function toggleArticles() {
         const p = document.getElementById('articles-panel');
@@ -459,6 +563,14 @@
       </p>
     </footer>
 
+  </div>
+
+  <!-- モンスターポップアップ -->
+  <div class="monster-overlay" id="monster-overlay" onclick="closePopup()">
+    <div class="monster-popup" id="monster-popup" onclick="event.stopPropagation()">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <div id="popup-inner"></div>
+    </div>
   </div>
 
 <!-- 戻るボタン(全ページ共通) -->
