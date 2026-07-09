@@ -66,6 +66,20 @@
     .message-card h2 { font-size: .92em; margin-bottom: 12px; color: #ffd6e0; display: flex; align-items: center; gap: 7px; }
     .message-card p { font-size: .9em; line-height: 2.0; color: #f4effa; }
 
+    /* 完全版CTA（note） */
+    .premium-card { background: linear-gradient(135deg, #fdf2f8, #fce7f3); border: 2px solid #ec4899; margin: 14px 12px; border-radius: 16px; padding: 22px 18px; }
+    .premium-card h2 { font-size: .95em; color: #9d174d; margin-bottom: 10px; text-align: center; }
+    .premium-lead { font-size: .86em; color: #831843; line-height: 1.9; margin-bottom: 10px; }
+    .locked-list { list-style: none; margin-bottom: 14px; background: rgba(255,255,255,.6); border-radius: 12px; padding: 12px 14px; }
+    .locked-list li { font-size: .86em; color: #831843; line-height: 2.0; font-weight: bold; }
+    .premium-divider { font-size: .8em; color: #9d174d; font-weight: bold; text-align: center; margin: 14px 0 8px; }
+    .toc-list { list-style: none; margin-bottom: 12px; }
+    .toc-list li { font-size: .83em; color: #831843; line-height: 1.95; padding-left: 1.2em; text-indent: -1.2em; }
+    .premium-spec { font-size: .78em; color: #9d174d; text-align: center; margin-bottom: 14px; font-weight: bold; }
+    .premium-btn { display: block; background: linear-gradient(135deg, #ec4899, #9b59b6); color: #fff; font-weight: bold; padding: 14px 18px; border-radius: 50px; text-decoration: none; font-size: .95em; text-align: center; box-shadow: 0 4px 12px rgba(236,72,153,.4); }
+    .premium-note { font-size: .72em; color: #be185d; margin-top: 10px; text-align: center; line-height: 1.7; }
+    .teaser-more { font-size: .8em; color: #be185d; margin-top: 10px; font-weight: bold; }
+
     /* シェア */
     .share-section { text-align: center; padding: 6px 16px 10px; }
     .share-lead { font-size: .85em; color: #475569; margin-bottom: 10px; font-weight: bold; }
@@ -116,6 +130,26 @@ const QUIZZES = [
   { storage: 'lv_compatibility',   href: 'compatibility.html',   emoji: '💕', name: '恋愛相性診断' },
 ];
 
+// 16タイプ → note完全版『頑張りすぎる人のための恋愛攻略レポート』（各300円）
+const NOTE_URLS = {
+  HHHH: 'https://note.com/pure_ferret3539/n/n07f4a58aed65', // 愛の太陽神
+  HHHL: 'https://note.com/pure_ferret3539/n/n5ace9c8773e3', // 秘めた愛の騎士
+  HHLH: 'https://note.com/pure_ferret3539/n/nc01a8a555d0c', // 全力純愛の主人公
+  HHLL: 'https://note.com/pure_ferret3539/n/n031c5df8e9a8', // 静かに燃える純愛家
+  HLHH: 'https://note.com/pure_ferret3539/n/nf3ebbbad9ad2', // 恋の冒険王
+  HLHL: 'https://note.com/pure_ferret3539/n/nce08c39a125e', // クールな情熱ハンター
+  HLLH: 'https://note.com/pure_ferret3539/n/n3e9d8797b7c8', // まっすぐ恋の主人公
+  HLLL: 'https://note.com/pure_ferret3539/n/nac35a40e5477', // 内に燃える恋の詩人
+  LHHH: 'https://note.com/pure_ferret3539/n/nfe886c2ce686', // 愛され戦略家
+  LHHL: 'https://note.com/pure_ferret3539/n/n562db47dc84b', // 穏やかな包容の達人
+  LHLH: 'https://note.com/pure_ferret3539/n/n4b1ad0055ec0', // 尽くしの天使
+  LHLL: 'https://note.com/pure_ferret3539/n/n4d92293cb659', // 静かな献身の守り人
+  LLHH: 'https://note.com/pure_ferret3539/n/n40eb981ec115', // 自由な風の恋人
+  LLHL: 'https://note.com/pure_ferret3539/n/n962fea800739', // 悟りの恋愛賢者
+  LLLH: 'https://note.com/pure_ferret3539/n/n6a0e49376c59', // ゆっくり咲く恋の花
+  LLLL: 'https://note.com/pure_ferret3539/n/nc954a094adfa', // 奥ゆかしき月の恋人
+};
+
 // 軸キーの並び＝タイプキーの文字順（情熱・献身・自立回復・表現）
 const AXIS_ORDER = ['passion', 'devote', 'recover', 'express'];
 
@@ -148,7 +182,7 @@ function renderLockScreen(remaining) {
     </div>`;
 }
 
-function renderReport(t, names) {
+function renderReport(typeKey, t, names) {
   const axisOrder = ['情熱度', '献身度', '自立回復力', '表現力'];
   const colors = ['#f43f5e', '#ec4899', '#8b5cf6', '#f59e0b'];
   const axesHtml = axisOrder.map((label, i) => `
@@ -174,7 +208,9 @@ function renderReport(t, names) {
   ].map(([label, text]) => `<div class="view-item"><p class="view-label">${label}</p><p class="view-text">${text}</p></div>`).join('');
 
   const envHtml = t.env.map(e => `<span class="env-tag">${e}</span>`).join('');
-  const shineHtml = t.shine.map((s, i) => `<div class="shine-item"><span class="shine-num">${i + 1}.</span><span>${s}</span></div>`).join('');
+  // 無料版は冒頭だけ見せて完全版へ（フリーミアム設計・workplace版と統一）
+  const talentTeaser = t.talent.split('。')[0] + '。';
+  const msgTeaser = t.message.split('。').slice(0, 2).join('。') + '。';
 
   const tweetText = encodeURIComponent(`【私の恋愛タイプ：${t.name}】\n4つの恋愛沼診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#恋愛沼診断 #恋愛心理テスト`);
   const currentURL = encodeURIComponent(window.location.href);
@@ -210,29 +246,46 @@ function renderReport(t, names) {
 
     <div class="section-card talent-card">
       <h2>💎 実はあなたが気づいていない才能</h2>
-      <p>${t.talent}</p>
+      <p>${talentTeaser}</p>
+      <p class="teaser-more">🔒 この才能の正体と活かし方は、完全版に収録しています。</p>
     </div>
 
     <div class="section-card">
       <h2>🌱 あなたに合う恋愛・相手</h2>
       <div class="env-tags">${envHtml}</div>
-      <p class="env-note">${t.envNote}</p>
-    </div>
-
-    <div class="section-card">
-      <h2>🍵 ストレスを感じやすい恋愛</h2>
-      <p>${t.stress}</p>
-    </div>
-
-    <div class="section-card">
-      <h2>✨ あなたがもっと輝く方法</h2>
-      ${shineHtml}
+      <p class="teaser-more">🔒 「こういう相手をどう見つけるか」は、完全版・第2章で。</p>
     </div>
 
     <div class="message-card">
       <h2>💌 最後に、あなたへ</h2>
-      <p>${t.message}</p>
+      <p>${msgTeaser}</p>
+      <p style="font-size:.8em;color:#d9d2e6;margin-top:10px;">――この手紙の続きは、完全版の最終章に。</p>
     </div>
+
+    ${NOTE_URLS[typeKey] ? `
+    <div class="premium-card">
+      <h2>🔒 この先は、完全版に収録しています</h2>
+      <p class="premium-lead">ここまでが「あなたを知る」無料レポート。<br>ここから先は、その愛し方を<strong>恋で使いこなす実践編</strong>です。</p>
+      <ul class="locked-list">
+        <li>🔒 あなたが気づいていない才能（全文）</li>
+        <li>🔒 ストレスを感じやすい恋愛と、心の守り方</li>
+        <li>🔒 あなたがもっと輝く方法（30日アクションプラン）</li>
+        <li>🔒 あなたへの手紙（ロング版）</li>
+      </ul>
+      <p class="premium-divider">◆ 完全版『頑張りすぎる人のための恋愛攻略レポート』全7章 ◆</p>
+      <ul class="toc-list">
+        <li>第1章｜あなたの魅力が正しく伝わる翻訳ガイド</li>
+        <li>第2章｜相性大全 ― あなたの愛を受け取ってくれる人</li>
+        <li>第3章｜恋愛戦略 ― 愛し方の伸ばし方と、心地よい関係の育て方</li>
+        <li>第4章｜あなたの10年後 ― 2つの愛の実り方</li>
+        <li>第5章｜愛する力を守るための注意ポイント</li>
+        <li>第6章｜今日からの30日アクションプラン</li>
+        <li>第7章｜あなたへの手紙</li>
+      </ul>
+      <p class="premium-spec">全7章・約8,000字（試し読みつき）／note記事・スマホでそのまま読めます</p>
+      <a href="${NOTE_URLS[typeKey]}" class="premium-btn" target="_blank" rel="noopener">▶ ${t.name}・完全版を読む（300円）</a>
+      <p class="premium-note">全16タイプ・あなたの型専用に書かれたレポートです</p>
+    </div>` : ''}
 
     <div class="share-section">
       <p class="share-lead">📣 この結果、誰かに見せたくなったら</p>
@@ -265,7 +318,7 @@ function renderReport(t, names) {
   const names = {};
   QUIZZES.forEach(q => { names[q.storage] = localStorage.getItem(q.storage + '_name') || ''; });
 
-  renderReport(t, names);
+  renderReport(typeKey, t, names);
 })();
 </script>
 <!-- 戻るボタン(全ページ共通) -->

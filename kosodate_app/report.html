@@ -57,6 +57,20 @@
     .message-card h2 { font-size: .92em; margin-bottom: 12px; color: #ffe082; display: flex; align-items: center; gap: 7px; }
     .message-card p { font-size: .9em; line-height: 2.0; color: #fff5f7; }
 
+    /* 完全版CTA（note） */
+    .premium-card { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 2px solid #fb7185; margin: 14px 12px; border-radius: 16px; padding: 22px 18px; }
+    .premium-card h2 { font-size: .95em; color: #9f1239; margin-bottom: 10px; text-align: center; }
+    .premium-lead { font-size: .86em; color: #881337; line-height: 1.9; margin-bottom: 10px; }
+    .locked-list { list-style: none; margin-bottom: 14px; background: rgba(255,255,255,.6); border-radius: 12px; padding: 12px 14px; }
+    .locked-list li { font-size: .86em; color: #881337; line-height: 2.0; font-weight: bold; }
+    .premium-divider { font-size: .8em; color: #9f1239; font-weight: bold; text-align: center; margin: 14px 0 8px; }
+    .toc-list { list-style: none; margin-bottom: 12px; }
+    .toc-list li { font-size: .83em; color: #881337; line-height: 1.95; padding-left: 1.2em; text-indent: -1.2em; }
+    .premium-spec { font-size: .78em; color: #9f1239; text-align: center; margin-bottom: 14px; font-weight: bold; }
+    .premium-btn { display: block; background: linear-gradient(135deg, #fb7185, #e11d48); color: #fff; font-weight: bold; padding: 14px 18px; border-radius: 50px; text-decoration: none; font-size: .95em; text-align: center; box-shadow: 0 4px 12px rgba(225,29,72,.4); }
+    .premium-note { font-size: .72em; color: #be123c; margin-top: 10px; text-align: center; line-height: 1.7; }
+    .teaser-more { font-size: .8em; color: #be123c; margin-top: 10px; font-weight: bold; }
+
     .share-section { text-align: center; padding: 6px 16px 10px; }
     .share-lead { font-size: .85em; color: #7a4a58; margin-bottom: 10px; font-weight: bold; }
     .share-btns { display: flex; gap: 10px; justify-content: center; }
@@ -105,6 +119,26 @@ const QUIZZES = [
   { storage: 'ks_true_nature',    href: 'true_nature.html',    emoji: '🔥', name: '育児中の本性診断' },
 ];
 
+// 16タイプ → note完全版『頑張りすぎるパパママのための子育て攻略レポート』（各300円）
+const NOTE_URLS = {
+  HHHH: 'https://note.com/pure_ferret3539/n/nf01d305b40bd', // 家族の太陽キャプテン
+  HHHL: 'https://note.com/pure_ferret3539/n/n10688fba4055', // 全力疾走の熱血コーチ
+  HHLH: 'https://note.com/pure_ferret3539/n/n234baae8848f', // 余裕の愛情プロデューサー
+  HHLL: 'https://note.com/pure_ferret3539/n/n96018f728fbc', // 全身全霊の愛の戦士
+  HLHH: 'https://note.com/pure_ferret3539/n/n3a7759638a29', // 安心の港マスター
+  HLHL: 'https://note.com/pure_ferret3539/n/n99d0ae54869c', // 抱きしめ全力勇者
+  HLLH: 'https://note.com/pure_ferret3539/n/ne7fe30e18bd6', // まるごと愛の太陽
+  HLLL: 'https://note.com/pure_ferret3539/n/nf9be9e6eb271', // 献身のぬくもり守護神
+  LHHH: 'https://note.com/pure_ferret3539/n/na1c9a9d22b23', // 見守りの名参謀
+  LHHL: 'https://note.com/pure_ferret3539/n/n7bfe41add87b', // 未来を描く設計士
+  LHLH: 'https://note.com/pure_ferret3539/n/n04f2b1bb39cc', // 悠々自適の道しるべ
+  LHLL: 'https://note.com/pure_ferret3539/n/n4c352affd13c', // 静かなる教育の匠
+  LLHH: 'https://note.com/pure_ferret3539/n/n8689de5f962b', // のびのび牧場の賢者
+  LLHL: 'https://note.com/pure_ferret3539/n/n9516f4e04b13', // 等身大の子育てファイター
+  LLLH: 'https://note.com/pure_ferret3539/n/nfcb08fb9c16b', // おおらか自由の風
+  LLLL: 'https://note.com/pure_ferret3539/n/n26f371843792', // 縁の下の見守り騎士
+};
+
 // 軸キーの並び＝タイプキーの文字順（愛情密着・教育熱心・夫婦連携・心の余裕）
 const AXIS_ORDER = ['attach', 'educate', 'team', 'calm'];
 
@@ -139,7 +173,7 @@ function renderLockScreen(remaining) {
     </div>`;
 }
 
-function renderReport(t, names) {
+function renderReport(typeKey, t, names) {
   const axisOrder = ['愛情密着度', '教育熱心度', '夫婦連携度', '心の余裕'];
   const colors = ['#f472b6', '#8b5cf6', '#22c55e', '#f59e0b'];
   const axesHtml = axisOrder.map((label, i) => `
@@ -165,7 +199,9 @@ function renderReport(t, names) {
   ].map(([label, text]) => `<div class="view-item"><p class="view-label">${label}</p><p class="view-text">${text}</p></div>`).join('');
 
   const envHtml = t.env.map(e => `<span class="env-tag">${e}</span>`).join('');
-  const shineHtml = t.shine.map((s, i) => `<div class="shine-item"><span class="shine-num">${i + 1}.</span><span>${s}</span></div>`).join('');
+  // 無料版は冒頭だけ見せて完全版へ（フリーミアム設計・workplace版と統一）
+  const talentTeaser = t.talent.split('。')[0] + '。';
+  const msgTeaser = t.message.split('。').slice(0, 2).join('。') + '。';
 
   const tweetText = encodeURIComponent(`【私の子育てタイプ：${t.name}】\n4つの子育てモンスター診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#子育てモンスター診断 #育児あるある`);
   const currentURL = encodeURIComponent(window.location.href);
@@ -201,29 +237,46 @@ function renderReport(t, names) {
 
     <div class="section-card talent-card">
       <h2>💎 実はあなたが気づいていない才能</h2>
-      <p>${t.talent}</p>
+      <p>${talentTeaser}</p>
+      <p class="teaser-more">🔒 この才能の正体と活かし方は、完全版に収録しています。</p>
     </div>
 
     <div class="section-card">
       <h2>🌱 あなたに合う環境・役割</h2>
       <div class="env-tags">${envHtml}</div>
-      <p class="env-note">${t.envNote}</p>
-    </div>
-
-    <div class="section-card">
-      <h2>🍵 疲れやすい状況（あなたが弱いからではありません）</h2>
-      <p>${t.stress}</p>
-    </div>
-
-    <div class="section-card">
-      <h2>✨ あなたがさらに輝く方法</h2>
-      ${shineHtml}
+      <p class="teaser-more">🔒 「この強みを家庭でどう活かすか」は、完全版・第3章で。</p>
     </div>
 
     <div class="message-card">
       <h2>💌 最後に、あなたへ</h2>
-      <p>${t.message}</p>
+      <p>${msgTeaser}</p>
+      <p style="font-size:.8em;color:#fbd0da;margin-top:10px;">――この手紙の続きは、完全版の最終章に。</p>
     </div>
+
+    ${NOTE_URLS[typeKey] ? `
+    <div class="premium-card">
+      <h2>🔒 この先は、完全版に収録しています</h2>
+      <p class="premium-lead">ここまでが「あなたを知る」無料レポート。<br>ここから先は、その愛情スタイルを<strong>毎日の子育てで使いこなす実践編</strong>です。</p>
+      <ul class="locked-list">
+        <li>🔒 あなたが気づいていない才能（全文）</li>
+        <li>🔒 疲れやすい場面と、愛情エネルギーの守り方</li>
+        <li>🔒 あなたがさらに輝く方法（30日アクションプラン）</li>
+        <li>🔒 あなたへの手紙（ロング版）</li>
+      </ul>
+      <p class="premium-divider">◆ 完全版『頑張りすぎるパパママのための子育て攻略レポート』全7章 ◆</p>
+      <ul class="toc-list">
+        <li>第1章｜あなたの愛情が正しく伝わる翻訳ガイド</li>
+        <li>第2章｜相性大全 ― 家族との心地よいリズムの見つけ方</li>
+        <li>第3章｜子育て戦略 ― 強みの活かし方と、無理なく続く家庭運営</li>
+        <li>第4章｜10年後シナリオ ― 子どもに残る、2つの贈り物</li>
+        <li>第5章｜愛情エネルギーを守るための注意ポイント</li>
+        <li>第6章｜今日からの30日アクションプラン</li>
+        <li>第7章｜あなたへの手紙</li>
+      </ul>
+      <p class="premium-spec">全7章・約8,000字（試し読みつき）／note記事・スマホでそのまま読めます</p>
+      <a href="${NOTE_URLS[typeKey]}" class="premium-btn" target="_blank" rel="noopener">▶ ${t.name}・完全版を読む（300円）</a>
+      <p class="premium-note">全16タイプ・あなたの型専用に書かれたレポートです</p>
+    </div>` : ''}
 
     <div class="share-section">
       <p class="share-lead">📣 この結果、パートナーやママ友に見せたくなったら</p>
@@ -255,7 +308,7 @@ function renderReport(t, names) {
   const names = {};
   QUIZZES.forEach(q => { names[q.storage] = localStorage.getItem(q.storage + '_name') || ''; });
 
-  renderReport(t, names);
+  renderReport(typeKey, t, names);
 })();
 </script>
 <!-- 戻るボタン(全ページ共通) -->
