@@ -310,10 +310,10 @@ class QuizEngine {
     const s = this._axisScores || {E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0};
     const tEI = (s.E + s.I) || 1, tSN = (s.S + s.N) || 1;
     const tTF = (s.T + s.F) || 1, tJP = (s.J + s.P) || 1;
-    const pE = Math.round(s.E / tEI * 100);
-    const pS = Math.round(s.S / tSN * 100);
-    const pT = Math.round(s.T / tTF * 100);
-    const pJ = Math.round(s.J / tJP * 100);
+    const pE = this._ampPct(Math.round(s.E / tEI * 100));
+    const pS = this._ampPct(Math.round(s.S / tSN * 100));
+    const pT = this._ampPct(Math.round(s.T / tTF * 100));
+    const pJ = this._ampPct(Math.round(s.J / tJP * 100));
 
     // MBTI4軸を★形式に変換（ヒーローグリッド用）
     // 各軸の優勢側とその強度を★で表現
@@ -413,6 +413,15 @@ class QuizEngine {
       this._renderQuestion();
       this.mountEl.scrollIntoView({ behavior: 'smooth' });
     });
+  }
+
+  // バー表示用の増幅（見せ方のみ・優劣の方向は不変）:
+  // 素の比率は55〜65%に集まりがちで見ごたえがないため、50%からの差を3倍にして10〜90%へ。
+  // 同点(50%)だけはそのまま50%（「振り切るか、半々か」の見せ方に統一）
+  _ampPct(p) {
+    const d = p - 50;
+    if (d === 0) return 50;
+    return Math.max(10, Math.min(90, Math.round(50 + d * 3)));
   }
 
   _axisBar(leftKey, leftLabel, pctLeft, rightKey, rightLabel) {
@@ -522,7 +531,7 @@ class QuizEngine {
       const [l, r] = pair.split('');
       const sl = s[l] || 0, sr = s[r] || 0;
       const total = sl + sr || 1;
-      const pctL = Math.min(100, Math.round(sl / total * 100));
+      const pctL = this._ampPct(Math.min(100, Math.round(sl / total * 100)));
       return this._axisBarLabels(lbl[l] || l, pctL, lbl[r] || r);
     });
 
@@ -531,7 +540,7 @@ class QuizEngine {
       const da = this.data.derivedAxis;
       const hi = (da.hi || []).reduce((sum, a) => sum + (s[a] || 0), 0);
       const lo = (da.lo || []).reduce((sum, a) => sum + (s[a] || 0), 0);
-      const pctHi = Math.min(100, Math.round(hi / (hi + lo || 1) * 100));
+      const pctHi = this._ampPct(Math.min(100, Math.round(hi / (hi + lo || 1) * 100)));
       barsArr.push(this._axisBarLabels(da.label, pctHi, da.labelRight));
     }
     const barsHtml = barsArr.join('');
