@@ -34,6 +34,30 @@
     <div id="quiz-app" data-quiz="tests/love_type.json"></div>
 
     <!-- フッター -->
+  
+    <!-- この診断について（解説・折りたたみ） -->
+    <section class="quiz-about" style="max-width:680px;margin:20px auto 10px;padding:0 14px;">
+      <button type="button" id="about-quiz-toggle" onclick="toggleAboutQuiz()" aria-expanded="false" aria-controls="about-quiz-panel" style="display:block;width:100%;background:transparent;border:1px solid #c9c9c9;color:#777;border-radius:12px;padding:10px 14px;font-size:0.9rem;font-weight:bold;cursor:pointer;font-family:inherit;">📖 この診断について ▾</button>
+      <div id="about-quiz-panel" style="display:none;margin-top:10px;background:rgba(255,255,255,.95);border:1px solid #e3e3e3;border-radius:12px;padding:16px 18px;font-size:0.88rem;line-height:1.9;color:#444;text-align:left;">
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">この診断でわかること</h2>
+        <p style="margin:0 0 14px;">「恋愛タイプ診断」は、恋をしたときのあなたの傾向を3つの軸から整理する無料の読み物コンテンツです。恋の温度感（情熱的か穏やかか）、相手との関わり方（献身的か自立的か）、気持ちの表し方（表現豊かか内省的か）という組み合わせに注目すると、その人らしい恋愛スタイルの輪郭が見えてくると言われています。この診断では、日常の恋愛あるあるを題材にした全8問で、あなたのスタイルをやさしく言語化していきます。</p>
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">こんな人におすすめ</h2>
+        <p style="margin:0 0 14px;">「好きになると自分でも驚くほど夢中になってしまう」「恋人ができても自分のペースは大切にしたい」「気持ちをうまく言葉にできず、すれ違いがちかも」。そんな心当たりがある方には、自分の恋愛の傾向をあらためて眺める良いきっかけになるはずです。</p>
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">結果の見方</h2>
+        <p style="margin:0 0 14px;">8問すべてに答えると、3つの軸の組み合わせから全8タイプのうちいずれかが、親しみやすい動物モチーフのキャラクターとして表示されます。各タイプには特徴の解説とワンポイントアドバイス付き。結果画面はスクリーンショットで友達とシェアして盛り上がるのもおすすめです。さらに、この診断を含む対象の4つの診断をすべて受けると、16系統の統合分析レポートが解放される仕組みも用意しています。</p>
+        <p style="margin:0;font-size:0.78rem;color:#888;">※この診断は、娯楽と自己理解のきっかけづくりを目的とした読み物コンテンツであり、医学的・心理学的な検査や診断ではありません。結果に優劣はありませんので、気軽な話のタネとしてお楽しみください。</p>
+      </div>
+    </section>
+    <script>
+      function toggleAboutQuiz() {
+        var p = document.getElementById('about-quiz-panel');
+        var b = document.getElementById('about-quiz-toggle');
+        var open = p.style.display === 'none';
+        p.style.display = open ? 'block' : 'none';
+        b.textContent = open ? '📖 この診断について ▴' : '📖 この診断について ▾';
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+    </script>
   <footer class="site-footer">
     <a href="privacy.html">プライバシーポリシー</a>
     <a href="terms.html">利用規約</a>

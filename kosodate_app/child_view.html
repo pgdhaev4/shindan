@@ -14,6 +14,30 @@
     <a href="index.html" class="site-title">👨‍👩‍👧 子育て親タイプ診断</a>
   </header>
   <div id="quiz-app" data-quiz="data/child_view.js"></div>
+  
+    <!-- この診断について（解説・折りたたみ） -->
+    <section class="quiz-about" style="max-width:680px;margin:20px auto 10px;padding:0 14px;">
+      <button type="button" id="about-quiz-toggle" onclick="toggleAboutQuiz()" aria-expanded="false" aria-controls="about-quiz-panel" style="display:block;width:100%;background:transparent;border:1px solid #c9c9c9;color:#777;border-radius:12px;padding:10px 14px;font-size:0.9rem;font-weight:bold;cursor:pointer;font-family:inherit;">📖 この診断について ▾</button>
+      <div id="about-quiz-panel" style="display:none;margin-top:10px;background:rgba(255,255,255,.95);border:1px solid #e3e3e3;border-radius:12px;padding:16px 18px;font-size:0.88rem;line-height:1.9;color:#444;text-align:left;">
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">この診断でわかること</h2>
+        <p style="margin:0 0 14px;">「子供から見た親診断」は、普段の何気ない関わりが、子供の目にどんなふうに映っていそうかを想像してみる、遊び心いっぱいの無料コンテンツです。散歩の途中で抱っこをせがまれたとき、おもちゃが壊れたとき、一緒に遊ぼうと誘われたとき。全8問の場面での自分の行動を振り返ると、子供から見た「うちの親」像のヒントが見えてくるかもしれません。</p>
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">こんな人におすすめ</h2>
+        <p style="margin:0 0 14px;">「子供が自分のことをどう思っているのか、ちょっと気になる」「今日は怒りすぎたかも、と反省する夜がある」「たくさん遊んでいるつもりだけど、実際どう見えているんだろう」。そんな方が肩の力を抜いて楽しめる診断です。</p>
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">結果の見方</h2>
+        <p style="margin:0 0 14px;">回答の合計から、全8タイプのうちいずれかが子供目線のユーモラスなキャラクターとして表示されます。あくまで「そう見えているかも」という想像を楽しむものなので、結果は家族で見せ合って笑い合うのがおすすめです。なお、当サイトでは対象の4つの診断をすべて受けると16系統の統合分析レポートが解放される仕組みもあります。</p>
+        <p style="margin:0;font-size:0.78rem;color:#888;">※この診断は、娯楽と自己理解のきっかけづくりを目的とした読み物コンテンツであり、医学的・心理学的な検査や診断ではありません。子育てに唯一の正解はなく、結果に優劣もありませんので、気軽な話のタネとしてお楽しみください。</p>
+      </div>
+    </section>
+    <script>
+      function toggleAboutQuiz() {
+        var p = document.getElementById('about-quiz-panel');
+        var b = document.getElementById('about-quiz-toggle');
+        var open = p.style.display === 'none';
+        p.style.display = open ? 'block' : 'none';
+        b.textContent = open ? '📖 この診断について ▴' : '📖 この診断について ▾';
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+    </script>
   <footer class="site-footer">
     <a href="terms.html">利用規約</a>
     <a href="index.html">← トップへ戻る</a>

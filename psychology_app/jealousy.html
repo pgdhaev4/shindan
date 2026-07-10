@@ -22,6 +22,30 @@
       <p class="tagline">あなたの本当の姿を無料診断！</p>
     </header>
     <div id="quiz-app" data-quiz="tests/jealousy.json"></div>
+  
+    <!-- この診断について（解説・折りたたみ） -->
+    <section class="quiz-about" style="max-width:680px;margin:20px auto 10px;padding:0 14px;">
+      <button type="button" id="about-quiz-toggle" onclick="toggleAboutQuiz()" aria-expanded="false" aria-controls="about-quiz-panel" style="display:block;width:100%;background:transparent;border:1px solid #c9c9c9;color:#777;border-radius:12px;padding:10px 14px;font-size:0.9rem;font-weight:bold;cursor:pointer;font-family:inherit;">📖 この診断について ▾</button>
+      <div id="about-quiz-panel" style="display:none;margin-top:10px;background:rgba(255,255,255,.95);border:1px solid #e3e3e3;border-radius:12px;padding:16px 18px;font-size:0.88rem;line-height:1.9;color:#444;text-align:left;">
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">この診断でわかること</h2>
+        <p style="margin:0 0 14px;">「恋愛束縛度診断」は、恋人との距離のとり方の傾向を3つの軸から整理する無料コンテンツです。相手の様子を確かめたい気持ちと信頼して任せる気持ちのバランス、心が動いたときに感情的になりやすいか冷静でいられるか、いつも一緒にいたいか自分の時間も大切にしたいか。この組み合わせから、あなたなりの独占欲と信頼のパターンが見えてくると言われています。質問は全8問です。</p>
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">こんな人におすすめ</h2>
+        <p style="margin:0 0 14px;">「返信が遅いと、つい何度も画面を確認してしまう」「恋人の予定が気になって落ち着かない日がある」「逆に、ひとりの時間がないと息が詰まってしまう」。そんな経験がある方が、自分の距離感のスタイルを客観的に眺めるきっかけとして楽しめます。</p>
+        <h2 style="font-size:0.98rem;margin:0 0 6px;color:#333;">結果の見方</h2>
+        <p style="margin:0 0 14px;">8問に答えると、全8タイプのうちいずれかが個性豊かなキャラクターとして表示されます。束縛が強いか弱いかに良い悪いはなく、それぞれのタイプに合った関係づくりのヒントが読めるのが特徴です。結果はスクリーンショットでシェアして楽しめます。さらに、この診断を含む対象の4つの診断をすべて受けると、16系統の統合分析レポートが解放されます。</p>
+        <p style="margin:0;font-size:0.78rem;color:#888;">※この診断は、娯楽と自己理解のきっかけづくりを目的とした読み物コンテンツであり、医学的・心理学的な検査や診断ではありません。結果に優劣はありませんので、気軽な話のタネとしてお楽しみください。</p>
+      </div>
+    </section>
+    <script>
+      function toggleAboutQuiz() {
+        var p = document.getElementById('about-quiz-panel');
+        var b = document.getElementById('about-quiz-toggle');
+        var open = p.style.display === 'none';
+        p.style.display = open ? 'block' : 'none';
+        b.textContent = open ? '📖 この診断について ▴' : '📖 この診断について ▾';
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+    </script>
   <footer class="site-footer">
     <a href="privacy.html">プライバシーポリシー</a>
     <a href="terms.html">利用規約</a>
