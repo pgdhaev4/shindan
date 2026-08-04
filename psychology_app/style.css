@@ -1,6 +1,6 @@
 /* ==============================
    恋愛・性格診断ラボ - スタイルシート
-   スマホファースト (max-width: 480px)
+   スマホファースト (max-width: 640px)
    ============================== */
 
 /* --- リセット & 基本設定 --- */
@@ -55,7 +55,7 @@ a:hover {
 
 /* --- レイアウト --- */
 .page-wrapper {
-  max-width: 480px;
+  max-width: 640px;
   margin: 0 auto;
   padding: 0 0 80px;
 }
@@ -1699,3 +1699,31 @@ a:hover {
 .popup-desc { font-size: 0.84rem; line-height: 1.75; color: #444; margin-bottom: 16px; }
 .popup-link-btn { display: block; text-align: center; background: linear-gradient(90deg, #ff6eb4, #9b59b6); color: #fff; font-weight: 900; font-size: 0.92rem; padding: 12px 20px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 14px rgba(233,30,140,0.35); transition: opacity 0.15s; }
 .popup-link-btn:hover { opacity: 0.88; }
+
+
+/* ===== 記事ページ 装飾 (article.seo-static) 2026-08-04 ===== */
+article.seo-static{background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:18px;
+  box-shadow:0 8px 30px rgba(30,50,90,.08);padding:30px 22px 26px;margin:26px auto 8px;
+  max-width:680px;line-height:1.9;}
+article.seo-static h1{font-size:1.45rem;line-height:1.5;font-weight:800;margin:0 0 6px;}
+.article-meta{font-size:.74rem;color:#98a4b5;margin:2px 0 20px;padding-bottom:14px;border-bottom:1px solid #eef1f6;}
+article.seo-static h2{position:relative;font-size:1.02rem;font-weight:800;margin:30px 0 12px;
+  padding:9px 12px 9px 14px;background:linear-gradient(90deg,rgba(224,85,138,.09),transparent);
+  border-left:4px solid #e0558a;border-radius:6px;color:#1f2a3a;}
+article.seo-static p{font-size:.93rem;color:#33404f;}
+article.seo-static .seo-lead{background:#fdf1f6;border:1px solid #f6d5e3;border-radius:12px;
+  padding:14px 16px;font-size:.92rem;}
+.article-summary{background:#fdf1f6;border:1px solid #f6d5e3;border-radius:12px;padding:16px 18px;margin:28px 0 6px;}
+.article-summary-title{font-weight:800;color:#c2416f;margin:0 0 8px;font-size:.95rem;}
+.article-summary ul{margin:0;padding-left:1.3em;font-size:.88rem;line-height:2;color:#3a4656;}
+article.seo-static .seo-card{background:linear-gradient(135deg,#a83a6e,#e0558a);border:none;border-radius:14px;
+  padding:20px 16px;text-align:center;margin-top:28px;}
+article.seo-static .seo-card .seo-catch{color:#fff;font-weight:800;margin:0 0 4px;}
+article.seo-static .seo-card .seo-desc{margin:6px 0 0;}
+article.seo-static .seo-card a{color:#fff;font-weight:800;text-decoration:none;
+  background:rgba(255,255,255,.18);display:inline-block;padding:10px 20px;border-radius:99px;margin-top:4px;}
+article.seo-static .seo-eco{list-style:none;padding-left:0;margin:6px 0 0;line-height:1.6;}
+article.seo-static .seo-eco li{margin:0 0 8px;}
+article.seo-static .seo-eco a{display:block;background:#f6f8fb;border:1px solid #e7ecf3;border-radius:10px;
+  padding:11px 14px;text-decoration:none;font-size:.88rem;font-weight:700;}
+article.seo-static .seo-eco a::before{content:"📄 ";}

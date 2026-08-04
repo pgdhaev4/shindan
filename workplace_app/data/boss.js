@@ -2,11 +2,11 @@ window.QUIZ_DATA = {
   "title": "上司適性診断",
   "mode": "score",
   "score_ranges": [
-    [8,  10, "lion"],
-    [11, 13, "pegasus"],
-    [14, 16, "tyranno"],
-    [17, 19, "drone"],
-    [20, 22, "king"],
+    [8,  10, "tyranno"],
+    [11, 13, "lion"],
+    [14, 16, "drone"],
+    [17, 19, "king"],
+    [20, 22, "pegasus"],
     [23, 25, "unicorn"],
     [26, 28, "buddha"],
     [29, 32, "kouchou"]

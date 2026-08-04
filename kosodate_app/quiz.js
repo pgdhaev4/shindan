@@ -268,7 +268,8 @@ class QuizEngine {
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
 
-        <div class="result-action-btns">
+        <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#f2f7f0;border-left:4px solid #4a7c59;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#2f4a38;line-height:1.9;">今日も一日、おつかれさまでした。<br>診断を開く余裕がある——それだけで、ちゃんと向き合えている証拠です。あなたの毎日を応援しています。</p></div>
+            <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
           <a href="index.html" class="back-home-btn">👶 他の診断を見る</a>
         </div>

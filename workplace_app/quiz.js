@@ -272,7 +272,8 @@ class QuizEngine {
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
 
-        <div class="result-action-btns">
+        <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#f2f7f0;border-left:4px solid #4a7c59;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#2f4a38;line-height:1.9;">今日もおつかれさまでした。<br>診断はエンタメですが、あなたの毎日の頑張りは本物です。明日が少しラクになりますように。</p></div>
+            <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
           <a href="index.html" class="back-home-btn">🏢 他の診断を見る</a>
         </div>
@@ -335,7 +336,7 @@ class QuizEngine {
         ${statsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${statsHtml}</div>` : ''}
         ${ecoHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">🌿 生態</p><p class="ss-detail-item">${ecoHtml}</p></div>` : ''}
         ${quoteHtml ? `<div class="ss-detail-section"><p class="ss-detail-label">💬 口癖</p><p class="ss-detail-item">${quoteHtml}</p></div>` : ''}
-        <p class="ss-hashtag">#会社モンスター診断 #会社モンスター診断 #社内あるある</p>
+        <p class="ss-hashtag">#会社モンスター診断 #社内あるある #診断の森</p>
       </div>
       <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;

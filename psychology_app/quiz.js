@@ -6,10 +6,10 @@
 // アクティブ診断リスト（次の診断レコメンド用）
 const QUIZ_LIST = [
   { href: 'mbti.html',            emoji: '🔮', title: '深層心理 性格タイプ診断', label: '10問' },
-  { href: 'love_type.html',       emoji: '💘', title: '恋愛タイプ診断',         label: '8問' },
+  { href: 'love_type.html',       emoji: '💘', title: 'あなたが恋愛で沼る理由診断', label: '8問' },
   { href: 'compatibility.html',   emoji: '💕', title: '恋愛相性診断',           label: '8問' },
-  { href: 'jealousy.html',        emoji: '😤', title: '恋愛束縛度診断',         label: '8問' },
-  { href: 'love_dependency.html', emoji: '💝', title: '恋愛依存度診断',         label: '8問' },
+  { href: 'jealousy.html',        emoji: '😤', title: '重い女・重い男度診断',   label: '8問' },
+  { href: 'love_dependency.html', emoji: '💝', title: '好きになると人生狂う度診断', label: '8問' },
   { href: 'heartbreak.html',      emoji: '💔', title: '失恋回復タイプ診断',     label: '8問' },
   { href: 'ideal_date.html',      emoji: '🌸', title: '理想のデートタイプ診断', label: '8問' },
 ];
@@ -265,7 +265,7 @@ class QuizEngine {
   //   シェアセクション
   // ===========================
   _shareSection(tweetText, currentURL, label = '結果') {
-    const twitterURL = `https://twitter.com/intent/tweet?text=${tweetText}&url=${currentURL}&hashtags=恋愛診断,心理テスト`;
+    const twitterURL = `https://twitter.com/intent/tweet?text=${tweetText}&url=${currentURL}&hashtags=恋愛診断`;
     const lineURL    = `https://social-plugins.line.me/lineit/share?url=${currentURL}`;
     return `
       <div class="share-section-v2">
@@ -372,7 +372,7 @@ class QuizEngine {
         <div class="result-card">
           <div class="result-card-header" ${bgStyle}>
             <p class="result-complete-banner">✨ 診断完了！あなたのタイプが判明しました ✨</p>
-            <p class="quiz-psychology-badge">🔬 心理学に基づく深層分析</p>
+            <p class="quiz-psychology-badge">🔮 エンタメ×深層心理分析</p>
             ${illustration}
             <p class="result-type-label">あなたのタイプは...</p>
             <div class="result-name-badge">
@@ -385,9 +385,9 @@ class QuizEngine {
           <div class="result-card-body">
             ${result.summary ? `<div class="result-summary-badge">${this._esc(result.summary)}</div>` : ''}
             ${summaryGaugeHtml}
-            ${result.compatible_with ? `<div class="result-section compatible-section"><div class="result-section-label">💑 相性の良い異性（こんな人）</div><p class="result-section-text">${this._esc(result.compatible_with)}</p></div>` : ''}
+            ${result.compatible_with ? `<div class="result-section compatible-section"><div class="result-section-label">💑 相性がいいのはこんな人</div><p class="result-section-text">${this._esc(result.compatible_with)}</p></div>` : ''}
             <div class="mbti-axis-bars">
-              <div class="mbti-axis-title">📊 心理学的観点からみたあなたの特性</div>
+              <div class="mbti-axis-title">📊 あなたの回答から見えた傾向</div>
               ${this._axisBar('E', '外向', pE, 'I', '内向')}
               ${this._axisBar('S', '感覚', pS, 'N', '直感')}
               ${this._axisBar('T', '思考', pT, 'F', '感情')}
@@ -401,7 +401,8 @@ class QuizEngine {
         ${this._shareSection(tweetText, currentURL)}
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
-        <div class="result-action-btns">
+        <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
+            <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
           <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
         </div>
@@ -421,7 +422,7 @@ class QuizEngine {
   _ampPct(p) {
     const d = p - 50;
     if (d === 0) return 50;
-    return Math.max(10, Math.min(90, Math.round(50 + d * 3)));
+    return Math.max(10, Math.min(90, Math.round(50 + d * 1.5)));
   }
 
   _axisBar(leftKey, leftLabel, pctLeft, rightKey, rightLabel) {
@@ -596,7 +597,7 @@ class QuizEngine {
           <div class="result-card-header" ${bgStyle}>
             <button class="screenshot-btn" id="screenshot-btn">📸 スクショ</button>
             <p class="result-complete-banner">✨ 診断完了！あなたのタイプが判明しました ✨</p>
-            <p class="quiz-psychology-badge">🔬 心理学に基づく深層分析</p>
+            <p class="quiz-psychology-badge">🔮 エンタメ×深層心理分析</p>
             ${illustration}
             <p class="result-type-label">あなたのタイプは...</p>
             <div class="result-name-badge">
@@ -610,8 +611,8 @@ class QuizEngine {
           <div class="result-card-body">
             ${result.summary ? `<div class="result-summary-badge">${this._esc(result.summary)}</div>` : ''}
             ${summaryGaugeHtml}
-            ${result.compatible_with ? `<div class="result-section compatible-section"><div class="result-section-label">💑 相性の良い異性（こんな人）</div><p class="result-section-text">${this._esc(result.compatible_with)}</p></div>` : ''}
-            <div class="mbti-axis-bars"><div class="mbti-axis-title">📊 心理学的観点からみたあなたの特性</div>${barsHtml}</div>
+            ${result.compatible_with ? `<div class="result-section compatible-section"><div class="result-section-label">💑 相性がいいのはこんな人</div><p class="result-section-text">${this._esc(result.compatible_with)}</p></div>` : ''}
+            <div class="mbti-axis-bars"><div class="mbti-axis-title">📊 あなたの回答から見えた傾向</div>${barsHtml}</div>
             <p class="result-description">${this._esc(result.description)}</p>
             ${sectionsHtml}
             ${result.advice ? `<div class="result-advice"><span class="advice-icon">💡</span><div><strong>アドバイス</strong><br>${this._esc(result.advice)}</div></div>` : ''}
@@ -620,7 +621,8 @@ class QuizEngine {
         ${this._shareSection(tweetText, currentURL)}
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
-        <div class="result-action-btns">
+        <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
+            <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
           <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
         </div>
@@ -670,7 +672,7 @@ class QuizEngine {
         <h2 class="ss-name">${this._esc(result.name)}</h2>
         ${result.catchphrase ? `<p class="ss-catch">"${this._esc(result.catchphrase)}"</p>` : ''}
         ${starRowsHtml ? `<div class="ss-stats-section"><p class="ss-section-label">▸ 特 徴</p>${starRowsHtml}</div>` : ''}
-        <p class="ss-hashtag">#恋愛沼診断 #恋愛心理テスト #恋愛依存</p>
+        <p class="ss-hashtag">#恋愛沼診断 #恋愛心理テスト #診断の森</p>
       </div>
       <button class="ss-close-btn" id="ss-close-btn">✕ 閉じる</button>
     `;
@@ -726,7 +728,7 @@ class QuizEngine {
         <div class="result-card">
           <div class="result-card-header">
             <p class="result-complete-banner">✨ 診断完了！あなたのタイプが判明しました ✨</p>
-            <p class="quiz-psychology-badge">🔬 心理学に基づく深層分析</p>
+            <p class="quiz-psychology-badge">🔮 エンタメ×深層心理分析</p>
             ${illustration}
             <p class="result-type-label">あなたのタイプは...</p>
             <div class="result-name-badge">
@@ -751,7 +753,8 @@ class QuizEngine {
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
 
-        <div class="result-action-btns">
+        <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
+            <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
           <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
         </div>
@@ -806,7 +809,8 @@ class QuizEngine {
         ${this._renderNextQuizzes()}
         ${this._renderCrossAppBanners()}
 
-        <div class="result-action-btns">
+        <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
+            <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
           <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
         </div>

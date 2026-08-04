@@ -102,6 +102,7 @@
     .disclaimer { text-align: center; font-size: .72em; color: #b78d99; padding: 14px 16px 4px; }
     .footer-copy { text-align: center; font-size: .72em; color: #b78d99; padding: 8px 0 24px; }
   </style>
+  <meta name="robots" content="noindex">
 </head>
 <body>
 <div class="page-wrapper">
@@ -210,7 +211,7 @@ function renderReport(typeKey, t, names) {
   const envHtml = t.env.map(e => `<span class="env-tag">${e}</span>`).join('');
   // 無料版は冒頭だけ見せて完全版へ（フリーミアム設計・workplace版と統一）
   const talentTeaser = t.talent.split('。')[0] + '。';
-  const msgTeaser = t.message.split('。').slice(0, 2).join('。') + '。';
+  const msgTeaser = t.message.split('。').slice(0, 4).join('。') + '。';
 
   const tweetText = encodeURIComponent(`【私の子育てタイプ：${t.name}】\n4つの子育てモンスター診断を統合分析した結果…\n"${t.catch}"\n\nあなたは16系統のどのタイプ？\n#子育てモンスター診断 #育児あるある`);
   const currentURL = encodeURIComponent(window.location.href);

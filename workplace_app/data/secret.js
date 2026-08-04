@@ -3,13 +3,13 @@ window.QUIZ_DATA = {
   "mode": "score",
   "score_ranges": [
     [8,  10, "copy"],
-    [11, 13, "kaigi"],
-    [14, 16, "excel"],
-    [17, 19, "nomikai"],
-    [20, 22, "golem"],
-    [23, 25, "datsugoku"],
+    [11, 13, "golem"],
+    [14, 16, "kaigi"],
+    [17, 19, "datsugoku"],
+    [20, 22, "ghost"],
+    [23, 25, "excel"],
     [26, 28, "panda"],
-    [29, 32, "ghost"]
+    [29, 32, "nomikai"]
   ],
   "questions": [
     {

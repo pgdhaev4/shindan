@@ -1,4 +1,4 @@
-# App sync & GitHub Pages auto-publish
+﻿# App sync & GitHub Pages auto-publish
 $ErrorActionPreference = "Continue"
 
 # 絶対パスで固定（日本語フォルダ名対応）
@@ -17,10 +17,12 @@ foreach ($name in @("workplace_app", "psychology_app", "kosodate_app")) {
     robocopy "$SRC\$name" "$REPO\$name" /MIR /XD "images_backup" "images_backup2" /E /NP /NJH /NJS | Out-Null
     Write-Host "  $name done"
 }
-# トップページも同期
-if (Test-Path "$SRC\index.html") {
-    Copy-Item "$SRC\index.html" "$REPO\index.html" -Force
-    Write-Host "  index.html done"
+# トップページ・共通ページも同期（app/ を唯一の編集元にする）
+foreach ($f in @("index.html", "about.html", "articles.html", "privacy.html", "terms.html", "sitemap.xml")) {
+    if (Test-Path "$SRC\$f") {
+        Copy-Item "$SRC\$f" "$REPO\$f" -Force
+        Write-Host "  $f done"
+    }
 }
 
 # [2] Commit
