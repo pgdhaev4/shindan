@@ -3,7 +3,7 @@ import os
 
 img_dir = os.path.dirname(os.path.abspath(__file__))
 images_dir = os.path.join(img_dir, "images")
-src_dir = r"C:\Users\有田稔\Desktop\youtube_auto\子育て診断（仮置き）"
+src_dir = r"C:\Users\arita\youtube_auto\子育て診断（仮置き）"
 
 os.makedirs(images_dir, exist_ok=True)
 
