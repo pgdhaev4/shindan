@@ -1,6 +1,6 @@
 ﻿window.QUIZ_DATA = {
   "title": "あなたが恋愛で沼る理由診断",
-  "description": "あなたの恋愛スタイルを深層心理まで徹底分析。全8問。",
+  "description": "あなたの恋愛スタイルを回答からくわしく分析。全8問。",
   "mode": "axis3",
   "axes": [
     "PC",

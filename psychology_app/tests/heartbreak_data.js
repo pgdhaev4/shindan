@@ -1,6 +1,6 @@
 ﻿window.QUIZ_DATA = {
   "title": "元恋人を忘れられない度診断",
-  "description": "失恋後のあなたの回復パターンを深層心理で分析。全8問。",
+  "description": "失恋後のあなたの回復パターンを回答から分析。全8問。",
   "mode": "axis3",
   "axes": [
     "DR",

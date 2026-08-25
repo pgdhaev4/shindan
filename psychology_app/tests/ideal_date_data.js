@@ -1,6 +1,6 @@
 ﻿window.QUIZ_DATA = {
   "title": "理想のデートタイプ診断",
-  "description": "あなたが最も輝くデートスタイルを深層心理で分析。全8問。",
+  "description": "あなたが最も輝くデートスタイルを回答から分析。全8問。",
   "mode": "axis3",
   "axes": [
     "AM",

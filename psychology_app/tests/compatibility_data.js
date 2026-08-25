@@ -1,6 +1,6 @@
 ﻿window.QUIZ_DATA = {
   "title": "恋愛相性診断",
-  "description": "あなたの恋愛における相性パターンを深層心理で分析。全8問。",
+  "description": "あなたの恋愛における相性パターンを回答から分析。全8問。",
   "mode": "axis3",
   "axes": [
     "AF",

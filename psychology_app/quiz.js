@@ -5,7 +5,7 @@
 
 // アクティブ診断リスト（次の診断レコメンド用）
 const QUIZ_LIST = [
-  { href: 'mbti.html',            emoji: '🔮', title: '深層心理 性格タイプ診断', label: '10問' },
+  { href: 'mbti.html',            emoji: '🔮', title: '性格タイプ診断', label: '10問' },
   { href: 'love_type.html',       emoji: '💘', title: 'あなたが恋愛で沼る理由診断', label: '8問' },
   { href: 'compatibility.html',   emoji: '💕', title: '恋愛相性診断',           label: '8問' },
   { href: 'jealousy.html',        emoji: '😤', title: '重い女・重い男度診断',   label: '8問' },
@@ -372,7 +372,7 @@ class QuizEngine {
         <div class="result-card">
           <div class="result-card-header" ${bgStyle}>
             <p class="result-complete-banner">✨ 診断完了！あなたのタイプが判明しました ✨</p>
-            <p class="quiz-psychology-badge">🔮 エンタメ×深層心理分析</p>
+            <p class="quiz-psychology-badge">🔮 エンタメ×性格タイプ分析</p>
             ${illustration}
             <p class="result-type-label">あなたのタイプは...</p>
             <div class="result-name-badge">
@@ -597,7 +597,7 @@ class QuizEngine {
           <div class="result-card-header" ${bgStyle}>
             <button class="screenshot-btn" id="screenshot-btn">📸 スクショ</button>
             <p class="result-complete-banner">✨ 診断完了！あなたのタイプが判明しました ✨</p>
-            <p class="quiz-psychology-badge">🔮 エンタメ×深層心理分析</p>
+            <p class="quiz-psychology-badge">🔮 エンタメ×性格タイプ分析</p>
             ${illustration}
             <p class="result-type-label">あなたのタイプは...</p>
             <div class="result-name-badge">
@@ -728,7 +728,7 @@ class QuizEngine {
         <div class="result-card">
           <div class="result-card-header">
             <p class="result-complete-banner">✨ 診断完了！あなたのタイプが判明しました ✨</p>
-            <p class="quiz-psychology-badge">🔮 エンタメ×深層心理分析</p>
+            <p class="quiz-psychology-badge">🔮 エンタメ×性格タイプ分析</p>
             ${illustration}
             <p class="result-type-label">あなたのタイプは...</p>
             <div class="result-name-badge">

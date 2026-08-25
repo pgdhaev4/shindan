@@ -13,10 +13,10 @@
   <meta charset="UTF-8">
     <meta name="google-site-verification" content="v19twLq1vsxxadbmuw2XZeJhP79a8cd3uHj1l-VFX58" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="あなたが恋愛で沼る理由、こっそり分かります。恋愛あるある×深層心理の無料恋愛診断サイト。全7診断。">
-  <meta name="keywords" content="恋愛診断,恋愛タイプ,深層心理,性格診断,無料診断,恋愛相性,束縛度,失恋">
+  <meta name="description" content="あなたが恋愛で沼る理由、こっそり分かります。恋愛あるある×性格タイプの無料恋愛診断サイト。全7診断。">
+  <meta name="keywords" content="恋愛診断,恋愛タイプ,性格タイプ,性格診断,無料診断,恋愛相性,束縛度,失恋">
   <meta property="og:title" content="恋愛沼診断 | 沼る理由、こっそり分かります">
-  <meta property="og:description" content="あなたの恋愛のクセを見える化。7種類の深層心理診断を無料で。">
+  <meta property="og:description" content="あなたの恋愛のクセを見える化。7種類の恋愛診断を無料で。">
   <meta property="og:type" content="website">
   <!-- OGP: https://pgdhaev4.github.io/shindan を公開後の実URLに差し替えるだけでOK -->
   <meta property="og:image" content="https://pgdhaev4.github.io/shindan/psychology_app/assets/ogp.png">
@@ -262,7 +262,7 @@
         <div style="background:linear-gradient(135deg,#4a148c 0%,#ff6eb4 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(74,20,140,.35);">
           <p style="font-size:.72rem;color:#ffd6e0;letter-spacing:.08em;margin-bottom:6px;">🔮 4つの診断を制覇したあなただけの特別コンテンツ</p>
           <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの恋愛性格分析レポート<span style="color:#ffd6e0;">【16系統】</span></p>
-          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">4つの診断結果を統合分析して、あなたの恋愛の本当の魅力・隠れた才能を導き出します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
+          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">4つの診断結果を統合分析して、回答から見える恋愛での魅力の傾向を整理します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
           <div id="report-progress"></div>
         </div>
       </section>
@@ -270,19 +270,19 @@
       <!-- 全診断一覧 -->
       <section class="section">
         <h2 class="section-title">💕 全診断一覧</h2>
-        <p class="section-lead">全8タイプ・深層心理分析つき</p>
+        <p class="section-lead">全8タイプ・傾向の解説つき</p>
         <div class="diag-grid">
 
           <a href="mbti.html" class="diag-card">
             <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#fff3e0);">🔮</div>
             <div class="diag-card-body">
               <p class="diag-card-title">
-                深層心理 性格タイプ診断
+                性格タイプ診断
                 <span class="diag-card-badge">全16タイプ</span>
               </p>
-              <p class="diag-card-desc">全16タイプ。10問でわかる、あなたの恋愛の深層心理。</p>
+              <p class="diag-card-desc">全16タイプ。10問でわかる、あなたの恋愛の傾向。</p>
               <div class="diag-metrics">
-                <span>🧠 深層心理</span><span>💘 恋愛スタイル</span><span>💑 相性のヒント</span>
+                <span>🧠 性格タイプ</span><span>💘 恋愛スタイル</span><span>💑 相性のヒント</span>
               </div>
               <div class="diag-card-meta"><span>⏱ 約2分</span><span>📝 10問</span><span>🎯 8タイプ</span></div>
             </div>
@@ -307,7 +307,7 @@
             <div class="diag-card-thumb" style="background:linear-gradient(135deg,#f3e5f5,#e3f2fd);">💕</div>
             <div class="diag-card-body">
               <p class="diag-card-title">恋愛相性診断</p>
-              <p class="diag-card-desc">積極的？感情重視？一途？あなたの恋愛相性パターンを深層心理で解析。</p>
+              <p class="diag-card-desc">積極的？感情重視？一途？あなたの恋愛相性パターンを回答から解析。</p>
               <div class="diag-metrics">
                 <span>💯 相性点数</span><span>⚠️ すれ違いやすいタイプ</span>
               </div>
@@ -553,8 +553,8 @@
           : `<a href="${q.href}" style="display:block;background:#ffd6e0;color:#4a148c;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;text-decoration:none;">${q.emoji} ${q.name}を受ける</a>`
         ).join('');
         const head = remaining > 0
-          ? `<p style="font-size:.9rem;font-weight:900;color:#ffd6e0;margin:12px 0 8px;">あと<span style="font-size:1.2rem;">${remaining}</span>個で解放！</p>`
-          : `<p style="font-size:.9rem;font-weight:900;color:#c8f7d8;margin:12px 0 8px;">✨ 全診断クリア！レポートが解放されました</p>`;
+          ? `<p style="font-size:.9rem;font-weight:900;color:#ffd6e0;margin:12px 0 8px;">あと<span style="font-size:1.2rem;">${remaining}</span>個で読めます</p>`
+          : `<p style="font-size:.9rem;font-weight:900;color:#c8f7d8;margin:12px 0 8px;">✨ 全診断そろいました。レポートが読めます</p>`;
         const cta = remaining === 0
           ? `<a href="report.html" style="display:block;text-align:center;background:#ffd6e0;color:#4a148c;font-weight:900;padding:12px;border-radius:50px;margin-top:10px;text-decoration:none;">🔮 あなたのレポートを見る</a>`
           : `<a href="report.html" style="display:block;text-align:right;color:#ffd6e0;font-size:.78rem;font-weight:bold;margin-top:8px;text-decoration:none;">レポートについて詳しく ›</a>`;
@@ -576,6 +576,16 @@
       </div>
     </section>
 
+
+  <!-- 心が少し軽くなる診断への導線（2026-08-25 追加） -->
+  <section style="max-width:680px;margin:26px auto 0;padding:0 16px;">
+    <a href="../kokoro_app/" style="display:block;background:linear-gradient(155deg,#f7faf5 0%,#eaf2e7 100%);border:1px solid rgba(92,138,99,.4);border-radius:18px;padding:20px 20px 18px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18);">
+      <p style="font-size:.72rem;font-weight:800;letter-spacing:.08em;color:#3f6b4a;margin:0 0 8px;">🌿 笑うより、少し休みたい日は</p>
+      <p style="font-size:1.05rem;font-weight:900;color:#3f6b4a;line-height:1.45;margin:0 0 8px;">心が少し軽くなる診断</p>
+      <p style="font-size:.85rem;color:#5f7268;line-height:1.85;margin:0 0 10px;">人付き合いに疲れた日や、理由がうまく言えない疲れのための診断です。当てにいくのではなく、いまの状態に言葉をつけます。1つ約2分。</p>
+      <p style="display:inline-block;background:linear-gradient(135deg,#6aa06f,#4d7c56);color:#fff;font-weight:900;font-size:.85rem;padding:10px 22px;border-radius:99px;margin:0;">診断を見てみる →</p>
+    </a>
+  </section>
     <footer class="site-footer">
       <p>© 2026 恋愛沼診断<br>
         <a href="privacy.html">プライバシーポリシー</a> ／
