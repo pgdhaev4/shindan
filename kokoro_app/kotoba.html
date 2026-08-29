@@ -21,7 +21,10 @@
   <meta property="og:site_name" content="診断の森">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3934206444145241" crossorigin="anonymous"></script>
+  <!-- 広告スクリプトはここでは読み込まない。結果画面になってから kokoro.js が読み込む。
+       設問・選択肢・戻るボタンの近くに広告が入らないようにするため（オーナー方針 2026-08-26）。
+       アカウントの所有権確認用のタグだけ静的に置いておく。 -->
+  <meta name="google-adsense-account" content="ca-pub-3934206444145241">
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/kokoro_app/kotoba.html">
 </head>
 <body>
@@ -36,7 +39,7 @@
     <span class="eyebrow">🌿 心が少し軽くなる診断</span>
     <h1>今のあなたに必要な言葉診断</h1>
     <p class="lead">「がんばってるね」と言われても、うまく受け取れない日があります。<br>今のあなたに届きそうな言葉を、8つの質問からひとつだけ選びます。</p>
-    <div class="hero-meta"><span>⏱ 約2分・8問</span><span>📱 登録不要・無料</span><span>🌱 結果は6種類</span></div>
+    <div class="hero-meta"><span>⏱ 約2分・8問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 結果は6種類</span></div>
   </div>
 
   <div id="quiz-app"></div>
@@ -51,14 +54,14 @@
       <div class="type-card"><h3>🌙 「もう、休んでいい」</h3><p>止まると落ち着かない、時間が空くと次の用事を探してしまう——そんな答えが多かった方に出やすい結果です。休めない理由を、性格ではなく順番の問題として整理します。</p></div>
       <div class="type-card"><h3>🌾 「もう、じゅうぶんできてる」</h3><p>やったことより、できていないことのほうが目に入る方に出やすい結果です。手応えのなさが、成果ではなくものさしの側から来ている可能性を見ていきます。</p></div>
       <div class="type-card"><h3>🫙 「ひとりで、抱えなくていい」</h3><p>「大丈夫です」が口ぐせで、気づくと全部が自分のところに集まっている方に出やすい結果です。頼れない理由と、頼ることの意味を組み直します。</p></div>
-      <div class="type-card"><h3>🕯️ 「あれで、間違ってなかった」</h3><p>終わったやりとりを、夜に何度も再生してしまう方に出やすい結果です。その見直し癖が持っている、あまり気づかれない良い面を扱います。</p></div>
+      <div class="type-card"><h3>🕯️ 「もう、何度も自分を責めなくていい」</h3><p>終わったやりとりを、夜に何度も再生してしまう方に出やすい結果です。その見直し癖が持っている良い面と、どこで区切るかを扱います。</p></div>
       <div class="type-card"><h3>🍃 「そのままで、だいたい大丈夫」</h3><p>直すべきところを常に探してしまう方に出やすい結果です。自分の評価を外側に置いているときに何が起きるかを、静かに整理します。</p></div>
       <div class="type-card"><h3>🌫️ 「そんなに、急がなくていい」</h3><p>自分だけ止まっている気がする、先がぼんやり不安——そんな方に出やすい結果です。焦りの正体を、進み方ではなく比べ方の側から見ていきます。</p></div>
 
       <h2>よくある質問</h2>
       <dl class="faq">
         <dt>この診断は無料ですか？</dt><dd>はい。無料で、会員登録も必要ありません。氏名やメールアドレスの入力もありません。</dd>
-        <dt>答えはどこかに送信されますか？</dt><dd>いいえ。回答と結果はお使いの端末の中だけで処理され、外部に送信されることはありません。</dd>
+        <dt>答えはどこかに送信されますか？</dt><dd>診断への回答内容・判定結果はサーバーへ送信せず、お使いのブラウザ内で処理します。なお当サイトではアクセス解析（Googleアナリティクス）と広告配信（Google AdSense）を利用しており、それらに伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。</dd>
         <dt>結果が当たっていない気がします。</dt><dd>この診断は、当てることより「言葉にする手がかり」を渡すことを目的にしています。しっくりこなければ、別の結果を読んでみてもかまいません。</dd>
         <dt>何度でもできますか？</dt><dd>できます。日によって答えは変わりますし、変わって当然です。</dd>
       </dl>
@@ -68,7 +71,7 @@
         この診断は、気持ちを整理するきっかけづくりを目的とした読みものです。
         医学的・心理学的な検査や診断ではなく、病気の有無を判定するものではありません。
         結果に優劣はなく、良い結果・悪い結果もありません。
-        回答と結果はお使いの端末内だけで処理され、外部に送信されることはありません。
+        診断への回答内容・判定結果はサーバーへ送信せず、お使いのブラウザ内で処理します。アクセス解析・広告配信に伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。
         <p style="margin-top:9px">気持ちのつらさが続くときは、<a href="https://kokoro.mhlw.go.jp/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>などの相談先もあります。</p>
       </div>
     </section>
@@ -84,6 +87,7 @@
   </div>
 
   <footer class="site-footer">
+    <p><button class="footer-back" type="button" onclick="history.back()">← 前のページに戻る</button></p>
     <a href="../">診断の森トップ</a>
     <a href="../about.html">運営者情報</a>
     <a href="../privacy.html">プライバシーポリシー</a>
@@ -93,10 +97,8 @@
 </div>
 
 <script src="data/kotoba.js"></script>
+<script src="measure.js"></script>
+<script src="cta.js"></script>
 <script src="kokoro.js"></script>
-<!-- 戻るボタン(全ページ共通) -->
-<style>.back-fab{position:fixed;left:12px;bottom:12px;z-index:9999;background:rgba(63,107,74,.9);color:#fff;border:none;border-radius:50px;padding:10px 18px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.2);font-family:inherit;}.back-fab:active{transform:scale(.95);}</style>
-<button class="back-fab" id="backFab" onclick="history.back()" aria-label="前のページに戻る">← 戻る</button>
-<script>if(history.length<=1){var _bf=document.getElementById('backFab');if(_bf)_bf.style.display='none';}</script>
 </body>
 </html>

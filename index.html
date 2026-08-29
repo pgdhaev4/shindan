@@ -111,6 +111,19 @@
     .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(120,180,130,0.42); }
     .hero-hint { margin-top: 12px; font-size: 0.74rem; color: rgba(255,255,255,0.62); }
 
+    /* スマホでヒーローが1画面を埋めきってしまい、小さい端末だと「少し休んでいく」が
+       折り返しの下に隠れるため、狭い画面だけ余白と行間を詰める（2026-08-26） */
+    @media (max-width: 480px) {
+      .hero { padding: 28px 18px 28px; }
+      .hero-badge { margin-bottom: 11px; }
+      .hero-main { margin-bottom: 11px; }
+      .hero-voice { line-height: 1.8; margin-bottom: 10px; }
+      .hero-sub { line-height: 1.78; margin-bottom: 12px; }
+      .hero-stats { gap: 7px; margin-bottom: 16px; }
+      .hero-stats span { padding: 5px 11px; font-size: 0.72rem; }
+      .hero-cta { padding: 14px 34px; }
+    }
+
     /* ===== 共通レイアウト ===== */
     .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
     section.block { padding: 34px 0 6px; }
@@ -149,9 +162,10 @@
       font-size: 1.7rem; line-height: 1; flex-shrink: 0;
       background: var(--green-lt); border-radius: 13px; padding: 11px;
     }
-    .kokoro-card .k-title { font-size: 1rem; font-weight: 900; color: var(--green-dk); line-height: 1.45; margin-bottom: 4px; }
-    .kokoro-card .k-desc { font-size: 0.83rem; color: var(--ink-soft); line-height: 1.8; }
-    .kokoro-card .k-meta { font-size: 0.73rem; color: var(--muted); margin-top: 7px; font-weight: 700; }
+    .kokoro-card > span:last-child { display: block; }
+    .kokoro-card .k-title { display: block; font-size: 1rem; font-weight: 900; color: var(--green-dk); line-height: 1.45; margin-bottom: 6px; }
+    .kokoro-card .k-desc { display: block; font-size: 0.83rem; color: var(--ink-soft); line-height: 1.85; }
+    .kokoro-card .k-meta { display: block; font-size: 0.73rem; color: var(--muted); margin-top: 9px; font-weight: 700; }
     .more-link { text-align: center; margin-top: 16px; }
     .more-link a {
       display: inline-block; color: var(--green-dk); font-weight: 800; font-size: 0.88rem;
@@ -277,7 +291,7 @@
       </p>
     </div>
     <div class="hero-stats">
-      <span>⏱ 1つ約2分</span><span>📱 登録・入力なし</span><span>🌱 ひとつだけでOK</span>
+      <span>⏱ 1つ約2分</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 ひとつだけでOK</span>
     </div>
     <a href="#mood" class="hero-cta">少し休んでいく</a>
     <p class="hero-hint">↓ 今日の気分から選べます</p>
@@ -487,7 +501,7 @@
           <li>病気の判定はしません。医学的な診断は医療機関でしか行えません</li>
           <li>「転職しましょう」「別れましょう」のような大きな決断をすすめません</li>
           <li>診断ひとつで完結します。全部受けないと結果が出ない、ということはありません</li>
-          <li>回答も結果も、あなたの端末の中だけで処理されます。外部に送信しません</li>
+          <li>診断への回答内容・判定結果はサーバーへ送信せず、ブラウザ内で処理します（アクセス解析・広告配信については<a href="./privacy.html" style="color:var(--green)">プライバシーポリシー</a>をご確認ください）</li>
         </ul>
         <p>
           あわせて、キャラクター診断（会社モンスター診断・恋愛沼診断・子育て親タイプ診断）も
@@ -505,7 +519,7 @@
           <dt>Q. 診断結果は当たりますか？</dt>
           <dd>この診断は、当てることより「自分の状態に言葉をつける手がかり」を渡すことを目的にしています。しっくりこなければ、別の結果を読んでも、忘れてしまってもかまいません。医学的・心理学的な検査ではありません。</dd>
           <dt>Q. 個人情報は収集されますか？</dt>
-          <dd>入力項目そのものがありません。回答と結果はお使いのブラウザ内でのみ処理され、外部に送信されません。</dd>
+          <dd>氏名やメールアドレスなどの入力項目はありません。診断への回答内容・判定結果もサーバーへ送信せず、お使いのブラウザ内で処理します。なお当サイトではアクセス解析（Googleアナリティクス）と広告配信（Google AdSense）を利用しており、それらに伴う情報の取扱いは<a href="./privacy.html">プライバシーポリシー</a>をご確認ください。</dd>
           <dt>Q. 統合分析レポートって何ですか？</dt>
           <dd>同じジャンルの複数の診断結果を組み合わせて、回答から見える傾向を16の系統にまとめた無料の読みものです。受けたい方向けの追加コンテンツで、必須ではありません。</dd>
           <dt>Q. 結果をSNSに載せてもいいですか？</dt>
@@ -540,9 +554,5 @@
       document.getElementById('mood').scrollIntoView({ behavior: 'smooth' });
     });
   </script>
-<!-- 戻るボタン(全ページ共通) -->
-<style>.back-fab{position:fixed;left:12px;bottom:12px;z-index:9999;background:rgba(63,107,74,.9);color:#fff;border:none;border-radius:50px;padding:10px 18px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.2);font-family:inherit;}.back-fab:active{transform:scale(.95);}</style>
-<button class="back-fab" id="backFab" onclick="history.back()" aria-label="前のページに戻る">← 戻る</button>
-<script>if(history.length<=1){var _bf=document.getElementById('backFab');if(_bf)_bf.style.display='none';}</script>
 </body>
 </html>

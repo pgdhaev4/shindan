@@ -164,6 +164,11 @@ body {
   color: var(--green-dk); line-height: 1.4; margin-bottom: 10px;
 }
 .result-lead { font-size: .93rem; color: var(--ink-soft); line-height: 1.9; }
+.result-sub {
+  margin-top: 10px; font-size: .8rem; color: var(--muted); line-height: 1.7;
+  background: #f3f7f1; border: 1px solid rgba(92,138,99,.2);
+  border-radius: 99px; padding: 6px 14px; display: inline-block;
+}
 
 .rs {
   background: var(--surface); border: 1px solid var(--line);
@@ -266,9 +271,39 @@ body {
 .site-footer a { color: var(--ink-soft); text-decoration: none; margin: 0 8px; font-weight: 700; }
 .site-footer a:hover { color: var(--green); }
 .footer-copy { margin-top: 10px; }
+/* 固定表示の戻るボタンは本文に重なるため廃止。フッターの導線に置き換えた（2026-08-26） */
+.footer-back {
+  display: inline-block; margin-bottom: 12px; padding: 9px 20px;
+  border: 1.5px solid var(--line); border-radius: 99px;
+  background: var(--surface); color: var(--ink-soft) !important;
+  font-weight: 800; font-size: .84rem; text-decoration: none; cursor: pointer;
+  font-family: inherit;
+}
+.footer-back:hover { border-color: var(--green); color: var(--green-dk) !important; }
 
 /* ---------- 読み込み・エラー ---------- */
 .loading, .err {
   text-align: center; padding: 40px 20px; color: var(--muted); font-size: .9rem;
 }
 .err { color: #b4503f; }
+
+
+/* ── 「あなたの詳細分析」カード（結果画面・noteのURL設定時のみ表示） ── */
+.cta-card {
+  background: #fdf6e5;
+  border: 1.5px solid #d9b96a;
+  border-radius: 14px;
+}
+.cta-lead { font-size: .92rem; color: #6b5d3f; margin-bottom: 6px; }
+.cta-head { font-size: 1.05rem; color: #4a3f28; margin: 0 0 10px; line-height: 1.7; }
+.cta-sub { font-size: .9rem; color: #6b5d3f; line-height: 1.9; margin: 6px 0; }
+.cta-points { margin: 8px 0 8px 2px; padding-left: 1.3em; }
+.cta-points li { font-size: .95rem; color: #3c5a48; line-height: 2.0; font-weight: 600; }
+.cta-btn {
+  display: block; text-align: center; margin: 14px auto 6px; max-width: 320px;
+  background: #c9964a; color: #fff; font-weight: 700; font-size: 1rem;
+  padding: 13px 18px; border-radius: 999px; text-decoration: none;
+  box-shadow: 0 2px 8px rgba(160, 120, 40, .25);
+}
+.cta-btn:hover { filter: brightness(1.06); }
+.cta-note { font-size: .74rem; color: #9a8c6a; text-align: center; margin-top: 8px; }

@@ -33,6 +33,21 @@
       .map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
   }
 
+  // 広告スクリプトは結果画面になってから読み込む。
+  // 設問・選択肢・戻るボタンといった操作UIの近くに広告が入らないようにするため
+  // （質問ページは広告より診断操作を優先する＝オーナー方針 2026-08-26）。
+  function loadAds() {
+    if (window.__kokoroAdsLoaded) return;
+    window.__kokoroAdsLoaded = true;
+    try {
+      var el = document.createElement('script');
+      el.async = true;
+      el.crossOrigin = 'anonymous';
+      el.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3934206444145241';
+      document.head.appendChild(el);
+    } catch (e) { /* 広告が出せなくても診断は動く */ }
+  }
+
   function KokoroQuiz(mountSelector) {
     this.mount = document.querySelector(mountSelector || '#quiz-app');
     this.data = null;
@@ -49,6 +64,8 @@
     }
     this.data = window.KOKORO_DATA;
     this.renderQuestion();
+    // 計測: 診断開始（匿名・数だけ。measure.js が無いページでは何もしない）
+    try { if (window.KMES) window.KMES.start(); } catch (e) {}
   };
 
   // ---------------- 設問 ----------------
@@ -62,7 +79,7 @@
       '<div class="quiz-container">' +
         '<div class="quiz-head"><p class="qname">' + esc(this.data.title) + '</p></div>' +
         '<div class="progress-area">' +
-          '<div class="progress-label"><span>' + (this.index + 1) + ' / ' + total + '</span><span>ゆっくりでだいじょうぶです</span></div>' +
+          '<div class="progress-label"><span>' + (this.index + 1) + ' / ' + total + '</span></div>' +
           '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
         '</div>' +
         (this.index > 0 ? '<div class="back-btn-wrap"><button class="back-btn" type="button">← ひとつ前に戻る</button></div>' : '') +
@@ -122,28 +139,80 @@
   };
 
   // ---------------- 判定 ----------------
-  // いちばん多く選ばれた軸。同数のときは data.axes の並び順（＝設計時に決めた優先順）で決める。
+  // いちばん多く選ばれた軸を結果にする。
+  // ★同点のときに data.axes の並び順で決めない。それだと「同じ回答なのに、
+  //   コードの書き順だけで結果が変わる」ことになるため。
+  //   同点のときは ①選択率（選んだ回数÷選べた回数）が高いほう
+  //                ②それも同じなら、その軸を最後に選んだのが遅いほう（＝後半の回答を重く見る）
+  //   の順で決める。どちらも回答そのものから取る。
+  //   全65,536通りの検証で、結果の出現率の偏りは最大/最小 4.19倍 → 1.54倍 に縮んだ。
   KokoroQuiz.prototype.decide = function () {
-    var count = {};
     var axes = this.data.axes;
+    var picked = this.picked;
+    var count = {};
     axes.forEach(function (a) { count[a] = 0; });
-    this.picked.forEach(function (a) { if (count[a] !== undefined) count[a]++; });
-    var best = axes[0];
-    for (var i = 0; i < axes.length; i++) {
-      if (count[axes[i]] > count[best]) best = axes[i];
+    picked.forEach(function (a) { if (count[a] !== undefined) count[a]++; });
+
+    var max = 0;
+    axes.forEach(function (a) { if (count[a] > max) max = count[a]; });
+    var tied = axes.filter(function (a) { return count[a] === max; });
+
+    var key = tied[0];
+    if (tied.length > 1) {
+      // ①選択率＝その軸を選んだ回数 ÷ その軸を選べた回数。
+      //   軸によって選べる回数（枠）が6と5で違うので、そこをそろえてから比べる。
+      var slot = {};
+      axes.forEach(function (a) { slot[a] = 0; });
+      this.data.questions.forEach(function (q) {
+        q.choices.forEach(function (c) { if (slot[c.axis] !== undefined) slot[c.axis]++; });
+      });
+      var best = -1;
+      tied.forEach(function (a) {
+        var rate = slot[a] ? count[a] / slot[a] : 0;
+        if (rate > best) best = rate;
+      });
+      var top = tied.filter(function (a) {
+        return Math.abs((slot[a] ? count[a] / slot[a] : 0) - best) < 1e-9;
+      });
+      // ②それも同じなら、その軸を最後に選んだのが遅いほう＝後半の回答を重く見る
+      key = top[0];
+      var latest = -1;
+      top.forEach(function (a) {
+        var pos = picked.lastIndexOf(a);
+        if (pos > latest) { latest = pos; key = a; }
+      });
     }
-    return best;
+
+    // 副傾向：同点だったとき【だけ】もう一方を出す（案C）。
+    // 1つ差まで拾うと8割以上の回答で出てしまい、言葉が軽くなるので同点に限定した。
+    var sub = null;
+    if (tied.length > 1) {
+      var others = tied.filter(function (a) { return a !== key; });
+      var latest2 = -1;
+      others.forEach(function (a) {
+        var pos = picked.lastIndexOf(a);
+        if (pos > latest2) { latest2 = pos; sub = a; }
+      });
+    }
+
+    return { key: key, sub: sub, count: count, tied: tied.length > 1 };
   };
 
   // ---------------- 結果 ----------------
   KokoroQuiz.prototype.renderResult = function () {
-    var key = this.decide();
+    var d = this.decide();
+    var key = d.key;
     var r = this.data.results[key];
     if (!r) {
       this.mount.innerHTML = '<p class="err">結果の読み込みに失敗しました。もう一度お試しください。</p>';
       return;
     }
     this.save(key, r);
+
+    // 計測: 結果表示（診断×タイプ別・表示IDで二重計測を防ぐ。CTA実装時にこのIDを使う）
+    this.viewId = null;
+    try { if (window.KMES) this.viewId = window.KMES.result(key); } catch (e) {}
+    loadAds();
 
     var html = '<div class="result-container">';
 
@@ -153,6 +222,10 @@
         '<span class="result-emoji">' + esc(r.emoji || '🌿') + '</span>' +
         '<h2 class="result-name">' + esc(r.name) + '</h2>' +
         (r.lead ? '<p class="result-lead">' + esc(r.lead) + '</p>' : '') +
+        (d.sub && this.data.results[d.sub]
+          ? '<p class="result-sub">' + esc(this.data.results[d.sub].name) +
+            ' の傾向も、少し重なっているようです</p>'
+          : '') +
       '</div>';
 
     SECTIONS.forEach(function (s) {
@@ -175,6 +248,29 @@
       html += '<div class="rs rs-message"><h3 style="justify-content:center">🌲 森から、あなたへ</h3>' + paras(r.message) + '</div>';
     }
 
+    // 「あなたの詳細分析」CTA（cta.js設定・noteのURLが入っている診断だけ表示）
+    var ctaHtml = '';
+    try {
+      var C = window.KOKORO_CTA;
+      var slug = (location.pathname.split('/').pop() || '').replace(/\.html?$/, '');
+      if (C && C.noteUrls && C.noteUrls[slug]) {
+        ctaHtml =
+          '<div class="rs cta-card" id="cta-card">' +
+            '<p class="cta-lead">' + esc(C.lead) + '</p>' +
+            '<h3 class="cta-head">' + esc(C.headline(slug, r.name)) + '</h3>' +
+            '<p class="cta-sub">' + esc(C.sub) + '</p>' +
+            '<ul class="cta-points">' +
+              (C.points[slug] || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') +
+            '</ul>' +
+            '<p class="cta-sub">' + esc(C.tail) + '</p>' +
+            '<a class="cta-btn" id="cta-btn" href="' + esc(C.noteUrls[slug]) + '" target="_blank" rel="noopener">' +
+              esc(C.button) + '</a>' +
+            '<p class="cta-note">' + esc(C.note) + '</p>' +
+          '</div>';
+      }
+    } catch (e) { ctaHtml = ''; }
+    html += ctaHtml;
+
     if (r.articles && r.articles.length) {
       html += '<div class="rs"><h3>📖 明日を少しラクにする読みもの</h3><div class="rel-list">' +
               r.articles.map(function (a) {
@@ -195,6 +291,18 @@
     this.mount.innerHTML = html;
 
     var self = this;
+    // CTA計測（measure.jsがあるときだけ・診断の動作には影響させない）
+    try {
+      var card = document.getElementById('cta-card');
+      if (card && window.KMES && this.viewId) {
+        var meta = { viewId: this.viewId, type: key,
+                     variant: (window.KOKORO_CTA && window.KOKORO_CTA.variant) || '' };
+        window.KMES.observeCTA(card, meta);
+        var btn = document.getElementById('cta-btn');
+        if (btn) btn.addEventListener('click', function () { window.KMES.ctaClick(meta); });
+      }
+    } catch (e) { /* 計測は失敗しても無視 */ }
+
     var retry = document.getElementById('retry');
     if (retry) retry.addEventListener('click', function () {
       self.index = 0; self.picked = []; self.renderQuestion();
@@ -202,7 +310,8 @@
     this.scrollToTop();
   };
 
-  // 結果は端末内だけに残す（外部送信なし）。保存できない環境でも診断は動く。
+  // 診断の結果そのもの（どのタイプだったか）は端末内だけに残す。
+  // 外部に送るのは measure.js の匿名カウント（イベント種別と件数）だけで、回答内容は送らない。
   KokoroQuiz.prototype.save = function (key, r) {
     try {
       var slug = (location.pathname.split('/').pop() || '').replace(/\.html?$/, '');
