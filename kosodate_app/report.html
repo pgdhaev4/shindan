@@ -118,6 +118,13 @@
 
 <script src="data/report_16types.js"></script>
 <script>
+  // ★localStorage は使えない環境（サイトデータ全ブロック・一部の埋め込みブラウザ・
+  //   企業端末のポリシー等）で例外を投げる。素通りさせると以降のJSが全部止まり、
+  //   このページが白紙になる。読み書きは必ずこの2つを通す（2026-08-31 監査）。
+  function LS(k)      { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function LSSET(k,v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function LSDEL(k)   { try { localStorage.removeItem(k); } catch (e) {} }
+
 // ═══════════════════════════════════════════
 //  子育てモンスター診断 統合分析レポート
 //  4診断 → 4軸(愛情密着/教育熱心/夫婦連携/心の余裕) → 16系統（2026-07-05 子供から見た親診断を除外）
@@ -156,7 +163,7 @@ function axisLevel(axisKey) {
   const axis = window.REPORT_AXES[axisKey];
   let total = 0, n = 0;
   axis.sources.forEach(src => {
-    const key = localStorage.getItem(src.storage);
+    const key = LS(src.storage);
     if (key && src.scores[key] !== undefined) { total += src.scores[key]; n++; }
     else if (key) { total += 2; n++; }
   });
@@ -166,9 +173,9 @@ function axisLevel(axisKey) {
 
 function renderLockScreen(remaining) {
   const dots = QUIZZES.map(q =>
-    `<div class="p-dot ${localStorage.getItem(q.storage) ? 'done' : ''}">${q.emoji}</div>`
+    `<div class="p-dot ${LS(q.storage) ? 'done' : ''}">${q.emoji}</div>`
   ).join('');
-  const links = QUIZZES.map(q => localStorage.getItem(q.storage)
+  const links = QUIZZES.map(q => LS(q.storage)
     ? `<span class="done-label">✅ ${q.name}（診断済み）</span>`
     : `<a href="${q.href}" class="remaining-link">${q.emoji} ${q.name}を受ける</a>`
   ).join('');
@@ -302,7 +309,7 @@ function renderReport(typeKey, t, names) {
 }
 
 (function () {
-  const remaining = QUIZZES.filter(q => !localStorage.getItem(q.storage)).length;
+  const remaining = QUIZZES.filter(q => !LS(q.storage)).length;
   if (remaining > 0) {
     renderLockScreen(remaining);
     return;
@@ -316,14 +323,10 @@ function renderReport(typeKey, t, names) {
   }
 
   const names = {};
-  QUIZZES.forEach(q => { names[q.storage] = localStorage.getItem(q.storage + '_name') || ''; });
+  QUIZZES.forEach(q => { names[q.storage] = LS(q.storage + '_name') || ''; });
 
   renderReport(typeKey, t, names);
 })();
 </script>
-<!-- 戻るボタン(全ページ共通) -->
-<style>.back-fab{position:fixed;left:12px;bottom:12px;z-index:9999;background:rgba(20,40,74,.88);color:#fff;border:none;border-radius:50px;padding:10px 18px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35);font-family:inherit;}.back-fab:active{transform:scale(.95);}</style>
-<button class="back-fab" id="backFab" onclick="history.back()" aria-label="前のページに戻る">← 戻る</button>
-<script>if(history.length<=1){var _bf=document.getElementById('backFab');if(_bf)_bf.style.display='none';}</script>
 </body>
 </html>

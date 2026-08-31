@@ -12,6 +12,20 @@ const QUIZ_LIST = [
   { href: 'true_nature.html',    emoji: '🔥', title: '育児中の本性診断',     label: '8問' },
 ];
 
+/* ---- 誤操作を防ぐ「不感帯」（2026-08-31 実ブラウザ監査で追加・全5エンジン共通） ----
+   症状: 選択肢を押す → 数百ms後に設問がDOMごと差し替わる → 同じ座標に次の設問の
+         選択肢が「即」生きるため、押し直し・2度押しが《読んでいない設問》の回答になり、
+         別のタイプが表示されていた（実測: 旧エンジンは420〜470ms以降ならいつでも発生・上限なし）。
+   対策: 描画のたび TAP_GUARD_MS の間、診断の枠ごと入力を受け付けない。
+   ★ロック時間を延ばす対処は採らない。待たされるほど「効かない→押し直す」を誘発するため。
+   ★座標で弾く案は採用しない。設問が変わったあとにたまたま同じ位置へ来た選択肢を
+     正当に選んだ操作まで無言で捨ててしまうため。
+   ★同じ処理が kokoro_app/kokoro.js にもある。直すときは5ファイルまとめて。 */
+const TAP_GUARD_MS = 400;
+function _tapNow() {
+  return (window.performance && performance.now) ? performance.now() : +new Date();
+}
+
 class QuizEngine {
   constructor(jsonPath, mountSelector = '#quiz-app') {
     this.jsonPath     = jsonPath;
@@ -21,6 +35,7 @@ class QuizEngine {
     this.answers      = [];
     this._totalScore  = 0;
     this._transitioning = false;
+    this._readyAt      = 0;    // この時刻まで入力を受け付けない（不感帯）
   }
 
   async init() {
@@ -78,7 +93,7 @@ class QuizEngine {
     const back = this.mountEl.querySelector('.back-btn');
     if (back) back.addEventListener('click', () => this._goBack());
     this.mountEl.querySelectorAll('.choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => this._onChoice(btn));
+      btn.addEventListener('click', (ev) => this._onChoice(btn, ev));
     });
     setTimeout(() => {
       if (document.activeElement && document.activeElement !== document.body) {
@@ -86,8 +101,38 @@ class QuizEngine {
       }
       this.mountEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 50);
+    // 回答直後は選択肢が全部 disabled になりフォーカスが body に落ちるため、
+    // そのままだとTabが診断の外へ抜けて回答が消える。設問カードへフォーカスを移す。
+    const _card = this.mountEl.querySelector('.question-card');
+    if (_card && this.currentIndex > 0) {
+      _card.setAttribute('tabindex', '-1');
+      try { _card.focus({ preventScroll: true }); } catch (e) { _card.focus(); }
+    }
+    this._armGuard();
   }
 
+  /* 描画のたびに不感帯を張る。
+     ★止めるのは「選択肢の並び」だけ。診断の枠ごと止めると、戻るボタンや
+     結果画面のリンクが《押せる見た目のまま無反応》になる（2026-08-31 再テストで実際に出た）。 */
+  _armGuard() {
+    const list = this.mountEl ? this.mountEl.querySelector('.choices-list') : null;
+    if (!list) return;
+    this._readyAt = _tapNow() + TAP_GUARD_MS;
+    list.style.pointerEvents = 'none';
+    setTimeout(() => { list.style.pointerEvents = ''; }, TAP_GUARD_MS);
+  }
+
+  /* この入力を受け付けてよいか。
+     ★キーボード（Enter/Space）は対象外。誤操作は「同じ場所を指でもう一度触る」ことで
+     起きるので、自分でフォーカスを移してから押すキーボード操作には当てはまらない。
+     キーボード由来の click は detail が 0 になるので、それで見分ける。 */
+  _accepts(ev) {
+    if (ev && ev.detail === 0) return true;
+    return _tapNow() >= (this._readyAt || 0);
+  }
+
+  // 戻るには不感帯をかけない。誤爆が起きるのは「選択肢の同じ座標」であって戻るボタンではないし、
+  // かけると「3回戻ったのに1回しか戻っていない」が起きる（2026-08-31 再テストで実際に出た）。
   _goBack() {
     if (this.currentIndex <= 0 || this._transitioning) return;
     const last = this.answers.pop();
@@ -96,10 +141,13 @@ class QuizEngine {
     this._renderQuestion();
   }
 
-  _onChoice(btn) {
+  _onChoice(btn, ev) {
     if (this._transitioning) return;
+    if (!this._accepts(ev)) return;   // 差し替え直後＝読んでいない設問への回答なので捨てる
     this._transitioning = true;
     this.mountEl.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+    const _bk = this.mountEl.querySelector('.back-btn');
+    if (_bk) _bk.disabled = true;
     btn.classList.add('selected');
     const score = parseInt(btn.dataset.score, 10);
     this.answers.push(score);

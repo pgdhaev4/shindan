@@ -22,6 +22,23 @@
     { key: 'angle',    icon: '🔄', title: '別の角度から見ると',              cls: 'rs-angle' }
   ];
 
+  // ---- 誤操作を防ぐ「不感帯」（2026-08-31 実ブラウザ監査で追加） -------------
+  // 症状: 選択肢を押す → 330ms後に設問がDOMごと差し替わる → 同じ座標に次の設問の
+  //       選択肢が「即」生きるため、押し直し・2度押しが《読んでいない設問》の
+  //       回答になり、別のタイプが表示されていた（実測: 320ms以降ならいつでも発生・上限なし）。
+  // 対策は2段構え。
+  //   ① 描画のたび GUARD_MS の間、診断の枠ごと入力を受け付けない（リンクも含めて塞ぐ）
+  // ★ロック時間を延ばす対処は採らない。待たされるほど「効かない→押し直す」を誘発し、
+  //   このバグを踏む動作そのものを増やすため。
+  // ★座標で弾く案（前のタップの近くを一定時間捨てる）は採用しない。設問が変わったあとに
+  //   たまたま同じ位置へ来た選択肢を正当に選んだ操作まで無言で捨ててしまうため
+  //   （既存の機械検査 _browser_test.py が実際に落ちた）。時間だけで判定する。
+  var GUARD_MS = 400;   // 差し替え直後に入力を受け付けない時間（回答から数えると約730ms）
+
+  function now() {
+    return (window.performance && performance.now) ? performance.now() : +new Date();
+  }
+
   function esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -54,6 +71,7 @@
     this.index = 0;
     this.picked = [];        // 各問で選んだ軸
     this.locked = false;
+    this.readyAt = 0;        // この時刻まで入力を受け付けない（不感帯）
   }
 
   KokoroQuiz.prototype.init = function () {
@@ -63,17 +81,19 @@
       return;
     }
     this.data = window.KOKORO_DATA;
-    this.renderQuestion();
+    this.renderQuestion(true);   // 初回はスクロールしない（H1と説明を飛ばさない）
     // 計測: 診断開始（匿名・数だけ。measure.js が無いページでは何もしない）
     try { if (window.KMES) window.KMES.start(); } catch (e) {}
   };
 
   // ---------------- 設問 ----------------
-  KokoroQuiz.prototype.renderQuestion = function () {
+  KokoroQuiz.prototype.renderQuestion = function (first) {
     var self = this;
     var q = this.data.questions[this.index];
     var total = this.data.questions.length;
-    var pct = Math.round((this.index / total) * 100);
+    // 進捗バーはラベル（例「8 / 8」）と同じ基準にそろえる。
+    // 以前は index/total だったので、最後の設問でラベルが8/8なのにバーは88%で止まっていた。
+    var pct = Math.round(((this.index + 1) / total) * 100);
 
     this.mount.innerHTML =
       '<div class="quiz-container">' +
@@ -83,7 +103,7 @@
           '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
         '</div>' +
         (this.index > 0 ? '<div class="back-btn-wrap"><button class="back-btn" type="button">← ひとつ前に戻る</button></div>' : '') +
-        '<div class="question-card">' +
+        '<div class="question-card" tabindex="-1" role="group" aria-label="質問 ' + (this.index + 1) + ' / ' + total + '">' +
           '<p class="question-number">Q' + (this.index + 1) + '</p>' +
           '<p class="question-text">' + esc(q.text) + '</p>' +
           '<div class="choices-list">' +
@@ -101,20 +121,76 @@
     var back = this.mount.querySelector('.back-btn');
     if (back) back.addEventListener('click', function () { self.goBack(); });
     Array.prototype.forEach.call(this.mount.querySelectorAll('.choice-btn'), function (btn) {
-      btn.addEventListener('click', function () { self.choose(btn); });
+      btn.addEventListener('click', function (ev) { self.choose(btn, ev); });
     });
-    this.scrollToTop();
+    // 回答直後は選択肢が全部 disabled になりフォーカスが body に落ちるため、
+    // そのままだとTabが診断の外（フッターのリンク等）へ抜けて回答が消える。
+    // 新しい設問カードへフォーカスを移して、Tabの続きが選択肢に入るようにする。
+    // 画面は動かさない（preventScroll）。
+    if (!first) {
+      var card = this.mount.querySelector('.question-card');
+      if (card) { try { card.focus({ preventScroll: true }); } catch (e) { card.focus(); } }
+      this.scrollToTop();
+    } else {
+      this.scrollIntoViewMinimal();
+    }
+    this.arm();
+  };
+
+  // 描画のたびに不感帯を張る。
+  // ★止めるのは「選択肢の並び」だけにする。診断の枠ごと止めると、
+  //   戻るボタンや結果画面のリンクが《押せる見た目のまま無反応》になり、
+  //   戻るの連打も無言で捨てられる（2026-08-31 再テストで実際に出た）。
+  KokoroQuiz.prototype.arm = function () {
+    var list = this.mount ? this.mount.querySelector('.choices-list') : null;
+    if (!list) return;
+    this.readyAt = now() + GUARD_MS;
+    list.style.pointerEvents = 'none';
+    setTimeout(function () { list.style.pointerEvents = ''; }, GUARD_MS);
+  };
+
+  // この入力を受け付けてよいか。
+  // ★キーボード（Enter/Space）は対象外。誤操作は「同じ場所を指でもう一度触る」ことで起きるので、
+  //   自分でフォーカスを移してから押すキーボード操作には当てはまらない。
+  //   キーボード由来の click は detail が 0 になるので、それで見分ける。
+  KokoroQuiz.prototype.accepts = function (ev) {
+    if (ev && ev.detail === 0) return true;
+    return now() >= this.readyAt;
+  };
+
+  // 初回だけの控えめなスクロール。
+  // 何も動かさないとQ1の選択肢が4個中2個しか画面に入らず（390x844で実測）、
+  // 見えている上2つが選ばれやすくなって結果の分布が偏る。
+  // かといって従来のように診断の先頭まで飛ばすと、診断名(H1)と
+  // 「会員登録・個人情報入力なし」の一行を読む前に流してしまう。
+  // そこで「選択肢の最後が画面に入るのに足りない分」だけを動かす。
+  KokoroQuiz.prototype.scrollIntoViewMinimal = function () {
+    var self = this;
+    setTimeout(function () {
+      var box = self.mount.querySelector('.quiz-container');
+      if (!box) return;
+      var r = box.getBoundingClientRect();
+      var need = r.bottom - window.innerHeight + 16;   // はみ出している分
+      if (need <= 8) return;                            // 全部入っているなら動かさない
+      var top = Math.min(window.scrollY + need, r.top + window.scrollY - 14);
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }, 60);
   };
 
   KokoroQuiz.prototype.scrollToTop = function () {
     var self = this;
     setTimeout(function () {
       if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur();
-      var top = self.mount.getBoundingClientRect().top + window.scrollY - 14;
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      var top = Math.max(0, self.mount.getBoundingClientRect().top + window.scrollY - 14);
+      // すでにほぼ目的の位置なら動かさない。スクロール中は当たり判定も動くので、
+      // 意味なく動かすほど誤タップの機会が増える。
+      if (Math.abs(window.scrollY - top) < 8) return;
+      window.scrollTo({ top: top, behavior: 'smooth' });
     }, 40);
   };
 
+  // 戻るには不感帯をかけない。誤爆が起きるのは「選択肢の同じ座標」であって戻るボタンではないし、
+  // かけると「3回戻ったのに1回しか戻っていない」が起きる（2026-08-31 再テストで実際に出た）。
   KokoroQuiz.prototype.goBack = function () {
     if (this.index <= 0 || this.locked) return;
     this.picked.pop();
@@ -122,11 +198,15 @@
     this.renderQuestion();
   };
 
-  KokoroQuiz.prototype.choose = function (btn) {
+  KokoroQuiz.prototype.choose = function (btn, ev) {
     var self = this;
     if (this.locked) return;
+    if (!this.accepts(ev)) return;   // 差し替え直後＝読んでいない設問への回答なので捨てる
     this.locked = true;
     Array.prototype.forEach.call(this.mount.querySelectorAll('.choice-btn'), function (b) { b.disabled = true; });
+    // 戻るボタンも止める。ここを止めないと「押せる見た目のまま無言で捨てられる」ことになる。
+    var backBtn = this.mount.querySelector('.back-btn');
+    if (backBtn) backBtn.disabled = true;
     btn.classList.add('selected');
     this.picked.push(btn.dataset.axis);
     setTimeout(function () {

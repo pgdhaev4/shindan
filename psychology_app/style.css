@@ -343,7 +343,12 @@ a:hover {
     border-color: var(--pink-main);
   }
 }
-.choice-btn:focus { outline: none; }
+/* ★outline:none はキーボード利用者が「いまどの選択肢にいるか」を完全に見失うので廃止
+   （2026-08-31 監査。他4アプリにはこの1行が無く、問題も出ていない）。
+   選択肢の背景・枠は .selected が使っているので、フォーカスは必ず outline で表す。
+   淡いピンク地に埋もれないよう濃い紫を使う。 */
+.choice-btn:focus-visible { outline: 2px solid #3a1a40; outline-offset: 2px; }
+.choice-btn:focus:not(:focus-visible) { outline: none; }
 
 .choice-btn:active {
   transform: scale(0.97);
@@ -1589,6 +1594,14 @@ a:hover {
   display: block;
   text-align: center;
   line-height: 270px;
+}
+/* 画像が読めなかったときの代役（2026-08-31 監査。以前は約250pxの空白になっていた）。
+   toushi_app の .result-emoji-fb と同じ役割。 */
+.result-emoji-fb {
+  font-size: 5rem;
+  display: block;
+  text-align: center;
+  line-height: 200px;
 }
 .ss-type-label {
   font-size: 1.2rem;

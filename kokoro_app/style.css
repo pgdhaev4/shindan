@@ -126,7 +126,15 @@ body {
   text-align: left; font-family: inherit; font-size: .92rem;
   color: var(--ink); line-height: 1.6; transition: .16s;
 }
-.choice-btn:hover { border-color: var(--green); background: #f4f8f2; transform: translateY(-1px); }
+/* ★選択肢の hover は「選択済み」と見分けがつく見た目にする（2026-08-31 監査）。
+   以前は hover も .selected も枠が var(--green) で完全に同色だったため、
+   回答後にカーソルの下へ来た《次の設問の選択肢》が「もう押した」ように見えていた。
+   緑の枠＋チェックの塗りつぶしは .selected だけの合図にする。
+   @media (hover: hover) は旧4アプリ（psychology/workplace/kosodate/toushi）と同じガード。
+   これが無いとタッチ端末で hover が貼りついたまま残る。 */
+@media (hover: hover) {
+  .choice-btn:hover { border-color: #c3d0bd; background: #f4f8f2; transform: translateY(-1px); }
+}
 .choice-btn.selected { border-color: var(--green); background: var(--green-lt); }
 .choice-btn:disabled { cursor: default; }
 .choice-mark {
@@ -139,6 +147,9 @@ body {
   border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
 .back-btn-wrap { margin-bottom: 10px; }
+/* 回答直後の330msは戻るボタンが効かない。押せる見た目のままだと
+   「戻るボタンが壊れている」に見えるので、無効な間は薄くする（2026-08-31 監査） */
+.back-btn:disabled { opacity: .4; cursor: default; }
 .back-btn {
   background: none; border: none; color: var(--muted); font-size: .8rem;
   cursor: pointer; font-family: inherit; padding: 4px 0; font-weight: 700;

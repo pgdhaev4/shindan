@@ -14,6 +14,20 @@ const QUIZ_LIST = [
   { href: 'ideal_date.html',      emoji: '🌸', title: '理想のデートタイプ診断', label: '8問' },
 ];
 
+/* ---- 誤操作を防ぐ「不感帯」（2026-08-31 実ブラウザ監査で追加・全5エンジン共通） ----
+   症状: 選択肢を押す → 数百ms後に設問がDOMごと差し替わる → 同じ座標に次の設問の
+         選択肢が「即」生きるため、押し直し・2度押しが《読んでいない設問》の回答になり、
+         別のタイプが表示されていた（実測: 旧エンジンは420〜470ms以降ならいつでも発生・上限なし）。
+   対策: 描画のたび TAP_GUARD_MS の間、診断の枠ごと入力を受け付けない。
+   ★ロック時間を延ばす対処は採らない。待たされるほど「効かない→押し直す」を誘発するため。
+   ★座標で弾く案は採用しない。設問が変わったあとにたまたま同じ位置へ来た選択肢を
+     正当に選んだ操作まで無言で捨ててしまうため。
+   ★同じ処理が kokoro_app/kokoro.js にもある。直すときは5ファイルまとめて。 */
+const TAP_GUARD_MS = 400;
+function _tapNow() {
+  return (window.performance && performance.now) ? performance.now() : +new Date();
+}
+
 class QuizEngine {
   constructor(jsonPath, mountSelector = '#quiz-app') {
     this.jsonPath      = jsonPath;
@@ -23,6 +37,7 @@ class QuizEngine {
     this.answers       = [];
     this._axisScores   = null;
     this._questionScores = []; // 戻る用：質問ごとの軸スコア寄与
+    this._readyAt      = 0;    // この時刻まで入力を受け付けない（不感帯）
   }
 
   async init() {
@@ -101,7 +116,7 @@ class QuizEngine {
 
     // 選択肢ボタン
     this.mountEl.querySelectorAll('.choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => this._onChoiceClick(btn));
+      btn.addEventListener('click', (ev) => this._onChoiceClick(btn, ev));
     });
 
     setTimeout(() => {
@@ -111,8 +126,38 @@ class QuizEngine {
       const top = this.mountEl.getBoundingClientRect().top + window.scrollY - 16;
       window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }, 50);
+    // 回答直後は選択肢が全部 disabled になりフォーカスが body に落ちるため、
+    // そのままだとTabが診断の外へ抜けて回答が消える。設問カードへフォーカスを移す。
+    const _card = this.mountEl.querySelector('.question-card');
+    if (_card && this.currentIndex > 0) {
+      _card.setAttribute('tabindex', '-1');
+      try { _card.focus({ preventScroll: true }); } catch (e) { _card.focus(); }
+    }
+    this._armGuard();
   }
 
+  /* 描画のたびに不感帯を張る。
+     ★止めるのは「選択肢の並び」だけ。診断の枠ごと止めると、戻るボタンや
+     結果画面のリンクが《押せる見た目のまま無反応》になる（2026-08-31 再テストで実際に出た）。 */
+  _armGuard() {
+    const list = this.mountEl ? this.mountEl.querySelector('.choices-list') : null;
+    if (!list) return;
+    this._readyAt = _tapNow() + TAP_GUARD_MS;
+    list.style.pointerEvents = 'none';
+    setTimeout(() => { list.style.pointerEvents = ''; }, TAP_GUARD_MS);
+  }
+
+  /* この入力を受け付けてよいか。
+     ★キーボード（Enter/Space）は対象外。誤操作は「同じ場所を指でもう一度触る」ことで
+     起きるので、自分でフォーカスを移してから押すキーボード操作には当てはまらない。
+     キーボード由来の click は detail が 0 になるので、それで見分ける。 */
+  _accepts(ev) {
+    if (ev && ev.detail === 0) return true;
+    return _tapNow() >= (this._readyAt || 0);
+  }
+
+  // 戻るには不感帯をかけない。誤爆が起きるのは「選択肢の同じ座標」であって戻るボタンではないし、
+  // かけると「3回戻ったのに1回しか戻っていない」が起きる（2026-08-31 再テストで実際に出た）。
   _goBack() {
     if (this.currentIndex <= 0 || this._transitioning) return;
     this.answers.pop();
@@ -129,11 +174,14 @@ class QuizEngine {
     this._renderQuestion();
   }
 
-  _onChoiceClick(btn) {
+  _onChoiceClick(btn, ev) {
     if (this._transitioning) return;
+    if (!this._accepts(ev)) return;   // 差し替え直後＝読んでいない設問への回答なので捨てる
     this._transitioning = true;
 
     this.mountEl.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+    const _bk = this.mountEl.querySelector('.back-btn');
+    if (_bk) _bk.disabled = true;
     btn.classList.add('selected');
     this.answers.push(btn.dataset.key);
 
@@ -362,7 +410,7 @@ class QuizEngine {
     `).join('');
 
     const illustration = result.image
-      ? `<div class="result-illust-wrap"><img src="${result.image}" class="quiz-char-img" alt="${this._esc(result.name)}"></div>`
+      ? `<div class="result-illust-wrap"><img src="${result.image}" class="quiz-char-img" alt="${this._esc(result.name)}" onerror="this.parentElement.innerHTML='<span class=result-emoji-fb>${result.emoji || '💖'}</span>'"></div>`
       : `<div class="result-illust-wrap">${this._drawMbtiCharacterSVG(code)}</div>`;
 
     const bgStyle = result.bg ? `style="background:${result.bg}"` : '';
@@ -574,7 +622,7 @@ class QuizEngine {
     }
 
     const illustration = result.image
-      ? `<div class="result-illust-wrap"><img src="${result.image}" class="quiz-char-img" alt="${this._esc(result.name)}"></div>`
+      ? `<div class="result-illust-wrap"><img src="${result.image}" class="quiz-char-img" alt="${this._esc(result.name)}" onerror="this.parentElement.innerHTML='<span class=result-emoji-fb>${result.emoji || '💖'}</span>'"></div>`
       : result.characterStyle
         ? `<div class="result-illust-wrap">${this._drawMbtiCharacterSVG(result.characterStyle)}</div>`
         : `<div class="result-emoji-wrap"><span class="result-emoji-big">${result.emoji || '💖'}</span></div>`;
