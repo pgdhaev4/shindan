@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9KJMDN86W9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9KJMDN86W9');
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,follow" />
+  <title>今のあなたに近いのは？｜診断の森</title>
+  <meta name="description" content="仕事・子育て・人づきあいで少し疲れた人のための入口です。近いものをひとつだけ選ぶと、約2分の無料診断へ進みます。" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg:#f6f4ec; --surface:#ffffff; --ink:#33403a; --ink-soft:#5f7268;
+      --muted:#8a988f; --green:#5c8a63; --green-dk:#3f6b4a; --line:#e4e0d3;
+    }
+    body {
+      font-family: "Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Meiryo",sans-serif;
+      background: var(--bg); color: var(--ink);
+      -webkit-text-size-adjust: 100%;
+    }
+    .wrap { max-width: 480px; margin: 0 auto; padding: 22px 18px 34px; }
+    /* 補足の小さい文字は --muted(#8a988f) だと背景とのコントラストが2.74:1しかなく、
+       WCAG AAの4.5:1に届かない（2026-09-07 照査指摘・実測）。--ink-soft(#5f7268)=4.66:1 を使う。 */
+    .brand { text-align:center; font-size:0.78rem; color:var(--ink-soft); letter-spacing:.04em; margin-bottom:14px; }
+    h1 { text-align:center; font-size:1.32rem; line-height:1.5; color:var(--green-dk); margin-bottom:8px; }
+    .lead { text-align:center; font-size:0.86rem; line-height:1.75; color:var(--ink-soft); margin-bottom:6px; }
+    .meta { text-align:center; font-size:0.76rem; color:var(--ink-soft); margin-bottom:16px; }
+    .choices { display:flex; flex-direction:column; gap:10px; }
+    .choice {
+      display:flex; align-items:center; gap:12px;
+      background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      padding:15px 16px; text-decoration:none; color:var(--ink);
+      box-shadow:0 2px 8px rgba(60,80,66,.05);
+    }
+    .choice:hover { border-color:var(--green); }
+    .c-emoji { font-size:1.36rem; line-height:1; flex:0 0 auto; }
+    .c-title { font-size:1rem; font-weight:800; }
+    .c-note { display:block; font-size:0.72rem; font-weight:400; color:var(--ink-soft); margin-top:3px; line-height:1.6; }
+    .c-arrow { margin-left:auto; color:var(--green); font-weight:800; }
+    .sub-link { display:block; text-align:center; margin-top:16px; font-size:0.82rem; color:var(--ink-soft); text-decoration:none; }
+    .note { margin-top:18px; font-size:0.72rem; line-height:1.8; color:var(--ink-soft); text-align:center; }
+    .note a { color:var(--ink-soft); }
+    @media (max-width:380px) {
+      .wrap { padding:18px 14px 28px; }
+      h1 { font-size:1.2rem; }
+      .choice { padding:13px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <p class="brand">🌲 診断の森</p>
+    <h1>今のあなたに近いのは？</h1>
+    <p class="lead">近いものを、ひとつだけ選んでください。</p>
+    <p class="meta">約2分／無料／登録不要</p>
+
+    <div class="choices">
+      <a class="choice" href="/shindan/kokoro_app/asa.html" data-v="st_work">
+        <span class="c-emoji">💼</span><span class="c-title">仕事で疲れた</span><span class="c-arrow">›</span>
+      </a>
+      <a class="choice" href="/shindan/kokoro_app/kosodate-tsukare.html" data-v="st_kosodate">
+        <span class="c-emoji">🌙</span><span class="c-title">子育てで疲れた</span><span class="c-arrow">›</span>
+      </a>
+      <a class="choice" href="/shindan/kokoro_app/hitozukiai.html" data-v="st_hito">
+        <span class="c-emoji">🫧</span><span class="c-title">人間関係に疲れた</span><span class="c-arrow">›</span>
+      </a>
+      <a class="choice" href="/shindan/kokoro_app/kotoba.html" data-v="st_koi">
+        <span class="c-emoji">🍃</span>
+        <span><span class="c-title">恋愛のことを考えすぎてしまう</span>
+          <span class="c-note">恋愛専用の診断ではなく、いま届きそうな言葉をお渡しします</span></span>
+        <span class="c-arrow">›</span>
+      </a>
+    </div>
+
+    <a class="sub-link" href="/shindan/#fun" data-v="st_fun">今日は、笑って帰りたい気分です</a>
+
+    <p class="note">
+      つらさを点数にしたり、病気の判定をしたりはしません。<br>
+      <a href="/shindan/">診断の森トップ</a>　<a href="/shindan/privacy.html">プライバシーポリシー</a>
+    </p>
+  </div>
+
+  <script src="/shindan/kokoro_app/measure.js"></script>
+  <script>
+    // 流入元（f）は「今回のURL」→「同じタブで覚えている値」の順で拾う。
+    // ★f を各リンクに直書きしてはいけない（Xから来た人まで yt になるため）。
+    (function () {
+      var f = '', vFromUrl = '';
+      try {
+        var p = new URLSearchParams(location.search);
+        f = p.get('f') || '';
+        vFromUrl = p.get('v') || '';          // ★URLに付いていた値だけを前置きに使う
+        if (!f) {
+          var s = JSON.parse(sessionStorage.getItem('kmes_src') || 'null') || {};
+          f = s.f || '';
+          // ★保存値(vid)は前置きに使わない。再訪のたびに選択肢名が二重に連結され、
+          //   「abcdefghijk--st_work」「st_kosodate-st_work」のような値になるため（2026-09-07 照査指摘・再現済み）。
+        }
+      } catch (e) { /* 何もしない */ }
+      if (!f) return;                          // 流入元不明のときはURLを変えない
+
+      // 前置き＝流入の識別子（将来 動画ID等が付いたとき用）。選択肢名と混ざらないよう「_」を除く
+      var base = String(vFromUrl).replace(/[^A-Za-z0-9-]/g, '').slice(0, 12);
+      var tags = document.querySelectorAll('a[data-v]');
+      for (var i = 0; i < tags.length; i++) {
+        (function (a) {
+          var choice = a.getAttribute('data-v');
+          var vid = ((base ? base + '-' : '') + choice).slice(0, 32);
+          var href = a.getAttribute('href');
+          var hash = '';
+          var h = href.indexOf('#');
+          if (h >= 0) { hash = href.slice(h); href = href.slice(0, h); }
+          var join = href.indexOf('?') >= 0 ? '&' : '?';
+          a.setAttribute('href', href + join + 'f=' + encodeURIComponent(f) + '&v=' + encodeURIComponent(vid) + hash);
+
+          // 入口ページの「どのボタンが押されたか」はGA4で数える（自前計測APIは改修しない）
+          a.addEventListener('click', function () {
+            try {
+              if (typeof gtag === 'function') {
+                gtag('event', 'entry_choice', { choice: choice, source: f });
+              }
+            } catch (e) { /* 計測の失敗は導線に影響させない */ }
+          });
+        })(tags[i]);
+      }
+      try {
+        if (typeof gtag === 'function') gtag('event', 'entry_view', { source: f });
+      } catch (e) { /* 何もしない */ }
+    })();
+  </script>
+</body>
+</html>

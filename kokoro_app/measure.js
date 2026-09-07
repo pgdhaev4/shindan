@@ -33,7 +33,12 @@
 
   function slug() {
     try {
-      return (location.pathname.split('/').pop() || '').replace(/\.html?$/, '');
+      // 末尾が「/」やindexのときは、その1つ上の区切りを名前として使う
+      // （例: /shindan/workplace_app/ → workplace_app、/shindan/kokoro_app/asa.html → asa）
+      var parts = location.pathname.split('/').filter(function (s) { return s !== ''; });
+      var last = (parts.pop() || '').replace(/\.html?$/, '');
+      if (last === 'index' || last === '') last = parts.pop() || '';
+      return last;
     } catch (e) { return ''; }
   }
 
@@ -59,9 +64,16 @@
       //   application/json だと「単純なリクエスト」ではなくなり、ブラウザが事前確認(preflight)を
       //   挟むため sendBeacon が黙って破棄される。text/plain なら事前確認なしで確実に届く。
       //   サーバ側(ev.mjs)は Content-Type を見ずに本文をJSONとして読むので、これで問題ない。
+      // ★sendBeacon は「キューに入れられなかった」ときに false を返す（送信量の上限など）。
+      //   戻り値を見ずに終わると、その1件は黙って消える（2026-09-07 照査指摘）。
+      //   ここまで来る時点で once() を通っているので、落ちた分だけ fetch で送り直しても二重計上にならない。
+      var queued = false;
       if (navigator.sendBeacon) {
-        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain' }));
-      } else if (window.fetch) {
+        try {
+          queued = navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain' }));
+        } catch (e) { queued = false; }
+      }
+      if (!queued && window.fetch) {
         fetch(ENDPOINT, { method: 'POST', body: body, keepalive: true }).catch(function () {});
       }
     } catch (e) { /* 計測の失敗はサイトに影響させない */ }
@@ -87,7 +99,9 @@
     /** 結果表示。使い捨ての表示IDを返す（CTA計測に引き継ぐ） */
     result: function (typeKey) {
       var viewId = 'v' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-      if (once(viewId, 'result')) send({ e: 'result', d: slug(), t: typeKey });
+      // 流入元(f)は start だけでなく結果・CTAにも付ける。
+      // 付けないと「YouTubeとXのどちらが購入の一歩前まで人を運べたか」を比べられない（2026-09-07 照査指摘）。
+      if (once(viewId, 'result')) send({ e: 'result', d: slug(), t: typeKey, f: source().f || '' });
       return viewId;
     },
 
@@ -103,7 +117,7 @@
           if (en.intersectionRatio >= 0.5) {
             if (!timer) timer = setTimeout(function () {
               if (once(meta.viewId, 'cta_seen')) {
-                send({ e: 'cta_seen', d: slug(), t: meta.type, va: meta.variant || '' });
+                send({ e: 'cta_seen', d: slug(), t: meta.type, va: meta.variant || '', f: source().f || '' });
               }
               io.disconnect();
             }, 1000);
@@ -116,7 +130,7 @@
     /** CTAクリック（同じ表示IDで1回だけ） */
     ctaClick: function (meta) {
       if (once(meta.viewId, 'cta_click')) {
-        send({ e: 'cta_click', d: slug(), t: meta.type, va: meta.variant || '' });
+        send({ e: 'cta_click', d: slug(), t: meta.type, va: meta.variant || '', f: source().f || '' });
       }
     }
   };

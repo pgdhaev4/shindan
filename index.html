@@ -14,7 +14,7 @@
   <meta name="google-site-verification" content="v19twLq1vsxxadbmuw2XZeJhP79a8cd3uHj1l-VFX58" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>診断の森｜人生にちょっと疲れた日に立ち寄る、心の休憩所</title>
-  <meta name="description" content="仕事・恋愛・子育て・人間関係で少し疲れた人のための診断サイト。診断を通して気持ちを整理し、来たときより少し軽くなって帰れる場所です。心が少し軽くなる診断と、笑って帰れるキャラ診断、明日を少しラクにする読みもの。診断はすべて無料・登録不要。" />
+  <meta name="description" content="仕事・子育て・人づきあいで少し疲れた人のための場所です。2分の診断で、いまの疲れがどこから来ているかだけを分けます。点数も決めつけもしません。心が少し軽くなる診断と、笑って帰れるキャラ診断、明日を少しラクにする読みもの。診断はすべて無料・登録不要です。" />
   <meta property="og:title" content="診断の森｜人生にちょっと疲れた日に立ち寄る、心の休憩所" />
   <meta property="og:description" content="少し疲れた日に立ち寄る診断サイト。気持ちを整理する診断と、笑って帰れるキャラ診断。診断はすべて無料・登録不要。" />
   <meta property="og:type" content="website" />
@@ -246,6 +246,8 @@
     }
     .promise li::before { content: '🌿'; flex-shrink: 0; }
 
+    .faq-wrap { margin-top: 14px; }
+    .faq-wrap > summary { cursor: pointer; font-weight: 900; color: var(--green-dk); font-size: 0.88rem; padding: 8px 0; list-style: revert; }
     .faq-box { margin-top: 14px; }
     .faq-box dt { font-weight: 900; color: var(--green-dk); font-size: 0.88rem; margin-top: 14px; }
     .faq-box dd { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.95; margin-top: 3px; }
@@ -273,28 +275,20 @@
 
   <!-- ============ SECTION 1: ヒーロー ============ -->
   <div class="hero">
-    <p class="hero-badge">🌲 仕事・恋愛・子育て・人間関係に、少し疲れたら</p>
+    <p class="hero-badge">🌲 仕事・子育て・人づきあいに、少し疲れた人へ</p>
     <h1 class="hero-main">疲れた日に、ちょっと寄れる<br>診断の森。</h1>
     <div style="max-width:560px;margin:0 auto;position:relative;">
-      <p class="hero-voice">
-        「なんでこんなに疲れるんだろう」<br>
-        「どうしてうまくいかないんだろう」<br>
-        「こんなふうに感じるの、私だけかな」
-      </p>
+      <p class="hero-voice">「こんなふうに感じるの、私だけかな」と思う夜に。</p>
       <p class="hero-sub">
-        そんな日は、2分の診断をひとつだけどうぞ。<br>
-        <strong>「ダメなんじゃなくて、こういう状態なんだ」</strong>と分かるだけで、<br>気持ちは少し軽くなります。
-      </p>
-      <p class="hero-sub">
-        つらさを点数にしたり、あなたを決めつけたりはしません。<br>
-        笑って帰りたい日のための<strong>キャラ診断</strong>も、そのまま置いてあります。
+        2分の診断で、いまの疲れが<strong>どこから来ているか</strong>だけを分けます。<br>
+        点数も、決めつけもしません。
       </p>
     </div>
     <div class="hero-stats">
-      <span>⏱ 1つ約2分</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 ひとつだけでOK</span>
+      <span>⏱ 約2分</span><span>🍃 診断は無料</span><span>📱 登録不要</span>
     </div>
-    <a href="#mood" class="hero-cta">少し休んでいく</a>
-    <p class="hero-hint">↓ 今日の気分から選べます</p>
+    <a href="#mood" class="hero-cta">今日の気分から選ぶ（2分・無料）</a>
+    <p class="hero-hint">↓ 近いものをひとつだけ</p>
   </div>
 
   <div class="wrap">
@@ -350,7 +344,7 @@
           <span class="k-emoji">🌿</span>
           <span>
             <span class="k-title">今のあなたに必要な言葉診断</span>
-            <span class="k-desc">理由はうまく言えないけれど疲れている。少し励ましてほしい。そんな日に、いま届きそうな言葉をひとつだけお渡しします。</span>
+            <span class="k-desc">うまく言えないけれど疲れている日に。いま届きそうな言葉をひとつだけお渡しします。</span>
             <span class="k-meta">8問・約2分／結果6種類</span>
           </span>
         </a>
@@ -358,7 +352,7 @@
           <span class="k-emoji">💼</span>
           <span>
             <span class="k-title">仕事に行きたくない朝の診断</span>
-            <span class="k-desc">重さが、人・疲労・仕事量・自信・仕事内容・一時的な波のどこから来ていそうかを整理します。病気の判定はしません。</span>
+            <span class="k-desc">重さが、人・疲れ・仕事量・自信のどこから来ていそうかを整理します。病気の判定はしません。</span>
             <span class="k-meta">8問・約2分／結果6種類</span>
           </span>
         </a>
@@ -366,7 +360,7 @@
           <span class="k-emoji">🧭</span>
           <span>
             <span class="k-title">会社を辞めたい気持ち整理診断</span>
-            <span class="k-desc">「辞めるべき」「辞めるべきでない」は言いません。ひとかたまりになっている気持ちを、扱える大きさに分けます。</span>
+            <span class="k-desc">「辞めるべき」とも「辞めるべきでない」とも言いません。気持ちを扱える大きさに分けます。</span>
             <span class="k-meta">8問・約2分／結果6種類</span>
           </span>
         </a>
@@ -374,7 +368,7 @@
           <span class="k-emoji">🫧</span>
           <span>
             <span class="k-title">人付き合いに疲れた日の診断</span>
-            <span class="k-desc">楽しかったのに帰ると疲れている。その消耗が、気配り・合わせ・断れなさ・振り返り・距離感・量のどこで起きているかを探します。</span>
+            <span class="k-desc">楽しかったのに、帰ると疲れている。その消耗がどこで起きているかを探します。</span>
             <span class="k-meta">8問・約2分／結果6種類</span>
           </span>
         </a>
@@ -382,7 +376,7 @@
           <span class="k-emoji">🌙</span>
           <span>
             <span class="k-title">子育てに疲れた日の診断</span>
-            <span class="k-desc">親としての出来・不出来は採点しません。今日の疲れが、自分の時間・後悔・比較・判断・迷い・睡眠のどこから来ているかを分けます。</span>
+            <span class="k-desc">親としての出来・不出来は採点しません。今日の疲れの出どころだけを分けます。</span>
             <span class="k-meta">8問・約2分／結果6種類</span>
           </span>
         </a>
@@ -391,14 +385,15 @@
     </section>
 
     <!-- ============ SECTION 4: 笑って帰りませんか ============ -->
-    <section class="block">
+    <!-- id="fun" は入口ページ（/shindan/start/）の副導線の飛び先。消さないこと -->
+    <section class="block" id="fun">
       <div class="sec-head">
         <h2>😆 今日は、ちょっと笑って帰りませんか？</h2>
         <p>考えたくない日のための棚です。</p>
       </div>
       <p class="fun-note">
-        キャラクター診断は、診断の森のはじまりのコンテンツです。100体以上のオリジナルキャラで、
-        あなたの行動パターンを笑えるかたちにします。落ち込んでいる日は、無理に考えるより、
+        まじめに考えたくない日のための棚です。100体以上のオリジナルキャラで、
+        いまのあなたを笑えるかたちにして返します。落ち込んでいる日は、
         こっちのほうが効くこともあります。
       </p>
       <div class="fun-cards">
@@ -412,7 +407,7 @@
             <div>
               <span class="fc-badge">💼 仕事・職場</span>
               <p class="fc-title">会社モンスター診断</p>
-              <p class="fc-sub">4診断・32種の職場バケモノ</p>
+              <p class="fc-sub">職場でしんどい日に、笑って帰るための診断（4診断・32種）</p>
             </div>
           </div>
           <div class="fc-chars">
@@ -431,7 +426,7 @@
             <div>
               <span class="fc-badge">💖 恋愛・沼</span>
               <p class="fc-title">恋愛沼診断</p>
-              <p class="fc-sub">7診断・56種の恋愛モンスター</p>
+              <p class="fc-sub">恋のことで頭がいっぱいの日に（7診断・56種）</p>
             </div>
           </div>
           <div class="fc-chars">
@@ -450,7 +445,7 @@
             <div>
               <span class="fc-badge">👶 子育て・育児</span>
               <p class="fc-title">子育て親タイプ診断</p>
-              <p class="fc-sub">6診断・48種の親タイプ</p>
+              <p class="fc-sub">今日もおつかれさまでした（6診断・48種）</p>
             </div>
           </div>
           <div class="fc-chars">
@@ -513,6 +508,8 @@
           受けたい方だけどうぞ、という位置づけで、受けなくても各診断の結果は完結しています。
         </p>
 
+        <details class="faq-wrap">
+        <summary>よくある質問（料金・当たるか・個人情報など）</summary>
         <dl class="faq-box">
           <dt>Q. 料金はかかりますか？</dt>
           <dd>診断はすべて無料です。会員登録も、氏名やメールアドレスの入力も必要ありません。（結果ページから、有料の読みもの〈note・300円〉をご案内することがあります。購入しなくても診断の結果はすべてご覧いただけます。）</dd>
@@ -527,6 +524,7 @@
           <dt>Q. 誰が運営していますか？</dt>
           <dd>「診断の森」が企画・運営しています（<a href="/shindan/about.html">運営者情報</a>）。</dd>
         </dl>
+        </details>
 
         <div class="disclaimer-top">
           ※当サイトの診断は、気持ちを整理するきっかけづくりを目的とした読みものです。
@@ -548,6 +546,7 @@
     <p style="margin-top:4px">© 2026 診断の森</p>
   </footer>
 
+  <script src="/shindan/kokoro_app/measure.js"></script>
   <script>
     document.querySelector('.hero-cta').addEventListener('click', function(e) {
       e.preventDefault();
