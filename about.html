@@ -34,6 +34,21 @@
     .row .k { min-width:6.5em; color:rgba(255,255,255,0.55); }
     .site-footer { text-align:center; padding:24px 16px; color:rgba(255,255,255,0.3); font-size:0.72rem; border-top:1px solid rgba(255,255,255,0.06); }
     .site-footer a { color:rgba(255,255,255,0.4); text-decoration:none; margin:0 8px; }
+  
+    /* ===== スマホの不自然な折り返し対策（2026-09-07） =====
+       text-wrap: pretty  … 最終行が1〜2文字だけ残るのを防ぐ
+       text-wrap: balance … 見出しの各行の長さをそろえる
+       word-break: auto-phrase … 日本語を文節（意味のかたまり）で折り返す
+       いずれも未対応ブラウザでは無視されるだけで、PC表示も変わらない。 */
+    body { overflow-wrap: break-word; line-break: strict; }
+    p, li, dd, dt, .m-desc, .k-desc, .k-title, .fc-sub, .hero-sub, .hero-voice,
+    .sec-head p, .read-list a, .promise li {
+      text-wrap: pretty; word-break: auto-phrase;
+      /* ★auto-phrase は「文節を割らない」ため、長い文節がFlex項目をはみ出させることがある
+         （実測：トップの .promise li で横スクロールが 449px 出た）。最後の手段の改行を許して防ぐ。 */
+      overflow-wrap: anywhere;
+    }
+    h1, h2, h3, .m-title, .fc-title, .hero-main, .hero-badge { text-wrap: balance; word-break: auto-phrase; }
   </style>
   <link rel="canonical" href="https://pgdhaev4.github.io/about.html">
 </head>

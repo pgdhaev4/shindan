@@ -65,11 +65,23 @@
     } catch (e) { /* 広告が出せなくても診断は動く */ }
   }
 
+  // 結果を出すときは、ページ上部の見出しと説明（.page-hero）を隠す。
+  // 結果を早く見せるため（オーナー指示 2026-09-07）。もう一度やるときに戻す。
+  function hero(show) {
+    try {
+      var b = document.body;
+      if (!b) return;
+      if (show) b.classList.remove('is-result');
+      else b.classList.add('is-result');
+    } catch (e) { /* 表示の調整なので失敗しても診断は動かす */ }
+  }
+
   function KokoroQuiz(mountSelector) {
     this.mount = document.querySelector(mountSelector || '#quiz-app');
     this.data = null;
     this.index = 0;
-    this.picked = [];        // 各問で選んだ軸
+    this.picked = [];        // 各問で選んだ軸（v1）／極（v2）
+    this.tags = [];          // 各問で選んだ選択肢の tag（v2の可変文用）
     this.locked = false;
     this.readyAt = 0;        // この時刻まで入力を受け付けない（不感帯）
   }
@@ -108,7 +120,11 @@
           '<p class="question-text">' + esc(q.text) + '</p>' +
           '<div class="choices-list">' +
             q.choices.map(function (c, i) {
-              return '<button class="choice-btn" type="button" data-axis="' + esc(c.axis) + '" data-i="' + i + '">' +
+              // v1は選択肢ごとに軸を持つ。v2は設問が軸を持ち、選択肢は極(pole)と可変文用のtagを持つ。
+              return '<button class="choice-btn" type="button" data-axis="' + esc(c.axis || q.axis) + '"' +
+                       (c.pole ? ' data-pole="' + esc(c.pole) + '"' : '') +
+                       (c.tag ? ' data-tag="' + esc(c.tag) + '"' : '') +
+                       ' data-i="' + i + '">' +
                        '<span class="choice-mark"></span>' +
                        '<span class="choice-text">' + esc(c.text) + '</span>' +
                      '</button>';
@@ -194,6 +210,7 @@
   KokoroQuiz.prototype.goBack = function () {
     if (this.index <= 0 || this.locked) return;
     this.picked.pop();
+    this.tags.pop();
     this.index--;
     this.renderQuestion();
   };
@@ -208,7 +225,9 @@
     var backBtn = this.mount.querySelector('.back-btn');
     if (backBtn) backBtn.disabled = true;
     btn.classList.add('selected');
-    this.picked.push(btn.dataset.axis);
+    // v2は極(pole)を、v1は軸(axis)を積む。tagは可変文の材料（v1では空）。
+    this.picked.push(btn.dataset.pole || btn.dataset.axis);
+    this.tags.push(btn.dataset.tag || '');
     setTimeout(function () {
       self.locked = false;
       if (document.activeElement) document.activeElement.blur();
@@ -278,8 +297,83 @@
     return { key: key, sub: sub, count: count, tied: tied.length > 1 };
   };
 
+  // ---------------- 判定（v2＝3つの二値軸） ----------------
+  // 各軸で、その軸の設問の回答を数えて多いほうの極を採る。
+  // 同数（設問が偶数の軸でだけ起こる）は「その軸で最後に選んだ側」＝後半の回答を重く見る。
+  // ★書き順や軸の並びでは決めない。同じ回答なら必ず同じタイプになる。
+  KokoroQuiz.prototype.decideV2 = function () {
+    var self = this;
+    var parts = this.data.axes.map(function (ax) {
+      var ca = 0, cb = 0, last = null;
+      self.data.questions.forEach(function (q, i) {
+        if (q.axis !== ax.key) return;
+        var p = self.picked[i];
+        if (p === ax.a) { ca++; last = ax.a; }
+        else if (p === ax.b) { cb++; last = ax.b; }
+      });
+      if (ca > cb) return ax.a;
+      if (cb > ca) return ax.b;
+      return last || ax.a;
+    });
+    return { key: parts.join('-') };
+  };
+
+  // 回答から可変の褒め文を選ぶ。tagの多い順（同数なら後から選んだほう）。
+  // ★avoid（タイプ固有の褒め文）と言い回しがかぶるものは飛ばす。
+  //   同じことを2回言われると、褒められた感じが薄れるため（実測で重複が出た・2026-09-07）。
+  KokoroQuiz.prototype.pickVariants = function (max, avoid) {
+    var V = this.data.variants || {};
+    var count = {}, lastAt = {};
+    this.tags.forEach(function (t, i) {
+      if (!t || !V[t]) return;
+      count[t] = (count[t] || 0) + 1;
+      lastAt[t] = i;
+    });
+    // 比べるのは《中身の語》だけ。「あなた」「ところ」「です」などの共通語で
+    // 偶然かぶって候補が消えないように、先に取り除いてから見る。
+    var STOP = /(あなた|ところ|ています|ていません|でしょう|ですが|です|ます|ました|こと|もの|ここ|その|この|いい|良さ|選ん|選べ|選ぶ|答え|回答|10問|人で|という|そこ|自分の)/g;
+    var norm = function (s) {
+      return String(s || '').replace(/[、。「」（）——…・\s]/g, '').replace(STOP, '');
+    };
+    var pool = (avoid || []).map(norm);
+    // 同じ長所の言い換えを避ける：中身の4文字が2つ以上かぶったら使わない。
+    var overlaps = function (text) {
+      var t = norm(text);
+      for (var j = 0; j < pool.length; j++) {
+        var hits = 0, seen = {};
+        for (var i = 0; i + 4 <= t.length; i++) {
+          var frag = t.substr(i, 4);
+          if (seen[frag]) continue;
+          if (pool[j].indexOf(frag) >= 0) { seen[frag] = 1; hits++; }
+          if (hits >= 2) return true;
+        }
+      }
+      return false;
+    };
+    var out = [], rest = [];
+    var order = Object.keys(count)
+      .sort(function (a, b) { return (count[b] - count[a]) || (lastAt[b] - lastAt[a]); });
+    order.forEach(function (t) {
+      if (out.length >= (max || 2)) return;
+      if (overlaps(V[t])) { rest.push(t); return; }
+      out.push(V[t]);
+      pool.push(norm(V[t]));       // 可変文どうしの重複も防ぐ
+    });
+    // ★重複を避けた結果、件数が足りなくなったら残りから補う（表示件数は必ず保つ）。
+    for (var r = 0; r < rest.length && out.length < (max || 2); r++) out.push(V[rest[r]]);
+    // それでも足りなければ、使っていない候補から順に足す
+    if (out.length < (max || 2)) {
+      Object.keys(V).forEach(function (t) {
+        if (out.length >= (max || 2)) return;
+        if (out.indexOf(V[t]) < 0) out.push(V[t]);
+      });
+    }
+    return out;
+  };
+
   // ---------------- 結果 ----------------
   KokoroQuiz.prototype.renderResult = function () {
+    if ((this.data.schema || 1) >= 2) return this.renderResultV2();
     var d = this.decide();
     var key = d.key;
     var r = this.data.results[key];
@@ -288,6 +382,7 @@
       return;
     }
     this.save(key, r);
+    hero(false);   // ページ上部の見出し・説明を隠して、結果を先に見せる
 
     // 計測: 結果表示（診断×タイプ別・表示IDで二重計測を防ぐ。CTA実装時にこのIDを使う）
     this.viewId = null;
@@ -383,11 +478,207 @@
       }
     } catch (e) { /* 計測は失敗しても無視 */ }
 
+    this.bindRetry();
+    this.scrollToTop();
+  };
+
+  // 「もう一度やってみる」。隠していたページ上部も戻す。
+  KokoroQuiz.prototype.bindRetry = function () {
+    var self = this;
     var retry = document.getElementById('retry');
     if (retry) retry.addEventListener('click', function () {
-      self.index = 0; self.picked = []; self.renderQuestion();
+      self.index = 0; self.picked = []; self.tags = [];
+      hero(true);
+      self.unfoldStatic();
+      self.renderQuestion();
     });
+  };
+
+  // 結果を出したら、下の長い説明（診断とは／8つの結果／よくある質問）を折りたたむ。
+  // ★消さない。SEOのために本文はDOMに残したまま、開いて読める形にする（オーナー指示 2026-09-07）。
+  //   診断直後の主役は説明ではなく、本人を褒めることなので、視覚的にも弱くする。
+  KokoroQuiz.prototype.foldStatic = function () {
+    try {
+      if (document.querySelector('.seo-fold')) return;
+      var wrap = document.querySelector('.page-wrapper > .wrap');
+      if (!wrap) return;
+      var secs = wrap.querySelectorAll('section.static-sec');
+      if (!secs.length) return;
+      var d = document.createElement('details');
+      d.className = 'seo-fold';
+      var sm = document.createElement('summary');
+      sm.textContent = 'この診断について（説明・よくある質問）';
+      d.appendChild(sm);
+      Array.prototype.forEach.call(secs, function (sec) { d.appendChild(sec); });
+      wrap.appendChild(d);
+    } catch (e) { /* 折りたためなくても診断は動く */ }
+  };
+
+  KokoroQuiz.prototype.unfoldStatic = function () {
+    try {
+      var d = document.querySelector('.seo-fold');
+      if (!d) return;
+      var wrap = d.parentNode;
+      Array.prototype.forEach.call(d.querySelectorAll('section.static-sec'), function (sec) {
+        wrap.insertBefore(sec, d);
+      });
+      wrap.removeChild(d);
+    } catch (e) {}
+  };
+
+  // ---------------- 結果（v2＝10問8タイプ・無料/有料の切り分けあり） ----------------
+  KokoroQuiz.prototype.renderResultV2 = function () {
+    var self = this;
+    var d = this.decideV2();
+    var t = this.data.types[d.key];
+    if (!t) {
+      this.mount.innerHTML = '<p class="err">結果の読み込みに失敗しました。もう一度お試しください。</p>';
+      return;
+    }
+    this.save(d.key, t);
+    hero(false);
+
+    this.viewId = null;
+    try { if (window.KMES) this.viewId = window.KMES.result(d.key); } catch (e) {}
+    loadAds();
+
+    var html = '<div class="result-container">';
+
+    // 1) 結果（できるだけ早く見せる）
+    html +=
+      '<div class="result-hero">' +
+        '<p class="result-kicker">' + esc(this.data.result_kicker || 'あなたの回答から見えたのは') + '</p>' +
+        '<span class="result-emoji">' + esc(t.emoji || '🌿') + '</span>' +
+        '<h2 class="result-name">' + esc(t.name) + '</h2>' +
+        (t.lead ? '<p class="result-lead">' + esc(t.lead) + '</p>' : '') +
+      '</div>';
+
+    // 2) 回答から拾った「良いところ」を先に見せる（タイプ固有3つ＋回答で変わる2つ）
+    //    ★ここが無料結果の主役。分析ではなく、褒める根拠を並べる場所（オーナー指示 2026-09-07）。
+    var vs = this.pickVariants(5, t.points || []);
+    var pts = (t.points || []).concat(vs.slice(0, 2));
+    var H = this.data.headings || {};
+    html += '<div class="rs rs-strength"><h3>' + esc(H.good || '✨ あなたの回答から見えた、あなたの良さ') + '</h3>' +
+              '<ul class="good-list">' +
+                pts.map(function (v) { return '<li>' + esc(v) + '</li>'; }).join('') +
+              '</ul>' +
+            '</div>';
+
+    // 3) もう少し褒める（本文）
+    html += '<div class="rs"><h3>' + esc(H.body || '🌿 もう少しだけ、ちゃんと褒めさせてください') + '</h3>' +
+            paras(t.body) + '</div>';
+
+    // 4) 「当たり前ではない」の再評価
+    if (t.atarimae) {
+      html += '<div class="rs rs-atarimae"><h3>' + esc(H.atarimae || '🍀 それ、当たり前じゃありません') + '</h3>' +
+              paras(t.atarimae) + '</div>';
+    }
+
+    // 5) 今日はこれだけ覚えて帰ってください
+    if (t.keep) {
+      html += '<div class="rs rs-keep">' + paras(t.keep) + '</div>';
+    }
+
+    // 6) 有料の続き（タイプ別noteのURLが入っているときだけ）
+    html += this.ctaHtmlV2(t);
+
+    // 7) 回遊（別の角度の診断を2つ）★褒め切ってから／CTAのあとに置く
+    html += this.relatedHtml();
+
+    // 8) 読みもの
+    var arts = this.data.articles || [];
+    if (arts.length) {
+      html += '<div class="rs"><h3>📖 明日を少しラクにする読みもの</h3><div class="rel-list">' +
+              arts.map(function (a) {
+                return '<a href="' + esc(a.href) + '">' + esc(a.title) + '<span class="arrow">›</span></a>';
+              }).join('') + '</div></div>';
+    }
+
+    html +=
+      '<div class="result-actions">' +
+        '<button class="btn btn-sub" type="button" id="retry">もう一度やってみる</button>' +
+        '<a class="btn btn-main" href="index.html">ほかの診断を見てみる</a>' +
+      '</div>' +
+      '<p style="text-align:center;font-size:.78rem;color:#8a988f;line-height:1.9;margin-top:6px;">' +
+        'ここで終わりにして大丈夫です。<br>ひとつ受けるだけで、十分です。' +
+      '</p>' +
+      '</div>';
+
+    this.mount.innerHTML = html;
+
+    try {
+      var card = document.getElementById('cta-card');
+      if (card && window.KMES && this.viewId) {
+        var meta = { viewId: this.viewId, type: d.key,
+                     variant: (window.KOKORO_CTA && window.KOKORO_CTA.variant) || '' };
+        window.KMES.observeCTA(card, meta);
+        var btn = document.getElementById('cta-btn');
+        if (btn) btn.addEventListener('click', function () { window.KMES.ctaClick(meta); });
+      }
+    } catch (e) { /* 計測は失敗しても無視 */ }
+
+    this.bindRetry();
+    this.foldStatic();
     this.scrollToTop();
+  };
+
+  // 有料導線（v2）。タイプ別のnote URLが未設定なら何も出さない＝note未作成でも安全。
+  KokoroQuiz.prototype.ctaHtmlV2 = function (t) {
+    try {
+      var C = window.KOKORO_CTA;
+      if (!C || !C.v2) return '';
+      var urls = (C.noteUrls || {})[this.data.slug];
+      var key = this.decideV2().key;
+      var url = (urls && typeof urls === 'object') ? urls[key] : '';
+      // 確認用：?ctapreview=1 を付けたときだけ、URL未設定でも見た目を確認できる。
+      // note公開前に文言と位置をオーナーが見るためのもの（リンク先はこのページ内）。
+      if (!url && /[?&]ctapreview=1/.test(location.search)) url = '#';
+      if (!url) return '';
+      return '<div class="rs cta-card" id="cta-card">' +
+               (C.v2.lead ? '<p class="cta-lead">' + esc(C.v2.lead) + '</p>' : '') +
+               '<h3 class="cta-head">' + esc(C.v2.headline(t.name)) + '</h3>' +
+               C.v2.body.map(function (b) { return '<p class="cta-sub">' + esc(b) + '</p>'; }).join('') +
+               '<a class="cta-btn" id="cta-btn" href="' + esc(url) + '" target="_blank" rel="noopener">' +
+                 esc(C.v2.button) + '</a>' +
+               '<p class="cta-note">' + esc(C.v2.note) + '</p>' +
+             '</div>';
+    } catch (e) { return ''; }
+  };
+
+  // 回遊。カタログで live の診断だけを出す（作りかけの診断へ人を送らない）。
+  KokoroQuiz.prototype.relatedHtml = function () {
+    try {
+      var C = window.KOKORO_CATALOG;
+      var self = this;
+      if (!C) return '';
+      var list = (this.data.related || []).filter(function (s) { return !!C.live(s); });
+      // 本来の回遊先がまだ公開前のときは、公開済みの診断で2つまで埋める。
+      // 空の見出しだけが残るのを避けるため（移行中の期間だけ効く）。
+      if (list.length < 2 && C && C.order) {
+        C.order.forEach(function (s) {
+          if (list.length >= 2) return;
+          if (s === self.data.slug || list.indexOf(s) >= 0) return;
+          if (C.live(s)) list.push(s);
+        });
+      }
+      if (!list.length) return '';
+      var cards = list.map(function (s) {
+        var it = C.live(s);
+        if (!it) return '';
+        return '<a class="go-card" href="' + esc(it.file) + '">' +
+                 '<span class="go-emoji">' + esc(it.emoji) + '</span>' +
+                 '<span><span class="go-title">' + esc(it.title) + '</span>' +
+                 '<span class="go-sub">' + esc(it.sub) + '</span></span>' +
+               '</a>';
+      }).filter(Boolean).join('');
+      if (!cards) return '';
+      var HH = this.data.headings || {};
+      return '<div class="rs"><h3>' + esc(HH.related || '🧭 今のあなたには、こちらの診断も') + '</h3>' +
+               '<p class="go-note">' +
+                 esc(HH.relatedNote || '同じ悩みをもう一度たどるのではなく、別の角度から見るための2つです。') +
+               '</p>' +
+               '<div class="go-list">' + cards + '</div></div>';
+    } catch (e) { return ''; }
   };
 
   // 診断の結果そのもの（どのタイプだったか）は端末内だけに残す。

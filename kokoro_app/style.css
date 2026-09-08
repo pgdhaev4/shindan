@@ -318,3 +318,116 @@ body {
 }
 .cta-btn:hover { filter: brightness(1.06); }
 .cta-note { font-size: .74rem; color: #9a8c6a; text-align: center; margin-top: 8px; }
+
+
+/* ===================================================================
+   2026-09-07 リニューアル（主要10診断・v2）
+   =================================================================== */
+
+/* 結果が出たら、ページ上部の見出し・説明を隠して結果を先に見せる（オーナー指示） */
+body.is-result .page-hero { display: none; }
+
+/* サブコピー（診断が何をしてくれるか） */
+.page-hero .subcopy {
+  font-size: clamp(.85rem, 3.5vw, .95rem); font-weight: 800; color: var(--green-dk);
+  line-height: 1.85; max-width: 30em; margin: 0 auto 10px;
+}
+
+/* 「かなり見られている」と思える一言 */
+.rs-seen {
+  background: linear-gradient(160deg, #f7fbf5 0%, #eef5ec 100%);
+  border: 1px solid rgba(92,138,99,.28); border-left: 5px solid var(--green);
+  border-radius: 14px; padding: 17px 18px; margin-bottom: 14px;
+  font-size: .93rem; line-height: 2.0; font-weight: 700; color: var(--green-dk);
+  box-shadow: var(--shadow);
+}
+
+/* 回答内容から選ばれる褒め文 */
+.good-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
+.good-list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: #fffdf6; border: 1px solid rgba(217,154,85,.3);
+  border-radius: 12px; padding: 12px 14px; font-size: .89rem; line-height: 1.95; color: var(--ink);
+}
+.good-list li::before { content: '✿'; color: #c9964a; font-weight: 900; flex-shrink: 0; }
+
+/* 回遊（別の角度の診断へ） */
+.go-note { font-size: .84rem; color: var(--ink-soft); margin-bottom: 11px; }
+.go-list { display: flex; flex-direction: column; gap: 9px; }
+.go-card {
+  display: flex; gap: 11px; align-items: flex-start;
+  background: #fbfaf5; border: 1px solid var(--line); border-radius: 13px;
+  padding: 13px 15px; text-decoration: none; color: var(--ink);
+}
+.go-card:hover { border-color: var(--green); background: #f4f8f2; }
+.go-emoji { font-size: 1.35rem; line-height: 1.4; flex-shrink: 0; }
+.go-title { display: block; font-size: .92rem; font-weight: 900; color: var(--green-dk); line-height: 1.5; }
+.go-sub   { display: block; font-size: .82rem; color: var(--ink-soft); line-height: 1.75; margin-top: 3px; }
+
+/* ── スマホの不自然な折り返し対策（PC表示は変えない） ──
+   ・text-wrap: pretty  … 最終行が1〜2文字だけ残る「取り残され改行」を減らす
+   ・text-wrap: balance … 見出しの行の長さをそろえる（2〜3行の見出しが不格好に割れない）
+   ・overflow-wrap      … URLなど切れない語がはみ出して横スクロールを作るのを防ぐ
+   ・line-break: strict  … 句読点や小書き文字が行頭に来る不自然な改行を避ける
+   いずれも未対応ブラウザでは無視されるだけで、表示は今までどおり。 */
+body { overflow-wrap: break-word; line-break: strict; }
+p, li, dd, dt, .rs p, .go-sub, .qc-desc, .result-lead, .page-hero .lead,
+.page-hero .subcopy, .quiz-note, .question-text, .choice-text, .rs-seen,
+.hero-meta span, .type-card p, .static-sec p, .disclaimer { text-wrap: pretty; }
+h1, h2, h3, .result-name, .qc-title, .go-title { text-wrap: balance; }
+/* 日本語は文節（意味のかたまり）で折り返す。対応ブラウザだけ効き、未対応でも従来どおり。
+   「疲れた日に、ちょっと／寄れる」のような、語の途中で切れる不自然な改行を減らす。 */
+.question-text, .choice-text, .page-hero .lead, .page-hero .subcopy, .rs p, .rs-seen,
+.good-list li, .go-title, .go-sub, .qc-title, .qc-desc, .type-card p, .crumb,
+.result-lead, .result-name, .quiz-note, .disclaimer, .disclaimer p, .faq dd,
+.static-sec p { word-break: auto-phrase; overflow-wrap: anywhere; }
+
+@media (max-width: 420px) {
+  /* 幅の狭い端末では、余白を少し詰めて1行に入る文字数を確保する
+     （文字を小さくして解決しない、というオーナー指示に沿う） */
+  .wrap, .result-container, .quiz-container { padding-left: 13px; padding-right: 13px; }
+  .rs, .rs-seen { padding-left: 15px; padding-right: 15px; }
+  .go-card { padding-left: 12px; padding-right: 12px; }
+}
+
+
+/* ── 褒める結果画面（v2・2026-09-07 全面改稿） ── */
+/* 良さの箇条書き。無料結果の主役なので、いちばん目に入る色にする */
+.rs-strength h3 { font-size: 1rem; }
+.good-list li { font-size: .92rem; line-height: 2.0; }
+
+/* 「それ、当たり前じゃありません」 */
+.rs-atarimae {
+  background: linear-gradient(160deg, #fffdf6 0%, #fdf4e6 100%);
+  border-color: rgba(217,154,85,.34);
+}
+.rs-atarimae h3 { color: #a86a20; }
+
+/* 「今日は、これだけ覚えて帰ってください」＝結果の締め */
+.rs-keep {
+  background: linear-gradient(160deg, #f2f8f0 0%, #e6f0e4 100%);
+  border: 1.5px solid rgba(92,138,99,.36);
+  text-align: center;
+}
+.rs-keep p { font-size: .97rem; line-height: 2.1; font-weight: 800; color: var(--green-dk); }
+
+/* 結果表示中の長い説明（SEO用）は折りたたみ、色も弱くする。本文はDOMに残す */
+.seo-fold {
+  margin: 26px 0 6px; border-top: 1px solid var(--line); padding-top: 14px;
+}
+.seo-fold > summary {
+  cursor: pointer; list-style: revert;
+  font-size: .82rem; font-weight: 800; color: var(--muted);
+  padding: 8px 2px;
+}
+.seo-fold > summary:hover { color: var(--green); }
+.seo-fold[open] > summary { color: var(--ink-soft); }
+.seo-fold .static-sec { opacity: .82; }
+.seo-fold .static-sec h2 { font-size: .98rem; }
+
+/* 一覧ページのカテゴリ見出し（2026-09-08 10診断化） */
+.cat-head {
+  font-size: .95rem; font-weight: 900; color: var(--green-dk);
+  margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--green-lt);
+}
+.static-sec .quiz-grid + .cat-head { margin-top: 26px; }
