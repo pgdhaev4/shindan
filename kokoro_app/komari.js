@@ -212,11 +212,12 @@
   //   選んだら、結果まで待たせず、その質問の直後に案内を出す。中身は結果の先頭に出す専用の案内（theme.specials＝確認済みの文・窓口の台帳）と同じもの。
   //   「診断を続ける」で残りの質問へ進む（結果にも、これまでどおり同じ案内が先に出る）
   var URGENT_EXTRA = ['ks_kowai'];
+  //   ★2026-10-16：関連を最後の1問にまとめたテーマ（q.split のある質問）は、分けたあとの関連の答えで見る（advance で先に分ける）
   Komari.prototype.urgentFor = function (q) {
-    var K = window.KOMARI, themes = (K && K.themes) || {}, T = null;
-    Object.keys(themes).forEach(function (id) { if (themes[id].relatedQ === q.id) T = themes[id]; });
+    var K = window.KOMARI, themes = (K && K.themes) || {}, T = null, relQ = q.relatedQ || q.id;
+    Object.keys(themes).forEach(function (id) { if (themes[id].relatedQ === relQ) T = themes[id]; });
     if (!T || !T.specials) return [];
-    var picked = this.answers[q.id] || [], a = this.answers;
+    var picked = this.answers[relQ] || [], a = this.answers;
     return picked.filter(function (k) { return k === T.kieruKey || URGENT_EXTRA.indexOf(k) >= 0; }).map(function (k) {
       var S = T.specials[k];
       if (typeof S === 'function') S = S(a, { strength: 2, route: { undetermined: true, primary: [], secondary: [] }, envStrong: false });
@@ -234,7 +235,8 @@
           return self.section({ kind: 'list', title: S.title, lead: S.lead || '', items: S.items || [], after: S.after || '', plainLead: true, links: S.links }, 0);
         }).join('') +
         '<div class="result-actions">' +
-          '<button class="btn btn-main k-continue" type="button">診断を続ける</button>' +
+          // 最後の質問のあと（次が結果）なら「結果を見る」（2026-10-16 関連を最後の1問にまとめたため）
+          '<button class="btn btn-main k-continue" type="button">' + (this.nextIndex(this.cur) < 0 ? '結果を見る' : '診断を続ける') + '</button>' +
           '<button class="btn btn-sub k-urgent-back" type="button">← 質問に戻る</button>' +
         '</div>' +
       '</div>';
@@ -249,6 +251,7 @@
   Komari.prototype.advance = function () {
     var q = this.data.questions[this.cur];
     if (q && q.type === 'multi') {
+      if (q.split && window.KOMARI) window.KOMARI.splitLast(q, this.answers);   // まとめた1問の答えを関連・環境に分ける
       var urg = this.urgentFor(q);
       var sig = q.id + ':' + urg.map(function (x) { return x.key; }).join(',');
       if (urg.length && !(this.urgentShown && this.urgentShown[sig])) { this.renderUrgent(urg); return; }
@@ -263,7 +266,9 @@
   Komari.prototype.goBack = function () {
     if (!this.history.length || !this.accepts()) return;
     // 今の設問の答えは消す（分岐が変わったときに古い答えが判定に混ざらないように）
-    delete this.answers[this.data.questions[this.cur].id];
+    var cq = this.data.questions[this.cur], self = this;
+    delete this.answers[cq.id];
+    if (cq.split) cq.split.forEach(function (s) { delete self.answers[s.q]; });   // まとめた1問から分けた答えも消す
     this.cur = this.history.pop();
     var q = this.data.questions[this.cur];
     if (q.type !== 'multi') delete this.answers[q.id];      // 単一選択は選び直してもらう

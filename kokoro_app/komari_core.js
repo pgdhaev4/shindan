@@ -277,9 +277,23 @@
   // ★2026-10-11（オーナー指示「10問は長いので8問に」）：theme.dropQuestions に書いた質問を、出さない・判定に使わない。
   //   質問の文はデータに残す（戻せるように）。dropQuestions の無いテーマ（既存7テーマ）は今のまま
   K.defineTheme = function (T) {
+    // ★2026-10-16 オーナー指示「選択肢の数を減らす」：theme.dropChoices に書いた関連・環境の項目は、出さない・判定に使わない。
+    //   文はデータに残す（relatedAll・env.itemsAll。戻せるように）。dropChoices の無いテーマは今のまま
+    if (T.dropChoices && T.dropChoices.length) {
+      var dc = T.dropChoices, keep = function (o) {
+        var r = {}; Object.keys(o || {}).forEach(function (k) { if (dc.indexOf(k) < 0) r[k] = o[k]; }); return r;
+      };
+      T.relatedAll = T.related; T.related = keep(T.related);
+      if (T.env && T.env.items) { T.env.itemsAll = T.env.items; T.env.items = keep(T.env.items); }
+      T.questions = T.questions.map(function (q) {
+        if (q.id !== T.relatedQ && q.id !== T.envQ) return q;
+        return Object.assign({}, q, { choices: q.choices.filter(function (c) { return dc.indexOf(c.value) < 0; }) });
+      });
+    }
     // ★2026-10-13 オーナー指示「複数選択が連続している」：関連（複数選択）を頻度の質問のすぐあとへ移し、
     //   最後の環境（複数選択）と続かないようにする（並び順だけ。判定・結果は変わらない）
-    if (T.relatedQ && T.freqQ && T.questions) {
+    //   ★2026-10-16：theme.lastMulti のテーマは移さない（関連と環境を、最後の1問にまとめて出す＝defineDiagnosis）
+    if (T.relatedQ && T.freqQ && T.questions && !T.lastMulti) {
       var ri = T.questions.findIndex(function (q) { return q.id === T.relatedQ; });
       var fi = T.questions.findIndex(function (q) { return q.id === T.freqQ; });
       if (ri > fi + 1 && fi >= 0) { var rq = T.questions.splice(ri, 1)[0]; T.questions.splice(fi + 1, 0, rq); }
@@ -293,6 +307,39 @@
       if (T.routeQuestions.length <= 3) T.pickTop = true;
     }
     K.themes[T.id] = T; return T;
+  };
+
+  // ★2026-10-16 オーナー指示「複数選択は最後の1問だけ」：theme.lastMulti のテーマは、画面に出す質問の並びで、
+  //   関連（複数選択）を外し、環境（複数選択）の位置に「環境の項目 → 関連の項目 → どれも当てはまらない」の1問を置く（命の項目は最後のまま）。
+  //   答えは split に従って関連・環境の答えに分けて入れる（K.splitLast）。判定・検査は今までどおり関連・環境を別々に見る
+  //   theme.lastMulti = { text, hint }。lastMulti の無いテーマは、テーマの質問をそのまま返す
+  K.lastQuestions = function (T) {
+    if (!T.lastMulti) return T.questions;
+    var rq = T.questions.filter(function (q) { return q.id === T.relatedQ; })[0];
+    var eq = T.questions.filter(function (q) { return q.id === T.envQ; })[0];
+    var notOnly = function (c) { return !c.only; };
+    var envC = eq.choices.filter(notOnly), relC = rq.choices.filter(notOnly);
+    var merged = {
+      id: T.id + '_last', type: 'multi', text: T.lastMulti.text, hint: T.lastMulti.hint,
+      choices: envC.concat(relC, [{ value: 'none', text: 'どれも当てはまらない', only: true }]),
+      split: [{ q: T.envQ, keys: envC.map(function (c) { return c.value; }) }, { q: T.relatedQ, keys: relC.map(function (c) { return c.value; }) }],
+      relatedQ: T.relatedQ
+    };
+    var out = [];
+    T.questions.forEach(function (q) {
+      if (q.id === T.relatedQ) return;
+      out.push(q.id === T.envQ ? merged : q);
+    });
+    return out;
+  };
+  // まとめた1問の答え（picked）を、関連・環境の答えに分けて a に入れる。どちらにも選ばれた項目がなければ ['none']
+  K.splitLast = function (q, a) {
+    var picked = a[q.id] || [];
+    q.split.forEach(function (s) {
+      var v = picked.filter(function (k) { return s.keys.indexOf(k) >= 0; });
+      a[s.q] = v.length ? v : ['none'];
+    });
+    return a;
   };
 
   // 診断を組み立てる：1問目（困りごとの選択）→ 選んだテーマの設問 → 結果
@@ -339,8 +386,8 @@
       groupOf[g].gate.choices.forEach(function (c, i) { gateOfTheme[c.theme] = { group: g, gateId: groupOf[g].gate.id, first: i === 0 }; });
     });
     themeIds.forEach(function (id) {
-      var gt = gateOfTheme[id];
-      K.themes[id].questions.forEach(function (q) {
+      var gt = gateOfTheme[id], T = K.themes[id];
+      K.lastQuestions(T).forEach(function (q) {
         var qq = Object.assign({}, q);
         // 分かれ道が未回答のあいだは、1つ目の行き先の質問を「出る」と数える（進み具合が「2 / 2」にならないように。再査読 S4-0-01）
         //   条件：分かれ道の先のテーマは、質問の数が同じこと（検査で見る）
@@ -368,6 +415,9 @@
       groupIds: Object.keys(groupOf),
       mindLine: D.mindLine,   // ★2026-10-04（4診断）：質問なしの結果に必ず入れる心身のサインの1行（検査 T-12 が見る。無い診断は undefined）
       decide: function (a) {
+        // 最後にまとめた1問（split のある質問）の答えを、関連・環境の答えに分ける（元の a は変えない）
+        var sq = questions.filter(function (q) { return q.split && a[q.id] !== undefined; });
+        if (sq.length) { a = Object.assign({}, a); sq.forEach(function (q) { K.splitLast(q, a); }); }
         if (groupOf[a.q1]) {
           var tid = a[groupOf[a.q1].gate.id];
           return K.themes[tid] ? K.buildResult(K.themes[tid], a) : null;

@@ -34,6 +34,9 @@
   KOMARI.defineTheme({
     id: 'ym_mayoi',
     dropQuestions: ['ym_ma_s1', 'ym_ma_hanashi', 'ym_ma_s3'],   // 2026-10-11 オーナー指示「8問に」：背景は4問・補助の質問は外す（選び方＝_komari_q8_choose.js と、場面が重なる／一般的な質問を外す）
+    // 2026-10-16 オーナー指示「複数選択は最後の1問だけ・選択肢を減らす」：関連の「休みの日も頭から離れない」は「1日の中で何度も考えてしまう」と重なるので外す（関連の後の文は2つを同じ1文で扱っていた）
+    lastMulti: YM.LAST_MULTI,
+    dropChoices: YM.DROP_ENV.concat(['ym_kyujitsu']),
     q1Text: '辞めるか続けるか、何度考えても決まらず、気持ちが行ったり来たりしている',
     problem: '辞めるか続けるかの迷いが続き、考えることに疲れている',
     problemWeak: '辞めるか続けるかを、ときどき考える程度',

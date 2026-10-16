@@ -33,6 +33,9 @@
   KOMARI.defineTheme({
     id: 'ym_mitooshi',
     dropQuestions: ['ym_mi_hannou', 'ym_mi_s4'],   // 2026-10-11 オーナー指示「8問に」：背景は4問・補助の質問は外す（選び方＝_komari_q8_choose.js と、場面が重なる／一般的な質問を外す）
+    // 2026-10-16 オーナー指示「複数選択は最後の1問だけ・選択肢を減らす」：関連の「お金や今後のことを、家族と話せていない」は「だれにも話せていない」と重なるので外す（家族のいない人にも当てはまる方を残す）
+    lastMulti: YM.LAST_MULTI,
+    dropChoices: YM.DROP_ENV.concat(['ym_kazoku']),
     q1Text: '辞めたあとの生活や次の仕事が不安で、考えが先に進まない',
     problem: '辞めたあとの不安で、考えが先に進まない',
     problemWeak: '辞めたあとのことが、ときどき気になる程度',

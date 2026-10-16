@@ -41,6 +41,9 @@
   KOMARI.defineTheme({
     id: 'ym_riyuu',
     dropQuestions: ['ym_ri_s3', 'ym_ri_soudan', 'ym_ri_s2'],   // 2026-10-11 オーナー指示「8問に」：背景は4問・補助の質問は外す（選び方＝_komari_q8_choose.js と、場面が重なる／一般的な質問を外す）
+    // 2026-10-16 オーナー指示「複数選択は最後の1問だけ・選択肢を減らす」：関連の「休みの日も頭から離れない」は「寝つきが悪い・朝から気が重い」と重なるので外す
+    lastMulti: YM.LAST_MULTI,
+    dropChoices: YM.DROP_ENV.concat(['ym_kyujitsu']),
     q1Text: '辞めたい理由はあるけれど、今の会社で何とかなることなのか分からない',
     problem: '辞めたい理由が、今の会社で何とかなることか確かめられていない',
     problemWeak: '辞めたい理由はあるが、今は大きな負担にはなっていない',

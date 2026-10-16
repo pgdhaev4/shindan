@@ -104,7 +104,9 @@
     ym_kyuuyo:    { text: '残業代や給料がきちんと払われていない・働いた時間を実際より短くつけるよう言われる', heavy: true },
     ym_nagai:     { text: '休みの日もほとんど休めないほど長く働く状態が続いている・休みを申し出ても取らせてもらえない', heavy: true },
     ym_gendou:    { text: '上司や同僚から、怒鳴られる・人格を否定される・無視される・性的な言動・妊娠や出産・育児・介護を理由にした嫌がらせや不利な扱いなどを受けている', heavy: true },
-    ym_hikitome:  { text: '辞めたいと伝えたら、強く責められた・損害を払わせると言われた・辞めることを認めないと言われた', heavy: true },
+    // ★2026-10-16 オーナー指示「選択肢を減らす」：ym_susume（辞めるようにすすめられる）を外し、その中身をこの項目の文に入れた（どちらも重い害・手順の文は両方を書いてある）
+    //   前の文＝'辞めたいと伝えたら、強く責められた・損害を払わせると言われた・辞めることを認めないと言われた'
+    ym_hikitome:  { text: '会社や上司から辞めるようにすすめられる・辞めたいと伝えたら、強く責められた・辞めることを認めないと言われた', heavy: true },
     ym_susume:    { text: '会社や上司から、辞めるようにすすめられる・仕事を外されるなど、辞める方へ向けた扱いを受けている', heavy: true },
     ym_chigau:    { text: '入社のときの書面（労働条件の通知・契約書）に書かれた給料・働く時間・休み・場所と、実際が違う' },
     // 仕組み（仕事の場に載せる）
@@ -116,6 +118,11 @@
   };
   YM.HEAVY_KEYS = Object.keys(YM.ENV_ITEMS).filter(function (k) { return YM.ENV_ITEMS[k].heavy; });
   YM.ENV_Q_TEXT = 'あなたの職場で、当てはまるものをすべて選んでください。';
+  // ★2026-10-16 オーナー指示「複数選択は最後の1問だけ・選択肢を減らす」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+  //   3テーマ共通で外す環境の項目＝書面と実際が違う（給料の項目と重なる）・評価の基準（ルートCと重なる）・契約で働いている／家庭との両立（補足の文だけの事情）・
+  //   辞めるようにすすめられる（ym_hikitome の文にまとめた）。各テーマは自分の関連の項目を1つ外す（テーマのファイルに理由）
+  YM.LAST_MULTI = { text: 'あなたの職場や、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND };
+  YM.DROP_ENV = ['ym_chigau', 'ym_susume', 'ym_hyouka', 'ym_keiyaku', 'ym_ryouritsu'];
   YM.envChoices = function () {
     return Object.keys(YM.ENV_ITEMS).map(function (k) { return { value: k, text: YM.ENV_ITEMS[k].text }; }).concat([{ value: 'none', text: 'どれも当てはまらない', only: true }]);
   };
@@ -287,7 +294,8 @@
         var hit = (a[T.envQ] || []).filter(function (k) { return YM.HEAVY_KEYS.indexOf(k) >= 0; });
         return hit.length && r._judge.env.level !== 2 ? '「' + hit[0] + '」を選んだのに、環境が強い結果になっていない' : '';
       },
-      breakTheme: function (T) { T.env.items.ym_susume = Object.assign({}, T.env.items.ym_susume, { heavy: false }); } });
+      // 2026-10-16：ym_susume を選択肢から外したので、壊すのは「辞めることを認めない」（ym_hikitome。外した ym_susume の中身もこの項目にある）
+      breakTheme: function (T) { T.env.items.ym_hikitome = Object.assign({}, T.env.items.ym_hikitome, { heavy: false }); } });
     // Y-Q7：専用の案内の並び（命→限界）・限界の導入の「あわせて、」・まとめの先頭・記事の節を隠す
     rules.push({ name: 'Y-Q7 専用の案内の並び',
       check: function (r, a, T) {

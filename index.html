@@ -265,6 +265,48 @@
     }
     .disclaimer-top a { color: var(--ink-soft); }
 
+    /* ===== SECTION 3: 寄り道（2026-10-16 オーナー指示：トップにもキャラ診断3つを出す。入口ページの寄り道コーナーと同じ中身・同じ見た目） ===== */
+    .yorimichi { background: #fbf6ea; border: 2px dashed #e2cfa3; border-radius: 16px; padding: 16px 14px 18px; }
+    .yorimichi .sec-head { text-align: left; margin-bottom: 6px; }
+    .yorimichi .sec-head h2 { color: #8a6a2f; font-size: clamp(1.02rem, 4.2vw, 1.25rem); }
+    .yorimichi > p { font-size: .85rem; color: var(--ink-soft); line-height: 1.85; }
+    .yr-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .yr-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ecdcb6; border-radius: 14px; padding: 10px 14px; text-decoration: none; color: var(--ink); transition: .18s; }
+    .yr-card:hover { transform: translateY(-1px); border-color: #d9b56a; }
+    .yr-img { width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; background: #fdf3dc; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; overflow: hidden; }
+    .yr-img img { width: 100%; height: 100%; object-fit: contain; }
+    .yr-body { display: flex; flex-direction: column; min-width: 0; }
+    .yr-title { font-weight: 900; font-size: .98rem; color: #6f5320; }
+    .yr-desc { font-size: .8rem; color: var(--ink-soft); line-height: 1.6; margin-top: 2px; }
+    .yr-card .arrow { margin-left: auto; color: var(--muted); flex-shrink: 0; }
+
+    /* ===== SECTION 7: LINEスタンプ（2026-10-16 オーナー指示：下の方に・今後増える前提で「準備中」枠つき） ===== */
+    .stamp-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 640px) { .stamp-list { grid-template-columns: 2fr 1fr; } }
+    .stamp-card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+      padding: 16px; box-shadow: var(--shadow);
+    }
+    .stamp-top { display: flex; gap: 14px; align-items: center; }
+    .stamp-top img { width: 96px; height: 96px; flex-shrink: 0; }
+    .stamp-name { font-size: 1rem; font-weight: 900; color: var(--green-dk); line-height: 1.45; }
+    .stamp-desc { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.8; margin-top: 3px; }
+    .stamp-samples { display: flex; justify-content: center; gap: 6px; margin: 12px 0 12px; }
+    .stamp-samples img { width: 31%; max-width: 120px; height: auto; }
+    .stamp-btn {
+      display: block; text-align: center; font-weight: 900; font-size: 0.9rem;
+      padding: 12px; border-radius: 11px; color: #fff; text-decoration: none;
+      background: #06c755;
+    }
+    .stamp-btn:hover { background: #05b04b; }
+    .stamp-soon {
+      border: 2px dashed var(--line); border-radius: 18px; background: var(--bg2);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 22px 16px; color: var(--muted);
+    }
+    .stamp-soon .s-title { font-size: 0.95rem; font-weight: 900; color: var(--ink-soft); }
+    .stamp-soon .s-desc { font-size: 0.78rem; line-height: 1.8; margin-top: 4px; }
+
     /* ===== フッター ===== */
     .site-footer {
       text-align: center; padding: 28px 16px 32px; margin-top: 34px;
@@ -281,7 +323,7 @@
        いずれも未対応ブラウザでは無視されるだけで、PC表示も変わらない。 */
     body { overflow-wrap: break-word; line-break: strict; }
     p, li, dd, dt, .m-desc, .k-desc, .k-title, .fc-sub, .hero-sub, .hero-voice,
-    .sec-head p, .read-list a, .promise li {
+    .sec-head p, .read-list a, .promise li, .stamp-desc, .stamp-soon .s-desc {
       text-wrap: pretty; word-break: auto-phrase;
       /* ★auto-phrase は「文節を割らない」ため、長い文節がFlex項目をはみ出させることがある
          （実測：トップの .promise li で横スクロールが 449px 出た）。最後の手段の改行を許して防ぐ。 */
@@ -354,6 +396,33 @@
       <p class="more-link"><a href="/shindan/kokoro_app/">5診断の選び方をくわしく見る →</a></p>
     </section>
 
+    <!-- ============ SECTION 3: 寄り道（2026-10-16 追加。入口ページ kokoro_app/index.html の寄り道コーナーと同じ3つ） ============ -->
+    <section class="block" id="yorimichi">
+      <div class="yorimichi">
+        <div class="sec-head">
+          <h2>まだ元気があれば、寄り道してください</h2>
+        </div>
+        <p>こんな診断もあります。上の5つとは別の、ちょっと笑って帰れる診断です。</p>
+        <div class="yr-grid">
+          <a class="yr-card" href="/shindan/workplace_app/">
+            <span class="yr-img"><img src="/shindan/workplace_app/images/shachiku_zangyo_gorilla.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='💼'"></span>
+            <span class="yr-body"><span class="yr-title">会社モンスター診断</span><span class="yr-desc">職場でしんどい日に、自分をモンスターにたとえて笑って帰る診断</span></span>
+            <span class="arrow">›</span>
+          </a>
+          <a class="yr-card" href="/shindan/kosodate_app/">
+            <span class="yr-img"><img src="/shindan/kosodate_app/images/parent_7_dragon.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='👶'"></span>
+            <span class="yr-body"><span class="yr-title">子育て親タイプ診断</span><span class="yr-desc">今日もおつかれさまでした。子育ての自分を、キャラにして眺める診断</span></span>
+            <span class="arrow">›</span>
+          </a>
+          <a class="yr-card" href="/shindan/psychology_app/">
+            <span class="yr-img"><img src="/shindan/psychology_app/images/chars_new/元カレ監視衛星.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='💖'"></span>
+            <span class="yr-body"><span class="yr-title">恋愛沼診断</span><span class="yr-desc">恋のことで頭がいっぱいの日に、自分の「沼」を笑ってみる診断</span></span>
+            <span class="arrow">›</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ SECTION 6: 診断の森について ============ -->
     <section class="block">
       <div class="sec-head">
@@ -398,6 +467,35 @@
           医学的・心理学的な検査や診断ではなく、うつ病・適応障害・発達障害などの判定は行いません。
           結果に優劣はありません。<br>
           つらさが続くときは、<a href="https://kokoro.mhlw.go.jp/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>などの相談先もあります。
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 7: LINEスタンプ（2026-10-16 追加。スタンプが増えたら .stamp-card を足し、準備中の枠は残すか外す） ============ -->
+    <section class="block" id="stamp">
+      <div class="sec-head">
+        <h2>LINEスタンプ</h2>
+        <p>診断の森のショート動画に出てくるふたりを、LINEスタンプにしました。</p>
+      </div>
+      <div class="stamp-list">
+        <div class="stamp-card">
+          <div class="stamp-top">
+            <img src="/shindan/kokoro_app/img/line/gorilla_yousei_main.webp" alt="残業ゴリラと定時の妖精" width="96" height="96" loading="lazy">
+            <div>
+              <p class="stamp-name">残業ゴリラと定時の妖精</p>
+              <p class="stamp-desc">残業したいゴリラと、定時で帰りたい妖精。仕事の日に使えるスタンプ24種類です。</p>
+            </div>
+          </div>
+          <div class="stamp-samples">
+            <img src="/shindan/kokoro_app/img/line/gorilla_yousei_01.webp" alt="残業は筋トレ" width="120" height="104" loading="lazy">
+            <img src="/shindan/kokoro_app/img/line/gorilla_yousei_14.webp" alt="本日の私、営業終了です" width="120" height="104" loading="lazy">
+            <img src="/shindan/kokoro_app/img/line/gorilla_yousei_06.webp" alt="定時後の私は他人です" width="120" height="104" loading="lazy">
+          </div>
+          <a class="stamp-btn" href="https://line.me/S/sticker/36672049" target="_blank" rel="noopener">LINE STOREで見る</a>
+        </div>
+        <div class="stamp-soon">
+          <p class="s-title">次のスタンプ、準備中です</p>
+          <p class="s-desc">できあがったら、ここに追加します。</p>
         </div>
       </div>
     </section>
