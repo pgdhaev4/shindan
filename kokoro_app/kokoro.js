@@ -50,6 +50,11 @@
       .map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
   }
 
+  // **〜** を太字にする（それ以外は esc と同じ＝HTMLは通さない）。v4の結果文で使う。
+  function bold(s) {
+    return esc(s).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
   // 広告スクリプトは結果画面になってから読み込む。
   // 設問・選択肢・戻るボタンといった操作UIの近くに広告が入らないようにするため
   // （質問ページは広告より診断操作を優先する＝オーナー方針 2026-08-26）。
@@ -336,8 +341,27 @@
       return String(s || '').replace(/[、。「」（）——…・\s]/g, '').replace(STOP, '');
     };
     var pool = (avoid || []).map(norm);
+    // 言葉は違うが同じ良さを指す組（2026-09-08 追加）。
+    // 例：「実際に動いている」と「実際に足を運んでいる」は、文字のかぶりでは弾けないのに
+    //     読む側には同じことの言い換えに見える。同じ組に入る言い方は1つまでにする。
+    var CONCEPTS = [
+      /足を運|実際に動|行動に変|動いてみた|動いている|動けて/,
+      /人と会|会う予定|会う機会|紹介を頼/,
+      /ひとりの時間|自分の時間|一人の時間/
+    ];
+    var conceptsOf = function (s) {
+      var out = [];
+      CONCEPTS.forEach(function (re, i) { if (re.test(String(s || ''))) out.push(i); });
+      return out;
+    };
+    var poolConcepts = [];
+    (avoid || []).forEach(function (s) { poolConcepts = poolConcepts.concat(conceptsOf(s)); });
     // 同じ長所の言い換えを避ける：中身の4文字が2つ以上かぶったら使わない。
     var overlaps = function (text) {
+      var cs = conceptsOf(text);
+      for (var c = 0; c < cs.length; c++) {
+        if (poolConcepts.indexOf(cs[c]) >= 0) return true;
+      }
       var t = norm(text);
       for (var j = 0; j < pool.length; j++) {
         var hits = 0, seen = {};
@@ -358,6 +382,7 @@
       if (overlaps(V[t])) { rest.push(t); return; }
       out.push(V[t]);
       pool.push(norm(V[t]));       // 可変文どうしの重複も防ぐ
+      poolConcepts = poolConcepts.concat(conceptsOf(V[t]));
     });
     // ★重複を避けた結果、件数が足りなくなったら残りから補う（表示件数は必ず保つ）。
     for (var r = 0; r < rest.length && out.length < (max || 2); r++) out.push(V[rest[r]]);
@@ -544,6 +569,31 @@
 
     var html = '<div class="result-container">';
 
+    // ★v3（2026-09-08 試作）：このタイプに v3 があれば、新しい結果画面で出す。
+    //   箇条書きの分析をやめ、タイプ名 → 結論 → ひとつづきの本文 → 締め、の順に読ませる。
+    //   v3 の無いタイプは、これまでどおり下の従来表示のまま（1診断だけの試作にするため）。
+    if (t.v4) {
+      // ★v4_note＝その診断だけの固定の注意文（結果本文のあと・CTA の前に独立して出す）。
+      //   2026-09-15 オーナー指示で ⑧ kotoba だけに置く。10診断共通の文言にはしない（データに v4_note が無い診断では何も出ない）。
+      var note = this.data.v4_note ? '<div class="disclaimer result-note">' + esc(this.data.v4_note) + '</div>' : '';
+      html += this.freeHtmlV4(t, d.key) + note + this.ctaHtmlV3(t, 'v4') + this.tailHtmlV2();
+      this.mount.innerHTML = html;
+      this.bindCtaMeasure(d);
+      this.bindRetry();
+      this.foldStatic();
+      this.scrollToTop();
+      return;
+    }
+    if (t.v3) {
+      html += this.freeHtmlV3(t) + this.ctaHtmlV3(t) + this.tailHtmlV2();
+      this.mount.innerHTML = html;
+      this.bindCtaMeasure(d);
+      this.bindRetry();
+      this.foldStatic();
+      this.scrollToTop();
+      return;
+    }
+
     // 1) 結果（できるだけ早く見せる）
     html +=
       '<div class="result-hero">' +
@@ -564,15 +614,18 @@
               '</ul>' +
             '</div>';
 
-    // 3) もう少し褒める（本文）
-    html += '<div class="rs"><h3>' + esc(H.body || '🌿 もう少しだけ、ちゃんと褒めさせてください') + '</h3>' +
-            paras(t.body) + '</div>';
-
-    // 4) 「当たり前ではない」の再評価
-    if (t.atarimae) {
-      html += '<div class="rs rs-atarimae"><h3>' + esc(H.atarimae || '🍀 それ、当たり前じゃありません') + '</h3>' +
-              paras(t.atarimae) + '</div>';
-    }
+    // 3) 良さの意味を、もう少し丁寧に見る（本文）
+    //    ★「当たり前ではない」の再評価は別カードにせず、この中の小さな強調としてまとめる。
+    //      箱が続くと読み物が細切れに見えるため（オーナー指示 2026-09-08）。
+    html += '<div class="rs rs-body"><h3>' + esc(H.body || '🌿 答えに表れていた良さを、もう少し丁寧に') + '</h3>' +
+            paras(t.body) +
+            (t.atarimae
+              ? '<div class="rs-inline">' +
+                  '<p class="rs-inline-head">' + esc(H.atarimae || '🍀 それ、当たり前じゃありません') + '</p>' +
+                  paras(t.atarimae) +
+                '</div>'
+              : '') +
+            '</div>';
 
     // 5) 今日はこれだけ覚えて帰ってください
     if (t.keep) {
@@ -582,10 +635,19 @@
     // 6) 有料の続き（タイプ別noteのURLが入っているときだけ）
     html += this.ctaHtmlV2(t);
 
-    // 7) 回遊（別の角度の診断を2つ）★褒め切ってから／CTAのあとに置く
-    html += this.relatedHtml();
+    // 7) 回遊・8) 読みもの・操作（v2/v3で共通）
+    html += this.tailHtmlV2();
 
-    // 8) 読みもの
+    this.mount.innerHTML = html;
+    this.bindCtaMeasure(d);
+    this.bindRetry();
+    this.foldStatic();
+    this.scrollToTop();
+  };
+
+  // 結果画面の後ろ半分（回遊・読みもの・ボタン）。v2とv3で共通。
+  KokoroQuiz.prototype.tailHtmlV2 = function () {
+    var html = this.relatedHtml();
     var arts = this.data.articles || [];
     if (arts.length) {
       html += '<div class="rs"><h3>📖 明日を少しラクにする読みもの</h3><div class="rel-list">' +
@@ -593,8 +655,7 @@
                 return '<a href="' + esc(a.href) + '">' + esc(a.title) + '<span class="arrow">›</span></a>';
               }).join('') + '</div></div>';
     }
-
-    html +=
+    return html +
       '<div class="result-actions">' +
         '<button class="btn btn-sub" type="button" id="retry">もう一度やってみる</button>' +
         '<a class="btn btn-main" href="index.html">ほかの診断を見てみる</a>' +
@@ -603,9 +664,10 @@
         'ここで終わりにして大丈夫です。<br>ひとつ受けるだけで、十分です。' +
       '</p>' +
       '</div>';
+  };
 
-    this.mount.innerHTML = html;
-
+  // CTAの計測（表示・クリック）。失敗しても診断の動作には影響させない。
+  KokoroQuiz.prototype.bindCtaMeasure = function (d) {
     try {
       var card = document.getElementById('cta-card');
       if (card && window.KMES && this.viewId) {
@@ -616,10 +678,218 @@
         if (btn) btn.addEventListener('click', function () { window.KMES.ctaClick(meta); });
       }
     } catch (e) { /* 計測は失敗しても無視 */ }
+  };
 
-    this.bindRetry();
-    this.foldStatic();
-    this.scrollToTop();
+  // ★v4（2026-09-10）：回答由来の一文（weave）が、同じ結果画面の文と同じことを言っていないかを見る。
+  //   ③「あなたらしさ」はそのタイプの典型的な答えをまとめて書くので、いちばん多く選ばれた答えの文を
+  //   そのまま差し込むと、同じ内容を2回読ませてしまう（⑩で全131,072通りを数えたら52%・2026-09-10 実測）。
+  //   物差しは pickVariants と同じ考え方＝共通語を除いた中身の4文字が2つ以上かぶる／同じ良さを指す言い換えの組。
+  //   ただし「〜ようとしている」「〜ではなく」のような文法の言い回しだけでは弾かない
+  //   （共通語に入れないと、無関係な候補まで消えるのを実測で確認）。
+  var WEAVE_STOP = /(ようとして|うとして|としている|している|していない|ていない|ている|ではなく|だけで|だけに|ように|あなた|ところ|ています|ていません|でしょう|ですが|です|ます|ました|こと|もの|ここ|その|この|いい|良さ|選ん|選べ|選ぶ|答え|回答|10問|人で|という|そこ|自分の)/g;
+  var WEAVE_CONCEPTS = [
+    // 本展開⑩（2026-09-11）：③の「出会いを探して」「自分から人に会いに行っている」と、答えの文「出会いに向けて、実際に動いている」
+    //   「人と会う時間をつくっている」が同じ話なのに、文字の一致では拾えなかった → 両方の組に足した
+    /足を運|実際に動|行動に変|動いてみた|動いている|動けて|出会いを探|会いに行/,
+    /人と会|会う予定|会う機会|紹介を頼|会いに行/,
+    // 本展開⑩（2026-09-11）：順番・見通しで考える（段取り）の言い換え。③「順番や見通しを立てて」×答え「お金や順番、条件などを並べて」
+    /見通し|お金や順番|条件などを並べ|順序立て/,
+    // 同日（2回目のレビュー）：「あなたの歩幅で進んでかまいません」×答え「無理のない速さで、進んでいます」
+    /歩幅|無理のない速さ/,
+    // 本展開①（2026-09-11）：③の「着いてしまえば動き出せる」×答え「行けば動けている」、③「体を動かして家を出て」×答え「体から動く」、
+    //   ③「調子を無理に上げずに」「自分のペースに戻していく」×答え「ゆっくり調子を合わせていく」、③「重さを知ったまま」×答え「重さを、ないことにしていません」
+    /動き出せ|行けば動け|着けば|着いてしまえば|着いたら/,
+    /体を起こ|体を動かして|体から動|体が動く|体を先に|体で朝|手足から/,
+    // 同日（①2回目の直しのあと）：③「言いにくいことの伝え方」×答え「言葉を選ぶことに、力を使っている」
+    /言いにくいこと|言葉を選/,
+    // 本展開③（2026-09-11）：③「みんなの様子に気を配る」「全体を見る目」×答え「場の全体に目を配る」
+    //   同日（③1回目の直し）：導入「集まりの全体に、気を配っています」×答え「場の全体に目を配る」
+    /みんなの様子|場の全体|全体を見|集まりの全体/,
+    // 同日（③1回目のレビュー・UX）：試験タイプ③の「相づちや質問をはさんだり、最後まで聞いたり」「表情や声の調子」×答え「じっくり聞く」
+    //   「聞き方を工夫している」「表情や気分の変化に目が向く」（答えの文を直して除外が外れ、37%の画面で同じ答えを2回言っていた）
+    /じっくり聞|最後まで聞/,
+    /聞き方を工夫|相づちや質問/,
+    /表情や気分|表情や声|相手の気分/,
+    //   同日：impact「人から聞いた話を、軽く流さない」×答え「やりとりを、軽く流さずにいます」／③「会ったあとも、人とのことを考えている」×答え「別れたあとも相手のことを思う」
+    /軽く流さ|軽く扱/,
+    /別れたあとも|会ったあとも|帰ってからも|集まりのあとも/,
+    // 同日（③2回目のレビュー・5人）：③の「心に残る」「心のどこかにある」「人とのことを考えている」×答え「会話をあとから思い返す」（B6 87%・B8 53%・B4 51%で同じ答えを2回）
+    /思い返|心に残|心のどこか|人とのことを考え/,
+    //   同日（①1回目のレビュー・コピー）：答え「状況を確かめたり、ペースが戻るまで静かに進めたり」も、ゆっくり入る側の③と同じ話
+    /調子を合わせ|調子を無理に上げ|自分のペースに戻|自分のペースは自分で|落ち着いてから|落ち着いて入|ペースが戻るまで|状況を確かめ/,
+    /重さを抱え|重さを知っ|重さをごまかさ|重さを連れ|重さを、ないこと|放っておかない/,
+    // 同日（①2回目のレビュー）：③「準備や余裕を先につくり」「前もって用意したり」・impact「手が打てる」×答え「前もって準備を整えておく…手を、先に打っています」「先に余裕や区切りをつくって」
+    /前もって準備|前もって用意|準備や余裕|準備を整え|下準備|手を、先に打|手が打て/,
+    /余裕や区切り|余裕を先に/,
+    // 同日（①1回目のレビュー・編集）：③「待っている仕事の重さが見えている」×答え「仕事の量や締め切りが気になる…抱えている量を把握」
+    /仕事の重さ|抱えている量|仕事の量や/,
+    // 本展開⑩（2026-09-11）：気持ち・安心で選ぶの言い換え。③「気持ちが落ち着くかどうかを大切に」×答え「自分の気持ちを大事にする」
+    /気持ちを大事に|気持ちを大切に|気持ちが動く|気持ちが落ち着く|安心できるか|気持ちに無理/,
+    //   同日（③2回目のレビュー）：③「ひとりで過ごしたくなる」「静かに充電したくなる」×答え「何も考えずに休む」「充電の時間をとれば」（休む話が3〜4回）
+    /ひとりの時間|自分の時間|一人の時間|ほっとできる時間|ひとりで過ごし|充電|何も考えずに休/,
+    // まわりの声を聞きつつ最後は自分で決める（両面性）の言い換え。⑩の5専門家レビューで、
+    // 「自分のペース」「まわりからの見え方」の文が、直後の段落と同じ話になると指摘された（2026-09-10）。
+    /まわりの声|周りの声|まわりの速度|周りの速度|まわりのペース|周りのペース|まわりに合わせ|周りに合わせ|まわりからの見え方|周りからの見え方|まわりの見え方|周りの見え方/,
+    // 試験展開（2026-09-10）で、文字の一致では拾えなかった言い換え：
+    //   ③人付き合い「ひとりで静かに過ごす／自分の戻し方」× 本文「ひとりになってから自分に戻る」
+    //   ⑤頑張りすぎ「自分の中で『これでいい』／同じ基準」× ③「人の目ではなく、自分の中の『これでいい』」
+    //   ⑨恋愛「距離をとりながら、ゆっくり近づく」× ③「無理に近づかず」・本文「その距離を」
+    /ひとりで静かに|ひとりになってから|自分に戻|戻し方|戻せて/,
+    /これでいい|人の目|同じ基準/,
+    /距離をと|距離を|ゆっくり近づ|無理に近づ/,
+    // 本展開⑩（2026-09-11）：「自分の生活を整えている」と本文の「自分の暮らしを整えている」が同じ話なのに、文字の一致では拾えなかった
+    //   同日追加：「生活も整えている」「生活や時間の使い方を、自分で整えている」も同じ話（を／も の違いで漏れていた）
+    /生活を整え|生活も整え|暮らしを整え|暮らしも整え|生活のほうを整え|暮らしに、手をかけ|暮らしに手をかけ|暮らしにも手をかけ|生活や時間|暮らしが整|暮らしのほうに目を向け/,
+    // 本展開④（2026-09-11・1回目のレビュー・コピー・編集）：試験タイプ④の impact「手を抜ける日も」×答え「手を抜くところと、力を入れるところを選んでいる」
+    //   （31%の画面で impact の決め語が2行前に出ていた）。⑤の「手を抜いても」「手を抜かない」は当たらない形にしてある（実測）
+    //   同日（④2回目の直し）：④T4 本文1「家のことを、どこまでやるか自分で決められる」も同じ話（一文 te_wo_nuku が26%の画面で隣に並んだ）。「どこまでやる」は④T4 だけ（実測）
+    /手を抜ける|手を抜くところ|どこまでやるか/
+  ];
+  function weaveNorm(s) {
+    return String(s || '').replace(/\*\*/g, '').replace(/[、。「」『』（）——…・\s]/g, '').replace(WEAVE_STOP, '');
+  }
+  function weaveOverlaps(text, avoid) {
+    var list = avoid || [];
+    var raw = String(text || '').replace(/\*\*/g, '');
+    for (var c = 0; c < WEAVE_CONCEPTS.length; c++) {
+      if (!WEAVE_CONCEPTS[c].test(raw)) continue;
+      for (var a = 0; a < list.length; a++) {
+        if (WEAVE_CONCEPTS[c].test(String(list[a] || '').replace(/\*\*/g, ''))) return true;
+      }
+    }
+    var t = weaveNorm(text);
+    for (var j = 0; j < list.length; j++) {
+      var p = weaveNorm(list[j]), hits = 0, seen = {};
+      for (var i = 0; i + 4 <= t.length; i++) {
+        var frag = t.substr(i, 4);
+        if (seen[frag]) continue;
+        if (p.indexOf(frag) >= 0) { seen[frag] = 1; hits++; }
+        if (hits >= 2) return true;
+      }
+    }
+    return false;
+  }
+  // 機械検査（_qc_v4.js）が、画面と同じ判定を使えるように公開する
+  window.KOKORO_WEAVE = { overlaps: weaveOverlaps };
+
+  // 回答から拾った文（weaves）を、多く選ばれたタグから順に取る。
+  // 箇条書きにはせず、本文の1段落として混ぜ込むために使う。
+  // avoid（v4だけが渡す）＝同じ結果画面に出る文。これと同じことを言う候補は飛ばして次の候補を使う。
+  //   全部が重なるときは差し込まない（同じ内容を2回読ませるより、1段落少ないほうがよい）。
+  // preferPoles（v4・診断データの weave_prefer_type が true のときだけ渡す・2026-09-11 本展開①）
+  //   ＝そのタイプの側（3軸の極）で答えた問いのタグだけから選ぶ。無ければ差し込まない（反対側には戻らない）。
+  //   本文と同じ話の候補を飛ばすと、反対側の少数の答え（例：すぐ動き出せるタイプで「ゆっくり調子を合わせていく」）が
+  //   入って本文と矛盾して読める（①で最大58%・5専門家のうち3人が指摘）ため。①で差し込みなしになるのは0〜2%。
+  //   ⑩はこの設定なしで確認済み（切り替えはオーナー判断）。
+  KokoroQuiz.prototype.pickWeaves = function (max, avoid, preferPoles) {
+    var W = this.data.weaves || {};
+    var tags = this.tags, picked = this.picked || [];
+    function rank(only) {
+      var count = {}, lastAt = {};
+      tags.forEach(function (t, i) {
+        if (!t || !W[t]) return;
+        if (only && only.indexOf(picked[i]) < 0) return;
+        count[t] = (count[t] || 0) + 1;
+        lastAt[t] = i;
+      });
+      return Object.keys(count)
+        .sort(function (a, b) { return (count[b] - count[a]) || (lastAt[b] - lastAt[a]); })
+        .filter(function (t) { return !avoid || !weaveOverlaps(W[t], avoid); });
+    }
+    var list = preferPoles ? rank(preferPoles) : rank(null);
+    return list.slice(0, max || 2).map(function (t) { return W[t]; });
+  };
+
+  // 無料の結果（v3）＝タイプ名 → 結論 → ひとつづきの本文 → 締め。
+  // 見出しも箇条書きも置かない。回答は本文の中（{weave}）に混ぜる。
+  KokoroQuiz.prototype.freeHtmlV3 = function (t) {
+    var v = t.v3 || {};
+    var self = this;
+    var wv = this.pickWeaves(2).join('');
+    var story = (v.paras || []).map(function (p) {
+      return (p === '{weave}') ? wv : String(p).replace('{weave}', wv);
+    }).filter(function (p) { return !!p; });
+
+    return '<div class="result-hero">' +
+             '<p class="result-kicker">' + esc(this.data.result_kicker || 'あなたの回答から見えたのは') + '</p>' +
+             '<span class="result-emoji">' + esc(t.emoji || '🌿') + '</span>' +
+             '<h2 class="result-name">' + esc(t.name) + '</h2>' +
+           '</div>' +
+           '<div class="rs rs-story">' +
+             (v.open || []).map(function (p) { return '<p class="v3-open">' + esc(p) + '</p>'; }).join('') +
+             story.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+           '</div>' +
+           '<div class="rs rs-keep rs-close">' +
+             (v.close || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+           '</div>';
+  };
+
+  // 無料の結果（v4・2026-09-09 試作）＝答えから見えたあなたらしさ（1段落）→ 良いところ（本文）→ 締め。
+  // 箇条書きも緑の独立枠も置かない。**〜** は太字。回答由来の1文は {weave} の位置に入る。
+  KokoroQuiz.prototype.freeHtmlV4 = function (t, key) {
+    var v = t.v4 || {};
+    // 導入は v4 の中に持てる（本展開 2026-09-11）。無いタイプは従来の lead を使う
+    var lead = v.lead || t.lead;
+    // ★回答由来の一文は、同じ画面に出る文（導入・③・本文・impact・締め）と同じことを言う候補を飛ばす（2026-09-10）
+    var shown = [lead, v.good, v.impact].concat(
+      (v.body || []).map(function (p) { return String(p).replace('{weave}', '').replace('{impact}', ''); }),
+      v.close || []);
+    // 診断データに weave_prefer_type があれば、タイプの側（key＝極の3連結）で答えた問いの文を先に使う
+    var prefer = (this.data.weave_prefer_type && key) ? String(key).split('-') : null;
+    var wv = this.pickWeaves(1, shown, prefer).join('');
+    var story = (v.body || []).map(function (p) {
+      var s = (p === '{weave}') ? wv : String(p).replace('{weave}', wv);
+      return s.replace('{impact}', v.impact || '');   // 記憶に残る一文
+    }).filter(function (p) { return !!p; });
+    return '<div class="result-hero">' +
+             '<p class="result-kicker">' + esc(this.data.result_kicker || 'あなたの回答から見えたのは') + '</p>' +
+             '<span class="result-emoji">' + esc(t.emoji || '🌿') + '</span>' +
+             '<h2 class="result-name">' + esc(t.name) + '</h2>' +
+             (lead ? '<p class="result-lead">' + esc(lead) + '</p>' : '') +
+           '</div>' +
+           '<div class="rs rs-strength rs-good4"><h3>' + esc(v.good_head || '答えから見えた、あなたらしさ') + '</h3>' +
+             '<p>' + bold(v.good) + '</p>' +
+           '</div>' +
+           '<div class="rs rs-body rs-body4"><h3>' + esc(v.body_head || 'ここが、あなたの良いところ。') + '</h3>' +
+             story.map(function (p) { return '<p>' + bold(p) + '</p>'; }).join('') +
+             '<div class="rs-close4">' +
+               (v.close || []).map(function (p) { return '<p>' + bold(p) + '</p>'; }).join('') +
+             '</div>' +
+           '</div>';
+  };
+
+  // 有料導線（v3／v4）。無料の続きとして自然に置く＝「何が増えるのか」を先に見せる。
+  // note URL が未設定なら出さないのは v2 と同じ（?ctapreview=1 のときだけ見た目を確認できる）。
+  // ver は cta.js の文言セット名（'v3' か 'v4'）。
+  KokoroQuiz.prototype.ctaHtmlV3 = function (t, ver) {
+    try {
+      var C = window.KOKORO_CTA;
+      ver = ver || 'v3';
+      var S = C && C[ver];
+      if (!S) return '';
+      var urls = (C.noteUrls || {})[this.data.slug];
+      var key = this.decideV2().key;
+      var url = (urls && typeof urls === 'object') ? urls[key] : '';
+      if (!url && /[?&]ctapreview=1/.test(location.search)) url = '#';
+      if (!url) return '';
+      var items = ((t[ver] || {}).paid || {}).items || [];
+      var bodyLines = (typeof S.body === 'function') ? S.body(t.name) : (S.body || []);
+      return '<div class="rs cta-card" id="cta-card">' +
+               '<p class="cta-lead">' + bold(S.lead) + '</p>' +
+               bodyLines.map(function (b) { return '<p class="cta-sub">' + bold(b) + '</p>'; }).join('') +
+               (items.length
+                 ? '<div class="cta-items"><p class="cta-items-head">' + esc(S.itemsHead) + '</p><ul>' +
+                     // 文字列（v3）と {role, text}（v4＝役割固定）の両方を受ける
+                     items.map(function (s) {
+                       return '<li>' + bold(typeof s === 'string' ? s : (s && s.text)) + '</li>';
+                     }).join('') +
+                   '</ul></div>'
+                 : '') +
+               '<a class="cta-btn" id="cta-btn" href="' + esc(url) + '" target="_blank" rel="noopener">' +
+                 esc(S.button) + '</a>' +
+               '<p class="cta-note">' + esc(S.note) + '</p>' +
+             '</div>';
+    } catch (e) { return ''; }
   };
 
   // 有料導線（v2）。タイプ別のnote URLが未設定なら何も出さない＝note未作成でも安全。

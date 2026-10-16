@@ -29,7 +29,7 @@ window.REPORT_AXES = {
       { storage: 'ks_couple_balance', scores: { tag: 4, share: 4, penguin: 3, director: 2, commentator: 1, wanope: 1, legend: 3, missing: 1 } },
     ],
   },
-  // 心の余裕（おおらか型 or 全力疾走型）: 育児中の本性診断
+  // 心の余裕（おおらか型 or 全力疾走型）: 育児中のキャラ診断
   calm: {
     label: '心の余裕', high: 'おおらか型', low: '全力疾走型',
     sources: [

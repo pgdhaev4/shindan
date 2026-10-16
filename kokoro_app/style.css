@@ -343,12 +343,16 @@ body.is-result .page-hero { display: none; }
 }
 
 /* 回答内容から選ばれる褒め文 */
-.good-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
+/* ★2026-09-08：1項目＝1カードをやめ、アイコン＋文章のリストにする。
+   外側のセクションカード（.rs-strength）だけを情報のまとまりとして残す。 */
+.good-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
 .good-list li {
   display: flex; gap: 10px; align-items: flex-start;
-  background: #fffdf6; border: 1px solid rgba(217,154,85,.3);
-  border-radius: 12px; padding: 12px 14px; font-size: .89rem; line-height: 1.95; color: var(--ink);
+  padding: 11px 2px; font-size: .89rem; line-height: 1.95; color: var(--ink);
+  border-top: 1px solid rgba(217,154,85,.22);
 }
+.good-list li:first-child { border-top: 0; padding-top: 3px; }
+.good-list li:last-child { padding-bottom: 2px; }
 .good-list li::before { content: '✿'; color: #c9964a; font-weight: 900; flex-shrink: 0; }
 
 /* 回遊（別の角度の診断へ） */
@@ -380,7 +384,9 @@ h1, h2, h3, .result-name, .qc-title, .go-title { text-wrap: balance; }
 .question-text, .choice-text, .page-hero .lead, .page-hero .subcopy, .rs p, .rs-seen,
 .good-list li, .go-title, .go-sub, .qc-title, .qc-desc, .type-card p, .crumb,
 .result-lead, .result-name, .quiz-note, .disclaimer, .disclaimer p, .faq dd,
+.cta-lead, .cta-head, .cta-sub, .cta-items li, .cta-items-head, .rs-inline-head,
 .static-sec p { word-break: auto-phrase; overflow-wrap: anywhere; }
+.cta-lead, .cta-head, .cta-sub, .cta-items li { text-wrap: pretty; }
 
 @media (max-width: 420px) {
   /* 幅の狭い端末では、余白を少し詰めて1行に入る文字数を確保する
@@ -431,3 +437,90 @@ h1, h2, h3, .result-name, .qc-title, .go-title { text-wrap: balance; }
   margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--green-lt);
 }
 .static-sec .quiz-grid + .cat-head { margin-top: 26px; }
+
+/* ===================================================================
+   2026-09-08 結果画面 v3 試作（箇条書きの分析をやめ、ひとつづきの話にする）
+   =================================================================== */
+
+/* 本文カード：最初の2文（結論）だけ少し大きく・濃く見せ、そのまま本文へ続ける */
+.rs-story { padding-top: 22px; }
+.rs-story .v3-open {
+  font-size: 1.0rem; line-height: 1.95; font-weight: 800; color: var(--green-dk);
+}
+.rs-story .v3-open + .v3-open { margin-top: 8px; }
+.rs-story .v3-open + p {
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.rs-story p + p { margin-top: 14px; }
+
+/* 締め：v2の「今日はこれだけ」より文が長いので、中央寄せをやめて読みやすくする */
+.rs-keep.rs-close { text-align: left; }
+.rs-keep.rs-close p { font-size: .94rem; font-weight: 700; line-height: 2.05; }
+.rs-keep.rs-close p + p { margin-top: 10px; }
+
+/* 有料の「この先で読めること」＝カードの中にカードを作らない（枠ではなく余白と区切り線で示す） */
+.cta-items {
+  background: none; border: 0; border-top: 1px solid rgba(201,150,74,.34);
+  border-radius: 0; padding: 13px 0 2px; margin: 14px 0 2px;
+}
+.cta-items-head {
+  font-size: .86rem; font-weight: 900; color: #a86a20; margin-bottom: 8px;
+}
+.cta-items ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.cta-items li {
+  font-size: .89rem; line-height: 1.85; color: #4a3f28; font-weight: 600;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.cta-items li::before { content: '・'; color: #c9964a; font-weight: 900; flex-shrink: 0; }
+
+@media (max-width: 420px) {
+  .rs-story .v3-open { font-size: .97rem; }
+  .cta-items li { font-size: .87rem; }
+}
+
+/* ===================================================================
+   2026-09-08(2) 結果画面のカード整理
+   ・箱の連続をやめる：本文カードの中に「当たり前じゃありません」を小さく置く
+   ・枠線より余白／背景色の微差で情報のまとまりを示す
+   ・色の役割を固定：オレンジ=回答から読み取った特徴／緑=いちばん伝えたい一文／黄=有料CTA
+   =================================================================== */
+
+/* 本文カード（＝良さの意味を丁寧に見る）。白系のまま、余白を少し広く取る */
+.rs-body { padding: 21px 19px 19px; }
+
+/* 本文カードの中の小さな強調（旧・別カードだった「それ、当たり前じゃありません」） */
+.rs-inline {
+  margin-top: 17px; padding: 13px 15px 12px;
+  background: #f8f7f2; border-left: 3px solid rgba(163,150,124,.42);
+  border-radius: 0 10px 10px 0;
+}
+.rs-inline-head {
+  font-size: .85rem; font-weight: 900; color: #7a6f5c; margin-bottom: 5px;
+}
+.rs-inline p { font-size: .88rem; line-height: 1.95; color: var(--ink-soft); }
+
+/* いちばん伝えたい一文（緑）は「カード」ではなく細めの強調にする */
+.rs-keep { padding: 15px 17px; }
+.rs-keep p { font-size: .95rem; line-height: 2.0; }
+
+/* ===================================================================
+   2026-09-09 結果画面 v4 試作（⑩の1タイプだけ）
+   箇条書きなし・緑の独立枠なし。太字は1段落に1箇所程度。
+   =================================================================== */
+.rs-good4 p { font-size: .93rem; line-height: 2.0; color: var(--ink); }
+.rs-good4 strong, .rs-body4 strong, .cta-card strong { font-weight: 900; color: var(--green-dk); }
+.rs-good4 strong { color: #8a5a1c; }
+.rs-body4 p + p { margin-top: 13px; }
+/* 締め：本文と同じカードの中で、細い線だけで区切る */
+.rs-close4 { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
+.rs-close4 p { font-size: .93rem; line-height: 2.0; }
+.rs-close4 p + p { margin-top: 6px; }
+.rs-close4 strong { font-size: .97rem; }
+
+/* 2026-10-13 よくある質問を折りたたむ（オーナー指示） */
+.faq-fold { margin: 26px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.faq-fold > summary { cursor: pointer; list-style: none; padding: 12px 14px; font-size: 1.0rem; font-weight: 900; color: var(--green-dk); }
+.faq-fold > summary::-webkit-details-marker { display: none; }
+.faq-fold > summary::after { content: '＋'; float: right; color: var(--muted); }
+.faq-fold[open] > summary::after { content: '－'; }
+.faq-fold > .faq { padding: 0 14px 12px; }

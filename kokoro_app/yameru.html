@@ -13,9 +13,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>会社を辞めるか迷っている診断 | 診断の森</title>
-  <meta name="description" content="会社を続けるか辞めるかで迷っているあなたの、責任感や誠実さを10問から見つける無料診断です。結論は出しません。登録不要・約3分・結果は8タイプ。">
+  <meta name="description" content="会社を辞めるか迷っているときに、迷いがどこで止まっているのか（今の会社のこと・辞めたあとのこと・決め方）と、その背景、確かめる材料と今日できる一歩を整理する無料診断です。辞めることも、続けることも勧めません。登録不要・約2分。">
   <meta property="og:title" content="会社を辞めるか迷っている診断 | 診断の森">
-  <meta property="og:description" content="会社を続けるか辞めるかで迷っているあなたの、責任感や誠実さを10問から見つける無料診断です。結論は出しません。登録不要・約3分・結果は8タイプ。">
+  <meta property="og:description" content="会社を辞めるか迷っているときに、迷いがどこで止まっているのか（今の会社のこと・辞めたあとのこと・決め方）と、その背景、確かめる材料と今日できる一歩を整理する無料診断です。辞めることも、続けることも勧めません。登録不要・約2分。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://pgdhaev4.github.io/shindan/kokoro_app/yameru.html">
   <meta property="og:image" content="https://pgdhaev4.github.io/shindan/ogp.png">
@@ -23,9 +23,8 @@
   <meta property="og:site_name" content="診断の森">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
-  <!-- 広告スクリプトはここでは読み込まない。結果画面になってから kokoro.js が読み込む。
-       設問・選択肢・戻るボタンの近くに広告が入らないようにするため（オーナー方針 2026-08-26）。
-       アカウントの所有権確認用のタグだけ静的に置いておく。 -->
+  <link rel="stylesheet" href="komari.css">
+  <!-- 広告スクリプトはここでは読み込まない。結果画面になってから komari.js が読み込む（kokoro.js と同じ方針）。 -->
   <meta name="google-adsense-account" content="ca-pub-3934206444145241">
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/kokoro_app/yameru.html">
 </head>
@@ -34,15 +33,15 @@
 
   <header class="site-header">
     <a href="../" class="site-title">🌲 診断の森</a>
-    <p class="crumb"><a href="../">トップ</a> › <a href="index.html">あなたのいいところを見つける診断</a> › 会社を辞めるか迷っている診断</p>
+    <p class="crumb"><a href="../">トップ</a> › <a href="index.html">疲れているときに、やってほしい診断</a> › 会社を辞めるか迷っている診断</p>
   </header>
 
   <div class="page-hero">
-    <span class="eyebrow">🧭 あなたのいいところを見つける診断</span>
+    <span class="eyebrow">🫧 困りごとを整理する診断</span>
     <h1>会社を辞めるか迷っている診断</h1>
-    <p class="subcopy">迷えるほど真剣に働いてきたあなたの、責任感や誠実さを見つけます。</p>
-    <p class="lead">迷えるのは、真剣に働いてきた人だけです。<br>その迷い方の中にある、あなたの誠実さを10問から見つけます。</p>
-    <div class="hero-meta"><span>⏱ 約3分・10問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 結果は8タイプ</span></div>
+    <p class="subcopy">会社を辞めるか迷っているときに、迷いがどこで止まっているのか・なぜそこで止まりやすいのか・まず何を確かめればいいのかを整理します。</p>
+    <p class="lead">「辞める」「続ける」の答えは出しません。<br>回答から、今の困りごとと、今日からできる一歩をお返しします。</p>
+    <div class="hero-meta"><span>⏱ 約2分・7問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 今の状態・背景・今日できること</span></div>
   </div>
 
   <div id="quiz-app"></div>
@@ -50,37 +49,34 @@
   <div class="wrap">
     <section class="static-sec">
       <h2>会社を辞めるか迷っている診断とは</h2>
-      <p>「会社を辞めるか迷っている診断」は、この会社に今後も残るかどうかという中長期の迷いを扱う無料の診断です。①迷いの中身（仕事の中身／環境と条件）②決め方（調べる／感じる）③いまの構え（備える／今の場所で工夫する）の3つを組み合わせ、8タイプでお伝えします。</p>
-      <p>★この診断は「辞めるべき」とも「続けるべき」とも言いません。それは診断が決めることではないからです。ここでするのは、迷いながら働いてきたあなたの良いところをお返しすることだけです。</p>
+      <p>「会社を辞めるか迷っている診断」は、会社を辞めるかどうかの迷いを、性格ではなく、<strong>迷いがどこで止まっているか（困りごと）</strong>として整理する無料の診断です。回答から、今の主な困りごと、そこで迷いが止まりやすい背景、関連して起きていること、最初に変えるポイント、今日からできること、の順にお返しします。</p>
+      <p>1問目で、いちばん近い困りごとを選んでいただきます。そのあと、背景を見るための質問が続きます（全7問）。</p>
+      <p>この診断は、辞めることも、続けることも勧めません。お返しするのは、決めるための材料と、確かめる手順です。給料が払われない・休めないほど長く働いている・怒鳴られる、といった職場の側の問題がある場合は、あなたの考え方や確かめ方の問題として扱わず、記録と相談の進め方をお伝えします。</p>
 
-      <h2>受け取れる8つの結果</h2>
-      <div class="type-card"><h3>📚 次の場所を、調べて選ぼうとしている人</h3><p>10問の答えでは、あなたは仕事の中身に納得したいと考え、そのために調べる方を選んでいます。動く準備を進める、も選びました。</p></div>
-      <div class="type-card"><h3>🛠 今の場所で、道を探している人</h3><p>10問の答えでは、あなたは今の場所でできることを増やす方を選んでいます。調べてから決める、も選びました。</p></div>
-      <div class="type-card"><h3>🧭 自分の感覚を頼りに、次を考えている人</h3><p>10問の答えでは、あなたは自分の手応えを基準にしながら、次の選択肢も用意する方を選んでいます。</p></div>
-      <div class="type-card"><h3>🌾 手応えを、いまも探し続けている人</h3><p>10問の答えでは、あなたは今の場所でまだ手応えを探す方を選んでいます。納得できるかどうかも、判断材料に選びました。</p></div>
-      <div class="type-card"><h3>📊 働き方の条件を、冷静に見比べている人</h3><p>10問の答えでは、あなたは続けられる働き方かどうかを現実的に見て、備える方を選んでいます。</p></div>
-      <div class="type-card"><h3>🔧 今の環境を、良くする方法を探している人</h3><p>10問の答えでは、あなたは環境の問題を調べ、今の場所を良くする方を選んでいます。相談する、も選びました。</p></div>
-      <div class="type-card"><h3>🛟 自分の限界を、見極められる人</h3><p>10問の答えでは、あなたは続けられるかを自分の感覚で見て、備える方を選んでいます。無理を前提にしていません。</p></div>
-      <div class="type-card"><h3>🌉 関係を保ちながら、踏ん張っている人</h3><p>10問の答えでは、あなたは人との関係を壊さない方を選びながら、今の場所で踏ん張っています。</p></div>
+      <h2>扱っている困りごと</h2>
+      <div class="type-card"><h3>辞めたい理由はあるけれど、今の会社で何とかなることなのか分からない</h3><p>仕事の中身やこの先／仕事の量・働く時間・休み／給料や評価／上司や職場の人との関係／会社の方針や分野、のどれが理由として表れているかを見て、今の会社で何を・どこに確かめればよいかの一歩をお返しします。</p></div>
+      <div class="type-card"><h3>辞めたあとの生活や次の仕事が不安で、考えが先に進まない</h3><p>辞めたあとのお金／次の仕事が見つかるか・次の職場が今よりよいか／自分に何ができるのか、のどれへの不安が表れているかを見て、不安を確かめられる数字や情報に変える一歩をお返しします。応募や登録を勧めることはありません。</p></div>
+      <div class="type-card"><h3>辞めるか続けるか、何度考えても決まらず、気持ちが行ったり来たりしている</h3><p>職場や家族への影響を先に考える／その日の出来事で揺れる／正しい答えや決め手を探す／辞めたいと思う自分を責める、のどれが表れているかを見て、迷う時間に区切りをつける一歩をお返しします。</p></div>
+      
 
-      <h2>よくある質問</h2>
+      <details class="faq-fold"><summary>よくある質問</summary>
       <dl class="faq">
-        <dt>辞めたほうがいいか教えてくれますか？</dt><dd>いいえ。この診断は結論を出しません。あなたの中にある良いところを見つけてお伝えします。</dd>
-        <dt>結果を上司や家族に見せてもいいですか？</dt><dd>かまいませんが、退職や労務の判断材料になるものではありません。</dd>
+        <dt>辞めた方がいいか、続けた方がいいかを教えてくれますか？</dt><dd>いいえ。この診断は、どちらも勧めません。迷いがどこで止まっているかと、決めるための材料の集め方をお返しします。決めるのは、あなたです。</dd>
+        <dt>性格を判定されますか？</dt><dd>しません。「今回の回答では〜が表れています」という形で、回答に出たことだけをお返しします。</dd>
+        <dt>職場の側に問題がある場合は？</dt><dd>給料や残業代が払われない・休めないほど長く働いている・怒鳴られる・辞めるようにすすめられる・辞めることを認めないと言われた、といった回答があった場合は、あなたの我慢や工夫だけでは解決しない可能性と、記録と相談の進め方をお伝えします。</dd>
+        <dt>体や気持ちがつらいときは？</dt><dd>関連の質問で選ぶと、ほかの回答に関係なく、休むための相談先や、だれかに話すための相談先を、結果の先頭近くにお伝えします。</dd>
         <dt>答えはどこかに送信されますか？</dt><dd>診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、どの診断がどれくらい使われているかを知るための匿名の集計として送信します（回答内容・個人を特定する情報は送りません）。アクセス解析・広告配信に伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。</dd>
         <dt>何度でもできますか？</dt><dd>できます。日によって答えは変わります。変わるのが普通です。</dd>
-      </dl>
+      </dl></details>
 
       <div class="disclaimer">
         <strong>※この診断について</strong><br>
-        この診断は、気持ちを整理するきっかけづくりを目的とした読みものです。
-        医学的・心理学的な検査や診断ではなく、病気の有無を判定するものではありません。
-        結果に優劣はなく、良い結果・悪い結果もありません。
+        この診断は、気持ちや状況を整理するきっかけづくりを目的とした読みものです。
+        医学的・心理学的な検査や診断ではなく、病気の有無を判定するものではありません。退職や働き方についての法的な判断をするものでもありません。
         診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、どの診断がどれくらい使われているかを知るための匿名の集計として送信します（回答内容・個人を特定する情報は送りません）。アクセス解析・広告配信に伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。
-        <p style="margin-top:9px">つらさが続くとき、ひとりで抱えなくていい相談先があります。<a href="https://kokoro.mhlw.go.jp/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>／<a href="https://www.mhlw.go.jp/general/seido/chihou/kaiketu/soudan.html" target="_blank" rel="noopener">総合労働相談コーナー</a>／<a href="https://www.no-harassment.mhlw.go.jp/" target="_blank" rel="noopener">あかるい職場応援団（ハラスメント）</a>。</p>
+        <p style="margin-top:9px">気持ちのつらさが続くときは、<a href="https://kokoro.mhlw.go.jp/soudan/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>などの相談先もあります。職場のトラブルは、<a href="https://www.mhlw.go.jp/general/seido/chihou/kaiketu/soudan.html" target="_blank" rel="noopener">総合労働相談コーナー（厚生労働省）</a>でも相談できます。命が危ないと感じるときは、119番に連絡してください。</p>
       </div>
     </section>
-
     <section class="static-sec">
       <h2>ほかの診断も見てみる</h2>
       <p>ひとつ受けるだけで十分です。もし気が向いたら、こちらもどうぞ。</p>
@@ -101,10 +97,16 @@
   </footer>
 </div>
 
-<script src="data/yameru.js"></script>
-<script src="catalog.js"></script>
+<!-- 困りごと型（試験版 2026-10-04）。旧8タイプ版の data/yameru.js・kokoro.js・cta.js・catalog.js はこのページでは読まない（ファイルは残してある）。
+     読み込み順：部品 → 4診断の共通の文 → 辞める迷いの共通の部品 → テーマ → 診断 → 計測 → 画面。_contacts_verified.js（窓口の台帳）は読まない（検査用） -->
+<script src="komari_core.js"></script>
+<script src="data/komari/00_kyotsu.js"></script>
+<script src="data/komari/ym_00_kyotsu.js"></script>
+<script src="data/komari/ym_riyuu.js"></script>
+<script src="data/komari/ym_mitooshi.js"></script>
+<script src="data/komari/ym_mayoi.js"></script>
+<script src="data/yameru_komari.js"></script>
 <script src="measure.js"></script>
-<script src="cta.js"></script>
-<script src="kokoro.js"></script>
+<script src="komari.js"></script>
 </body>
 </html>

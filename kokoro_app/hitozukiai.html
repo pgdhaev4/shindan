@@ -12,10 +12,10 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>人付き合いに疲れた診断 | 診断の森</title>
-  <meta name="description" content="人といると疲れてしまうあなたの、優しさや感受性を10問から見つける無料診断です。性格を分類する診断ではありません。登録不要・約3分・結果は8タイプ。">
-  <meta property="og:title" content="人付き合いに疲れた診断 | 診断の森">
-  <meta property="og:description" content="人といると疲れてしまうあなたの、優しさや感受性を10問から見つける無料診断です。性格を分類する診断ではありません。登録不要・約3分・結果は8タイプ。">
+  <title>職場の人付き合いに疲れた診断 | 診断の森</title>
+  <meta name="description" content="職場の人付き合いで、何に疲れているのか・なぜその場面でつらくなりやすいのか・まず何をすればいいのかを整理する無料診断です。性格を分類する診断ではありません。登録不要・約2分。">
+  <meta property="og:title" content="職場の人付き合いに疲れた診断 | 診断の森">
+  <meta property="og:description" content="職場の人付き合いで、何に疲れているのか・なぜその場面でつらくなりやすいのか・まず何をすればいいのかを整理する無料診断です。性格を分類する診断ではありません。登録不要・約2分。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://pgdhaev4.github.io/shindan/kokoro_app/hitozukiai.html">
   <meta property="og:image" content="https://pgdhaev4.github.io/shindan/ogp.png">
@@ -23,9 +23,8 @@
   <meta property="og:site_name" content="診断の森">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
-  <!-- 広告スクリプトはここでは読み込まない。結果画面になってから kokoro.js が読み込む。
-       設問・選択肢・戻るボタンの近くに広告が入らないようにするため（オーナー方針 2026-08-26）。
-       アカウントの所有権確認用のタグだけ静的に置いておく。 -->
+  <link rel="stylesheet" href="komari.css">
+  <!-- 広告スクリプトはここでは読み込まない。結果画面になってから komari.js が読み込む（kokoro.js と同じ方針）。 -->
   <meta name="google-adsense-account" content="ca-pub-3934206444145241">
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/kokoro_app/hitozukiai.html">
 </head>
@@ -34,50 +33,48 @@
 
   <header class="site-header">
     <a href="../" class="site-title">🌲 診断の森</a>
-    <p class="crumb"><a href="../">トップ</a> › <a href="index.html">あなたのいいところを見つける診断</a> › 人付き合いに疲れた診断</p>
+    <p class="crumb"><a href="../">トップ</a> › <a href="index.html">疲れているときに、やってほしい診断</a> › 職場の人付き合いに疲れた診断</p>
   </header>
 
   <div class="page-hero">
-    <span class="eyebrow">🫧 あなたのいいところを見つける診断</span>
-    <h1>人付き合いに疲れた診断</h1>
-    <p class="subcopy">あなたが人に気を遣ってきた理由から、あなたの優しさや良いところを見つけます。</p>
-    <p class="lead">人といて疲れるのは、ちゃんと人を見ているからです。<br>その気の遣い方の中にある良さを、10問から見つけます。</p>
-    <div class="hero-meta"><span>⏱ 約3分・10問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 結果は8タイプ</span></div>
+    <span class="eyebrow">🫧 困りごとを整理する診断</span>
+    <h1>職場の人付き合いに疲れた診断</h1>
+    <p class="subcopy">職場の人付き合いで、何に疲れているのか・なぜその場面でつらくなりやすいのか・まず何をすればいいのかを整理します。</p>
+    <p class="lead">「あなたは○○タイプ」とは決めません。<br>回答から、今の困りごとと、今日からできる一歩をお返しします。</p>
+    <div class="hero-meta"><span>⏱ 約2分・9〜10問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 今の状態・背景・今日できること</span></div>
   </div>
 
   <div id="quiz-app"></div>
 
   <div class="wrap">
     <section class="static-sec">
-      <h2>人付き合いに疲れた診断とは</h2>
-      <p>「人付き合いに疲れた診断」は、職場・友人・家族・SNSなど対人関係全般の気疲れを扱う無料の診断です。①人といるとき何にエネルギーを使うか（感じ取る／場を回す）②その場での立ち位置（聞く／話す）③会ったあとの過ごし方（ひとりで充電／振り返る）の3つを組み合わせ、8タイプでお伝えします。</p>
-      <p>★内向的・外向的といったラベルで人を分けることはしません。同じ「人疲れ」でも、気を配る人と、場を回す人と、帰ってから思い返す人では、使っている力が違います。その使っている力を、良いところとしてお返しします。</p>
+      <h2>職場の人付き合いに疲れた診断とは</h2>
+      <p>「職場の人付き合いに疲れた診断」は、職場での人間関係の疲れを、性格ではなく<strong>困りごと</strong>として整理する無料の診断です。回答から、①今の主な困りごと ②その場面でつらくなりやすい背景 ③関連して起きていること ④最初に変えるポイント ⑤今日からできること、の順にお返しします。</p>
+      <p>1問目で、いちばん近い困りごとを選んでいただきます。そのあと、背景を見るための質問が続きます（全9〜10問）。「板挟み・聞き役」を選んだ場合は、次の1問で、どちらの負担が近いかを選んでいただきます。</p>
 
-      <h2>受け取れる8つの結果</h2>
-      <div class="type-card"><h3>🌾 人の話を、深く受け取れる人</h3><p>今回の答えでは、あなたは相手の表情や声の調子まで見る方を選びました。最後まで聞く、も選んでいます。</p></div>
-      <div class="type-card"><h3>🕯 相手の気持ちを、あとまで大事にする人</h3><p>今回の答えでは、あなたは言いにくそうな人に気づく方を選びました。会話を思い返す、も選んでいます。</p></div>
-      <div class="type-card"><h3>🔥 空気をあたためて、静かに休む人</h3><p>今回の答えでは、あなたは相手の気分を気にかけつつ、自分から言葉を出す方を選びました。帰ったら休む、も選んでいます。</p></div>
-      <div class="type-card"><h3>🌸 気持ちを察して、言葉にできる人</h3><p>今回の答えでは、あなたは相手の言葉の温度まで受け取り、自分の経験も話す方を選びました。</p></div>
-      <div class="type-card"><h3>⚖️ 場を回しながら、ちゃんと聞ける人</h3><p>今回の答えでは、あなたは場を回す方と、相手の話を最後まで聞く方の両方を選びました。</p></div>
-      <div class="type-card"><h3>🍀 みんなが話せる場を、つくれる人</h3><p>今回の答えでは、あなたは黙っている人に話を振る方を選びました。今日の話を誰かに話す、も選んでいます。</p></div>
-      <div class="type-card"><h3>🎈 その場を、楽しくできる人</h3><p>今回の答えでは、あなたは場が楽しくなるように動く方を選びました。そのあと静かに充電する、も選んでいます。</p></div>
-      <div class="type-card"><h3>💐 会ったあとまで、人を思える人</h3><p>今回の答えでは、あなたは場を明るくする方と、別れたあとも相手を気にかける方の両方を選びました。</p></div>
+      <h2>扱っている困りごと</h2>
+      <div class="type-card"><h3>頼まれると断れない</h3><p>背景（断ったあとの反応が気になる／相手を困らせたくない／自分がやるべきだと抱え込む）と、職場の状況まで見て、最初に変えるポイントと今日使える一言をお返しします。</p></div>
+      <div class="type-card"><h3>相手の機嫌に振り回される</h3><p>相手が不機嫌なときに、自分を責める／機嫌を直そうと動く／顔色をうかがって確認を控える／気持ちが引っ張られる／腹が立って引きずる、のどれが表れているかと、相手の言動に問題がないかまで見て、最初に変えるポイントと今日できることをお返しします。</p></div>
+      <div class="type-card"><h3>言いたいことを飲み込む</h3><p>言う前に、どう見られるかが気になる／相手や場がどうなるかが気になる／言っても変わらないと見切りをつけている／考えがまとまらないうちに機会を逃す、のどれが表れているかを見て、軽い形から出す一言をお返しします。</p></div>
+      <div class="type-card"><h3>雑談や付き合いに合わせて疲れる</h3><p>付き合いの回数や時間が多くなっている／出ている間ずっと気を張っている／話したくないことまで聞かれる、のどれが表れているかを見て、出る・出ないの二択にしない出方と、話す範囲の決め方をお返しします。</p></div>
+      <div class="type-card"><h3>会話のあとも気にし続ける</h3><p>会話を何度も点検する／頭の中でやり直す／先の関係や評価を心配する／言われた言葉が残る、のどれが表れているかを見て、1回確かめて区切る方法をお返しします。</p></div>
+      <div class="type-card"><h3>板挟みになる</h3><p>答えを自分ひとりで作ろうとする／相手ごとに伝える中身が変わる／決まっていない部分を自分の作業で埋める、のどれが表れているかを見て、「それは、だれが決めることか」を分ける一歩をお返しします。</p></div>
+      <div class="type-card"><h3>聞き役になって抱え込む</h3><p>聞いた悩みを自分が解決しようとする／聞く時間や回数を区切れない／聞いた話があとまで残る、のどれが表れているかを見て、聞くことと解決することを分ける一言をお返しします。深刻な相談を受けている場合の考え方もお伝えします。</p></div>
 
-      <h2>よくある質問</h2>
+      <details class="faq-fold"><summary>よくある質問</summary>
       <dl class="faq">
-        <dt>性格を判定されますか？</dt><dd>しません。人といるときに何に力を使っているかを見て、そこにある良さをお伝えします。</dd>
-        <dt>人が苦手なだけかもしれません。</dt><dd>この診断では、疲れることと嫌いなことを分けて扱います。疲れるのは、力を使っているからです。</dd>
+        <dt>性格を判定されますか？</dt><dd>しません。「今回の回答では〜が表れています」という形で、回答に出たことだけをお返しします。</dd>
+        <dt>職場や相手の側に問題がある場合は？</dt><dd>強い口調で押し切られる、怒鳴られる・無視される、不利になるとほのめかされる、一人では終わらない量を任されている、といった回答があった場合は、あなたの伝え方や受け止め方だけでは解決しない可能性と、相談先をお伝えします。</dd>
         <dt>答えはどこかに送信されますか？</dt><dd>診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、どの診断がどれくらい使われているかを知るための匿名の集計として送信します（回答内容・個人を特定する情報は送りません）。アクセス解析・広告配信に伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。</dd>
         <dt>何度でもできますか？</dt><dd>できます。日によって答えは変わります。変わるのが普通です。</dd>
-      </dl>
+      </dl></details>
 
       <div class="disclaimer">
         <strong>※この診断について</strong><br>
-        この診断は、気持ちを整理するきっかけづくりを目的とした読みものです。
+        この診断は、気持ちや状況を整理するきっかけづくりを目的とした読みものです。
         医学的・心理学的な検査や診断ではなく、病気の有無を判定するものではありません。
-        結果に優劣はなく、良い結果・悪い結果もありません。
         診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、どの診断がどれくらい使われているかを知るための匿名の集計として送信します（回答内容・個人を特定する情報は送りません）。アクセス解析・広告配信に伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。
-        <p style="margin-top:9px">気持ちのつらさが続くときは、<a href="https://kokoro.mhlw.go.jp/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>などの相談先もあります。</p>
+        <p style="margin-top:9px">気持ちのつらさが続くときは、<a href="https://kokoro.mhlw.go.jp/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>などの相談先もあります。職場のトラブルは、<a href="https://www.mhlw.go.jp/general/seido/chihou/kaiketu/soudan.html" target="_blank" rel="noopener">総合労働相談コーナー（厚生労働省）</a>でも相談できます。</p>
       </div>
     </section>
 
@@ -101,10 +98,17 @@
   </footer>
 </div>
 
-<script src="data/hitozukiai.js"></script>
-<script src="catalog.js"></script>
+<!-- 困りごと型（試験版）。旧8タイプ版の data/hitozukiai.js・kokoro.js・cta.js はこのページでは読まない（ファイルは残してある） -->
+<script src="komari_core.js"></script>
+<script src="data/komari/kotowarenai.js"></script>
+<script src="data/komari/kigen.js"></script>
+<script src="data/komari/nomikomu.js"></script>
+<script src="data/komari/zatsudan.js"></script>
+<script src="data/komari/kinisuru.js"></script>
+<script src="data/komari/itabasami.js"></script>
+<script src="data/komari/kikiyaku.js"></script>
+<script src="data/hitozukiai_komari.js"></script>
 <script src="measure.js"></script>
-<script src="cta.js"></script>
-<script src="kokoro.js"></script>
+<script src="komari.js"></script>
 </body>
 </html>

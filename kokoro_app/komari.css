@@ -1,0 +1,112 @@
+/* komari.css — 困りごと型診断（試験版 2026-09-25）だけで使う見た目。
+   style.css の後に読む。既存の10診断のページはこのファイルを読まないので影響しない。
+   ※ファイル名を「_」始まりにしないこと（publish.ps1 が除外するため）。 */
+
+/* ---- 設問 ---- */
+.k-hint { font-size: .8rem; color: var(--ink-soft); margin: -10px 0 14px; }
+.k-multi .choice-mark { border-radius: 6px; }               /* 複数選択は四角 */
+.k-next { width: 100%; margin-top: 16px; border: none; cursor: pointer; font-family: inherit; }
+.k-next:disabled { opacity: .45; cursor: default; }
+
+/* ---- 結果：先頭のまとめ ---- */
+.k-hero { text-align: left; }
+.k-headline { font-size: clamp(1.12rem, 4.8vw, 1.32rem); line-height: 1.6; margin-bottom: 14px; text-wrap: pretty; }
+.k-summary { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.k-sum-row {
+  display: grid; grid-template-columns: 6.2em 1fr; gap: 10px; align-items: start;
+  background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+}
+.k-sum-row dt { font-size: .76rem; font-weight: 900; color: var(--green-dk); padding-top: 2px; }
+.k-sum-row dd { margin: 0; font-size: .9rem; line-height: 1.7; color: var(--ink); font-weight: 700; overflow-wrap: anywhere; }
+.k-readguide { font-size: .78rem; color: var(--muted); margin-top: 12px; }
+
+/* ---- 結果：各節 ---- */
+.k-sec h3 { line-height: 1.5; }
+.k-no {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 1.65em; height: 1.65em; border-radius: 50%;
+  background: var(--green); color: #fff; font-size: .8rem; font-weight: 900;
+}
+/* 2026-10-11 オーナー指示：結果の大見出しと小見出しに強弱をつける（濃い深緑・少し大きく・小見出しは淡い緑の帯＋左の線）
+   安全の警告（赤）・記事の案内（金）・今日の一歩（橙）・注意（灰）は意味のある色なので、色は変えず形だけそろえる */
+.k-result .k-headline { color: #2a4d35; font-size: clamp(1.22rem, 5.4vw, 1.48rem); font-weight: 900; line-height: 1.55; }
+.k-result .k-sec h3 {
+  font-size: 1.04rem; font-weight: 900; color: #2a4d35;
+  background: #e9f1e6; border-left: 5px solid #2a4d35; border-radius: 8px;
+  padding: 8px 12px; margin: -2px -4px 12px;
+}
+.k-result .k-sec h3 .k-no { background: #2a4d35; }
+.k-result .k-today h3 { color: #a86a20; background: #fbf0e0; border-left-color: #c98a3a; }
+.k-result .k-today h3 .k-no { background: #c98a3a; }
+.k-result .k-alert h3 { color: #a2472f; background: #fbe6df; border-left-color: #c2614a; }
+.k-result .k-alert h3 .k-no { background: #c2614a; }
+.k-result .k-paid h3 { color: #86651f; background: #f8eed3; border-left-color: #c9a64e; }
+.k-result .k-paid.k-quiet h3 { color: #555; background: #eeeeea; border-left-color: #b5b5ae; }
+.k-result .k-notice h3 { color: var(--ink-soft); background: #eeeee8; border-left-color: #b9bcb0; }
+.k-small { font-size: .82rem !important; color: var(--ink-soft) !important; line-height: 1.8 !important; margin-bottom: 8px; }
+/* 結果の段落の中の改行を、そのまま改行として出す（4つの基準・話の切れ目。既存2テーマの文には改行がないので影響しない＝2026-10-04） */
+.k-result .k-sec p { white-space: pre-line; }
+.k-why p:last-child { font-size: .8rem; color: var(--ink-soft); line-height: 1.8; }   /* 判定の根拠 */
+.k-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin: 6px 0 10px; padding: 0; }
+.k-list li {
+  position: relative; padding: 9px 12px 9px 30px; border-radius: 10px;
+  background: #f6f8f4; border: 1px solid rgba(92,138,99,.16);
+  font-size: .9rem; line-height: 1.75;
+}
+.k-list li::before { content: '・'; position: absolute; left: 12px; color: var(--green); font-weight: 900; }
+.k-gets li::before { content: '✓'; }
+
+.k-change { background: #f7faf6; border-color: rgba(92,138,99,.28); }
+.k-point {
+  font-weight: 900; color: var(--green-dk) !important; font-size: .98rem !important; line-height: 1.8 !important;
+  border-left: 4px solid var(--green); padding: 2px 0 2px 12px; margin-bottom: 10px;
+}
+
+.k-today { background: linear-gradient(160deg, #fffdf8 0%, #fdf6ea 100%); border-color: rgba(217,154,85,.35); }
+.k-today h3 { color: #a86a20; }
+.k-phrase {
+  margin: 4px 0 12px; padding: 14px 16px; border-radius: 12px;
+  background: #fff; border: 2px dashed rgba(217,154,85,.55);
+  font-size: 1rem; font-weight: 800; line-height: 1.85; color: #5a4320;
+}
+.k-note {
+  margin-top: 12px !important; padding: 10px 12px; border-radius: 10px;
+  background: #fff; border: 1px solid var(--line); font-size: .84rem !important; line-height: 1.85 !important;
+}
+
+.k-alert { background: #fdf3f0; border: 1.5px solid #e2b4a6; }
+.k-alert h3 { color: #a2472f; }
+.k-sub-head { font-size: .84rem !important; font-weight: 900; color: var(--ink-soft) !important; margin-top: 12px; }
+.k-steps { counter-reset: s; list-style: none; padding: 0; margin: 6px 0 8px; display: flex; flex-direction: column; gap: 7px; }
+.k-steps li {
+  counter-increment: s; position: relative; padding: 9px 12px 9px 36px; background: #fff;
+  border: 1px solid #efd3ca; border-radius: 10px; font-size: .88rem; line-height: 1.75;
+}
+.k-steps li::before {
+  content: counter(s); position: absolute; left: 10px; top: 9px; width: 1.4em; height: 1.4em;
+  border-radius: 50%; background: #c46a50; color: #fff; font-size: .75rem; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+.k-link a { color: #a2472f; font-weight: 700; font-size: .88rem; }
+
+.k-notice { background: #f5f5f0; border-style: dashed; }
+.k-notice h3 { color: var(--ink-soft); }
+
+/* ---- 有料記事の案内（無料の結果を全部渡したあとに置く） ---- */
+.k-paid { background: #fdf8ec; border: 1.5px solid #e2cb8f; }
+.k-paid h3 { color: #86651f; }
+.k-paid.k-quiet { background: #f7f7f5; border: 1px solid #d8d8d2; }
+.k-paid.k-quiet h3 { color: #555; }
+.k-art-title { font-weight: 900; color: #4a3f28 !important; line-height: 1.7 !important; }
+.k-price {
+  display: inline-block; margin-left: 8px; padding: 1px 9px; border-radius: 99px;
+  background: #fff; border: 1px solid #e2cb8f; font-size: .76rem; color: #86651f; vertical-align: 1px;
+}
+.k-disabled { background: #c9bfa9 !important; box-shadow: none !important; cursor: default; }
+.k-preview { text-align: center; margin-top: 4px !important; }
+.k-preview a { font-size: .82rem; color: #86651f; }
+
+@media (max-width: 420px) {
+  .rs.k-sec { padding: 18px 15px; }
+  .k-sum-row { grid-template-columns: 5.4em 1fr; }
+}

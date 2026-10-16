@@ -12,10 +12,10 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>あなたのいいところを見つける診断（10種類） | 診断の森</title>
-  <meta name="description" content="悪いところを探す診断ではありません。10問の回答から、あなたのいいところだけを見つけてお伝えする診断が10種類。仕事・人間関係・自分自身・恋愛と結婚。無料・登録不要・1つ約3分。">
-  <meta property="og:title" content="あなたのいいところを見つける診断（10種類） | 診断の森">
-  <meta property="og:description" content="悪いところを探す診断ではありません。10問から、あなたのいいところだけを見つけてお伝えします。無料・登録不要。">
+  <title>疲れているときに、やってほしい診断（5種類） | 診断の森</title>
+  <meta name="description" content="仕事・職場の人付き合い・結婚・恋愛・子育てで困っているときに、今の困りごと、つらくなりやすい背景、今日からできること1つを整理する診断が5種類。7〜10問・約2分。無料・登録不要。">
+  <meta property="og:title" content="疲れているときに、やってほしい診断（5種類） | 診断の森">
+  <meta property="og:description" content="今の悩みの要因を整理し、要因に応じた具体的な対処法を提案します。7〜10問・約2分。無料・登録不要。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pgdhaev4.github.io/shindan/kokoro_app/">
   <meta property="og:image" content="https://pgdhaev4.github.io/shindan/ogp.png">
@@ -25,25 +25,53 @@
   <link rel="stylesheet" href="style.css">
   <meta name="google-adsense-account" content="ca-pub-3934206444145241">
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/kokoro_app/">
+  <style>
+    /* 2026-10-11 配色の調整（オーナー指示）：背景・カードの地・本文・寄り道はそのまま。重要箇所だけ一段深い森色にして「信頼感」を足す。
+       style.css は4診断のページと共通なので、この入口ページの中だけで上書きする */
+    :root { --forest: #2a4d35; --forest-line: #3b6a47; }
+    .site-header { border-bottom-color: rgba(42,77,53,.16); }
+    .site-title { color: var(--forest); font-weight: 900; }
+    .page-hero .eyebrow { color: var(--forest); border-color: rgba(42,77,53,.30); }
+    .page-hero h1 { color: var(--forest); }
+    .static-sec:not(.yorimichi) h2 { color: var(--forest); border-left-color: var(--forest-line); }
+    .quiz-card { border-top: 3px solid var(--forest-line); }
+    .quiz-card .qc-title { color: var(--forest); }
+    .quiz-card:hover { border-color: rgba(42,77,53,.45); border-top-color: var(--forest); }
+    /* 2026-10-11：寄り道コーナー（4診断とは別枠に見えるよう、生成りの地・点線の枠）と、読みものの2段の行 */
+    .yorimichi { background: #fbf6ea; border: 2px dashed #e2cfa3; border-radius: 16px; padding: 16px 14px 18px; }
+    .yorimichi h2 { color: #8a6a2f; border-left-color: #d9b56a; }
+    .yr-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .yr-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ecdcb6; border-radius: 14px; padding: 10px 14px; text-decoration: none; color: var(--ink); transition: .18s; }
+    .yr-card:hover { transform: translateY(-1px); border-color: #d9b56a; }
+    .yr-img { width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; background: #fdf3dc; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; overflow: hidden; }
+    .yr-img img { width: 100%; height: 100%; object-fit: contain; }
+    .yr-body { display: flex; flex-direction: column; min-width: 0; }
+    .yr-title { font-weight: 900; font-size: .98rem; color: #6f5320; }
+    .yr-desc { font-size: .8rem; color: var(--ink-soft); line-height: 1.6; margin-top: 2px; }
+    .yr-card .arrow, .rd-list .arrow { margin-left: auto; color: var(--muted); flex-shrink: 0; }
+    .rd-text { display: flex; flex-direction: column; min-width: 0; }
+    .rd-hook { font-weight: 800; }
+    .rd-title { font-size: .78rem; font-weight: 700; color: var(--muted); margin-top: 2px; }
+    .rd-more { text-align: center; margin-top: 14px; }
+    .rd-more .btn-sub { display: inline-block; text-decoration: none; }
+  </style>
 </head>
 <body>
 <div class="page-wrapper">
 
   <header class="site-header">
     <a href="../" class="site-title">🌲 診断の森</a>
-    <p class="crumb"><a href="../">トップ</a> › あなたのいいところを見つける診断</p>
+    <p class="crumb"><a href="../">トップ</a> › 疲れているときに、やってほしい診断</p>
   </header>
 
   <div class="page-hero">
-    <span class="eyebrow">🌿 全10種類・ひとつ約3分</span>
-    <h1>あなたのいいところを見つける診断</h1>
-    <p class="subcopy">ここは、あなたの悪いところを探す場所ではありません。</p>
+    <span class="eyebrow">🌿 全5種類・ひとつ約2分</span>
+    <h1>疲れているときに、やってほしい診断</h1>
     <p class="lead">
-      10問の回答から、あなたのいいところだけを見つけて、はっきりお伝えします。<br>
-      直すところは探しません。点数もつけません。
+      今の悩みの要因を整理し、要因に応じた具体的な対処法を提案します。
     </p>
     <div class="hero-meta">
-      <span>⏱ 1つ約3分・10問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 結果は8タイプ</span>
+      <span>⏱ 1つ約2分・7〜10問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 点数はつけません</span>
     </div>
   </div>
 
@@ -51,137 +79,91 @@
 
     <section class="static-sec">
       <h2>今日は、どの入口にしますか</h2>
-      <p>近いものをひとつ選んでください。どれもピンとこない日は、「なんとなく心が疲れている診断」がおすすめです。理由が言葉にならないままでも受けられます。</p>
+      <p>近いものをひとつ選んでください。</p>
 
-      <h3 class="cat-head">💼 仕事のこと</h3>
       <div class="quiz-grid">
-        <a class="quiz-card" href="asa.html">
-          <span class="qc-emoji">💼</span>
-          <p class="qc-title">仕事に行きたくない気持ち診断</p>
-          <p class="qc-desc">「行きたくない」と思いながらも向き合ってきたあなたの、粘り強さや優しさを見つけます。今日・明日の出勤がつらい人へ。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
         <a class="quiz-card" href="yameru.html">
           <span class="qc-emoji">🧭</span>
           <p class="qc-title">会社を辞めるか迷っている診断</p>
-          <p class="qc-desc">迷えるほど真剣に働いてきたあなたの、責任感や誠実さを見つけます。結論は出しません。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-      </div>
-
-      <h3 class="cat-head">🫧 人間関係のこと</h3>
-      <div class="quiz-grid">
-        <a class="quiz-card" href="hitozukiai.html">
-          <span class="qc-emoji">🫧</span>
-          <p class="qc-title">人付き合いに疲れた診断</p>
-          <p class="qc-desc">あなたが人に気を遣ってきた理由から、あなたの優しさや良いところを見つけます。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-        <a class="quiz-card" href="gaman.html">
-          <span class="qc-emoji">🕊️</span>
-          <p class="qc-title">我慢しすぎて疲れた診断</p>
-          <p class="qc-desc">あなたが飲み込んできた言葉の裏にある、思いやりや芯の強さを見つけます。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-      </div>
-
-      <h3 class="cat-head">🌾 自分自身のこと</h3>
-      <div class="quiz-grid">
-        <a class="quiz-card" href="ganbari.html">
-          <span class="qc-emoji">🌾</span>
-          <p class="qc-title">頑張りすぎて疲れた診断</p>
-          <p class="qc-desc">頑張りすぎてしまうあなたの中にある、責任感や強さを見つけます。仕事に限らず、頑張り方そのものを見ます。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-        <a class="quiz-card" href="kurabe.html">
-          <span class="qc-emoji">🪞</span>
-          <p class="qc-title">人と比べて落ち込む診断</p>
-          <p class="qc-desc">誰かと比べてしまうあなたの中にある、向上心や真面目さを見つけます。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-        <a class="quiz-card" href="kosodate-tsukare.html">
-          <span class="qc-emoji">🌙</span>
-          <p class="qc-title">子育てに疲れた診断</p>
-          <p class="qc-desc">子どもを思って悩んできたあなたが、すでに十分やってきたことを見つけます。採点はしません。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-        <a class="quiz-card" href="kotoba.html">
-          <span class="qc-emoji">🌫️</span>
-          <p class="qc-title">なんとなく心が疲れている診断</p>
-          <p class="qc-desc">うまく言葉にできない疲れの中から、あなたが続けてきた良いところを見つけます。理由が分からない日の入口に。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
-        </a>
-      </div>
-
-      <h3 class="cat-head">💗 恋愛・結婚のこと</h3>
-      <div class="quiz-grid">
-        <a class="quiz-card" href="renai-jishin.html">
-          <span class="qc-emoji">💗</span>
-          <p class="qc-title">恋愛で自信をなくした診断</p>
-          <p class="qc-desc">恋愛で自信をなくしたあなたの中にある、人を大切にする気持ちを見つけます。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
+          <p class="qc-desc">辞めるか続けるかで迷っているときに、何が迷いを止めているのか、まず何を確かめればいいのかを整理します。結論は出しません。</p>
+          <p class="qc-meta">7問・約2分／今の状態と今日できること</p>
         </a>
         <a class="quiz-card" href="kekkon-aseri.html">
           <span class="qc-emoji">🕰️</span>
           <p class="qc-title">結婚を焦ってしまう気持ち診断</p>
-          <p class="qc-desc">結婚への焦りの中にある、あなたらしい価値観や良いところを見つけます。結婚を勧める診断ではありません。</p>
-          <p class="qc-meta">10問・約3分／結果8タイプ</p>
+          <p class="qc-desc">結婚のことで焦るときに、何が焦りのもとになっているのか、まず何をすればいいのかを整理します。結婚を勧める診断ではありません。</p>
+          <p class="qc-meta">7問・約2分／今の状態と今日できること</p>
+        </a>
+        <a class="quiz-card" href="renai-jishin.html">
+          <span class="qc-emoji">💗</span>
+          <p class="qc-title">恋愛で自信をなくした診断</p>
+          <p class="qc-desc">恋愛で自信が揺れたときに、何が起きているのか、まず何をすればいいのかを整理します。別れや告白は勧めません。</p>
+          <p class="qc-meta">7問・約2分／今の状態と今日できること</p>
+        </a>
+        <a class="quiz-card" href="kosodate-tsukare.html">
+          <span class="qc-emoji">🌙</span>
+          <p class="qc-title">子育てに疲れた診断</p>
+          <p class="qc-desc">子育てで何に疲れているのか、なぜつらくなりやすいのか、まず何を減らしたり頼ったりすればいいのかを整理します。</p>
+          <p class="qc-meta">7問・約2分／今の状態と今日できること</p>
+        </a>
+        <!-- 2026-10-12 オーナー指示：職場の人付き合いの診断を、今の形（9〜10問）のまま一覧に戻す -->
+        <a class="quiz-card" href="hitozukiai.html">
+          <span class="qc-emoji">🫧</span>
+          <p class="qc-title">職場の人付き合いに疲れた診断</p>
+          <p class="qc-desc">職場の人付き合いで何に疲れているのか、なぜつらくなりやすいのか、まず何をすればいいのかを整理します。</p>
+          <p class="qc-meta">9〜10問・約2分／今の状態と今日できること</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2026-10-11 オーナー指示：「この診断で、やらないこと」は削除。上の4診断とは別枠の「寄り道」コーナーと、読みものの入口を置く -->
+    <section class="static-sec yorimichi">
+      <h2>まだ元気があれば、寄り道してください</h2>
+      <p>こんな診断もあります。上の5つとは別の、ちょっと笑って帰れる診断です。</p>
+      <div class="yr-grid">
+        <a class="yr-card" href="../workplace_app/">
+          <span class="yr-img"><img src="../workplace_app/images/shachiku_zangyo_gorilla.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='💼'"></span>
+          <span class="yr-body"><span class="yr-title">会社モンスター診断</span><span class="yr-desc">職場でしんどい日に、自分をモンスターにたとえて笑って帰る診断</span></span>
+          <span class="arrow">›</span>
+        </a>
+        <a class="yr-card" href="../kosodate_app/">
+          <span class="yr-img"><img src="../kosodate_app/images/parent_7_dragon.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='👶'"></span>
+          <span class="yr-body"><span class="yr-title">子育て親タイプ診断</span><span class="yr-desc">今日もおつかれさまでした。子育ての自分を、キャラにして眺める診断</span></span>
+          <span class="arrow">›</span>
+        </a>
+        <a class="yr-card" href="../psychology_app/">
+          <span class="yr-img"><img src="../psychology_app/images/chars_new/元カレ監視衛星.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='💖'"></span>
+          <span class="yr-body"><span class="yr-title">恋愛沼診断</span><span class="yr-desc">恋のことで頭がいっぱいの日に、自分の「沼」を笑ってみる診断</span></span>
+          <span class="arrow">›</span>
         </a>
       </div>
     </section>
 
     <section class="static-sec">
-      <h2>この診断で、やらないこと</h2>
-      <p>「診断の森」の10診断には、決めていることがあります。</p>
-      <div class="type-card">
-        <h3>悪いところを探しません</h3>
-        <p>10問の回答は、直すところを見つけるためではなく、あなたを具体的に褒める材料を集めるために読みます。改善点の指摘はしません。</p>
+      <h2>今の自分に近いもの、ありませんか？</h2>
+      <p>診断のあとでも、読んでみたい記事だけでも。<br>気になったものを、ひとつだけどうぞ。</p>
+      <div class="rel-list rd-list">
+        <a href="../workplace_app/articles/yasumenai.html"><span class="rd-text"><span class="rd-hook">休んでいるのに、なぜか休めた気がしない人へ</span><span class="rd-title">→ 休むのが苦手な人のための休み方入門</span></span><span class="arrow">›</span></a>
+        <a href="../workplace_app/articles/ningenkankei.html"><span class="rd-text"><span class="rd-hook">職場の人間関係で、毎日ちょっとずつ疲れている人へ</span><span class="rd-title">→ 職場の人間関係に疲れた時の考え方</span></span><span class="arrow">›</span></a>
+        <a href="../workplace_app/articles/kotowari.html"><span class="rd-text"><span class="rd-hook">頼まれると、つい「いいですよ」と言ってしまう人へ</span><span class="rd-title">→ 仕事を断れない人のための上手な断り方</span></span><span class="arrow">›</span></a>
+        <a href="../kosodate_app/articles/kanpeki.html"><span class="rd-text"><span class="rd-hook">ちゃんとやろうとするほど、苦しくなってしまう人へ</span><span class="rd-title">→ 完璧主義を手放して楽になる考え方</span></span><span class="arrow">›</span></a>
+        <a href="../psychology_app/articles/fuan.html"><span class="rd-text"><span class="rd-hook">まだ起きていないことまで、頭の中で考え続けてしまう人へ</span><span class="rd-title">→ 不安になりやすいクセをやわらげる方法</span></span><span class="arrow">›</span></a>
       </div>
-      <div class="type-card">
-        <h3>つらさを点数にしません</h3>
-        <p>「あなたのストレスは何点」といった数値は出しません。落ち込んでいるときに点数をつけられて、良いことはあまり起きないからです。</p>
-      </div>
-      <div class="type-card">
-        <h3>病気の判定はしません</h3>
-        <p>医学的な判定は一切行いません。それは医療機関でしか行えないことです。この診断は、気持ちを整理するための読みものです。</p>
-      </div>
-      <div class="type-card">
-        <h3>大きな決断をすすめません</h3>
-        <p>「転職しましょう」「別れましょう」「結婚しましょう」とは言いません。決めるのはあなたです。</p>
-      </div>
-      <div class="type-card">
-        <h3>ひとつだけで完結します</h3>
-        <p>「あと3つ受けてください」とは言いません。ひとつ受けて、そこで終わりにして大丈夫なように作っています。</p>
-      </div>
+      <p class="rd-more"><a class="btn-sub" href="../articles.html">今の自分に合う記事を、もう少し探す</a></p>
     </section>
 
     <section class="static-sec">
-      <h2>明日を少しラクにする読みもの</h2>
-      <p>診断のあとに読むと効きやすい記事です。診断を受けずに、こちらだけ読んでもかまいません。</p>
-      <div class="rel-list">
-        <a href="../workplace_app/articles/yasumenai.html">休むのが苦手な人のための休み方入門<span class="arrow">›</span></a>
-        <a href="../workplace_app/articles/ningenkankei.html">職場の人間関係に疲れた時の考え方<span class="arrow">›</span></a>
-        <a href="../workplace_app/articles/kotowari.html">仕事を断れない人のための上手な断り方<span class="arrow">›</span></a>
-        <a href="../kosodate_app/articles/kanpeki.html">完璧主義を手放して楽になる考え方<span class="arrow">›</span></a>
-        <a href="../psychology_app/articles/fuan.html">不安になりやすいクセをやわらげる方法<span class="arrow">›</span></a>
-        <a href="../articles.html">読みものをすべて見る<span class="arrow">›</span></a>
-      </div>
-    </section>
-
-    <section class="static-sec">
-      <h2>よくある質問</h2>
+      <details class="faq-fold"><summary>よくある質問</summary>
       <dl class="faq">
         <dt>無料ですか？</dt>
-        <dd>診断はすべて無料で、会員登録も必要ありません。氏名やメールアドレスの入力もありません。（結果ページから、有料の読みもの〈note・300円〉をご案内することがあります。購入しなくても、無料の結果はすべてご覧いただけます。）</dd>
+        <dd>診断はすべて無料で、会員登録も必要ありません。氏名やメールアドレスの入力もありません。（結果ページから、有料の記事〈note・200円〉をご案内することがあります。購入しなくても、無料の結果はすべてご覧いただけます。）</dd>
         <dt>回答は外部に送信されますか？</dt>
         <dd>診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、どの診断がどれくらい使われているかを知るための匿名の集計として送信します（回答内容・個人を特定する情報は送りません）。なお当サイトではアクセス解析（Googleアナリティクス）と広告配信（Google AdSense）を利用しており、それらに伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。</dd>
         <dt>結果が当たっていない気がします。</dt>
-        <dd>これらの診断は、当てることより「自分の良いところを見つける手がかり」をお渡しすることを目的にしています。しっくりこない部分は、そのまま置いていってかまいません。</dd>
+        <dd>これらの診断は、当てることより「今の困りごとを整理する手がかり」をお渡しすることを目的にしています。しっくりこない部分は、そのまま置いていってかまいません。</dd>
         <dt>何度でもできますか？</dt>
         <dd>できます。日によって答えは変わります。変わるのが普通です。</dd>
-        <dt>笑える診断もありますか？</dt>
-        <dd>あります。考えたくない日は<a href="../workplace_app/">会社モンスター診断</a>や<a href="../psychology_app/">恋愛沼診断</a>、<a href="../kosodate_app/">子育て親タイプ診断</a>へどうぞ。同じ森の、別の棚です。</dd>
-      </dl>
+      </dl></details>
 
       <div class="disclaimer">
         <strong>※これらの診断について</strong><br>

@@ -9,7 +9,7 @@ const QUIZ_LIST = [
   { href: 'couple_balance.html', emoji: '💑', title: '夫婦育児バランス診断', label: '8問' },
   { href: 'expectation.html',    emoji: '🌟', title: '子供への期待度診断',   label: '8問' },
   { href: 'future_relation.html',emoji: '🏡', title: '将来の親子関係診断',   label: '8問' },
-  { href: 'true_nature.html',    emoji: '🔥', title: '育児中の本性診断',     label: '8問' },
+  { href: 'true_nature.html',    emoji: '🔥', title: '育児中のキャラ診断',     label: '8問' },
 ];
 
 /* ---- 誤操作を防ぐ「不感帯」（2026-08-31 実ブラウザ監査で追加・全5エンジン共通） ----

@@ -34,12 +34,14 @@
   <header class="site-header">
     <span class="site-title">👨‍👩‍👧 子育て親タイプ診断</span>
   </header>
+  <div class="entame-note" style="max-width:720px;margin:12px auto;padding:10px 14px;border-radius:10px;background:#fff8e6;border:1px solid #ecd9a8;color:#5a4a20;font-size:14px;line-height:1.6;text-align:center;">🎈 <strong>エンタメ診断</strong>：遊びとして楽しむ診断です。心理学的・医学的な判定ではありません。</div>
+
 
   <section class="hero-section">
     <div class="hero-content">
-      <p class="hero-badge">👶 育児あるある×心理で本音診断</p>
-      <h2 class="hero-title">あなたの育児中の<br>本当の姿は？</h2>
-      <p class="hero-sub">親タイプ・夫婦バランス・本性・期待度<br>全6診断・無料（登録不要）</p>
+      <p class="hero-badge">👶 育児あるあるで遊ぶエンタメ診断</p>
+      <h2 class="hero-title">あなたの育児中の<br>ちょっと意外な一面は？</h2>
+      <p class="hero-sub">親タイプ・夫婦バランス・キャラ・期待度<br>全6診断・無料（登録不要）</p>
       <p class="hero-hint">診断を選んでスタート</p>
     </div>
   </section>
@@ -99,7 +101,7 @@
           <div class="diag-thumb" style="background:#fef9c3;">🌟</div>
           <div class="diag-body">
             <p class="diag-title">子供への期待度診断</p>
-            <p class="diag-desc">のびのび応援団？東大予約センター？子供への期待レベルを8段階で測定。教育方針が丸わかり。</p>
+            <p class="diag-desc">のびのび応援団？東大予約センター？子供への期待レベルを8段階で測定。教育方針の傾向を、笑いながらのぞけます。</p>
             <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
           </div>
         </a>
@@ -108,7 +110,7 @@
           <div class="diag-thumb" style="background:#dcfce7;">🏡</div>
           <div class="diag-body">
             <p class="diag-title">将来の親子関係診断</p>
-            <p class="diag-desc">将来は親友ファミリー？孫連れ常連客？今の育て方で変わる未来の親子関係を予測。</p>
+            <p class="diag-desc">将来は親友ファミリー？孫連れ常連客？今の育て方で変わる未来の親子関係を、遊びで想像。</p>
             <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
           </div>
         </a>
@@ -116,7 +118,7 @@
         <a href="true_nature.html" class="diag-card">
           <div class="diag-thumb" style="background:#fee2e2;">🔥</div>
           <div class="diag-body">
-            <p class="diag-title">育児中の本性診断</p>
+            <p class="diag-title">育児中のキャラ診断</p>
             <p class="diag-desc">育児ブッダ？限界サバイバー？育児中のあなたの本当の頑張りが見えてくる、笑えて泣けるあるある診断。</p>
             <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
           </div>
@@ -135,7 +137,7 @@
         <a href="articles/shikarisugi.html" class="diag-card">
           <div class="diag-thumb" style="background:#fee2e2;">🤍</div>
           <div class="diag-body">
-            <p class="diag-title">子どもを叱りすぎたと感じた時の対処法【本性タイプ別】</p>
+            <p class="diag-title">子どもを叱りすぎたと感じた時の対処法【キャラタイプ別】</p>
             <p class="diag-desc">つい強く叱って自己嫌悪…そんな時に親子の関係を立て直すフォローのしかた5つ。</p>
             <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
           </div>
@@ -267,7 +269,7 @@ const CHARACTERS = [
     catchphrase: '伝説でも何でもない、本物の勇者。',
     desc: '毎日ギリギリで生存している。洗濯物の山・寝不足・仕事・育児、全てを抱えながら今日も前へ進む。口癖は「もう無理」「でもやる」。',
     link: 'true_nature.html',
-    linkText: '育児中の本性診断を受ける'
+    linkText: '育児中のキャラ診断を受ける'
   },
   {
     emoji: '🔥',
@@ -276,7 +278,7 @@ const CHARACTERS = [
     catchphrase: '倒れても、燃え上がる、それが私。',
     desc: '何度限界を迎えても復活する。寝不足・体調不良・仕事・育児が全部重なっても翌日には立ち上がる。生命力：バグ。',
     link: 'true_nature.html',
-    linkText: '育児中の本性診断を受ける'
+    linkText: '育児中のキャラ診断を受ける'
   },
   {
     emoji: '🎓',
@@ -337,7 +339,7 @@ function toggleArticles() {
     { storage: 'ks_parent_type',    href: 'parent_type.html',    emoji: '🧸', name: '親タイプ診断' },
     { storage: 'ks_expectation',    href: 'expectation.html',    emoji: '🎓', name: '子供への期待度診断' },
     { storage: 'ks_couple_balance', href: 'couple_balance.html', emoji: '🤝', name: '夫婦育児バランス診断' },
-    { storage: 'ks_true_nature',    href: 'true_nature.html',    emoji: '🔥', name: '育児中の本性診断' },
+    { storage: 'ks_true_nature',    href: 'true_nature.html',    emoji: '🔥', name: '育児中のキャラ診断' },
   ];
   const done = QUIZZES.filter(q => localStorage.getItem(q.storage)).length;
   const remaining = QUIZZES.length - done;

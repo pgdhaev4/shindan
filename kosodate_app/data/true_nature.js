@@ -1,5 +1,5 @@
 window.QUIZ_DATA = {
-  "title": "育児中の本性診断",
+  "title": "育児中のキャラ診断",
   "mode": "score",
   "score_ranges": [
     [8,  10, "buddha"],
