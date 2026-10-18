@@ -152,6 +152,11 @@
     return Object.keys(KS.ENV_ITEMS).map(function (k) { return { value: k, text: KS.ENV_ITEMS[k].text }; }).concat([{ value: 'none', text: 'どれも当てはまらない', only: true }]);
   };
   KS.ENV_Q_TEXT = 'あなたの家庭や、身の回りで、当てはまるものをすべて選んでください。';
+  // ★2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+  //   3テーマ共通で外す環境の項目＝事情2つ（出産して1年以内・夜にまとまって眠れない時期／看病・付き添い・介護が続いている＝補足の文だけの事情）。
+  //   重い害・仕組み・専用の案内（手が出そう・消えてしまいたい）・心身のサイン（眠れない・涙が出る・かわいいと思えない）は外さない
+  KS.LAST_MULTI = { text: 'あなたの家庭や身の回り、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND };
+  KS.DROP_ENV = ['ks_sango', 'ks_kanbyo'];
 
   // 害が強いときの手順（安全→相談→記録→離れる前に相談。検査 T-04・T-06）。KS_SAFETY_BLOCK の節Aと同じ字
   KS.STEPS = [

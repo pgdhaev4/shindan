@@ -69,6 +69,10 @@
     freqQ: 'rn_kk_freq',
     relatedQ: 'rn_kk_rel',
     envQ: 'rn_kk_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+    //   外す＝事情2つ（遠距離・以前にうそや浮気＝補足の文だけの事情）・関連「相手からの連絡を優先している」（専用の文がなく、「連絡を待って、ほかのことが手につかない」と重なる）。重い害・専用の案内は外さない
+    lastMulti: { text: '相手との間のことや、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
+    dropChoices: ['enkyori', 'kako_uwaki', 'yusen'],
     routeQuestions: ['rn_kk_s1', 'rn_kk_s2', 'rn_kk_s3', 'rn_kk_s4', 'rn_kk_s5'],
 
     routes: {

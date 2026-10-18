@@ -52,6 +52,10 @@
     freqQ: 'kk_ht_freq',
     relatedQ: 'kk_ht_rel',
     envQ: 'kk_ht_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+    //   外す＝事情3つ（知らせが続く時期・家族のこと・ひとり暮らし＝補足の文だけの事情）。「子どもを持つことも考えている」は、体のことの注意書き（BODY_NOTE）に使うので残す
+    lastMulti: { text: '今のあなたの状況や気持ちについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
+    dropChoices: ['kk_tsuzuku', 'kk_kazoku', 'kk_hitorigurashi'],
     routeQuestions: ['kk_ht_s1', 'kk_ht_s2', 'kk_ht_s3', 'kk_ht_s4', 'kk_ht_s5'],
 
     routes: {

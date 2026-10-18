@@ -62,6 +62,10 @@
     freqQ: 'kk_mw_freq',
     relatedQ: 'kk_mw_rel',
     envQ: 'kk_mw_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+    //   外す＝事情2つ（親の事情・きょうだいがみな結婚＝補足の文だけの事情）・関連「帰省や集まりの前から気が重い」（専用の文がなく、「言われたあと、朝から気が重い」と重なる）。重い害・専用の案内は外さない
+    lastMulti: { text: '職場や家族・親戚との間のことや、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
+    dropChoices: ['kk_oyanojijou', 'kk_kyoudai', 'kk_omoi'],
     routeQuestions: ['kk_mw_s1', 'kk_mw_s2', 'kk_mw_s3', 'kk_mw_s4', 'kk_mw_s5'],
 
     routes: {

@@ -41,6 +41,9 @@
     freqQ: 'ks_js_freq',
     relatedQ: 'ks_js_rel',
     envQ: 'ks_js_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に」：関連と環境を最後の1問にまとめる（lastMulti・外す項目と理由＝ks_00_kyotsu.js の KS.DROP_ENV）
+    lastMulti: KS.LAST_MULTI,
+    dropChoices: KS.DROP_ENV,
     routeQuestions: ['ks_js_s1', 'ks_js_s2', 'ks_js_s3', 'ks_js_s4', 'ks_js_s5'],
 
     routes: {

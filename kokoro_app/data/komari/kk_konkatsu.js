@@ -63,6 +63,10 @@
     freqQ: 'kk_kn_freq',
     relatedQ: 'kk_kn_rel',
     envQ: 'kk_kn_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+    //   外す＝事情2つ（使える時間が限られている・地域に出会いの場が少ない＝補足の文だけの事情）・関連「会う前から疲れている」（専用の文がなく、「人と会うこと自体がおっくう」と重なる）。重い害・専用の案内は外さない
+    lastMulti: { text: '婚活の中のことや、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
+    dropChoices: ['kk_jikan', 'kk_chiiki', 'kk_tsukare'],
     routeQuestions: ['kk_kn_s1', 'kk_kn_s2', 'kk_kn_s3', 'kk_kn_s4', 'kk_kn_s5'],
 
     routes: {

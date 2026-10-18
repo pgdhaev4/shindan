@@ -30,6 +30,8 @@ KOMARI.defineTheme({
   freqQ: 'kt_freq',
   relatedQ: 'kt_rel',
   envQ: 'kt_env',
+  // 2026-10-17 オーナー指示「退職の診断と同じ形に」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。項目は9つ＝外さない
+  lastMulti: { text: 'あなたの職場や、引き受けたあとのあなたについて、当てはまるものをすべて選んでください。' },
   routeQuestions: ['kt_s1', 'kt_s2', 'kt_s3', 'kt_s4'],
 
   routes: {

@@ -75,6 +75,10 @@
     freqQ: 'rn_aw_freq',
     relatedQ: 'rn_aw_rel',
     envQ: 'rn_aw_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+    //   外す＝関連「会う前から、気が重くなる」（専用の文がなく、「会ったあと、どっと疲れる」と重なる）。重い害（5つ）・専用の案内は外さない
+    lastMulti: { text: '相手との間のことや、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
+    dropChoices: ['omoi'],
     routeQuestions: ['rn_aw_s1', 'rn_aw_s2', 'rn_aw_s3', 'rn_aw_s4'],
 
     routes: {

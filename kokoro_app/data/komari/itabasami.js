@@ -36,6 +36,10 @@ KOMARI.defineTheme({
   freqQ: 'ib_freq',
   relatedQ: 'ib_rel',
   envQ: 'ib_env',
+  // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+  //   外す＝関連「残業や持ち帰りが増えている」（「自分の仕事が後回しになる」と同じ、仕事への影響）・環境「どちらの味方かをくり返し問いつめられる」（重い害「どちらの側につくかを迫られ…」と重なる）
+  lastMulti: { text: 'あなたの職場や、今のあなたについて、当てはまるものをすべて選んでください。' },
+  dropChoices: ['zangyo', 'toitsume'],
   routeQuestions: ['ib_s1', 'ib_s2', 'ib_s3', 'ib_s4'],
 
   routes: {

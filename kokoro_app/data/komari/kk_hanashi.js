@@ -54,6 +54,10 @@
     freqQ: 'kk_hn_freq',
     relatedQ: 'kk_hn_rel',
     envQ: 'kk_hn_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+    //   外す＝事情4つ（相手の事情・家族の反対・話す時間・離婚の手続き中＝補足の文だけの事情）・関連「ひとりで考え続けている」（「だれにも相談できずにいる」と重なる）。重い害・専用の案内は外さない
+    lastMulti: { text: '交際相手との間や二人の状況、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
+    dropChoices: ['kk_jijou', 'kk_hantai', 'kk_jikan', 'kk_rikon', 'kk_hitoride'],
     routeQuestions: ['kk_hn_s1', 'kk_hn_s2', 'kk_hn_s3', 'kk_hn_s4'],
 
     routes: {

@@ -49,6 +49,10 @@ KOMARI.defineTheme({
   freqQ: 'kk_freq',
   relatedQ: 'kk_rel',
   envQ: 'kk_env',
+  // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+  //   外す＝関連「家に帰っても、聞いた話を考える」（専用の文がない。だれにも話せず抱えている＝専用の案内は残す）
+  lastMulti: { text: 'あなたの職場や、今のあなたについて、当てはまるものをすべて選んでください。' },
+  dropChoices: ['ie'],
   routeQuestions: ['kk_s1', 'kk_s2', 'kk_s3', 'kk_s4'],
 
   routes: {

@@ -43,6 +43,10 @@ KOMARI.defineTheme({
   freqQ: 'nm_freq',
   relatedQ: 'nm_rel',
   envQ: 'nm_env',
+  // 2026-10-17 オーナー指示「退職の診断と同じ形に（複数選択は最後の1問だけ・選択肢を減らす）」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。
+  //   外す＝関連「頼めずに自分でやってしまう」（専用の文がなく、仕事上の支障は「手戻りやミス」で受ける）・仕組み「議題が前もって分からない」（「意見を出す機会がない」と同じく、出す場の問題）
+  lastMulti: { text: 'あなたの職場や、今のあなたについて、当てはまるものをすべて選んでください。' },
+  dropChoices: ['jibunde', 'gidai'],
   routeQuestions: ['nm_s1', 'nm_s2', 'nm_s3', 'nm_s4', 'nm_s5'],
 
   routes: {

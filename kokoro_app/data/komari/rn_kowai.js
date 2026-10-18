@@ -73,6 +73,8 @@
     freqQ: 'rn_kw_freq',
     relatedQ: 'rn_kw_rel',
     envQ: 'rn_kw_env',
+    // 2026-10-17 オーナー指示「退職の診断と同じ形に」：関連と環境を最後の1問にまとめる（komari_core.js の lastMulti）。項目は12＝外さない
+    lastMulti: { text: 'あなたの周りのことや、今のあなたについて、当てはまるものをすべて選んでください。', hint: C.NOSEND },
     routeQuestions: ['rn_kw_s1', 'rn_kw_s2', 'rn_kw_s3', 'rn_kw_s4', 'rn_kw_s5'],
 
     routes: {
