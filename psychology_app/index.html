@@ -23,206 +23,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <title>恋愛沼診断 | 沼る理由、こっそり分かります</title>
   <link rel="stylesheet" href="style.css">
+  <!-- トップページだけの見た目（2026-10-24 デザイン改修。style.css は質問・結果ページと共通のため触らない） -->
+  <link rel="stylesheet" href="home.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    /* ===== トップページ追加スタイル ===== */
-    .hero-lab {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      color: white;
-      text-align: center;
-      padding: 52px 20px 44px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-lab::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(255,80,130,0.15) 0%, transparent 60%),
-                  radial-gradient(ellipse at 70% 40%, rgba(100,80,255,0.15) 0%, transparent 60%);
-    }
-    .hero-lab-content { position: relative; z-index: 1; }
-    .hero-lab-badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      padding: 4px 16px;
-      margin-bottom: 16px;
-      color: #ffd6e0;
-    }
-    .hero-lab h2 {
-      font-size: clamp(1.55rem, 5.5vw, 2.4rem);
-      font-weight: 900;
-      line-height: 1.25;
-      margin: 0 0 14px;
-      letter-spacing: 0.02em;
-    }
-    .hero-lab p {
-      font-size: 0.95rem;
-      opacity: 0.85;
-      margin: 0 0 28px;
-      line-height: 1.6;
-    }
-    .hero-scroll-hint {
-      font-size: 0.78rem;
-      opacity: 0.6;
-      letter-spacing: 0.05em;
-    }
-    .hero-scroll-hint::after { content: ' ↓'; }
-
-    .diag-grid {
-      display: grid;
-      grid-template-columns: 1fr; /* 常に1列＝横帯（他診断と統一） */
-      gap: 14px;
-      padding: 0 4px;
-    }
-
-    .diag-card {
-      display: flex;
-      align-items: stretch;
-      background: white;
-      border-radius: 16px;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      overflow: hidden;
-      transition: transform 0.18s, box-shadow 0.18s;
-      border: 1.5px solid rgba(0,0,0,0.06);
-    }
-    .diag-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.13); }
-
-    .diag-card-thumb {
-      width: 88px;
-      min-width: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.4rem;
-    }
-    .diag-card-body {
-      flex: 1;
-      padding: 14px 14px 14px 4px;
-    }
-    .diag-card-title {
-      font-size: 0.97rem;
-      font-weight: 900;
-      margin: 0 0 4px;
-      color: #1a1a2e;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .diag-card-badge {
-      font-size: 0.62rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      background: linear-gradient(90deg, #ff6eb4, #9b59b6);
-      color: white;
-      letter-spacing: 0.03em;
-    }
-    .diag-card-badge.new { background: linear-gradient(90deg, #4a148c, #1565c0); }
-    .diag-card-desc {
-      font-size: 0.78rem;
-      color: #666;
-      margin: 0 0 6px;
-      line-height: 1.5;
-    }
-    .diag-card-meta {
-      display: flex;
-      gap: 8px;
-      font-size: 0.7rem;
-      color: #999;
-    }
-
-    .diag-featured {
-      background: linear-gradient(135deg, #1a1a2e 0%, #4a148c 100%);
-      color: white;
-    }
-    .diag-featured .diag-card-title { color: white; }
-    .diag-featured .diag-card-desc { color: rgba(255,255,255,0.75); }
-    .diag-featured .diag-card-meta { color: rgba(255,255,255,0.55); }
-    .diag-featured .diag-metrics span { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.15); }
-
-    .section-lead {
-      font-size: 0.82rem;
-      color: #888;
-      margin: -4px 0 14px;
-    }
-
-    /* ランキングバッジ */
-    .rank-badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 900;
-      padding: 2px 9px;
-      border-radius: 20px;
-      background: linear-gradient(90deg, #f9a825, #ff6f00);
-      color: white;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .rank-badge.rank-2 { background: linear-gradient(90deg, #78909c, #546e7a); }
-    .rank-badge.rank-3 { background: linear-gradient(90deg, #a1887f, #795548); }
-
-    /* 診断メトリクスタグ */
-    .diag-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin: 6px 0;
-    }
-    .diag-metrics span {
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      background: #f0ebff;
-      color: #6a3db8;
-      letter-spacing: 0.01em;
-    }
-
-    /* note CTAブロック */
-    .note-cta-block {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 16px;
-      padding: 20px;
-      color: white;
-      text-align: center;
-    }
-    .note-cta-block p {
-      font-size: 0.82rem;
-      opacity: 0.75;
-      margin: 0 0 8px;
-      line-height: 1.5;
-    }
-    .note-cta-block .note-link {
-      display: inline-block;
-      margin-top: 4px;
-      background: white;
-      border: none;
-      color: #1a1a2e;
-      font-weight: 900;
-      font-size: 0.88rem;
-      padding: 10px 20px;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .note-cta-block .note-link:hover { opacity: 0.85; }
-    .note-cta-subtitle {
-      font-size: 1rem;
-      font-weight: 900;
-      margin: 0 0 10px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">
   <!-- AdSense HERE (head) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3934206444145241" crossorigin="anonymous"></script>
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/psychology_app/">
@@ -236,15 +41,15 @@
       <h1>💖 恋愛沼診断</h1>
       <p class="tagline">恋愛あるあるで遊ぶエンタメ診断</p>
     </header>
-  <div class="entame-note" style="max-width:720px;margin:12px auto;padding:10px 14px;border-radius:10px;background:#fff8e6;border:1px solid #ecd9a8;color:#5a4a20;font-size:14px;line-height:1.6;text-align:center;">🎈 <strong>エンタメ診断</strong>：遊びとして楽しむ診断です。心理学的・医学的な判定ではありません。</div>
+  <div class="entame-note">🎈 <strong>エンタメ診断</strong>：<span class="nobr">遊びとして楽しむ診断です。</span>心理学的・医学的な判定ではありません。</div>
 
 
     <!-- ① ファーストビュー：刺さるコピーに変更 -->
     <section class="hero-lab">
       <div class="hero-lab-content">
         <p class="hero-lab-badge">💘 恋愛あるあるで遊ぶエンタメ診断</p>
-        <h2>あなたが恋愛で<br>沼る理由、こっそり分かります</h2>
-        <p>あなたの恋愛のクセを見える化<br>全7診断・無料（登録不要）</p>
+        <h2>あなたが恋愛で<br><span class="hero-em">沼る理由</span>、<span class="nobr">こっそり分かります</span></h2>
+        <p class="hero-lead">あなたの恋愛のクセを見える化<br><span class="hero-meta">全7診断・無料（登録不要）</span></p>
         <p class="hero-scroll-hint">診断を選んでスタート</p>
       </div>
     </section>
@@ -260,22 +65,22 @@
 
       <!-- 統合分析レポート（進捗つき・全診断一覧の直上） -->
       <section class="section">
-        <div style="background:linear-gradient(135deg,#4a148c 0%,#ff6eb4 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(74,20,140,.35);">
-          <p style="font-size:.72rem;color:#ffd6e0;letter-spacing:.08em;margin-bottom:6px;">🔮 4つの診断を制覇したあなただけの特別コンテンツ</p>
-          <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの恋愛性格分析レポート<span style="color:#ffd6e0;">【16系統】</span></p>
-          <p style="font-size:.8rem;color:#ffe4ee;line-height:1.7;">4つの診断結果を統合分析して、回答から見える恋愛での魅力の傾向を整理します。読み終わる頃、自分の恋愛がちょっと好きになる。</p>
+        <div class="report-card">
+          <p class="report-kicker">🔮 <span class="nobr">4つの診断を制覇した</span><span class="nobr">あなただけの特別コンテンツ</span></p>
+          <p class="report-title">あなただけの<span class="nobr">恋愛性格分析レポート</span><span class="report-title-em">【16系統】</span></p>
+          <p class="report-desc">4つの診断結果を統合分析して、回答から見える恋愛での魅力の傾向を整理します。<span class="nobr">読み終わる頃、</span>自分の恋愛がちょっと好きになる。</p>
           <div id="report-progress"></div>
         </div>
       </section>
 
       <!-- 全診断一覧 -->
-      <section class="section">
+      <section class="section" id="all-diag">
         <h2 class="section-title">💕 全診断一覧</h2>
         <p class="section-lead">全8タイプ・傾向の解説つき</p>
         <div class="diag-grid">
 
           <a href="mbti.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#fff3e0);">🔮</div>
+            <div class="diag-card-thumb">🔮</div>
             <div class="diag-card-body">
               <p class="diag-card-title">
                 性格タイプ診断
@@ -290,10 +95,10 @@
           </a>
 
           <a href="love_type.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#fff3e0);">💘</div>
+            <div class="diag-card-thumb">💘</div>
             <div class="diag-card-body">
               <p class="diag-card-title">
-                あなたが恋愛で沼る理由診断
+                <span class="nobr">あなたが恋愛で沼る</span><span class="nobr">理由診断</span>
                 <span class="diag-card-badge">人気No.1</span>
               </p>
               <p class="diag-card-desc">情熱的？穏やか？献身的？あなたの恋愛スタイルを3軸・8タイプで、遊び感覚で分析。</p>
@@ -305,7 +110,7 @@
           </a>
 
           <a href="compatibility.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#f3e5f5,#e3f2fd);">💕</div>
+            <div class="diag-card-thumb">💕</div>
             <div class="diag-card-body">
               <p class="diag-card-title">恋愛相性診断</p>
               <p class="diag-card-desc">積極的？感情重視？一途？あなたの恋愛相性パターンを回答から解析。</p>
@@ -318,7 +123,7 @@
 
           <!-- ③ 束縛 → 重い女・重い男度診断 -->
           <a href="jealousy.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#e8eaf6);">😤</div>
+            <div class="diag-card-thumb">😤</div>
             <div class="diag-card-body">
               <p class="diag-card-title">重い女・重い男度診断</p>
               <p class="diag-card-desc">確認型？信頼型？感情的？独占欲と束縛スタイルを徹底解剖。</p>
@@ -331,9 +136,9 @@
 
           <!-- ③ 恋愛依存度 → 好きになると人生狂う度診断 -->
           <a href="love_dependency.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#e8eaf6,#f3e5f5);">💝</div>
+            <div class="diag-card-thumb">💝</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">好きになると人生狂う度診断</p>
+              <p class="diag-card-title"><span class="nobr">好きになると</span><span class="nobr">人生狂う度診断</span></p>
               <p class="diag-card-desc">没入型？バランス型？恋愛への依存パターンと恋愛脳レベルを、遊び感覚で分析。</p>
               <div class="diag-metrics">
                 <span>💊 恋愛依存度</span><span>📱 SNS監視度</span><span>👑 自立度</span>
@@ -344,9 +149,9 @@
 
           <!-- ③ 失恋回復 → 元恋人を忘れられない度診断 -->
           <a href="heartbreak.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#ede7f6,#e3f2fd);">💔</div>
+            <div class="diag-card-thumb">💔</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">元恋人を忘れられない度診断</p>
+              <p class="diag-card-title"><span class="nobr">元恋人を</span><span class="nobr">忘れられない度診断</span></p>
               <p class="diag-card-desc">失恋後の元カレ監視から復縁可能性まで。あなたの失恋回復パターンが、こっそり分かります。</p>
               <div class="diag-metrics">
                 <span>😭 未練レベル</span><span>🔥 復縁したい度</span><span>📱 SNS監視度</span>
@@ -356,9 +161,9 @@
           </a>
 
           <a href="ideal_date.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#e8f5e9,#fff3e0);">🌸</div>
+            <div class="diag-card-thumb">🌸</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">理想のデートタイプ診断</p>
+              <p class="diag-card-title"><span class="nobr">理想の</span><span class="nobr">デートタイプ診断</span></p>
               <p class="diag-card-desc">アクティブ？まったり？二人だけ？あなたが最も輝くデートスタイルを解明。</p>
               <div class="diag-metrics">
                 <span>📸 インスタ映え度</span><span>💑 二人の世界度</span>
@@ -372,58 +177,58 @@
 
       <!-- お役立ち記事（ボタンで開閉） -->
       <section class="section">
-        <button id="articles-toggle" onclick="toggleArticles()" style="display:block;width:100%;background:#fff;border:2px solid #9b59b6;color:#9b59b6;border-radius:14px;padding:15px 16px;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 2px 8px rgba(155,89,182,.12);">📖 恋愛の悩みお役立ち記事 ▾</button>
-        <div id="articles-panel" style="display:none;margin-top:12px;">
+        <button id="articles-toggle" type="button" onclick="toggleArticles()">📖 恋愛の悩みお役立ち記事 ▾</button>
+        <div id="articles-panel" style="display:none;">
         <p class="section-lead">診断のあとは、こちらもどうぞ。今日から使えるヒント</p>
         <div class="diag-grid">
 
           <a href="articles/izonkara.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#fce4ec,#ede7f6);">💗</div>
+            <div class="diag-card-thumb">💗</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">恋愛に振り回されてつらいときの整え方【タイプ別】</p>
+              <p class="diag-card-title"><span class="nobr">恋愛に振り回されて</span><span class="nobr">つらいときの整え方</span>【タイプ別】</p>
               <p class="diag-card-desc">相手のことで頭がいっぱいでつらい人へ。自分を少しずつ取り戻す5つのステップ。</p>
               <div class="diag-card-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
             </div>
           </a>
 
           <a href="articles/shuchaku.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#ede7f6,#e3f2fd);">⚖️</div>
+            <div class="diag-card-thumb">⚖️</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">「執着」と「愛情」の見分け方【束縛タイプ別】</p>
+              <p class="diag-card-title"><span class="nobr">「執着」と</span><span class="nobr">「愛情」の</span><span class="nobr">見分け方</span>【束縛タイプ別】</p>
               <p class="diag-card-desc">この気持ちは愛情？執着？よく似た2つを、5つの視点で見分けるヒント。</p>
               <div class="diag-card-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
             </div>
           </a>
 
           <a href="articles/renraku.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#e3f2fd,#fce4ec);">💬</div>
+            <div class="diag-card-thumb">💬</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">駆け引きより効く、信頼される連絡のしかた</p>
-              <p class="diag-card-desc">既読・未読に一喜一憂してしまう人へ。長くうまくいく連絡のコツ。</p>
+              <p class="diag-card-title"><span class="nobr">駆け引きより効く、</span><span class="nobr">信頼される</span><span class="nobr">連絡のしかた</span></p>
+              <p class="diag-card-desc">既読・未読に一喜一憂してしまう人へ。長く<span class="nobr">うまくいく</span>連絡のコツ。</p>
               <div class="diag-card-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
             </div>
           </a>
 
           <a href="articles/shitsuren.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#ede7f6,#e8eaf6);">🌙</div>
+            <div class="diag-card-thumb">🌙</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">失恋を引きずっているときの心の整理術【状態別】</p>
+              <p class="diag-card-title"><span class="nobr">失恋を引きずっている</span><span class="nobr">ときの心の整理術</span>【状態別】</p>
               <p class="diag-card-desc">別れたあと、相手ばかり考えてしまう。前を向くための心の整理5ステップ。</p>
               <div class="diag-card-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
             </div>
           </a>
 
           <a href="articles/fuan.html" class="diag-card">
-            <div class="diag-card-thumb" style="background:linear-gradient(135deg,#e8eaf6,#fce4ec);">🍀</div>
+            <div class="diag-card-thumb">🍀</div>
             <div class="diag-card-body">
-              <p class="diag-card-title">不安になりやすい恋愛グセをやわらげる方法</p>
+              <p class="diag-card-title"><span class="nobr">不安になりやすい</span><span class="nobr">恋愛グセを</span><span class="nobr">やわらげる方法</span></p>
               <p class="diag-card-desc">付き合うといつも不安でいっぱいになる人へ。安心して恋愛するコツ。</p>
               <div class="diag-card-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
             </div>
           </a>
 
         </div>
-        <p style="text-align:center;margin-top:8px;"><a href="/shindan/articles.html" style="display:inline-block;color:#9b59b6;font-weight:800;font-size:0.9rem;text-decoration:none;">📚 お役立ち記事をすべて見る（全40本）→</a></p>
+        <p class="articles-more"><a href="/shindan/articles.html">📚 お役立ち記事をすべて見る（全40本）→</a></p>
         </div>
       </section>
 
@@ -537,6 +342,7 @@
           ? '📖 恋愛の悩みお役立ち記事 ▴' : '📖 恋愛の悩みお役立ち記事 ▾';
       }
       // 統合分析レポートの進捗（report.htmlのロック画面と同じ判定・最初から表示）
+      // 2026-10-24 デザイン改修：判定・文言・リンクはそのまま、見た目だけ style 直書き → home.css のクラスへ
       (function renderReportProgress() {
         const QUIZZES = [
           { storage: 'lv_love_type',       href: 'love_type.html',       emoji: '💘', name: 'あなたが恋愛で沼る理由診断' },
@@ -547,20 +353,35 @@
         const done = QUIZZES.filter(q => localStorage.getItem(q.storage)).length;
         const remaining = QUIZZES.length - done;
         const dots = QUIZZES.map(q =>
-          `<span style="width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;background:${localStorage.getItem(q.storage) ? 'linear-gradient(135deg,#ffd6e0,#ff6eb4)' : 'rgba(255,255,255,.16)'};">${q.emoji}</span>`
+          `<span class="rp-dot${localStorage.getItem(q.storage) ? ' is-done' : ''}">${q.emoji}</span>`
         ).join('');
         const rows = QUIZZES.map(q => localStorage.getItem(q.storage)
-          ? `<span style="display:block;background:rgba(255,255,255,.12);color:#c8f7d8;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;">✅ ${q.name}（診断済み）</span>`
-          : `<a href="${q.href}" style="display:block;background:#ffd6e0;color:#4a148c;padding:9px 14px;border-radius:50px;font-size:.82rem;font-weight:bold;text-decoration:none;">${q.emoji} ${q.name}を受ける</a>`
+          ? `<span class="rp-row is-done">✅ ${q.name}（診断済み）</span>`
+          : `<a href="${q.href}" class="rp-row">${q.emoji} ${q.name}を受ける</a>`
         ).join('');
         const head = remaining > 0
-          ? `<p style="font-size:.9rem;font-weight:900;color:#ffd6e0;margin:12px 0 8px;">あと<span style="font-size:1.2rem;">${remaining}</span>個で読めます</p>`
-          : `<p style="font-size:.9rem;font-weight:900;color:#c8f7d8;margin:12px 0 8px;">✨ 全診断そろいました。レポートが読めます</p>`;
+          ? `<p class="rp-head">あと<span class="rp-num">${remaining}</span>個で読めます</p>`
+          : `<p class="rp-head is-done">✨ 全診断そろいました。レポートが読めます</p>`;
         const cta = remaining === 0
-          ? `<a href="report.html" style="display:block;text-align:center;background:#ffd6e0;color:#4a148c;font-weight:900;padding:12px;border-radius:50px;margin-top:10px;text-decoration:none;">🔮 あなたのレポートを見る</a>`
-          : `<a href="report.html" style="display:block;text-align:right;color:#ffd6e0;font-size:.78rem;font-weight:bold;margin-top:8px;text-decoration:none;">レポートについて詳しく ›</a>`;
+          ? `<a href="report.html" class="rp-cta">🔮 あなたのレポートを見る</a>`
+          : `<a href="report.html" class="rp-more">レポートについて詳しく ›</a>`;
         document.getElementById('report-progress').innerHTML =
-          head + `<div style="display:flex;gap:8px;margin-bottom:10px;">${dots}</div><div style="display:flex;flex-direction:column;gap:7px;">${rows}</div>` + cta;
+          head + `<div class="rp-dots">${dots}</div><div class="rp-rows">${rows}</div>` + cta;
+      })();
+      </script>
+      <script>
+      // ヒーローの「診断を選んでスタート ↓」を押すと全診断一覧へ進む（2026-10-24 デザイン改修で追加）
+      (function heroStart() {
+        const btn = document.querySelector('.hero-scroll-hint');
+        const target = document.getElementById('all-diag');
+        if (!btn || !target) return;
+        btn.setAttribute('role', 'button');
+        btn.tabIndex = 0;
+        const go = () => target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        btn.addEventListener('click', go);
+        btn.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+        });
       })();
       </script>
 
@@ -568,23 +389,23 @@
     </main>
 
     <!-- 他の診断への誘導 -->
-    <section style="max-width:600px;margin:32px auto 24px;padding:0 16px;">
-      <h3 style="text-align:center;font-size:1rem;color:#7a4060;margin-bottom:16px;font-weight:700;">他の診断もチェック！</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <a href="../workplace_app/" style="display:block;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(249,115,22,0.25);">👔<br>社畜度診断</a>
-        <a href="../kosodate_app/" style="display:block;background:linear-gradient(135deg,#e8436a,#c42f54);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(232,67,106,0.25);">👨‍👩‍👧<br>子育てタイプ診断</a>
-        <a href="https://pgdhaev4.github.io/shindan/" style="display:block;background:linear-gradient(135deg,#475569,#1e293b);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(71,85,105,0.25);grid-column:1/-1;max-width:calc(50% - 5px);margin:0 auto;">🏠<br>診断トップ</a>
+    <section class="xlink">
+      <h3 class="xlink-title">他の診断もチェック！</h3>
+      <div class="xlink-grid">
+        <a href="../workplace_app/" class="xlink-tile"><span class="xlink-emo">👔</span><br>会社モンスター診断</a>
+        <a href="../kosodate_app/" class="xlink-tile"><span class="xlink-emo">👨‍👩‍👧</span><br>子育て親タイプ診断</a>
+        <a href="/" class="xlink-tile xlink-home"><span class="xlink-emo">🏠</span><br>ホームに戻る</a>
       </div>
     </section>
 
 
-  <!-- 心が少し軽くなる診断への導線（2026-08-25 追加） -->
-  <section style="max-width:680px;margin:26px auto 0;padding:0 16px;">
-    <a href="../kokoro_app/" style="display:block;background:linear-gradient(155deg,#f7faf5 0%,#eaf2e7 100%);border:1px solid rgba(92,138,99,.4);border-radius:18px;padding:20px 20px 18px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18);">
-      <p style="font-size:.72rem;font-weight:800;letter-spacing:.08em;color:#3f6b4a;margin:0 0 8px;">🌿 笑うより、少し休みたい日は</p>
-      <p style="font-size:1.05rem;font-weight:900;color:#3f6b4a;line-height:1.45;margin:0 0 8px;">心が少し軽くなる診断</p>
-      <p style="font-size:.85rem;color:#5f7268;line-height:1.85;margin:0 0 10px;">人付き合いに疲れた日や、理由がうまく言えない疲れのための診断です。当てにいくのではなく、いまの状態に言葉をつけます。1つ約2分。</p>
-      <p style="display:inline-block;background:linear-gradient(135deg,#6aa06f,#4d7c56);color:#fff;font-weight:900;font-size:.85rem;padding:10px 22px;border-radius:99px;margin:0;">診断を見てみる →</p>
+  <!-- 本番の診断への導線（2026-08-25 追加 → 2026-10-24 今の名前と行き先に更新：旧名「心が少し軽くなる診断」はサイトに無い） -->
+  <section class="kokoro-cross">
+    <a href="../kokoro_app/renai-jishin.html" class="kokoro-card">
+      <p class="kokoro-kicker">🌿 笑うより、少し休みたい日は</p>
+      <p class="kokoro-title">恋愛で自信をなくした診断</p>
+      <p class="kokoro-desc">「疲れているときに、心が軽くなる<span class="nobr">診断」の</span>ひとつです。恋愛で自信が揺れたときに、何が起きているのか、まず何をすればいいのかを整理します。<span class="nobr">約2分・無料。</span></p>
+      <p class="kokoro-btn">恋愛で自信をなくした診断へ →</p>
     </a>
   </section>
     <footer class="site-footer">
@@ -592,9 +413,9 @@
         <a href="privacy.html">プライバシーポリシー</a> ／
         <a href="terms.html">利用規約</a>
       </p>
-      <p style="margin-top:8px;font-size:0.72rem;">
-        本サイトの診断は娯楽目的です。結果はあくまで参考程度にお楽しみください。<br>
-        本サイトはアフィリエイト広告（A8.net等）を利用しています。
+      <p class="footer-note">
+        本サイトの診断は娯楽目的です。結果は<span class="nobr">あくまで</span><span class="nobr">参考程度に</span>お楽しみください。<br>
+        本サイトはアフィリエイト広告<span class="nobr">（A8.net等）を</span><span class="nobr">利用しています。</span>
       </p>
     </footer>
 
@@ -609,5 +430,6 @@
   </div>
 
 <script src="../kokoro_app/measure.js"></script>
+<script src="/shindan/kokoro_app/site-nav.js" defer></script>
 </body>
 </html>

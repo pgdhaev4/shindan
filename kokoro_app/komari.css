@@ -46,7 +46,8 @@
 .k-small { font-size: .82rem !important; color: var(--ink-soft) !important; line-height: 1.8 !important; margin-bottom: 8px; }
 /* 結果の段落の中の改行を、そのまま改行として出す（4つの基準・話の切れ目。既存2テーマの文には改行がないので影響しない＝2026-10-04） */
 .k-result .k-sec p { white-space: pre-line; }
-.k-why p:last-child { font-size: .8rem; color: var(--ink-soft); line-height: 1.8; }   /* 判定の根拠 */
+/* 2026-10-24：「判定の根拠」の文を外した（オーナー指示）ので、最後の段落を小さい灰色にする指定も外した
+   （残したままだと、本文の最後の段落＝理由の説明が小さい灰色で出ていた＝退職の診断の担当が発見） */
 .k-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin: 6px 0 10px; padding: 0; }
 .k-list li {
   position: relative; padding: 9px 12px 9px 30px; border-radius: 10px;
@@ -110,3 +111,20 @@
   .rs.k-sec { padding: 18px 15px; }
   .k-sum-row { grid-template-columns: 5.4em 1fr; }
 }
+
+/* 2026-10-24 結果のあとの「次にできること」（この結果に近い読みもの・ほかの診断）＝利用者目線の照査 #1 */
+.rs.k-next { background: #f6faf4; border: 1px solid rgba(92,138,99,.25); border-radius: 16px; padding: 18px 16px; margin-top: 18px; }
+.k-next-h { font-size: 1rem; font-weight: 900; color: #2a4d35; margin: 0 0 10px; }
+.k-next-h + .k-next-list, .k-next-h + .k-next-grid { margin-bottom: 16px; }
+.k-next-list { display: flex; flex-direction: column; gap: 8px; }
+.k-next-list a { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid rgba(42,77,53,.2); border-radius: 12px;
+  padding: 12px 14px; text-decoration: none; color: #2a4d35; font-weight: 800; font-size: .92rem; line-height: 1.55; }
+.k-next-list a span { margin-left: auto; color: #8a9a8f; font-size: 1.2rem; flex-shrink: 0; }
+.k-next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.k-next-grid a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 76px; text-align: center;
+  background: #fff; border: 1px solid rgba(42,77,53,.2); border-radius: 12px; padding: 10px 8px; text-decoration: none; color: #2a4d35;
+  font-weight: 800; font-size: .84rem; line-height: 1.45; word-break: auto-phrase; overflow-wrap: anywhere; }
+.k-next-grid a .ic { font-size: 1.3rem; }
+.k-next-more { text-align: center; margin: 4px 0 0; }
+.k-next-more a { display: inline-block; text-decoration: none; font-weight: 900; font-size: .9rem; color: #2a4d35; background: #fff;
+  border: 1px solid rgba(42,77,53,.3); border-radius: 999px; padding: 10px 22px; }

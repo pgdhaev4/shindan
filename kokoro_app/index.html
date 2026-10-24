@@ -1,188 +1,21 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9KJMDN86W9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-9KJMDN86W9');
-</script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>疲れているときに、やってほしい診断（5種類） | 診断の森</title>
-  <meta name="description" content="仕事・職場の人付き合い・結婚・恋愛・子育てで困っているときに、今の困りごと、つらくなりやすい背景、今日からできること1つを整理する診断が5種類。6〜9問・約2分。無料・登録不要。">
-  <meta property="og:title" content="疲れているときに、やってほしい診断（5種類） | 診断の森">
-  <meta property="og:description" content="今の悩みの要因を整理し、要因に応じた具体的な対処法を提案します。6〜9問・約2分。無料・登録不要。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pgdhaev4.github.io/shindan/kokoro_app/">
-  <meta property="og:image" content="https://pgdhaev4.github.io/shindan/ogp.png">
-  <meta name="twitter:image" content="https://pgdhaev4.github.io/shindan/ogp.png">
-  <meta property="og:site_name" content="診断の森">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="style.css">
-  <meta name="google-adsense-account" content="ca-pub-3934206444145241">
-  <link rel="canonical" href="https://pgdhaev4.github.io/shindan/kokoro_app/">
-  <style>
-    /* 2026-10-11 配色の調整（オーナー指示）：背景・カードの地・本文・寄り道はそのまま。重要箇所だけ一段深い森色にして「信頼感」を足す。
-       style.css は4診断のページと共通なので、この入口ページの中だけで上書きする */
-    :root { --forest: #2a4d35; --forest-line: #3b6a47; }
-    .site-header { border-bottom-color: rgba(42,77,53,.16); }
-    .site-title { color: var(--forest); font-weight: 900; }
-    .page-hero .eyebrow { color: var(--forest); border-color: rgba(42,77,53,.30); }
-    .page-hero h1 { color: var(--forest); }
-    .static-sec:not(.yorimichi) h2 { color: var(--forest); border-left-color: var(--forest-line); }
-    .quiz-card { border-top: 3px solid var(--forest-line); }
-    .quiz-card .qc-title { color: var(--forest); }
-    .quiz-card:hover { border-color: rgba(42,77,53,.45); border-top-color: var(--forest); }
-    /* 2026-10-11：寄り道コーナー（4診断とは別枠に見えるよう、生成りの地・点線の枠）と、読みものの2段の行 */
-    .yorimichi { background: #fbf6ea; border: 2px dashed #e2cfa3; border-radius: 16px; padding: 16px 14px 18px; }
-    .yorimichi h2 { color: #8a6a2f; border-left-color: #d9b56a; }
-    .yr-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-    .yr-card { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ecdcb6; border-radius: 14px; padding: 10px 14px; text-decoration: none; color: var(--ink); transition: .18s; }
-    .yr-card:hover { transform: translateY(-1px); border-color: #d9b56a; }
-    .yr-img { width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; background: #fdf3dc; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; overflow: hidden; }
-    .yr-img img { width: 100%; height: 100%; object-fit: contain; }
-    .yr-body { display: flex; flex-direction: column; min-width: 0; }
-    .yr-title { font-weight: 900; font-size: .98rem; color: #6f5320; }
-    .yr-desc { font-size: .8rem; color: var(--ink-soft); line-height: 1.6; margin-top: 2px; }
-    .yr-card .arrow, .rd-list .arrow { margin-left: auto; color: var(--muted); flex-shrink: 0; }
-    .rd-text { display: flex; flex-direction: column; min-width: 0; }
-    .rd-hook { font-weight: 800; }
-    .rd-title { font-size: .78rem; font-weight: 700; color: var(--muted); margin-top: 2px; }
-    .rd-more { text-align: center; margin-top: 14px; }
-    .rd-more .btn-sub { display: inline-block; text-decoration: none; }
-  </style>
+<!--
+  2026-10-24 オーナー指示「ホーム画面が2つある」→ ホームを1つ（https://pgdhaev4.github.io/）にまとめた。
+  このページ（5診断の入口）の中身は、ホームへ移した（背景の上部はホームの濃い緑）。ここはホームへ自動で移るだけのページ。
+  移す前の控え＝app_shindan_v2\_bak_ホーム統合前_20261024\kokoro_app\index.html
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>診断の森｜疲れているときに、心が軽くなる診断</title>
+<link rel="canonical" href="https://pgdhaev4.github.io/">
+<meta http-equiv="refresh" content="0; url=/#shindan">
+<script>location.replace("/#shindan");</script>
 </head>
-<body>
-<div class="page-wrapper">
-
-  <header class="site-header">
-    <a href="../" class="site-title">🌲 診断の森</a>
-    <p class="crumb"><a href="../">トップ</a> › 疲れているときに、やってほしい診断</p>
-  </header>
-
-  <div class="page-hero">
-    <span class="eyebrow">🌿 全5種類・ひとつ約2分</span>
-    <h1>疲れているときに、やってほしい診断</h1>
-    <p class="lead">
-      今の悩みの要因を整理し、要因に応じた具体的な対処法を提案します。
-    </p>
-    <div class="hero-meta">
-      <span>⏱ 1つ約2分・6〜9問</span><span>📱 会員登録・個人情報入力なし</span><span>🌱 点数はつけません</span>
-    </div>
-  </div>
-
-  <div class="wrap">
-
-    <section class="static-sec">
-      <h2>今日は、どの入口にしますか</h2>
-      <p>近いものをひとつ選んでください。</p>
-
-      <div class="quiz-grid">
-        <a class="quiz-card" href="yameru.html">
-          <span class="qc-emoji">🧭</span>
-          <p class="qc-title">会社を辞めるか迷っている診断</p>
-          <p class="qc-desc">辞めるか続けるかで迷っているときに、何が迷いを止めているのか、まず何を確かめればいいのかを整理します。結論は出しません。</p>
-          <p class="qc-meta">6問・約2分／今の状態と今日できること</p>
-        </a>
-        <a class="quiz-card" href="kekkon-aseri.html">
-          <span class="qc-emoji">🕰️</span>
-          <p class="qc-title">結婚を焦ってしまう気持ち診断</p>
-          <p class="qc-desc">結婚のことで焦るときに、何が焦りのもとになっているのか、まず何をすればいいのかを整理します。結婚を勧める診断ではありません。</p>
-          <p class="qc-meta">6問・約2分／今の状態と今日できること</p>
-        </a>
-        <a class="quiz-card" href="renai-jishin.html">
-          <span class="qc-emoji">💗</span>
-          <p class="qc-title">恋愛で自信をなくした診断</p>
-          <p class="qc-desc">恋愛で自信が揺れたときに、何が起きているのか、まず何をすればいいのかを整理します。別れや告白は勧めません。</p>
-          <p class="qc-meta">6問・約2分／今の状態と今日できること</p>
-        </a>
-        <a class="quiz-card" href="kosodate-tsukare.html">
-          <span class="qc-emoji">🌙</span>
-          <p class="qc-title">子育てに疲れた診断</p>
-          <p class="qc-desc">子育てで何に疲れているのか、なぜつらくなりやすいのか、まず何を減らしたり頼ったりすればいいのかを整理します。</p>
-          <p class="qc-meta">6問・約2分／今の状態と今日できること</p>
-        </a>
-        <!-- 2026-10-12 オーナー指示：職場の人付き合いの診断を、今の形（9〜10問）のまま一覧に戻す -->
-        <a class="quiz-card" href="hitozukiai.html">
-          <span class="qc-emoji">🫧</span>
-          <p class="qc-title">職場の人付き合いに疲れた診断</p>
-          <p class="qc-desc">職場の人付き合いで何に疲れているのか、なぜつらくなりやすいのか、まず何をすればいいのかを整理します。</p>
-          <p class="qc-meta">8〜9問・約2分／今の状態と今日できること</p>
-        </a>
-      </div>
-    </section>
-
-    <!-- 2026-10-11 オーナー指示：「この診断で、やらないこと」は削除。上の4診断とは別枠の「寄り道」コーナーと、読みものの入口を置く -->
-    <section class="static-sec yorimichi">
-      <h2>まだ元気があれば、寄り道してください</h2>
-      <p>こんな診断もあります。上の5つとは別の、ちょっと笑って帰れる診断です。</p>
-      <div class="yr-grid">
-        <a class="yr-card" href="../workplace_app/">
-          <span class="yr-img"><img src="../workplace_app/images/shachiku_zangyo_gorilla.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='💼'"></span>
-          <span class="yr-body"><span class="yr-title">会社モンスター診断</span><span class="yr-desc">職場でしんどい日に、自分をモンスターにたとえて笑って帰る診断</span></span>
-          <span class="arrow">›</span>
-        </a>
-        <a class="yr-card" href="../kosodate_app/">
-          <span class="yr-img"><img src="../kosodate_app/images/parent_7_dragon.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='👶'"></span>
-          <span class="yr-body"><span class="yr-title">子育て親タイプ診断</span><span class="yr-desc">今日もおつかれさまでした。子育ての自分を、キャラにして眺める診断</span></span>
-          <span class="arrow">›</span>
-        </a>
-        <a class="yr-card" href="../psychology_app/">
-          <span class="yr-img"><img src="../psychology_app/images/chars_new/元カレ監視衛星.png" alt="" loading="lazy" onerror="this.parentElement.innerHTML='💖'"></span>
-          <span class="yr-body"><span class="yr-title">恋愛沼診断</span><span class="yr-desc">恋のことで頭がいっぱいの日に、自分の「沼」を笑ってみる診断</span></span>
-          <span class="arrow">›</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="static-sec">
-      <h2>今の自分に近いもの、ありませんか？</h2>
-      <p>診断のあとでも、読んでみたい記事だけでも。<br>気になったものを、ひとつだけどうぞ。</p>
-      <div class="rel-list rd-list">
-        <a href="../workplace_app/articles/yasumenai.html"><span class="rd-text"><span class="rd-hook">休んでいるのに、なぜか休めた気がしない人へ</span><span class="rd-title">→ 休むのが苦手な人のための休み方入門</span></span><span class="arrow">›</span></a>
-        <a href="../workplace_app/articles/ningenkankei.html"><span class="rd-text"><span class="rd-hook">職場の人間関係で、毎日ちょっとずつ疲れている人へ</span><span class="rd-title">→ 職場の人間関係に疲れた時の考え方</span></span><span class="arrow">›</span></a>
-        <a href="../workplace_app/articles/kotowari.html"><span class="rd-text"><span class="rd-hook">頼まれると、つい「いいですよ」と言ってしまう人へ</span><span class="rd-title">→ 仕事を断れない人のための上手な断り方</span></span><span class="arrow">›</span></a>
-        <a href="../kosodate_app/articles/kanpeki.html"><span class="rd-text"><span class="rd-hook">ちゃんとやろうとするほど、苦しくなってしまう人へ</span><span class="rd-title">→ 完璧主義を手放して楽になる考え方</span></span><span class="arrow">›</span></a>
-        <a href="../psychology_app/articles/fuan.html"><span class="rd-text"><span class="rd-hook">まだ起きていないことまで、頭の中で考え続けてしまう人へ</span><span class="rd-title">→ 不安になりやすいクセをやわらげる方法</span></span><span class="arrow">›</span></a>
-      </div>
-      <p class="rd-more"><a class="btn-sub" href="../articles.html">今の自分に合う記事を、もう少し探す</a></p>
-    </section>
-
-    <section class="static-sec">
-      <details class="faq-fold"><summary>よくある質問</summary>
-      <dl class="faq">
-        <dt>無料ですか？</dt>
-        <dd>診断はすべて無料で、会員登録も必要ありません。氏名やメールアドレスの入力もありません。（結果ページから、有料の記事〈note・200円〉をご案内することがあります。購入しなくても、無料の結果はすべてご覧いただけます。）</dd>
-        <dt>回答は外部に送信されますか？</dt>
-        <dd>診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、どの診断がどれくらい使われているかを知るための匿名の集計として送信します（回答内容・個人を特定する情報は送りません）。なお当サイトではアクセス解析（Googleアナリティクス）と広告配信（Google AdSense）を利用しており、それらに伴う情報の取扱いは<a href="../privacy.html">プライバシーポリシー</a>をご確認ください。</dd>
-        <dt>結果が当たっていない気がします。</dt>
-        <dd>これらの診断は、当てることより「今の困りごとを整理する手がかり」をお渡しすることを目的にしています。しっくりこない部分は、そのまま置いていってかまいません。</dd>
-        <dt>何度でもできますか？</dt>
-        <dd>できます。日によって答えは変わります。変わるのが普通です。</dd>
-      </dl></details>
-
-      <div class="disclaimer">
-        <strong>※これらの診断について</strong><br>
-        気持ちを整理するきっかけづくりを目的とした読みものです。医学的・心理学的な検査や診断ではなく、
-        病気の有無を判定するものではありません。結果に優劣はありません。
-        診断への回答内容はサーバーへ送信せず、お使いのブラウザ内で処理します。表示された結果の種類だけ、匿名の集計として送信します。
-        <p style="margin-top:9px">気持ちのつらさが続くときは、<a href="https://kokoro.mhlw.go.jp/" target="_blank" rel="noopener">こころの耳（厚生労働省）</a>などの相談先もあります。</p>
-      </div>
-    </section>
-  </div>
-
-  <footer class="site-footer">
-    <p><button class="footer-back" type="button" onclick="history.back()">← 前のページに戻る</button></p>
-    <a href="../">診断の森トップ</a>
-    <a href="../about.html">運営者情報</a>
-    <a href="../privacy.html">プライバシーポリシー</a>
-    <a href="../terms.html">利用規約</a>
-    <p class="footer-copy">© 2026 診断の森</p>
-  </footer>
-</div>
+<body style="font-family:sans-serif;background:#faf7f0;color:#2f4a3a;padding:24px 16px;line-height:1.8">
+<p>診断の一覧は、ホームに移りました。</p>
+<p><a href="/#shindan">診断の森（疲れているときに、心が軽くなる診断）のホームへ</a></p>
 </body>
 </html>

@@ -121,31 +121,40 @@
 
     // ① 今の状態
     // ★PHASE 2 の変更案：stateExtra に「環境が強いか・全部弱いか」を渡す（既存2テーマは2つ目の値を使わない）
-    var state = [T.freqSentence(FREQ[freq], freq) + (T.stateExtra ? T.stateExtra(a, { envStrong: envStrong, allWeak: allWeak }) : '')];
+    // 2026-10-24 オーナー指示：「〇〇と答えています」の文は出さない（freqSentence は残すが使わない。下の dropEcho が stateExtra の言い返しも外す）
+    // ★2026-10-24 利用者目線の照査 #4：見出しは「今の状態と対策の方向性」なのに、どんな状態かが書かれていなかった
+    //   → 1段落目に「今の状態」の一文（headlines＝10/13 に画面の一番上から外した見出しの文）を太字で置く
+    var stateLine = allWeak ? T.headlines.weak : T.headlines[s];
+    var state = [stateLine ? '**' + stateLine + '。**' : '', T.stateExtra ? T.stateExtra(a, { envStrong: envStrong, allWeak: allWeak }) : ''];
     state.push(R.ack + ((allWeak || envStrong) ? '' : T.ackFollow));
     // 事情（kind:'context'）を選んだときの補足（theme.env.contextNote があるときだけ。既存2テーマには無い）
     if (env.context.length && E.contextNote) { var cn = E.contextNote(env.context); if (cn) state.push(cn); }
 
     // ② 背景
     var why = [];
+    // ★2026-10-24 オーナー指示「②に、見透かされたと思うような言い当て（コールドリーディング）の文を必ず入れる（全診断）」
+    //   データ＝ルートごとの cold（routes[k].cold）・ルートが絞れないとき＝undetermined.texts[sub].cold か undetermined.cold。
+    //   相手からの害が強い結果（envStrong）には出さない（相手の言動の問題を、本人の内面の話にしないため）。
+    //   ★当初は safeMode のときだけ外していたが、職場・退職・子育ては害が強くても safeMode にならない作りのため、
+    //     威圧や帰らせてもらえない場面でも本人の内面の言い当てが出ていた（2026-10-24 心理・倫理の照査 #7）→ envStrong で外す
+    var noCold = safeMode || envStrong;
+    var coldOf = function (k) { return (!noCold && T.routes[k] && T.routes[k].cold) || ''; };
     if (rt.undetermined) {
       why.push(U.texts[rt.sub].why);
+      if (!noCold && (U.texts[rt.sub].cold || U.cold)) why.push(U.texts[rt.sub].cold || U.cold);
       if (rt.spread) why.push('表れていたのは、' + rt.spread.map(short).join('と、') + 'です（どれも1問ずつ）。');
       if (!safeMode) why.push(U.tail);
-      why.push(rt.spread ? '判定の根拠：背景を見る' + nQ + 'つの質問で、選んだ答えがそれぞれ別の方向でした。'
-        : '判定の根拠：背景を見る' + nQ + 'つの質問のうち、同じ方向の答えが2問以上そろったものはありませんでした。');
+      // 2026-10-24 オーナー指示：「判定の根拠：〜」の文は出さない（全診断）
     } else if (rt.primary.length >= 2) {
       why.push('今回の回答では、' + rt.primary.map(short).join('と、') + 'が、同じくらい表れています。');
+      if (coldOf(rt.primary[0])) why.push(coldOf(rt.primary[0]));
       if (!safeMode) rt.primary.forEach(function (k) { why.push(T.routes[k].why); });
       if (rt.secondary.length) why.push('あわせて、' + rt.secondary.map(short).join('や、') + 'も一部重なっています。');
-      why.push('判定の根拠：背景を見る' + nQ + 'つの質問のうち、' +
-        rt.primary.map(function (k) { return T.routes[k].evidence + 'が' + rt.counts[k] + '問'; }).join('、') + 'でした。');
     } else {
-      var k0 = rt.primary[0];
       why.push(R.bg);
+      if (coldOf(rt.primary[0])) why.push(coldOf(rt.primary[0]));
       if (!safeMode) why.push(R.why);
       if (rt.secondary.length) why.push('あわせて、' + rt.secondary.map(short).join('や、') + 'も一部重なっています。');
-      why.push('判定の根拠：背景を見る' + nQ + 'つの質問のうち、' + R.evidence + 'が' + rt.counts[k0] + '問ありました。');
     }
     if (env.level === 1) why.push(E.noteOne(E.items[env.picked[0]].text));
     // safeMode：背景の説明の前に断り書き（相手のふるまいは、本人の言い方で決まるものではない）
@@ -174,7 +183,7 @@
     if (related.length) {
       sections.push({
         kind: 'list', title: '関連して起きていること',
-        lead: '回答で選んだものだけを載せています。',
+        lead: '',          // 2026-10-24 オーナー指示：「回答で選んだものだけを載せています。」は出さない
         items: related.map(function (k) { return T.related[k]; }),
         after: T.relatedAfter(related)
       });
@@ -233,7 +242,8 @@
     var lead = envStrong ? P.envLead
       : allWeak ? P.weakLead
       : rt.undetermined ? P.undetLead
-      : 'あなたの場合は、記事の中でも' + rt.primary.map(function (k) { return '**「' + label(k) + '」**'; }).join('と') +
+      // 2026-10-24 利用者目線の照査 #14：ルート名の頭の記号（「B：」など）は読む人に意味が無いので外して出す
+      : 'あなたの場合は、記事の中でも' + rt.primary.map(function (k) { return '**「' + String(label(k)).replace(/^[A-ZＡ-Ｚ][：:]\s*/, '') + '」**'; }).join('と') +
         'の対処が特に参考になります。記事では、各章のこの見出しの部分を読めば足ります。';
     // ★PHASE 2 の変更案：補助の質問の答えで、記事の読む場所を1文足せる（環境が強い・全部弱いときは足さない）
     if (P.leadNote && !envStrong && !allWeak) { var ln = P.leadNote(a, rt); if (ln) lead += ln; }
@@ -254,7 +264,7 @@
       quiet: (envStrong && !!E.safetyFirst) || undefined
     });
 
-    return {
+    return K.finishResult({
       key: key,
       theme: T.id,
       kicker: '回答から見えた、今の状態',
@@ -270,7 +280,30 @@
       ]),
       sections: sections,
       _judge: { strength: s, route: rt, env: env, allWeak: allWeak, safeMode: safeMode, specials: byTop.map(function (x) { return x.key; }) }   // 検査用（画面には出さない）
-    };
+    });
+  };
+
+  // ★2026-10-24 オーナー指示（全診断の結果に共通の仕上げ。buildResult と、質問なしの結果・簡易結果の出口 decide の両方で通す）
+  //   ①「〇〇と答えています」「〜とも答えています」の言い返しの文は、どの節にも出さない。
+  //     データ側の文（freqSentence・stateExtra・contextNote・専用の案内の lead・背景の「一方で、〜とも答えています」）は消さずに、ここで文ごと外す
+  //   ② 最初の節の見出し「今の状態」→「今の状態と対策の方向性」
+  K.STATE_TITLE = '今の状態と対策の方向性';
+  K.dropEcho = function (t) {
+    if (typeof t !== 'string') return t;
+    // 文の区切り＝「。」まで（後読みの正規表現は古い iPhone の Safari で読み込みごと止まるので使わない）
+    return t.split('\n').map(function (line) {
+      return (line.match(/[^。]*。|[^。]+$/g) || []).filter(function (s) { return s.indexOf('答えています') < 0; }).join('');
+    }).filter(function (line, i, arr) { return line !== '' || arr.length === 1; }).join('\n');
+  };
+  K.finishResult = function (r) {
+    if (!r || !r.sections || r._finished) return r;
+    r.sections.forEach(function (sec) {
+      if (sec.title === '今の状態') sec.title = K.STATE_TITLE;
+      ['lead', 'after', 'body', 'note'].forEach(function (k) { if (typeof sec[k] === 'string') sec[k] = K.dropEcho(sec[k]); });
+      if (sec.paras) sec.paras = sec.paras.map(K.dropEcho).filter(function (p) { return p !== ''; });
+    });
+    Object.defineProperty(r, '_finished', { value: true, enumerable: false });
+    return r;
   };
 
   // ---------------- 登録 ----------------
@@ -423,8 +456,8 @@
           return K.themes[tid] ? K.buildResult(K.themes[tid], a) : null;
         }
         if (K.themes[a.q1] && themeIds.indexOf(a.q1) >= 0 && !gateOfTheme[a.q1]) return K.buildResult(K.themes[a.q1], a);
-        if (liteOf[a.q1]) return D.decideLite(liteOf[a.q1], a);
-        if (noneOf[a.q1]) return noneOf[a.q1].result(a);
+        if (liteOf[a.q1]) return K.finishResult(D.decideLite(liteOf[a.q1], a));
+        if (noneOf[a.q1]) return K.finishResult(noneOf[a.q1].result(a));
         return null;
       }
     };

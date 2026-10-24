@@ -24,7 +24,10 @@
   <meta name="twitter:description" content="おやつ財閥総裁から子育てブッダまで8タイプ。育児あるあるで爆笑＆共感確定。診断は無料。">
   <meta name="twitter:image" content="https://pgdhaev4.github.io/shindan/kosodate_app/assets/ogp.png">
   <title>子育て親タイプ診断 ～今日もおつかれさまです～</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap">
+  <link rel="stylesheet" href="home.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3934206444145241" crossorigin="anonymous"></script>
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/kosodate_app/">
 </head>
@@ -32,16 +35,16 @@
 <div class="page-wrapper">
 
   <header class="site-header">
-    <span class="site-title">👨‍👩‍👧 子育て親タイプ診断</span>
+    <span class="site-title"><span class="ico">👨‍👩‍👧</span> 子育て親タイプ診断</span>
   </header>
-  <div class="entame-note" style="max-width:720px;margin:12px auto;padding:10px 14px;border-radius:10px;background:#fff8e6;border:1px solid #ecd9a8;color:#5a4a20;font-size:14px;line-height:1.6;text-align:center;">🎈 <strong>エンタメ診断</strong>：遊びとして楽しむ診断です。心理学的・医学的な判定ではありません。</div>
+  <div class="entame-note"><span class="ico">🎈</span> <strong>エンタメ診断</strong>：遊びとして楽しむ診断です。<span class="nw">心理学的</span>・<span class="nw">医学的</span>な判定ではありません。</div>
 
 
   <section class="hero-section">
     <div class="hero-content">
-      <p class="hero-badge">👶 育児あるあるで遊ぶエンタメ診断</p>
-      <h2 class="hero-title">あなたの育児中の<br>ちょっと意外な一面は？</h2>
-      <p class="hero-sub">親タイプ・夫婦バランス・キャラ・期待度<br>全6診断・無料（登録不要）</p>
+      <p class="hero-badge"><span class="ico">👶</span> 育児あるあるで遊ぶエンタメ診断</p>
+      <h2 class="hero-title">あなたの育児中の<br><span class="hero-mark">ちょっと意外な一面</span>は？</h2>
+      <p class="hero-sub">親タイプ・夫婦バランス・キャラ・期待度<br><span class="hero-sub-strong">全6診断・無料（登録不要）</span></p>
       <p class="hero-hint">診断を選んでスタート</p>
     </div>
   </section>
@@ -50,77 +53,77 @@
 
     <!-- キャラクター図鑑 -->
     <section class="section">
-      <h2 class="section-title">🎭 登場キャラクター図鑑</h2>
+      <h2 class="section-title"><span class="ico">🎭</span> 登場キャラクター図鑑</h2>
       <p class="section-lead">タップして詳細を見る</p>
       <div class="monster-scroll" id="monster-scroll"></div>
     </section>
 
     <!-- 統合分析レポート（進捗つき・診断を選ぶの直上） -->
     <section class="section">
-      <div style="background:linear-gradient(135deg,#7a2040 0%,#e8436a 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(122,32,64,.35);">
-        <p style="font-size:.72rem;color:#ffe082;letter-spacing:.08em;margin-bottom:6px;">🔮 4つの診断を制覇したパパママだけの特別コンテンツ</p>
-        <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの子育て性格分析レポート<span style="color:#ffe082;">【16系統】</span></p>
-        <p style="font-size:.8rem;color:#ffd9e2;line-height:1.7;">4つの診断結果を統合分析して、回答から見える親としての強みの傾向を整理します。読み終わる頃、ちょっと泣けて、明日も頑張れる。</p>
+      <div class="report-card">
+        <p class="report-eyebrow"><span class="ico">🔮</span> 4つの診断を制覇した<span class="nw">パパママ</span>だけの特別コンテンツ</p>
+        <p class="report-title">あなただけの子育て性格分析レポート<span class="report-accent">【16系統】</span></p>
+        <p class="report-desc">4つの診断結果を統合分析して、回答から見える親としての強みの傾向を整理します。読み終わる頃、ちょっと泣けて、明日も頑張れる。</p>
         <div id="report-progress"></div>
       </div>
     </section>
 
     <!-- 診断一覧 -->
     <section class="section">
-      <h2 class="section-title">🎯 診断を選ぶ</h2>
+      <h2 class="section-title"><span class="ico">🎯</span> 診断を選ぶ</h2>
       <div class="diag-grid">
 
         <a href="parent_type.html" class="diag-card">
           <div class="diag-thumb">👨‍👩‍👧</div>
           <div class="diag-body">
             <p class="diag-title">親タイプ診断</p>
-            <p class="diag-desc">あなたはおやつ財閥総裁？それとも子育てブッダ？あなたの根本的な育児スタイルを8タイプで判定。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <p class="diag-desc">あなたはおやつ財閥総裁？それとも<span class="nw">子育てブッダ</span>？あなたの根本的な育児スタイルを8タイプで判定。</p>
+            <div class="diag-meta"><span><span class="m-ico">⏱</span> 約1分</span><span><span class="m-ico">📝</span> 8問</span><span><span class="m-ico">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="child_view.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fce7ef;">👶</div>
+          <div class="diag-thumb">👶</div>
           <div class="diag-body">
             <p class="diag-title">子供から見た親診断</p>
-            <p class="diag-desc">子供の目にはどう映ってる？おやつの神様から家のラスボスまで。子どもの視点から、わが家を見てみる診断。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <p class="diag-desc">子供の目にはどう映ってる？おやつの神様から家のラスボスまで。子どもの視点から、<span class="nw">わが家</span>を見てみる診断。</p>
+            <div class="diag-meta"><span><span class="m-ico">⏱</span> 約1分</span><span><span class="m-ico">📝</span> 8問</span><span><span class="m-ico">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="couple_balance.html" class="diag-card">
-          <div class="diag-thumb" style="background:#e0f2fe;">💑</div>
+          <div class="diag-thumb">💑</div>
           <div class="diag-body">
             <p class="diag-title">夫婦育児バランス診断</p>
-            <p class="diag-desc">最強タッグ夫婦？それとも家事行方不明者？夫婦の育児分担リアルを8タイプで診断。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <p class="diag-desc">最強タッグ夫婦？それとも<span class="nw">家事行方不明者</span>？夫婦の育児分担リアルを8タイプで診断。</p>
+            <div class="diag-meta"><span><span class="m-ico">⏱</span> 約1分</span><span><span class="m-ico">📝</span> 8問</span><span><span class="m-ico">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="expectation.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fef9c3;">🌟</div>
+          <div class="diag-thumb">🌟</div>
           <div class="diag-body">
             <p class="diag-title">子供への期待度診断</p>
-            <p class="diag-desc">のびのび応援団？東大予約センター？子供への期待レベルを8段階で測定。教育方針の傾向を、笑いながらのぞけます。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <p class="diag-desc">のびのび応援団？東大予約センター？子供への期待レベルを8段階で測定。<span class="nw">教育方針</span>の傾向を、笑いながらのぞけます。</p>
+            <div class="diag-meta"><span><span class="m-ico">⏱</span> 約1分</span><span><span class="m-ico">📝</span> 8問</span><span><span class="m-ico">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="future_relation.html" class="diag-card">
-          <div class="diag-thumb" style="background:#dcfce7;">🏡</div>
+          <div class="diag-thumb">🏡</div>
           <div class="diag-body">
             <p class="diag-title">将来の親子関係診断</p>
             <p class="diag-desc">将来は親友ファミリー？孫連れ常連客？今の育て方で変わる未来の親子関係を、遊びで想像。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <div class="diag-meta"><span><span class="m-ico">⏱</span> 約1分</span><span><span class="m-ico">📝</span> 8問</span><span><span class="m-ico">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="true_nature.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fee2e2;">🔥</div>
+          <div class="diag-thumb">🔥</div>
           <div class="diag-body">
             <p class="diag-title">育児中のキャラ診断</p>
             <p class="diag-desc">育児ブッダ？限界サバイバー？育児中のあなたの本当の頑張りが見えてくる、笑えて泣けるあるある診断。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <div class="diag-meta"><span><span class="m-ico">⏱</span> 約1分</span><span><span class="m-ico">📝</span> 8問</span><span><span class="m-ico">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
@@ -129,58 +132,58 @@
 
     <!-- お役立ち記事（ボタンで開閉） -->
     <section class="section">
-      <button id="articles-toggle" onclick="toggleArticles()" style="display:block;width:100%;background:#fff;border:2px solid #e8436a;color:#e8436a;border-radius:14px;padding:15px 16px;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 2px 8px rgba(232,67,106,.12);">📖 子育ての悩みお役立ち記事 ▾</button>
-      <div id="articles-panel" style="display:none;margin-top:12px;">
+      <button id="articles-toggle" class="articles-toggle" onclick="toggleArticles()">📖 子育ての悩みお役立ち記事 ▾</button>
+      <div id="articles-panel" style="display:none;">
       <p class="section-lead">診断のあとは、こちらもどうぞ。今日から使えるヒント</p>
       <div class="diag-grid">
 
         <a href="articles/shikarisugi.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fee2e2;">🤍</div>
+          <div class="diag-thumb">🤍</div>
           <div class="diag-body">
             <p class="diag-title">子どもを叱りすぎたと感じた時の対処法【キャラタイプ別】</p>
             <p class="diag-desc">つい強く叱って自己嫌悪…そんな時に親子の関係を立て直すフォローのしかた5つ。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="m-ico">📖</span> 読み物</span><span><span class="m-ico">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/iyaiya.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fef9c3;">🙅</div>
+          <div class="diag-thumb">🙅</div>
           <div class="diag-body">
-            <p class="diag-title">イヤイヤ期の子どもへの声かけのコツ</p>
+            <p class="diag-title">イヤイヤ期の<span class="nw">子どもへの</span>声かけのコツ</p>
             <p class="diag-desc">何を言っても「イヤ！」でへとへと。少しラクに乗り切る声かけのコツ5つ。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="m-ico">📖</span> 読み物</span><span><span class="m-ico">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/hayaku.html" class="diag-card">
-          <div class="diag-thumb" style="background:#e0f2fe;">⏰</div>
+          <div class="diag-thumb">⏰</div>
           <div class="diag-body">
-            <p class="diag-title">「早くしなさい」を減らす朝の工夫</p>
+            <p class="diag-title"><span class="nw">「早くしなさい」を</span>減らす朝の工夫</p>
             <p class="diag-desc">毎朝「早くして！」でぐったり。怒る回数を減らす朝の仕組みづくり5つ。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="m-ico">📖</span> 読み物</span><span><span class="m-ico">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/kyoudai-genka.html" class="diag-card">
-          <div class="diag-thumb" style="background:#dcfce7;">🤝</div>
+          <div class="diag-thumb">🤝</div>
           <div class="diag-body">
             <p class="diag-title">きょうだいげんかへの関わり方【親タイプ別】</p>
             <p class="diag-desc">起きにくくする先回りと、起きた後の3ステップ。さらに親タイプ別の一手も。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="m-ico">📖</span> 読み物</span><span><span class="m-ico">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/kanpeki.html" class="diag-card">
-          <div class="diag-thumb" style="background:#f3e8ff;">🍵</div>
+          <div class="diag-thumb">🍵</div>
           <div class="diag-body">
             <p class="diag-title">親の完璧主義を手放して楽になる考え方</p>
             <p class="diag-desc">「ちゃんとしなきゃ」と頑張りすぎる人へ。心を楽にする5つの考え方。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="m-ico">📖</span> 読み物</span><span><span class="m-ico">⏱</span> 約3分</span></div>
           </div>
         </a>
 
       </div>
-      <p style="text-align:center;margin-top:8px;"><a href="/shindan/articles.html" style="display:inline-block;color:#e8436a;font-weight:800;font-size:0.9rem;text-decoration:none;">📚 お役立ち記事をすべて見る（全40本）→</a></p>
+      <p class="all-articles"><a href="/shindan/articles.html"><span class="ico">📚</span> お役立ち記事をすべて見る（全40本）→</a></p>
       </div>
     </section>
 
@@ -189,23 +192,23 @@
   </main>
 
   <!-- 他の診断への誘導 -->
-  <section style="max-width:600px;margin:32px auto 24px;padding:0 16px;">
-    <h3 style="text-align:center;font-size:1rem;color:#7a4060;margin-bottom:16px;font-weight:700;">他の診断もチェック！</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <a href="../workplace_app/" style="display:block;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(249,115,22,0.25);">👔<br>社畜度診断</a>
-      <a href="../psychology_app/" style="display:block;background:linear-gradient(135deg,#e91e8c,#9c27b0);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(233,30,140,0.25);">💕<br>恋愛沼診断</a>
-      <a href="https://pgdhaev4.github.io/shindan/" style="display:block;background:linear-gradient(135deg,#475569,#1e293b);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(71,85,105,0.25);grid-column:1/-1;max-width:calc(50% - 5px);margin:0 auto;">🏠<br>診断トップ</a>
+  <section class="other-diag">
+    <h3 class="other-title">他の診断もチェック！</h3>
+    <div class="other-grid">
+      <a href="../workplace_app/" class="other-card"><span class="ico">👔</span><br>会社モンスター診断</a>
+      <a href="../psychology_app/" class="other-card"><span class="ico">💕</span><br>恋愛沼診断</a>
+      <a href="/" class="other-card is-home"><span class="ico">🏠</span><br>ホームに戻る</a>
     </div>
   </section>
 
 
-  <!-- 心が少し軽くなる診断への導線（2026-08-25 追加） -->
-  <section style="max-width:680px;margin:26px auto 0;padding:0 16px;">
-    <a href="../kokoro_app/" style="display:block;background:linear-gradient(155deg,#f7faf5 0%,#eaf2e7 100%);border:1px solid rgba(92,138,99,.4);border-radius:18px;padding:20px 20px 18px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18);">
-      <p style="font-size:.72rem;font-weight:800;letter-spacing:.08em;color:#3f6b4a;margin:0 0 8px;">🌿 笑うより、少し休みたい日は</p>
-      <p style="font-size:1.05rem;font-weight:900;color:#3f6b4a;line-height:1.45;margin:0 0 8px;">心が少し軽くなる診断</p>
-      <p style="font-size:.85rem;color:#5f7268;line-height:1.85;margin:0 0 10px;">子育てに疲れた日のための診断です。親としての出来・不出来は採点しません。今日の疲れがどこから来ているかだけを整理します。1つ約2分。</p>
-      <p style="display:inline-block;background:linear-gradient(135deg,#6aa06f,#4d7c56);color:#fff;font-weight:900;font-size:.85rem;padding:10px 22px;border-radius:99px;margin:0;">診断を見てみる →</p>
+  <!-- 本番の診断への導線（2026-08-25 追加 → 2026-10-24 今の名前と行き先に更新：旧名「心が少し軽くなる診断」はサイトに無い） -->
+  <section class="rest-wrap">
+    <a href="../kokoro_app/kosodate-tsukare.html" class="rest-card">
+      <p class="rest-eyebrow"><span class="ico">🌿</span> 笑うより、少し休みたい日は</p>
+      <p class="rest-title">子育てに疲れた診断</p>
+      <p class="rest-desc">「疲れているときに、心が軽くなる診断」のひとつです。親としての<span class="nw">出来・不出来</span>は採点しません。今の困りごとと、今日からできること1つを整理します。<span class="nw">約2分</span>・無料。</p>
+      <p class="rest-btn">子育てに疲れた診断へ →</p>
     </a>
   </section>
   <footer class="site-footer">
@@ -361,5 +364,6 @@ function toggleArticles() {
 })();
 </script>
 <script src="../kokoro_app/measure.js"></script>
+<script src="/shindan/kokoro_app/site-nav.js" defer></script>
 </body>
 </html>

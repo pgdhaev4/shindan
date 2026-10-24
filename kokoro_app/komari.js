@@ -287,6 +287,40 @@
     }, 0);
   };
 
+  // ---------------- 結果のあとの「次にできること」（2026-10-24） ----------------
+  // オーナー「各診断が連動していない」／利用者目線の照査 #1「結果を読んだあとに行く所が無い（合う読みもの・関連する診断が0）」
+  //   → 結果のすぐ下に、この診断に近い無料の読みもの3本と、ほかの4つの診断を並べる（記事は題名と中身で選んだ・行き先は手元で実在を確認）
+  var NEXT_READ = {
+    'yameru': [['/shindan/workplace_app/articles/tekisei.html', '自分に向いている仕事の見つけ方のヒント'],
+               ['/shindan/workplace_app/articles/yasumenai.html', '休むのが苦手な人のための休み方入門'],
+               ['/shindan/workplace_app/articles/motivation.html', '仕事のやる気が出ない時の対処法']],
+    'hitozukiai': [['/shindan/workplace_app/articles/ningenkankei.html', '職場の人間関係に疲れた時の考え方'],
+                   ['/shindan/workplace_app/articles/kotowari.html', '仕事を断れない人のための上手な断り方'],
+                   ['/shindan/workplace_app/articles/zatsudan-nigate.html', '職場の雑談が苦手な人の会話のヒント']],
+    'kosodate-tsukare': [['/shindan/kosodate_app/articles/kanpeki.html', '親の完璧主義を手放して楽になる考え方'],
+                         ['/shindan/kosodate_app/articles/shikarisugi.html', '子どもを叱りすぎたと感じた時の対処法'],
+                         ['/shindan/kosodate_app/articles/oya-jikan.html', '育児中に自分の時間をつくる方法']],
+    'renai-jishin': [['/shindan/psychology_app/articles/fuan.html', '不安になりやすい恋愛グセをやわらげる方法'],
+                     ['/shindan/psychology_app/articles/henshin-osoi.html', '返信が遅い相手に不安にならないための考え方'],
+                     ['/shindan/psychology_app/articles/izonkara.html', '恋愛に振り回されてつらいときの整え方']],
+    'kekkon-aseri': [['/shindan/psychology_app/articles/dokushin-fuan.html', '周りが結婚していく焦りとの付き合い方'],
+                     ['/shindan/psychology_app/articles/renraku.html', '駆け引きより効く、信頼される連絡のしかた'],
+                     ['/shindan/psychology_app/articles/jibun-migaki.html', '恋愛のためじゃない自分磨きのすすめ']]
+  };
+  var ALL_DIAG = [['yameru', '🧭', '会社を辞めるか迷っている診断'], ['hitozukiai', '🫧', '職場の人付き合いに疲れた診断'],
+                  ['kosodate-tsukare', '🌙', '子育てに疲れた診断'], ['renai-jishin', '💗', '恋愛で自信をなくした診断'],
+                  ['kekkon-aseri', '🕰️', '結婚を焦ってしまう気持ち診断']];
+  function nextSteps(slug) {
+    var reads = NEXT_READ[slug] || [];
+    var others = ALL_DIAG.filter(function (d) { return d[0] !== slug; });
+    return '<section class="rs k-next">' +
+      (reads.length ? '<h3 class="k-next-h">この結果に近い読みもの（無料）</h3><div class="k-next-list">' +
+        reads.map(function (x) { return '<a href="' + x[0] + '">' + esc(x[1]) + '<span>›</span></a>'; }).join('') + '</div>' : '') +
+      '<h3 class="k-next-h">ほかの診断もできます</h3><div class="k-next-grid">' +
+        others.map(function (d) { return '<a href="/shindan/kokoro_app/' + d[0] + '.html"><span class="ic">' + d[1] + '</span>' + esc(d[2]) + '</a>'; }).join('') +
+      '</div><p class="k-next-more"><a href="/shindan/articles.html">📚 読みものの一覧を見る</a></p></section>';
+  }
+
   // ---------------- 結果 ----------------
   Komari.prototype.renderResult = function () {
     var self = this;
@@ -307,9 +341,10 @@
     this.mount.innerHTML =
       '<div class="result-container k-result" data-key="' + esc(r.key) + '">' +
         body +
+        nextSteps(this.data.slug) +
         '<div class="result-actions">' +
           '<button class="btn btn-sub" id="retry" type="button">もう一度診断する</button>' +
-          '<a class="btn btn-sub" href="index.html">ほかの診断を見る</a>' +
+          '<a class="btn btn-sub" href="/">ホームに戻る</a>' +   // 2026-10-24 オーナー指示：「ほかの診断を見る」→「ホームに戻る」（サイトのトップへ）
         '</div>' +
       '</div>';
 

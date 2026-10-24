@@ -299,10 +299,10 @@ class QuizEngine {
             <span class="next-quiz-name">子育て親タイプ診断</span>
             <span class="next-quiz-label">育児スタイルを診断</span>
           </a>
-          <a href="../index.html" class="next-quiz-card" style="border-top:3px solid #16a34a;">
-            <span class="next-quiz-emoji">🌿</span>
-            <span class="next-quiz-name">診断の森トップへ</span>
-            <span class="next-quiz-label">全ジャンル一覧</span>
+          <a href="/" class="next-quiz-card" style="border-top:3px solid #16a34a;">
+            <span class="next-quiz-emoji">🏠</span>
+            <span class="next-quiz-name">ホームに戻る</span>
+            <span class="next-quiz-label">ほかの診断と読みもの</span>
           </a>
         </div>
       </div>
@@ -441,7 +441,7 @@ class QuizEngine {
               ${this._axisBar('T', '思考', pT, 'F', '感情')}
               ${this._axisBar('J', '計画', pJ, 'P', '柔軟')}
             </div>
-            <p class="result-description">${this._esc(result.description)}</p>
+            <p class="result-description">${this._descHtml(result.description)}</p>
             ${sectionsHtml}
             ${result.advice ? `<div class="result-advice"><span class="advice-icon">💡</span><div><strong>アドバイス</strong><br>${this._esc(result.advice)}</div></div>` : ''}
           </div>
@@ -452,7 +452,7 @@ class QuizEngine {
         <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
             <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
-          <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
+          <a href="/" class="back-home-btn">🏠 ホームに戻る</a>
         </div>
       </div>
     `;
@@ -661,7 +661,7 @@ class QuizEngine {
             ${summaryGaugeHtml}
             ${result.compatible_with ? `<div class="result-section compatible-section"><div class="result-section-label">💑 相性がいいのはこんな人</div><p class="result-section-text">${this._esc(result.compatible_with)}</p></div>` : ''}
             <div class="mbti-axis-bars"><div class="mbti-axis-title">📊 あなたの回答から見えた傾向</div>${barsHtml}</div>
-            <p class="result-description">${this._esc(result.description)}</p>
+            <p class="result-description">${this._descHtml(result.description)}</p>
             ${sectionsHtml}
             ${result.advice ? `<div class="result-advice"><span class="advice-icon">💡</span><div><strong>アドバイス</strong><br>${this._esc(result.advice)}</div></div>` : ''}
           </div>
@@ -672,7 +672,7 @@ class QuizEngine {
         <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
             <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
-          <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
+          <a href="/" class="back-home-btn">🏠 ホームに戻る</a>
         </div>
       </div>
     `;
@@ -788,7 +788,7 @@ class QuizEngine {
           </div>
           <div class="result-card-body">
             ${result.summary ? `<div class="result-summary-badge">${this._esc(result.summary)}</div>` : ''}
-            <p class="result-description">${this._esc(result.description)}</p>
+            <p class="result-description">${this._descHtml(result.description)}</p>
             ${sectionsHtmlFiltered}
             ${result.advice ? `<div class="result-advice"><span class="advice-icon">💡</span><div><strong>アドバイス</strong><br>${this._esc(result.advice)}</div></div>` : ''}
           </div>
@@ -804,7 +804,7 @@ class QuizEngine {
         <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
             <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
-          <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
+          <a href="/" class="back-home-btn">🏠 ホームに戻る</a>
         </div>
       </div>
     `;
@@ -843,7 +843,7 @@ class QuizEngine {
             <p class="oshi-catchphrase">"${this._esc(idol.catchphrase)}"</p>
           </div>
           <div class="oshi-card-body">
-            <p class="result-description">${this._esc(result.description)}</p>
+            <p class="result-description">${this._descHtml(result.description)}</p>
             ${tags  ? `<div class="result-tags">${tags}</div>` : ''}
             ${charm ? `<div class="oshi-charm"><p class="oshi-charm-title">✦ 推しポイント</p><ul>${charm}</ul></div>` : ''}
             ${result.advice ? `<div class="result-advice"><span class="advice-icon">💡</span><div><strong>攻略法</strong><br>${this._esc(result.advice)}</div></div>` : ''}
@@ -860,7 +860,7 @@ class QuizEngine {
         <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#fdf2f6;border-left:4px solid #c2416f;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#6b3049;line-height:1.9;">ここまで読んでくれて、ありがとうございます。<br>どのタイプでも、人を好きになれること自体がすてきなことです。あなたの恋を応援しています。</p></div>
             <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
-          <a href="index.html" class="back-home-btn">📋 他の診断を見る</a>
+          <a href="/" class="back-home-btn">🏠 ホームに戻る</a>
         </div>
       </div>
     `;
@@ -1233,7 +1233,7 @@ class QuizEngine {
     this.mountEl.innerHTML = `
       <div class="error-msg visible">
         <p>${this._esc(msg)}</p>
-        <a href="index.html" class="back-home-btn" style="margin-top:12px;display:inline-block;">トップへ戻る</a>
+        <a href="index.html" class="back-home-btn" style="margin-top:12px;display:inline-block;">← 恋愛沼診断へ</a>
       </div>
     `;
   }
@@ -1246,6 +1246,12 @@ class QuizEngine {
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
+  }
+
+  // 2026-10-24 オーナー指示「強調したい文章を太字に（回答結果・すべての診断）」：タイプ説明の最初の1文を太字に（1文だけの説明は太字にしない）
+  _descHtml(s) {
+    const e = this._esc(s), i = e.indexOf('。');
+    return (i > 0 && i < e.length - 1) ? '<strong>' + e.slice(0, i + 1) + '</strong>' + e.slice(i + 1) : e;
   }
 }
 

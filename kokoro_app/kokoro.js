@@ -481,7 +481,7 @@
     html +=
       '<div class="result-actions">' +
         '<button class="btn btn-sub" type="button" id="retry">もう一度やってみる</button>' +
-        '<a class="btn btn-main" href="index.html">ほかの診断を見てみる</a>' +
+        '<a class="btn btn-main" href="/">ホームに戻る</a>' +
       '</div>' +
       '<p style="text-align:center;font-size:.78rem;color:#8a988f;line-height:1.9;margin-top:6px;">' +
         'ここで終わりにして大丈夫です。<br>ひとつ受けるだけで、十分です。' +
@@ -658,7 +658,7 @@
     return html +
       '<div class="result-actions">' +
         '<button class="btn btn-sub" type="button" id="retry">もう一度やってみる</button>' +
-        '<a class="btn btn-main" href="index.html">ほかの診断を見てみる</a>' +
+        '<a class="btn btn-main" href="/">ホームに戻る</a>' +
       '</div>' +
       '<p style="text-align:center;font-size:.78rem;color:#8a988f;line-height:1.9;margin-top:6px;">' +
         'ここで終わりにして大丈夫です。<br>ひとつ受けるだけで、十分です。' +

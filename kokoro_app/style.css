@@ -11,7 +11,7 @@
   --surface:   #ffffff;
   --ink:       #33403a;   /* 黒すぎない文字色 */
   --ink-soft:  #5f7268;
-  --muted:     #8a988f;
+  --muted:     #66766c;   /* 2026-10-24：#8a988f はコントラスト約3で読みにくい（利用者目線の照査 #21）→ 約4.6 に */
   --green:     #5c8a63;
   --green-dk:  #3f6b4a;
   --green-lt:  #e8f0e6;
@@ -258,6 +258,11 @@ body {
   padding: 13px 15px; margin: 22px 0 0;
 }
 .disclaimer strong { color: var(--ink-soft); }
+/* 2026-10-24 オーナー指示「相談先は箇条書きに（以下に相談できます）」 */
+.disclaimer .soudan-head { margin-top: 10px; font-weight: 800; color: var(--ink-soft); }
+.disclaimer .soudan-list { margin: 4px 0 0; padding-left: 1.2em; }
+.disclaimer .soudan-list li { margin: 3px 0; line-height: 1.75; }
+.disclaimer .soudan-list .when { display: block; color: var(--ink-soft); }
 
 /* ---------- 診断カード一覧（index用） ---------- */
 .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 13px; }
@@ -271,7 +276,7 @@ body {
 .quiz-card .qc-emoji { font-size: 1.7rem; display: block; margin-bottom: 7px; }
 .quiz-card .qc-title { font-size: 1rem; font-weight: 900; line-height: 1.45; margin-bottom: 6px; color: var(--green-dk); }
 .quiz-card .qc-desc { font-size: .84rem; color: var(--ink-soft); line-height: 1.8; }
-.quiz-card .qc-meta { font-size: .73rem; color: var(--muted); margin-top: 9px; font-weight: 700; }
+.quiz-card .qc-meta { font-size: .8rem; color: var(--muted); margin-top: 9px; font-weight: 700; }
 
 /* ---------- フッター ---------- */
 .site-footer {
@@ -331,6 +336,11 @@ body.is-result .page-hero { display: none; }
 .page-hero .subcopy {
   font-size: clamp(.85rem, 3.5vw, .95rem); font-weight: 800; color: var(--green-dk);
   line-height: 1.85; max-width: 30em; margin: 0 auto 10px;
+}
+/* 2026-10-24 利用者目線の照査 #5：スマホで診断ページを開いた最初の1画面に、選択肢が1つも見えなかった（最初の選択肢が 770〜892px）
+   → スマホでは上部の小見出しとサブコピー（同じ内容が下の「〇〇診断とは」にある）を隠して、すぐ1問目が見えるようにする */
+@media (max-width: 480px) {
+  .page-hero:not(.home-hero) .eyebrow, .page-hero:not(.home-hero) .subcopy { display: none; }
 }
 
 /* 「かなり見られている」と思える一言 */

@@ -1236,3 +1236,11 @@ body { overflow-wrap: break-word; line-break: strict; }
 p, li, dd, dt, .diag-desc, .diag-card-desc, .mc-desc, .footer-copy,
 .result-desc, .q-text, .opt, .char-desc { text-wrap: pretty; word-break: auto-phrase; overflow-wrap: anywhere; }
 h1, h2, h3, .diag-title, .diag-card-title, .mc-name, .result-title { text-wrap: balance; word-break: auto-phrase; overflow-wrap: anywhere; }
+
+/* 2026-10-24 幅320で語の途中で折り返していた（wrap_check）
+   ・プライバシー／利用規約の見出し：h1 が既定の大きさ（2em）のまま横並びで「親タイプ診／断」「プライバ／シーポリ／シー」に割れていた → 縦に積んで大きさを決める
+   ・フッターのリンク：「🏠 ホームに／戻る」と割れていた → 1つのリンクは1行で */
+.site-header:has(.tagline) { flex-direction: column; align-items: flex-start; gap: 2px; }
+.site-header h1 { margin: 0; font-size: 1.2rem; font-weight: 900; color: var(--white); line-height: 1.4; }
+.site-header .tagline { margin: 0; font-size: .85rem; font-weight: 700; color: rgba(255,255,255,.9); }
+.site-footer a { display: inline-block; white-space: nowrap; }

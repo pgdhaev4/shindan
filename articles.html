@@ -35,7 +35,7 @@
     .alist a { display:flex; align-items:center; gap:12px; background:#16161e; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px 16px; text-decoration:none; color:rgba(255,255,255,0.92); transition:transform .15s, box-shadow .15s; }
     .alist a:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.4); }
     .alist .ico { font-size:1.3rem; }
-    .alist .ttl { font-weight:700; font-size:0.92rem; flex:1; line-height:1.4; }
+    .alist .ttl { font-weight:700; font-size:0.92rem; flex:1; line-height:1.4; text-wrap:balance; }
     .alist .arw { color:rgba(255,255,255,0.4); font-weight:700; }
     .diag-link { display:inline-block; margin-top:10px; font-size:0.8rem; color:#7dd3fc; text-decoration:none; }
     .site-footer { text-align:center; padding:24px 16px; color:rgba(255,255,255,0.3); font-size:0.72rem; border-top:1px solid rgba(255,255,255,0.06); }
@@ -60,7 +60,7 @@
 </head>
 <body>
   <header class="head">
-    <a href="./" class="home">← 診断の森トップ</a>
+    <a href="/" class="home">← ホームに戻る</a>
     <h1>📚 お役立ち記事 一覧</h1>
     <p>明日を少しラクにするための読みものです。<br>診断のあとでも、読むだけでもかまいません。</p>
   </header>
@@ -88,7 +88,7 @@
       </ul>
       <p style="margin-top:14px;font-size:0.86rem;">
         気持ちの整理から始めたい方は
-        <a href="./kokoro_app/" style="color:#a7f3d0;font-weight:800;">🌿 心が少し軽くなる診断</a> へどうぞ（1つ約2分）。
+        <a href="/#shindan" style="color:#a7f3d0;font-weight:800;">🌿 疲れているときに、心が軽くなる診断</a> へどうぞ（1つ約2分）。
       </p>
     </section>
 
@@ -162,8 +162,9 @@
   <footer class="site-footer">
     <a href="./privacy.html">プライバシーポリシー</a>
     <a href="./terms.html">利用規約</a>
-    <a href="./">診断の森トップ</a>
+    <a href="/">ホームに戻る</a>
     <p style="margin-top:10px;">© 2026 診断の森</p>
   </footer>
+<script src="/shindan/kokoro_app/site-nav.js" defer></script>
 </body>
 </html>

@@ -293,7 +293,7 @@ class QuizEngine {
           ${onelinerHtml}
           ${result.description ? `
           <div class="result-desc-card">
-            <p class="result-desc">${this._esc(result.description)}</p>
+            <p class="result-desc">${this._descHtml(result.description)}</p>
           </div>` : ''}
           ${result.tsukkomi ? `
           <div class="result-tsukkomi-card">
@@ -319,7 +319,7 @@ class QuizEngine {
         <div class="negirai-card" style="max-width:560px;margin:26px auto 0;background:#f2f7f0;border-left:4px solid #4a7c59;border-radius:10px;padding:14px 18px;text-align:left;"><p style="margin:0;font-size:0.88rem;color:#2f4a38;line-height:1.9;">今日も一日、おつかれさまでした。<br>診断を開く余裕がある——それだけで、ちゃんと向き合えている証拠です。あなたの毎日を応援しています。</p></div>
             <div class="result-action-btns">
           <button class="retry-btn" id="retry-btn">🔄 もう一度診断する</button>
-          <a href="index.html" class="back-home-btn">👶 他の診断を見る</a>
+          <a href="/" class="back-home-btn">🏠 ホームに戻る</a>
         </div>
       </div>
     `;
@@ -462,10 +462,10 @@ class QuizEngine {
             <span class="next-quiz-name">恋愛沼診断</span>
             <span class="next-quiz-label">恋愛タイプを診断</span>
           </a>
-          <a href="../index.html" class="next-quiz-card" style="border-top:3px solid #16a34a;">
-            <span class="next-quiz-emoji">🌿</span>
-            <span class="next-quiz-name">診断の森トップへ</span>
-            <span class="next-quiz-label">全ジャンル一覧</span>
+          <a href="/" class="next-quiz-card" style="border-top:3px solid #16a34a;">
+            <span class="next-quiz-emoji">🏠</span>
+            <span class="next-quiz-name">ホームに戻る</span>
+            <span class="next-quiz-label">ほかの診断と読みもの</span>
           </a>
         </div>
       </div>
@@ -491,11 +491,17 @@ class QuizEngine {
   }
 
   _showError(msg) {
-    this.mountEl.innerHTML = `<div class="error-wrap"><p>⚠️ ${this._esc(msg)}</p><a href="index.html">トップへ戻る</a></div>`;
+    this.mountEl.innerHTML = `<div class="error-wrap"><p>⚠️ ${this._esc(msg)}</p><a href="index.html">← 子育て親タイプ診断へ</a></div>`;
   }
 
   _esc(s) {
     return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // 2026-10-24 オーナー指示「強調したい文章を太字に（回答結果・すべての診断）」：タイプ説明の最初の1文を太字に（1文だけの説明は太字にしない）
+  _descHtml(s) {
+    const e = this._esc(s), i = e.indexOf('。');
+    return (i > 0 && i < e.length - 1) ? '<strong>' + e.slice(0, i + 1) + '</strong>' + e.slice(i + 1) : e;
   }
 }
 

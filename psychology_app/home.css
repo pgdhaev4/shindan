@@ -1,0 +1,754 @@
+/* =========================================================
+   恋愛沼診断 トップページ専用（index.html だけが読む）2026-10-24
+   ・style.css（質問・結果ページと共通）の上に重ねて、トップの見た目だけを変える
+   ・配色は3色：ワイン（深いプラム）／くすんだローズ／生成り（＋文字の濃淡）
+     例外：ページ下の「笑うより、少し休みたい日は」だけは、行き先（心が軽くなる診断）の緑を薄く使う
+   ・余白は 8px の倍数／文字は 見出し18・本文15・注記13（ヒーローの大見出しだけ 28→PC36）
+   ・カードは 角丸16・線1px・影1種類 で統一（小さな四角＝12、ボタンと札＝丸）
+   ========================================================= */
+
+:root {
+  --h-wine:      #4a1733;   /* ヒーロー・レポートの地 */
+  --h-wine-2:    #6e2549;   /* 明るい地の上のボタン・強調 */
+  --h-rose:      #e3aebb;   /* 濃い地の上の差し色 */
+  --h-rose-ink:  #94425f;   /* 明るい地の上のローズの文字 */
+  --h-rose-tint: #f4e6e8;   /* 札・小さな四角の地 */
+  --h-ivory:     #f7f1ea;   /* ページの地（生成り） */
+  --h-paper:     #fffdfa;   /* カードの地 */
+  --h-line:      #e8dbd2;   /* 線 */
+  --h-ink:       #2a1622;   /* 本文 */
+  --h-ink-2:     #5b4452;   /* 補足の文字（地に対して 8:1 以上） */
+  --h-on-dark:   #f8eee9;   /* 濃い地の上の文字 */
+  --h-on-dark-2: #e6d3da;   /* 濃い地の上の補足 */
+
+  --h-fs-display: 28px;
+  --h-fs-h: 18px;
+  --h-fs-b: 15px;
+  --h-fs-n: 13px;
+
+  --h-r-card: 16px;
+  --h-r-tile: 12px;
+  --h-r-pill: 999px;
+  --h-shadow: 0 1px 2px rgba(42, 22, 34, .05), 0 8px 24px -16px rgba(42, 22, 34, .28);
+  --h-shadow-hover: 0 2px 4px rgba(42, 22, 34, .06), 0 16px 32px -16px rgba(42, 22, 34, .36);
+
+  --h-serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  --h-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
+}
+
+/* ---------- 土台 ---------- */
+body {
+  font-family: var(--h-sans);
+  background: var(--h-ivory);
+  color: var(--h-ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.page-wrapper { background: var(--h-ivory); }   /* 下の余白80px（style.css）はそのまま */
+@media (min-width: 481px) {
+  body { background: #ece2d9; }
+  .page-wrapper {
+    background: var(--h-ivory);
+    box-shadow: 0 0 0 1px var(--h-line), 0 32px 64px -32px rgba(42, 22, 34, .30);
+  }
+}
+a:hover { text-decoration: none; }
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible, .monster-card-mini:focus-visible {
+  outline: 2px solid var(--h-rose-ink);
+  outline-offset: 2px;
+}
+
+/* ---------- ヘッダー（上に貼りつく細い帯） ---------- */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 16px;
+  padding: 16px 16px 16px;
+  text-align: left;
+  background: rgba(255, 253, 250, .92);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--h-line);
+  box-shadow: none;
+  color: var(--h-ink);
+}
+.site-header h1 {
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  letter-spacing: .06em;
+  line-height: 1.4;
+  color: var(--h-wine);
+  text-shadow: none;
+}
+.site-header .tagline {
+  margin: 0;
+  font-size: var(--h-fs-n);
+  line-height: 1.6;
+  color: var(--h-ink-2);
+  opacity: 1;
+}
+
+/* エンタメ診断の注記 */
+.entame-note {
+  margin: 16px;
+  padding: 8px 16px;
+  border: 1px solid var(--h-line);
+  border-radius: var(--h-r-tile);
+  background: var(--h-paper);
+  color: var(--h-ink-2);
+  font-size: var(--h-fs-n);
+  line-height: 1.7;
+}
+.entame-note strong { color: var(--h-ink); }
+
+/* ---------- ヒーロー ---------- */
+.hero-lab {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 24px 40px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(227, 174, 187, .16) 0%, rgba(227, 174, 187, 0) 55%),
+    linear-gradient(160deg, #521a39 0%, var(--h-wine) 55%, #3b1229 100%);
+  color: var(--h-on-dark);
+  text-align: left;
+}
+/* 沼の波紋（右下に細い同心円）。枠の内側だけで描く（枠の外へはみ出す要素を作らない） */
+.hero-lab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(circle at calc(100% - 100px) calc(100% - 60px),
+    rgba(227, 174, 187, 0) 0 31px, rgba(227, 174, 187, .22) 31px 32px);
+  -webkit-mask-image: radial-gradient(circle at calc(100% - 100px) calc(100% - 60px), #000 0, rgba(0, 0, 0, .6) 124px, transparent 216px);
+  mask-image: radial-gradient(circle at calc(100% - 100px) calc(100% - 60px), #000 0, rgba(0, 0, 0, .6) 124px, transparent 216px);
+  pointer-events: none;
+}
+.hero-lab-content { position: relative; z-index: 1; }
+.hero-lab-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  letter-spacing: .08em;
+  line-height: 1.6;
+  color: var(--h-rose);
+}
+.hero-lab-badge::before {
+  content: '';
+  flex: 0 0 24px;
+  height: 1px;
+  background: currentColor;
+}
+.hero-lab h2 {
+  margin: 0 0 16px;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-display);
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: .04em;
+  color: var(--h-on-dark);
+}
+.hero-em { color: var(--h-rose); }
+.hero-lab p.hero-lead {
+  margin: 0 0 24px;
+  font-size: var(--h-fs-b);
+  line-height: 1.8;
+  color: var(--h-on-dark-2);
+  opacity: 1;
+}
+.hero-meta {
+  display: inline-block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(227, 174, 187, .35);
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--h-rose);
+}
+/* 「診断を選んでスタート ↓」＝押すと全診断一覧へ進むボタン */
+.hero-lab p.hero-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  margin: 0;
+  padding: 8px 24px;
+  border-radius: var(--h-r-pill);
+  background: var(--h-on-dark);
+  color: var(--h-wine);
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .55);
+  transition: transform .18s ease, box-shadow .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.hero-lab p.hero-scroll-hint::after { content: ' ↓'; }
+.hero-lab p.hero-scroll-hint:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -12px rgba(0, 0, 0, .6); }
+.hero-lab p.hero-scroll-hint:focus-visible { outline: 2px solid var(--h-rose); outline-offset: 3px; }
+
+/* ---------- セクション共通 ---------- */
+.section { padding: 40px 16px 0; }
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 8px;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  letter-spacing: .06em;
+  line-height: 1.5;
+  color: var(--h-wine);
+}
+.section-title::before { display: none; }
+.section-title::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--h-line);
+}
+.section-lead {
+  margin: 0 0 16px;
+  font-size: var(--h-fs-n);
+  line-height: 1.6;
+  color: var(--h-ink-2);
+}
+#all-diag { scroll-margin-top: 72px; }
+
+/* ---------- 登場モンスター図鑑（横に流れる額） ---------- */
+.monster-scroll {
+  gap: 16px;
+  margin: 0 -16px;
+  padding: 8px 16px 16px;
+  scroll-padding-left: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #d9bfc7 transparent;
+}
+.monster-scroll::-webkit-scrollbar { height: 4px; }
+.monster-scroll::-webkit-scrollbar-track { background: transparent; margin: 0 16px; }
+.monster-scroll::-webkit-scrollbar-thumb { background: #d9bfc7; border-radius: var(--h-r-pill); }
+.monster-card-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  padding: 8px 8px 16px;
+  background: var(--h-paper);
+  border: 1px solid var(--h-line);
+  border-radius: var(--h-r-card);
+  box-shadow: var(--h-shadow);
+  text-align: center;
+}
+.monster-card-mini:hover { transform: translateY(-2px); box-shadow: var(--h-shadow-hover); }
+.mc-img-wrap {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 0 8px;
+  border-radius: var(--h-r-tile);
+  background: var(--h-rose-tint);
+}
+.mc-img-wrap img { display: block; mix-blend-mode: multiply; }
+.mc-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8em;          /* 2行ぶんの高さを確保して、下の札の位置をそろえる */
+  margin: 0 0 8px;
+  padding: 0;
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--h-ink);
+}
+.mc-tap {
+  margin-top: auto;
+  padding: 0 16px;
+  border-radius: var(--h-r-pill);
+  background: var(--h-rose-tint);
+  color: var(--h-rose-ink);
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  line-height: 24px;
+}
+
+/* ---------- 統合分析レポート（濃い地のカード） ---------- */
+.report-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px 16px;          /* スマホは左右16（行の「〜を受ける」を1行に収めるため）・PCは24 */
+  border-radius: var(--h-r-card);
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgba(227, 174, 187, .18) 0%, rgba(227, 174, 187, 0) 60%),
+    var(--h-wine);
+  color: var(--h-on-dark);
+  box-shadow: var(--h-shadow);
+}
+.report-kicker {
+  margin: 0 0 8px;
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.6;
+  color: var(--h-rose);
+}
+.report-title {
+  margin: 0 0 8px;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.6;
+  color: var(--h-on-dark);
+}
+.report-title-em { color: var(--h-rose); }
+.report-desc {
+  margin: 0;
+  font-size: var(--h-fs-b);
+  line-height: 1.8;
+  color: var(--h-on-dark-2);
+}
+.rp-head {
+  margin: 24px 0 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(227, 174, 187, .28);
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--h-on-dark);
+}
+.rp-num {
+  padding: 0 .15em;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  color: var(--h-rose);
+}
+.rp-dots { display: flex; gap: 8px; margin: 0 0 8px; }
+.rp-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px dashed rgba(227, 174, 187, .55);
+  font-size: 18px;
+  line-height: 1;
+  opacity: .72;
+}
+.rp-dot.is-done { border: 1px solid var(--h-rose); background: rgba(227, 174, 187, .28); opacity: 1; }
+.rp-rows { display: flex; flex-direction: column; }
+.rp-row {
+  position: relative;
+  display: block;
+  padding: 16px 16px 16px 0;
+  border-bottom: 1px solid rgba(227, 174, 187, .22);
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--h-on-dark);
+}
+.rp-rows > .rp-row:first-child { border-top: 1px solid rgba(227, 174, 187, .22); }
+a.rp-row::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--h-rose);
+  border-right: 2px solid var(--h-rose);
+  transform: translateY(-50%) rotate(45deg);
+}
+a.rp-row:hover { color: #fff; background: rgba(227, 174, 187, .08); }
+.rp-row.is-done { font-weight: 400; color: var(--h-on-dark-2); }
+.rp-more {
+  display: block;
+  margin-top: 16px;
+  text-align: right;
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  color: var(--h-rose);
+}
+.rp-more:hover { color: var(--h-on-dark); }
+.rp-cta {
+  display: block;
+  margin-top: 16px;
+  padding: 8px 24px;
+  border-radius: var(--h-r-pill);
+  background: var(--h-on-dark);
+  color: var(--h-wine);
+  text-align: center;
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* ---------- 全診断一覧・お役立ち記事のカード（押せる横帯） ----------
+   1段目＝絵（左）＋題名＋「＞」、2段目から＝説明・札・所要時間をカード幅いっぱいに
+   （HTMLの並びは同じ。.diag-card-body を display:contents にして、中身をカードの格子に直接並べる） */
+.diag-grid { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 0; }
+.diag-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 0;
+  align-items: start;
+  padding: 16px;
+  background: var(--h-paper);
+  border: 1px solid var(--h-line);
+  border-radius: var(--h-r-card);
+  box-shadow: var(--h-shadow);
+  color: var(--h-ink);
+  text-decoration: none;
+  overflow: visible;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+/* 右下の丸い「＞」＝押せる印（所要時間の行の右端。題名と説明の幅を削らない） */
+.diag-card::before {
+  content: '';
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--h-rose-tint);
+  transition: background .18s ease;
+}
+.diag-card::after {
+  content: '';
+  position: absolute;
+  right: 26px;
+  bottom: 24px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--h-rose-ink);
+  border-right: 2px solid var(--h-rose-ink);
+  transform: rotate(45deg);
+  transition: border-color .18s ease;
+}
+.diag-card:hover::before { background: var(--h-wine-2); }
+.diag-card:hover::after { border-color: var(--h-on-dark); }
+.diag-card:hover { transform: translateY(-2px); box-shadow: var(--h-shadow-hover); border-color: #dcc6bb; }
+.diag-card:active { transform: translateY(0); }
+.diag-card-thumb {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  min-width: 0;
+  height: 48px;
+  border-radius: var(--h-r-tile);
+  background: var(--h-rose-tint);
+  font-size: 24px;
+  line-height: 1;
+}
+.diag-card-body { display: contents; }
+.diag-card-title {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  display: block;
+  margin: 0;
+  padding-right: 0;
+  font-size: var(--h-fs-h);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--h-ink);
+}
+.diag-card-desc, .diag-metrics, .diag-card-meta { grid-column: 1 / -1; }
+.diag-card-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 8px;
+  border-radius: var(--h-r-pill);
+  background: var(--h-wine-2);
+  color: var(--h-on-dark);
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  letter-spacing: .02em;
+  line-height: 1.7;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+.diag-card-desc {
+  margin: 16px 0 8px;
+  font-size: var(--h-fs-b);
+  line-height: 1.75;
+  color: var(--h-ink-2);
+}
+.diag-metrics { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
+.diag-metrics span {
+  padding: 0 8px;
+  border-radius: var(--h-r-pill);
+  background: var(--h-rose-tint);
+  color: var(--h-rose-ink);
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.diag-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding-right: 40px;        /* 右下の丸い「＞」の分 */
+  min-height: 24px;
+  align-items: center;
+  font-size: var(--h-fs-n);
+  line-height: 1.6;
+  color: var(--h-ink-2);
+}
+.diag-card-meta span + span { margin-left: 8px; padding-left: 8px; border-left: 1px solid var(--h-line); }
+
+/* ---------- お役立ち記事の開閉ボタン ---------- */
+#articles-toggle {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 24px;
+  border: 1px solid var(--h-line);
+  border-radius: var(--h-r-card);
+  background: var(--h-paper);
+  box-shadow: var(--h-shadow);
+  color: var(--h-wine-2);
+  font-family: var(--h-sans);
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.6;
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow .18s ease, border-color .18s ease;
+}
+#articles-toggle:hover { box-shadow: var(--h-shadow-hover); border-color: #dcc6bb; }
+#articles-panel { margin-top: 16px; }
+.articles-more { margin: 16px 0 0; text-align: right; }
+.articles-more a {
+  display: inline-block;
+  padding: 8px 0;
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  color: var(--h-wine-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(110, 37, 73, .35);
+  text-underline-offset: 4px;
+}
+.articles-more a:hover { text-decoration-color: currentColor; }
+
+/* ---------- 他の診断もチェック！ ---------- */
+.xlink { max-width: 640px; margin: 48px auto 0; padding: 0 16px; }
+.xlink-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 16px;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  letter-spacing: .06em;
+  line-height: 1.5;
+  color: var(--h-wine);
+}
+.xlink-title::after { content: ''; flex: 1 1 auto; height: 1px; background: var(--h-line); }
+.xlink-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.xlink-tile {
+  display: block;
+  padding: 16px 8px;
+  background: var(--h-paper);
+  border: 1px solid var(--h-line);
+  border-radius: var(--h-r-card);
+  box-shadow: var(--h-shadow);
+  color: var(--h-wine-2);
+  text-align: center;
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  line-height: 1.6;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.xlink-tile:hover { transform: translateY(-2px); box-shadow: var(--h-shadow-hover); }
+.xlink-emo { display: inline-block; font-size: 24px; line-height: 32px; }
+.xlink-home { grid-column: 1 / -1; width: calc(50% - 8px); margin: 0 auto; }
+@media (max-width: 359px) {      /* 320px幅では2列だと「会社モンスター／診断」が2文字だけ次の行に落ちるため1列に */
+  .xlink-grid { grid-template-columns: 1fr; }
+  .xlink-home { width: 100%; }
+}
+
+/* ---------- 笑うより、少し休みたい日は（行き先＝心が軽くなる診断の緑を薄く） ---------- */
+.kokoro-cross { max-width: 640px; margin: 40px auto 0; padding: 0 16px; }
+.kokoro-card {
+  display: block;
+  padding: 24px;
+  background: #f1f4ee;
+  border: 1px solid #cfdccf;
+  border-radius: var(--h-r-card);
+  box-shadow: var(--h-shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.kokoro-card:hover { transform: translateY(-2px); box-shadow: var(--h-shadow-hover); }
+.kokoro-kicker {
+  margin: 0 0 8px;
+  font-size: var(--h-fs-n);
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.6;
+  color: #3e6248;
+}
+.kokoro-title {
+  margin: 0 0 8px;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.5;
+  color: #2f4d39;
+}
+.kokoro-desc {
+  margin: 0 0 16px;
+  font-size: var(--h-fs-b);
+  line-height: 1.85;
+  color: #44554a;
+}
+.kokoro-btn {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 24px;
+  border-radius: var(--h-r-pill);
+  background: #4b7356;
+  color: #fff;
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  margin-top: 48px;
+  padding: 32px 16px 40px;
+  background: transparent;
+  border-top: 1px solid var(--h-line);
+  color: var(--h-ink-2);
+  font-size: var(--h-fs-n);
+  line-height: 1.8;
+}
+.site-footer a {
+  color: var(--h-wine-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(110, 37, 73, .35);
+  text-underline-offset: 3px;
+}
+.footer-note { margin-top: 8px; font-size: var(--h-fs-n); }
+
+/* ---------- 図鑑のポップアップ（見た目だけ。開閉の動きは index.html の JS のまま） ---------- */
+/* 外8・内16：スマホ幅7種×7体で、語の途中の折り返しが最も少ない組み合わせ（作業前13件→4件・すべて360px） */
+.monster-overlay { background: rgba(32, 12, 24, .72); padding: 24px 8px; }
+.monster-popup {
+  max-width: 380px;
+  padding: 24px 16px;
+  background: var(--h-paper);
+  border-radius: var(--h-r-card);
+  box-shadow: 0 24px 64px rgba(20, 6, 14, .45);
+}
+.popup-close {
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  background: var(--h-rose-tint);
+  color: var(--h-wine);
+  font-size: var(--h-fs-b);
+  z-index: 1;
+}
+.popup-close:hover { background: #ecd3d8; }
+.popup-img-wrap {
+  width: 72%;
+  max-width: 240px;
+  margin: 0 auto 16px;
+  border-radius: var(--h-r-tile);
+  background: var(--h-rose-tint);
+}
+.popup-img-wrap img { display: block; mix-blend-mode: multiply; }
+.popup-name {
+  margin: 0 0 16px;
+  font-family: var(--h-serif);
+  font-size: var(--h-fs-h);
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.5;
+  color: var(--h-wine);
+}
+.popup-catch {
+  margin: 0 0 16px;
+  padding: 0 0 0 16px;
+  border-left: 2px solid var(--h-rose);
+  border-radius: 0;
+  background: none;
+  color: var(--h-rose-ink);
+  font-size: var(--h-fs-b);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.7;
+  text-align: left;
+}
+.popup-desc {
+  margin: 0 0 24px;
+  font-size: var(--h-fs-b);
+  line-height: 1.85;
+  color: var(--h-ink-2);
+}
+.popup-link-btn {
+  padding: 8px 24px;
+  border-radius: var(--h-r-pill);
+  background: var(--h-wine-2);
+  box-shadow: none;
+  color: var(--h-on-dark);
+  font-size: var(--h-fs-b);
+  font-weight: 700;
+  line-height: 32px;
+}
+.popup-link-btn:hover { opacity: 1; background: var(--h-wine); }
+
+/* ---------- 日本語の折り返し（style.css の p・h 向けの規則を、div・a・span・button の部品にも） ---------- */
+.entame-note, .rp-row, .rp-head, .rp-more, .rp-cta, .xlink-tile, #articles-toggle, .articles-more a, .popup-link-btn {
+  text-wrap: pretty;
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
+}
+.nobr { white-space: nowrap; }   /* 「約2分」などを行の途中で割らない */
+
+/* ---------- PC・タブレット（列の幅は style.css の 640px のまま） ---------- */
+@media (min-width: 481px) {
+  :root { --h-fs-display: 36px; }
+  .site-header { padding: 16px 24px; }
+  .entame-note { margin: 16px 24px; }
+  .hero-lab { padding: 56px 48px 56px; }
+  .report-card { padding: 32px; }
+  .section { padding: 48px 24px 0; }
+  .monster-scroll { margin: 0 -24px; padding: 8px 24px 16px; scroll-padding-left: 24px; }
+  .monster-scroll::-webkit-scrollbar-track { margin: 0 24px; }
+  .xlink, .kokoro-cross { padding: 0 24px; }
+  .site-footer { padding: 32px 24px 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diag-card, .monster-card-mini, .xlink-tile, .kokoro-card, .hero-lab p.hero-scroll-hint { transition: none; }
+  .diag-card:hover, .monster-card-mini:hover, .xlink-tile:hover, .kokoro-card:hover, .hero-lab p.hero-scroll-hint:hover { transform: none; }
+}

@@ -25,6 +25,10 @@
   <meta name="twitter:image" content="https://pgdhaev4.github.io/shindan/workplace_app/assets/ogp.png">
   <title>会社モンスター診断 ～今日もおつかれさまです～</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
+  <link rel="stylesheet" href="home.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3934206444145241" crossorigin="anonymous"></script>
   <link rel="canonical" href="https://pgdhaev4.github.io/shindan/workplace_app/">
 </head>
@@ -32,16 +36,16 @@
 <div class="page-wrapper">
 
   <header class="site-header">
-    <span class="site-title">👔 会社モンスター診断 ～今日もおつかれさまです～</span>
+    <span class="site-title"><span class="emo">👔</span> 会社モンスター診断 <span class="site-title-sub">～今日もおつかれさまです～</span></span>
   </header>
-  <div class="entame-note" style="max-width:720px;margin:12px auto;padding:10px 14px;border-radius:10px;background:#fff8e6;border:1px solid #ecd9a8;color:#5a4a20;font-size:14px;line-height:1.6;text-align:center;">🎈 <strong>エンタメ診断</strong>：遊びとして楽しむ診断です。心理学的・医学的な判定ではありません。</div>
+  <div class="entame-note"><span class="emo">🎈</span> <strong>エンタメ診断</strong>：遊びとして楽しむ診断です。心理学的・医学的な判定ではありません。</div>
 
 
   <section class="hero-section">
     <div class="hero-content">
-      <p class="hero-badge">💼 職場あるあるで遊ぶエンタメ診断</p>
-      <h2 class="hero-title">あなたの会社での<br>最終形態は？</h2>
-      <p class="hero-sub">社畜度・上司適性・ストレス耐性・裏評価<br>全4診断・無料（登録不要）</p>
+      <p class="hero-badge"><span class="emo">💼</span> 職場あるあるで遊ぶエンタメ診断</p>
+      <h2 class="hero-title">あなたの会社での<br><span class="hero-hl">最終形態</span>は？</h2>
+      <p class="hero-sub">社畜度・上司適性・ストレス耐性・裏評価<br><span class="hero-sub-meta">全4診断・無料（登録不要）</span></p>
       <p class="hero-hint">診断を選んでスタート</p>
     </div>
   </section>
@@ -49,60 +53,60 @@
   <main>
 
     <!-- バケモノ図鑑 -->
-    <section class="section">
-      <h2 class="section-title">🦇 登場モンスター図鑑</h2>
+    <section class="section section-zukan">
+      <h2 class="section-title"><span class="emo">🦇</span> 登場モンスター図鑑</h2>
       <p class="section-lead">タップして詳細を見る</p>
       <div class="monster-scroll" id="monster-scroll"></div>
     </section>
 
     <!-- 統合分析レポート（進捗つき・診断を選ぶの直上） -->
     <section class="section">
-      <div style="background:linear-gradient(135deg,#14284a 0%,#3b2f7e 100%);border-radius:16px;padding:20px 18px;color:#fff;box-shadow:0 4px 14px rgba(20,40,74,.35);">
-        <p style="font-size:.72rem;color:#fde68a;letter-spacing:.08em;margin-bottom:6px;">🔮 4つの診断を制覇した人だけの特別コンテンツ</p>
-        <p style="font-size:1.05rem;font-weight:900;line-height:1.5;margin-bottom:6px;">あなただけの性格分析レポート<span style="color:#fbbf24;">【16系統】</span></p>
-        <p style="font-size:.8rem;color:#cbd5e1;line-height:1.7;">4つの診断結果を統合分析して、回答から見えるあなたの強みの傾向と、力を出しやすい環境を整理します。読み終わる頃、ちょっと自分が好きになる。</p>
+      <div class="report-card">
+        <p class="report-eyebrow"><span class="emo">🔮</span> 4つの診断を制覇した人だけの特別コンテンツ</p>
+        <p class="report-title">あなただけの性格分析レポート<span class="report-title-em">【16系統】</span></p>
+        <p class="report-lead">4つの診断結果を統合分析して、回答から見えるあなたの強みの傾向と、力を出しやすい環境を整理します。読み終わる頃、ちょっと自分が好きになる。</p>
         <div id="report-progress"></div>
       </div>
     </section>
 
     <!-- 診断一覧 -->
     <section class="section">
-      <h2 class="section-title">🎯 診断を選ぶ</h2>
-      <div class="diag-grid">
+      <h2 class="section-title"><span class="emo">🎯</span> 診断を選ぶ</h2>
+      <div class="diag-grid diag-grid-quiz">
 
         <a href="salaryman.html" class="diag-card">
           <div class="diag-thumb">⛓️</div>
           <div class="diag-body">
             <p class="diag-title">モンスター度診断</p>
             <p class="diag-desc">「なんで私だけ帰れないの？」と思ったことがある人へ。定時の妖精から社畜神まで8タイプで判定。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <div class="diag-meta"><span><span class="emo">⏱</span> 約1分</span><span><span class="emo">📝</span> 8問</span><span><span class="emo">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="boss.html" class="diag-card">
-          <div class="diag-thumb" style="background:#f0fdf4;">👔</div>
+          <div class="diag-thumb">👔</div>
           <div class="diag-body">
             <p class="diag-title">上司適性診断</p>
             <p class="diag-desc">あなたは野生ライオン？神上司ユニコーン？8タイプの上司診断。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <div class="diag-meta"><span><span class="emo">⏱</span> 約1分</span><span><span class="emo">📝</span> 8問</span><span><span class="emo">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="stress.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fef3c7;">🛡️</div>
+          <div class="diag-thumb">🛡️</div>
           <div class="diag-body">
             <p class="diag-title">職場ストレス耐性診断</p>
             <p class="diag-desc">ガラスハートか感情削除AIか。あなたの職場メンタルを8段階で測定。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <div class="diag-meta"><span><span class="emo">⏱</span> 約1分</span><span><span class="emo">📝</span> 8問</span><span><span class="emo">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
         <a href="secret.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fdf2f8;">🕵️</div>
+          <div class="diag-thumb">🕵️</div>
           <div class="diag-body">
             <p class="diag-title">会社での裏評価診断</p>
             <p class="diag-desc">同僚はあなたをどう見てる？コピー機の妖精から創業者の生き霊まで。</p>
-            <div class="diag-meta"><span>⏱ 約1分</span><span>📝 8問</span><span>🎯 8タイプ</span></div>
+            <div class="diag-meta"><span><span class="emo">⏱</span> 約1分</span><span><span class="emo">📝</span> 8問</span><span><span class="emo">🎯</span> 8タイプ</span></div>
           </div>
         </a>
 
@@ -111,58 +115,58 @@
 
     <!-- お役立ち記事（ボタンで開閉） -->
     <section class="section">
-      <button id="articles-toggle" onclick="toggleArticles()" style="display:block;width:100%;background:#fff;border:2px solid #2563eb;color:#2563eb;border-radius:14px;padding:15px 16px;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,.12);">📖 仕事の悩みお役立ち記事 ▾</button>
-      <div id="articles-panel" style="display:none;margin-top:12px;">
+      <button id="articles-toggle" class="articles-toggle" onclick="toggleArticles()">📖 仕事の悩みお役立ち記事 ▾</button>
+      <div id="articles-panel" class="articles-panel" style="display:none;">
       <p class="section-lead">診断の結果に関係なく、今日から使えるヒント</p>
-      <div class="diag-grid">
+      <div class="diag-grid diag-grid-article">
 
         <a href="articles/joushi.html" class="diag-card">
-          <div class="diag-thumb" style="background:#eef2ff;">🤝</div>
+          <div class="diag-thumb">🤝</div>
           <div class="diag-body">
             <p class="diag-title">合わない上司とうまく付き合う方法【上司タイプ別】</p>
             <p class="diag-desc">上司は選べない。だからこそ「自分の負担を減らす付き合い方」を。観察する・期待しすぎない・記録を残すなど現実的な5つ。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="emo">📖</span> 読み物</span><span><span class="emo">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/teiji.html" class="diag-card">
-          <div class="diag-thumb" style="background:#f0fdf4;">🏃</div>
+          <div class="diag-thumb">🏃</div>
           <div class="diag-body">
             <p class="diag-title">定時で帰る人がやっている仕事のコツ【タイプ別】</p>
             <p class="diag-desc">差は「能力」ではなく「段取り」。朝のTOP3決め・60点で出す・通知をまとめて見るなど、今日から真似できる5つ。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="emo">📖</span> 読み物</span><span><span class="emo">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/kotowari.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fef3c7;">🙅</div>
+          <div class="diag-thumb">🙅</div>
           <div class="diag-body">
             <p class="diag-title">仕事を断れない人のための上手な断り方</p>
             <p class="diag-desc">抱え込むと、いつか自分がパンクする。即答しない・代案を出す・謝りすぎないなど、角を立てない断り方。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="emo">📖</span> 読み物</span><span><span class="emo">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/stress-care.html" class="diag-card">
-          <div class="diag-thumb" style="background:#fdf2f8;">🍵</div>
+          <div class="diag-thumb">🍵</div>
           <div class="diag-body">
             <p class="diag-title">職場のストレスを軽くする考え方【耐性タイプ別】</p>
             <p class="diag-desc">ストレスはゼロにできなくても、受け止め方は変えられる。コントロールできることに集中するなど5つの考え方。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="emo">📖</span> 読み物</span><span><span class="emo">⏱</span> 約3分</span></div>
           </div>
         </a>
 
         <a href="articles/horenso.html" class="diag-card">
-          <div class="diag-thumb" style="background:#ecfeff;">🗣️</div>
+          <div class="diag-thumb">🗣️</div>
           <div class="diag-body">
             <p class="diag-title">「報連相」が苦手な人のための伝え方</p>
             <p class="diag-desc">才能ではなく「型」。結論から言う・事実と意見を分ける・悪い報告ほど早く、など型に当てはめるだけの5つ。</p>
-            <div class="diag-meta"><span>📖 読み物</span><span>⏱ 約3分</span></div>
+            <div class="diag-meta"><span><span class="emo">📖</span> 読み物</span><span><span class="emo">⏱</span> 約3分</span></div>
           </div>
         </a>
 
       </div>
-      <p style="text-align:center;margin-top:8px;"><a href="/shindan/articles.html" style="display:inline-block;color:#2563eb;font-weight:800;font-size:0.9rem;text-decoration:none;">📚 お役立ち記事をすべて見る（全40本）→</a></p>
+      <p class="articles-all"><a href="/shindan/articles.html" class="articles-all-link"><span class="emo">📚</span> お役立ち記事をすべて見る（全40本）→</a></p>
       </div>
     </section>
 
@@ -171,23 +175,23 @@
   </main>
 
   <!-- 他の診断への誘導 -->
-  <section style="max-width:600px;margin:32px auto 24px;padding:0 16px;">
-    <h3 style="text-align:center;font-size:1rem;color:#4a6080;margin-bottom:16px;font-weight:700;">他の診断もチェック！</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <a href="../psychology_app/" style="display:block;background:linear-gradient(135deg,#e91e8c,#9c27b0);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(233,30,140,0.25);">💕<br>恋愛沼診断</a>
-      <a href="../kosodate_app/" style="display:block;background:linear-gradient(135deg,#e8436a,#c42f54);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(232,67,106,0.25);">👨‍👩‍👧<br>子育てタイプ診断</a>
-      <a href="https://pgdhaev4.github.io/shindan/" style="display:block;background:linear-gradient(135deg,#475569,#1e293b);color:#fff;text-align:center;padding:14px 8px;border-radius:14px;text-decoration:none;font-weight:700;font-size:0.85rem;box-shadow:0 4px 12px rgba(71,85,105,0.25);grid-column:1/-1;max-width:calc(50% - 5px);margin:0 auto;">🏠<br>診断トップ</a>
+  <section class="other-diag">
+    <h3 class="other-diag-title">他の診断もチェック！</h3>
+    <div class="other-diag-grid">
+      <a href="../psychology_app/" class="other-diag-link"><span class="emo">💕</span><br>恋愛沼診断</a>
+      <a href="../kosodate_app/" class="other-diag-link"><span class="emo">👨‍👩‍👧</span><br>子育て親タイプ診断</a>
+      <a href="/" class="other-diag-link other-diag-home"><span class="emo">🏠</span><br>ホームに戻る</a>
     </div>
   </section>
 
 
-  <!-- 心が少し軽くなる診断への導線（2026-08-25 追加） -->
-  <section style="max-width:680px;margin:26px auto 0;padding:0 16px;">
-    <a href="../kokoro_app/" style="display:block;background:linear-gradient(155deg,#f7faf5 0%,#eaf2e7 100%);border:1px solid rgba(92,138,99,.4);border-radius:18px;padding:20px 20px 18px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18);">
-      <p style="font-size:.72rem;font-weight:800;letter-spacing:.08em;color:#3f6b4a;margin:0 0 8px;">🌿 笑うより、少し休みたい日は</p>
-      <p style="font-size:1.05rem;font-weight:900;color:#3f6b4a;line-height:1.45;margin:0 0 8px;">心が少し軽くなる診断</p>
-      <p style="font-size:.85rem;color:#5f7268;line-height:1.85;margin:0 0 10px;">仕事がつらい朝や、辞めたい気持ちが出てきた日のための診断です。つらさを点数にしたり、「辞めるべき」と決めたりはしません。1つ約2分。</p>
-      <p style="display:inline-block;background:linear-gradient(135deg,#6aa06f,#4d7c56);color:#fff;font-weight:900;font-size:.85rem;padding:10px 22px;border-radius:99px;margin:0;">診断を見てみる →</p>
+  <!-- 本番の診断への導線（2026-08-25 追加 → 2026-10-24 今の名前と行き先に更新：旧名「心が少し軽くなる診断」はサイトに無い） -->
+  <section class="kokoro-guide">
+    <a href="/#shindan" class="kokoro-card">
+      <p class="kokoro-eyebrow"><span class="emo">🌿</span> 笑うより、少し休みたい日は</p>
+      <p class="kokoro-title">疲れているときに、心が軽くなる診断</p>
+      <p class="kokoro-text">「会社を辞めるか迷っている」「職場の人付き合いに疲れた」など、仕事に疲れた日のための診断があります。つらさを点数にしたり、「辞めるべき」と決めたりはしません。約2分・無料。</p>
+      <p class="kokoro-btn">診断を選ぶ →</p>
     </a>
   </section>
   <footer class="site-footer">
@@ -343,5 +347,6 @@ function toggleArticles() {
 })();
 </script>
 <script src="../kokoro_app/measure.js"></script>
+<script src="/shindan/kokoro_app/site-nav.js" defer></script>
 </body>
 </html>

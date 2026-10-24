@@ -171,6 +171,44 @@
         return !want || got !== want ? 'まとめの「今日やること」が todaySummary の字でない（' + got + '）' : '';
       },
       breakTheme: function (T) { delete T.undetermined.todaySummary; Object.keys(T.routes).forEach(function (k) { delete T.routes[k].todaySummary; }); } });
+    // K27（2026-10-24 オーナー指示「②に、見透かされたと思うような言い当て（コールドリーディング）を必ず入れる」）：
+    //   害が強い結果（safeMode）以外は、②の2つ目の段落が、そのルート（絞れないときは sub）の cold。safeMode では cold を出さない。
+    //   cold の形＝ぼかし（たぶん／のではないでしょうか／かもしれません）を入れる・「答えています」を使わない・40〜90字（太字の印を除く）
+    rules.push({ name: 'K27 ②に言い当ての文',
+      check: function (r, a, T) {
+        var j = r._judge, U = T.undetermined;
+        var w = r.sections.filter(function (s) { return s.cls === 'k-why'; })[0];
+        if (!w) return '②の節がない';
+        var colds = Object.keys(T.routes).map(function (k) { return T.routes[k].cold; })
+          .concat(Object.keys(U.texts).map(function (s) { return U.texts[s].cold; }), [U.cold]).filter(Boolean);
+        if (j.safeMode) return colds.some(function (c) { return w.paras.indexOf(c) >= 0; }) ? '害が強い結果に、言い当ての文が出ている' : '';
+        var want = j.route.undetermined ? (U.texts[j.route.sub].cold || U.cold) : T.routes[j.route.primary[0]].cold;
+        if (!want) return (j.route.undetermined ? '絞れない（' + j.route.sub + '）' : 'ルート' + j.route.primary[0]) + 'に cold がない';
+        if (w.paras.indexOf(want) !== 1) return '②の2つ目の段落が cold でない';
+        var p = want.replace(/\*\*/g, '');
+        if (p.length < 40 || p.length > 90) return 'cold の字数が ' + p.length + '（40〜90字）';
+        if (!/たぶん|のではないでしょうか|かもしれません/.test(p)) return 'cold に、ぼかしの言い方がない';
+        if (/答えています/.test(p)) return 'cold に「答えています」がある';
+        return '';
+      },
+      breakTheme: function (T) { Object.keys(T.routes).forEach(function (k) { T.routes[k].cold = ''; }); } });
+    // K28（2026-10-24 オーナー指示「強調したい文章を太字に」）：①・②・④の段落の太字（**〜**）は1段落に1か所まで・印が閉じている・太字は1文まで
+    rules.push({ name: 'K28 太字は1段落に1か所',
+      check: function (r, a, T) {
+        var bad = '';
+        r.sections.forEach(function (s) {
+          if (!(s.title === K.STATE_TITLE || s.cls === 'k-why' || s.kind === 'change')) return;
+          (s.paras || []).concat(s.kind === 'change' ? [s.body || ''] : []).forEach(function (p) {
+            var m = p.match(/\*\*[^*]+\*\*/g) || [];
+            if (bad) return;
+            if ((p.split('**').length - 1) % 2) bad = '太字の印が閉じていない：' + p.slice(0, 20);
+            else if (m.length > 1) bad = '1つの段落に太字が' + m.length + 'か所：' + p.slice(0, 20);
+            else if (m.length && /。./.test(m[0].slice(2, -2))) bad = '太字が1文を超えている：' + m[0].slice(0, 20);
+          });
+        });
+        return bad;
+      },
+      breakTheme: function (T) { Object.keys(T.routes).forEach(function (k) { T.routes[k].bg = '**あ**' + T.routes[k].bg + '**い**'; }); } });
     return rules;
   };
 
